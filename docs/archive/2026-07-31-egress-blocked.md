@@ -102,3 +102,50 @@ shared/anthropic/
 - [`../../shared/github/README.md`](../../shared/github/README.md) — PAT/App 사용 규약
 - [`../../shared/telegram/README.md`](../../shared/telegram/README.md) — Bot 사용 규약
 - [`twinkling-finding-blossom.md`](twinkling-finding-blossom.md) — 최초 계획서 (Cloud Schedule 방식 채택 근거, 로컬 폴백 옵션 예견)
+
+---
+
+## 부록 — 로컬 세팅 복구용 스니펫
+
+다른 PC로 이전하거나 이 PC를 재설치한 뒤 저장소만 클론했을 때, 아래를 재구성해야 정상 동작.
+
+### 1) Stop Hook (`.claude/settings.local.json`)
+
+Claude Code 세션 종료 시 자동으로 변경사항을 커밋+푸시하는 훅. gitignore 대상이라 저장소에 없음. 재생성용 전체 내용:
+
+```json
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "hooks": {
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "shell": "bash",
+            "command": "r='D:/MyBench/work/my_ai_master'; if [ -n \"$(git -C \"$r\" status --porcelain)\" ]; then git -C \"$r\" add -A && git -C \"$r\" commit -m \"chore: auto-commit at $(date +'%Y-%m-%d %H:%M:%S')\" >/dev/null 2>&1 && { [ -n \"$(git -C \"$r\" remote)\" ] && git -C \"$r\" push -u origin HEAD >/dev/null 2>&1 || true; }; fi",
+            "timeout": 30,
+            "statusMessage": "Auto-committing and pushing changes..."
+          }
+        ]
+      }
+    ]
+  }
+}
+```
+
+**주의**: `command` 안의 `r='D:/MyBench/work/my_ai_master'` 경로는 이 PC 기준. 다른 PC로 이전 시 해당 경로에 맞춰 수정 필요.
+
+**설치 방법**: `.claude/` 폴더 만들고 `settings.local.json` 파일로 위 JSON 저장. Claude Code 세션 재시작 또는 `/hooks` 한 번 열면 재로드됨.
+
+**주의**: 이 hook을 Claude가 직접 쓰려 하면 auto mode classifier가 차단함 (self-modification of agent config로 판정). 사용자가 직접 파일을 만들어야 함.
+
+### 2) 재구성 필요한 `*.local.*` 파일 목록
+
+| 파일 경로 | 내용 스키마 | 값 획득처 |
+|-----------|-------------|-----------|
+| `shared/telegram/config.local.json` | `{"bot_token": "...", "chat_id": "..."}` | Telegram @BotFather에서 봇 재사용 / getUpdates로 chat_id |
+| `shared/github/config.local.json` | `{"account": "kapdolli", "token": "ghp_..."}` | github.com → Settings → Developer settings → PAT 재발급 |
+| `shared/cloudflare/config.local.json` | `{"worker_name": "...", "worker_url": "...", "shared_secret": "..."}` | Cloudflare dashboard → Workers 페이지에서 확인 |
+
+각 파일의 정확한 스키마와 재구성 절차는 해당 `shared/<name>/README.md` 참조.
