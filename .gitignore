@@ -1,0 +1,10 @@
+# Local secrets / credentials — 절대 커밋 금지
+*.local.*
+*.local
+
+# IDE
+.idea/
+
+# Python cache
+__pycache__/
+*.pyc
