@@ -1,21 +1,19 @@
 # 아이디어 서치 에이전트 — 실행 프롬프트
 
-> **상태 (2026-07-31)**: 이 프롬프트는 라우틴 `trig_014gH3d4moi4fhd2J2JyDfw2`에 등록된 현행 버전.
-> STEP 3의 Cloudflare Worker 호출이 sandbox egress에 차단되어 **배달은 실패**하지만, STEP 1~2는 정상 동작해 리포트 본문은 세션 로그에 남음.
-> 재개 방향은 [`README.md`](README.md) 하단 참조.
+> **상태 (2026-07-31)**: 이 프롬프트는 로컬 Python 실행(`run_local.py`)이 Anthropic API에 전달하는 사양이다.
+> STEP 1~2는 Claude가 `web_search` 서버 툴로 수행하고, STEP 3은 리포트 본문을 **최종 응답 텍스트로 출력**만 한다.
+> 텔레그램 발송은 `run_local.py`가 응답을 받아 처리한다.
 
 ---
 
-오늘 날짜(KST 기준)를 확인하고, 다음 작업을 순서대로 수행하라.
-
 ## 목표
 Reddit, HackerNews, Product Hunt 등 국내외 커뮤니티에서 오늘 주목할 만한
-사업 아이디어 / AI 활용 아이템 / 수익화 방법을 수집하고 한국어로 요약한 뒤
-Cloudflare Worker 릴레이를 경유해 텔레그램으로 전송한다.
+사업 아이디어 / AI 활용 아이템 / 수익화 방법을 수집하고 한국어로 요약해
+텔레그램 발송 가능한 마크다운 리포트를 생성한다.
 
 ## [STEP 1] 검색
 
-아래 소스에서 최신 인기 게시글을 WebSearch로 검색한다:
+아래 소스에서 최신 인기 게시글을 `web_search` 툴로 검색한다:
 - Reddit: r/entrepreneur, r/sidehustle, r/startups, r/SomebodyMakeThis, r/AITools, r/passive_income
 - HackerNews: "side project money", "indie hacker revenue", "show HN new product"
 - Product Hunt: 오늘 론칭된 신규 제품 (top products today)
@@ -34,11 +32,11 @@ Cloudflare Worker 릴레이를 경유해 텔레그램으로 전송한다.
 
 상위 10개를 선별한다.
 
-## [STEP 3] Cloudflare Worker 경유 텔레그램 발송
+## [STEP 3] 리포트 출력
 
-리포트 본문을 아래 포맷으로 구성해 임시 파일로 저장하고, curl로 Worker에 POST한다.
+선별된 10개를 아래 포맷으로 구성해 **최종 응답 텍스트로 출력한다**. 별도의 발송·저장·툴 호출은 하지 않는다 — 로컬 스크립트가 이 응답 본문을 받아 텔레그램으로 분할 발송한다.
 
-### 리포트 포맷 (Markdown, 텔레그램은 plain text로 보이므로 가독성 우선)
+리포트 포맷 (Markdown, 텔레그램에서는 plain text로 렌더되므로 가독성 우선):
 
 ```
 📋 오늘의 아이디어 리포트 YYYY-MM-DD
@@ -73,37 +71,9 @@ Cloudflare Worker 릴레이를 경유해 텔레그램으로 전송한다.
 3. ...
 ```
 
-### 발송 스크립트
+### 출력 규칙
 
-```bash
-DATE=$(TZ='Asia/Seoul' date +%Y-%m-%d)
-
-# 리포트 본문을 임시 파일로 저장 (위 포맷으로 마굴보기 둘러싼 것)
-cat > /tmp/report.txt <<'REPORT_EOF'
-📋 오늘의 아이디어 리포트 [여기 $DATE 값 넣음]
-총 N개 아이템 선별 ...
-
-🤖 AI 활용
-────────────────────
-① [아이템명]
-... (이하 생략)
-REPORT_EOF
-
-# JSON payload 만들기 (jq로 안전하게 이스케이프)
-jq -n --rawfile r /tmp/report.txt '{message: $r}' > /tmp/payload.json
-
-# Worker 호출
-RESP=$(curl -sS -X POST https://tg-relay.elfcarpin.workers.dev \
-  -H "Content-Type: application/json; charset=utf-8" \
-  -H "X-Shared-Secret: YR6jTkUYKfEw2YcIavouxKbmGmMcOSKh2-8TujAKZ7M" \
-  --data-binary @/tmp/payload.json)
-
-echo "=== Worker 응답 ==="
-echo "$RESP" | jq .
-```
-
-응답에 `"ok": true` 있으면 성공. Worker가 자동으로 3800자 단위로 분할해 텔레그램 여러 메시지로 보내므로 클라이언트에서는 분할 불필요.
-
-실패(`"ok": false` 또는 HTTP != 200) 시: 응답 전체 + Worker URL + heredoc으로 머진 본문 앞 200자를 세션 로그에 남긴다.
-
-성공 여부와 무관하게, 리포트 본문 전문을 세션 로그에 출력해 사용자가 세션에서도 내용을 볼 수 있게 한다.
+- 응답은 위 포맷의 마크다운 본문만 담는다. 도입 인사(`알겠습니다`, `아래에 리포트를 정리했습니다` 등)나 후기(`더 필요하시면 알려주세요`)는 붙이지 않는다.
+- 각 아이템에 반드시 원문 URL을 첨부한다 (검색 결과에서 확보한 실제 URL).
+- 카테고리가 비면 헤더 자체를 생략한다 (예: 트렌딩 항목이 하나도 없으면 `📈 트렌딩 아이템` 섹션 통째로 빼기).
+- 날짜 `YYYY-MM-DD`는 시스템 프롬프트 상단에 제시된 `오늘 날짜(KST)` 값을 그대로 쓴다.

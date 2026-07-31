@@ -1,77 +1,111 @@
-# 아이디어 서치 에이전트
+# 아이디어검색가
 
-Reddit, HackerNews, Product Hunt, IndieHackers, 한국 커뮤니티 등에서 유망 사업 아이디어·AI 활용 아이템·수익화 정보를 매일 수집·요약해 사용자에게 알림 전달하는 서비스.
+Reddit, HackerNews, Product Hunt, IndieHackers, 한국 커뮤니티 등에서 유망 사업 아이디어·AI 활용 아이템·수익화 정보를 매일 수집·요약해 텔레그램으로 전달하는 서비스.
+
+관심 가는 아이템이 나오면 [아이템분석가](../item_analyzer/README.md)로 넘겨 심층 분석한다.
 
 | 항목 | 값 |
 |------|-----|
-| **상태 (2026-07-31 기준)** | ⚠ **배달 차단됨** — 검색·분석은 정상, 텔레그램/GitHub 등 외부 전송이 Anthropic 클라우드 sandbox의 egress 정책으로 봉쇄. 재개 방향 하단 참조. |
-| 실행 방식 | Claude Cloud Schedule (routine `trig_014gH3d4moi4fhd2J2JyDfw2`) |
-| 실행 시각 | 매일 18:00 KST (09:00 UTC) — 자동 트리거 활성 |
-| 관리 URL | https://claude.ai/code/routines/trig_014gH3d4moi4fhd2J2JyDfw2 |
-| 프롬프트 | [`prompt.md`](prompt.md) — 현재 라우틴에 등록된 최신 버전(Cloudflare Worker 경유 방식) |
-| 결과 예시 (구) | [`samples/2026-07-30.md`](samples/2026-07-30.md) — 수동 작업 결과물 |
+| **실행 방식 (2026-07-31 전환)** | **로컬 Python + Claude Code CLI** — Windows 작업 스케줄러 → `python run_local.py` → `claude -p` |
+| 실행 시각 | 매일 18:00 KST (사용자 PC 기준) |
+| 인증 | Claude Code subscription (Pro/Max) — 별도 API 과금 없음 |
+| 전달 채널 | Telegram Bot API (`api.telegram.org` 직접 호출) |
+| 프롬프트 | [`prompt.md`](prompt.md) — `run_local.py`가 stdin으로 `claude -p`에 전달 |
+| 로그 | `logs/YYYY-MM-DD.md` (실행 결과 아카이브) |
+
+이전 Claude Cloud Schedule 실행 방식(sandbox egress로 텔레그램 발송 차단됨)의 여정은 [`../../docs/archive/2026-07-31-egress-blocked.md`](../../docs/archive/2026-07-31-egress-blocked.md) 참고.
 
 ---
 
-## 현재 동작 상태 (검증됨)
+## 동작 흐름
 
-- ✅ **STEP 1 (검색)**: WebSearch로 5개 소스 병렬 검색 정상. 매 실행마다 15~25개 후보 수집
-- ✅ **STEP 2 (분석)**: 카테고리·난이도·수익성·AI활용도 4축 평가 후 상위 10개 선별 정상
-- ✅ **리포트 생성**: 마크다운 포맷의 완결된 리포트가 세션 로그에 남음
-- ❌ **STEP 3 (배달)**: 텔레그램/GitHub/Cloudflare Worker 등 모든 외부 전송이 sandbox egress에 차단
+```
+[Windows 작업 스케줄러] ──매일 18:00 KST──▶ python run_local.py
+                                                    │
+                                     ┌──────────────┴──────────────┐
+                                     ▼                             ▼
+                              claude -p (Claude Code CLI)     최종 응답 stdout
+                              (WebSearch 등 내장 툴 사용)    (Markdown 리포트)
+                                                                   │
+                                                                   ▼
+                                                       Telegram Bot API
+                                                      (3800자 단위 분할)
+```
 
-**즉 리포트 자체는 매일 정상 생성되며, 세션 URL 접속하면 읽을 수 있는 상태 (pull-based로는 이미 동작).** 자동 push 알림만 안 됨.
-
----
-
-## 배달 차단 원인 (2026-07-31 확인)
-
-Anthropic 클라우드 sandbox는 **매우 좁은 도메인 화이트리스트**를 사용. 사용자가 이 목록을 수정하려면 Team/Enterprise 플랜 필요 (Individual 플랜에서는 접근 불가).
-
-| 시도한 경로 | 결과 |
-|-------------|------|
-| `api.telegram.org` 직접 호출 (GET/POST) | 403 Policy Denial — 메시징 서비스 남용 방지로 원천 차단 |
-| `api.github.com` + PAT | 403 — GitHub API는 Claude GitHub App 연결이 없으면 차단 |
-| GitHub App 설치 후 `gh issue create` | 403 Resource not accessible by integration — App이 read-only 권한만 있음 |
-| `git push` (App 인증) | 403 — 동일 사유, App에 Contents write 없음 |
-| `curl` to `*.workers.dev` (Cloudflare Worker 릴레이) | connect_rejected 403 — 사용자 정의 서드파티 도메인도 화이트리스트 밖 |
-
-**Individual 플랜에서는 이 화이트리스트 안에서만 동작 가능**. 파악된 허용 범위는 대체로 WebSearch/WebFetch가 다루는 공용 웹 콘텐츠 정도.
+- `run_local.py`가 `prompt.md`를 읽어 `claude -p` 서브프로세스에 stdin으로 전달
+- Claude가 WebSearch 등 내장 도구로 5개 소스 검색·분석
+- stdout으로 받은 마크다운 리포트를 `logs/YYYY-MM-DD.md`에 저장
+- Telegram Bot API로 3800자 단위 분할 발송
 
 ---
 
-## 다음 세션 재개 방향 3가지
+## 최초 세팅 (1회성)
 
-### 옵션 1) 로컬 Python 스크립트 + Windows 작업 스케줄러 ⭐ 권장
+### 1. Claude Code CLI 인증
 
-- **원리**: PC의 Python이 매일 18시 실행 → Anthropic API로 검색·분석 → Telegram 직접 호출 (로컬에서는 egress 정책 없음)
-- **장점**: 확실. 텔레그램 원상 복구. sandbox 정책 완전 우회
-- **단점**: PC 켜져 있어야 함. Claude API 소액 과금 (일 1회 실행이면 월 몇천원)
-- **세팅 시간**: 60분 (스크립트 + Anthropic API 키 + 작업 스케줄러 등록)
-- **참고**: 이 옵션은 `docs/archive/twinkling-finding-blossom.md` 원본 계획서에도 "로컬 폴백 옵션"으로 언급되어 있음
-- **버릴 것**: Claude Cloud routine 자체는 disable (또는 남겨두고 로컬로 대체 실행)
+[`../../shared/claude_code/README.md`](../../shared/claude_code/README.md) 절차대로 `claude setup-token` 완료.
 
-### 옵션 2) Discord Webhook 실험 (5분 프로브)
+Python 패키지 추가 설치는 없다 — 표준 라이브러리만 사용.
 
-- Discord 계정 + 개인 서버 + 채널 Webhook URL 생성 → 라우틴 프롬프트에서 그 URL로 POST
-- Cloudflare가 막혔으니 Discord도 안 될 확률 높음 — **먼저 sandbox에서 `curl https://discord.com/`이 통과하는지 프로브 테스트** 필요
-- 통과하면: 채널 변경(Telegram → Discord) 감수하고 클라우드 라우틴 유지 가능
-- 안 통과하면: 옵션 1로
+### 2. Telegram 봇 확인
 
-### 옵션 3) Pull 방식 유지 (현 상태 그대로)
+`shared/telegram/config.local.json` 이 이미 존재하는지 확인 (기존 봇 `@JamesMyHomeBot` 재사용). 없으면 [`../../shared/telegram/README.md`](../../shared/telegram/README.md) 참조.
 
-- 매일 세션 URL 열어서 리포트 읽음 → https://claude.ai/code/routines/trig_014gH3d4moi4fhd2J2JyDfw2
-- 자동 알림은 없음. 세팅 0
-- 습관 형성만 되면 실용상 나쁘지 않음
+### 3. 수동 테스트
+
+```powershell
+# 실행할 claude 명령만 미리 보기 (진단용)
+python services/idea_search/run_local.py --show-cmd
+
+# 텔레그램 발송 없이 리포트만 생성 (로그 파일만 남김)
+python services/idea_search/run_local.py --dry-run
+
+# 정상 실행 (텔레그램까지 전송)
+python services/idea_search/run_local.py
+```
+
+성공 시 콘솔에 `[claude] exec: ... [log] ... [telegram] chunk 1/N sent ... [done]` 순서로 출력되고 텔레그램 봇으로 리포트가 도착한다.
+
+### 4. Windows 작업 스케줄러 등록
+
+`taskschd.msc` 실행 → **작업 만들기**:
+
+- **일반** 탭: 이름 `idea-search-agent`, "사용자의 로그인 여부에 관계없이 실행" 체크
+- **트리거**: 매일 18:00
+- **동작**:
+  - 프로그램: `pythonw.exe` 전체 경로 (예: `C:\Users\D4003412\AppData\Local\Programs\Python\Python310\pythonw.exe`)
+  - 인수: `D:\work\james\work\my_ai_master\services\idea_search\run_local.py`
+  - 시작 위치: `D:\work\james\work\my_ai_master`
+- **조건**: "AC 전원 사용 시에만 실행" 해제 (노트북일 경우)
+- **설정**: "요청 시 작업이 실행되도록 허용" 체크
+
+콘솔 창을 띄우지 않으려면 `python.exe` 대신 `pythonw.exe` 사용.
+
+> ⚠️ 작업 스케줄러가 다른 사용자 세션에서 실행되면 `claude` CLI가 PATH에 없을 수 있다. 그 경우 환경변수 `CLAUDE_BIN`에 절대경로(예: `C:\Users\D4003412\AppData\Local\Programs\claude-code\claude.exe`) 지정 필요. `where claude` 로 실제 경로 확인.
 
 ---
 
-## 관련 자산 (모두 유지)
+## 운영
 
-- **Claude Cloud Routine** `trig_014gH3d4moi4fhd2J2JyDfw2` — 매일 09:00 UTC 자동 실행 중. 프롬프트에 Cloudflare Worker URL 박혀있음
-- **Cloudflare Worker** `tg-relay.elfcarpin.workers.dev` — 텔레그램 릴레이. 로컬 curl에선 동작 확인됨, sandbox에서만 차단. [`shared/cloudflare/README.md`](../../shared/cloudflare/README.md) 참조
-- **Telegram Bot** `@JamesMyHomeBot` — chat_id 확보. `shared/telegram/config.local.json`
-- **GitHub App (Claude)** — Authorized 됐지만 write 권한 없음. Individual 플랜 제약
+| 상황 | 조치 |
+|------|------|
+| 실행 실패 확인 | `logs/YYYY-MM-DD.md` 없거나 상태 `empty`면 실패 |
+| 리포트 재발송 | `python run_local.py` 재실행 (로그 덮어씀) |
+| 발송 없이 리허설 | `python run_local.py --dry-run` |
+| 명령 확인 | `python run_local.py --show-cmd` |
+| 모델 교체 | 환경변수 `IDEA_SEARCH_MODEL=sonnet` 또는 `opus` |
+| 타임아웃 조정 | 환경변수 `IDEA_SEARCH_TIMEOUT=1200` (기본 900초) |
+| claude 경로 지정 | 환경변수 `CLAUDE_BIN=C:\path\to\claude.exe` |
+| 인증 만료 | `claude auth status` 로 확인 → `claude setup-token` 재실행 |
+
+---
+
+## 관련 자산 (유지)
+
+- **Claude Cloud Routine** `trig_014gH3d4moi4fhd2J2JyDfw2` — 현재 disable 권장 (로컬 실행이 primary). 완전히 삭제하지 않고 남겨두면 pull-only fallback으로 활용 가능
+- **Cloudflare Worker** `tg-relay.elfcarpin.workers.dev` — 로컬 실행에서는 불필요(직접 텔레그램 호출로 충분). 삭제해도 무방. [`../../shared/cloudflare/README.md`](../../shared/cloudflare/README.md)
+- **Telegram Bot** `@JamesMyHomeBot` — 그대로 재사용
+- **GitHub App** — 이 서비스에는 불필요
 
 ---
 
@@ -79,4 +113,4 @@ Anthropic 클라우드 sandbox는 **매우 좁은 도메인 화이트리스트**
 
 - 원본 요청서: [`../../docs/초기요청사항.txt`](../../docs/초기요청사항.txt)
 - 이전 진행 문서: [`../../docs/archive/twinkling-finding-blossom.md`](../../docs/archive/twinkling-finding-blossom.md)
-- 2026-07-31 여정 상세: [`../../docs/archive/2026-07-31-egress-blocked.md`](../../docs/archive/2026-07-31-egress-blocked.md)
+- Cloud sandbox egress 벽 여정: [`../../docs/archive/2026-07-31-egress-blocked.md`](../../docs/archive/2026-07-31-egress-blocked.md)

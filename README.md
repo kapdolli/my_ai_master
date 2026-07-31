@@ -2,26 +2,30 @@
 
 내 개인용 서비스/에이전트를 한 곳에서 관리하는 상위 저장소.
 
-각 서비스는 **Claude Code의 Cloud Schedule**에 등록된 프롬프트로 실행되며, 결과는 텔레그램 등 지정 채널로 전달된다.
+각 서비스는 **로컬 Python 스크립트**로 실행되며(Windows 작업 스케줄러 등이 정해진 시각에 트리거), 결과는 텔레그램 등 지정 채널로 전달된다.
 저장소는 로직을 담는 곳이라기보다 **"어떤 서비스가 무엇을, 언제, 어떤 프롬프트로 실행하는지"를 기록·관리하는 사양서** 역할을 한다.
+
+> 이전에는 Claude Code Cloud Schedule로 실행했으나, Anthropic sandbox egress 정책으로 텔레그램 발송이 차단되어 2026-07-31에 로컬 Python 실행으로 전환했다. 배경은 [`docs/archive/2026-07-31-egress-blocked.md`](docs/archive/2026-07-31-egress-blocked.md) 참조.
 
 ---
 
 ## 실행 모델
 
 ```
-[Claude Cloud Schedule] ──정해진 시각──▶ [Claude Agent]
-                                              │
-                              ┌───────────────┤
-                              │  WebSearch     │  WebFetch
-                              ▼                ▼
-                        데이터 소스        Telegram Bot API
-                        (Reddit, HN, …)   등 전달 채널
+[Windows 작업 스케줄러] ──정해진 시각──▶ [로컬 Python 스크립트]
+                                                │
+                                     ┌──────────┴──────────┐
+                                     ▼                     ▼
+                              claude -p               Telegram Bot API
+                              (Claude Code CLI         (직접 호출)
+                               헤드리스 모드,
+                               WebSearch 내장)
 ```
 
-- 서비스 로직은 Python 코드가 아니라 **`services/<name>/prompt.md`** 에 자연어로 기술한다.
-- 스케줄 등록 시 이 프롬프트 전체를 `/schedule` 입력란에 그대로 복사해 넣는다.
-- 토큰·chat_id 등 자격 증명은 `shared/` 아래 `*.local.*` 파일에만 두고 스케줄 환경변수로 주입한다.
+- 서비스 로직의 핵심(검색·분석·요약)은 **`services/<name>/prompt.md`** 에 자연어로 기술한다.
+- 각 서비스는 자기 폴더에 `run_local.py`를 두고, 이 스크립트가 `prompt.md`를 읽어 `claude -p` 서브프로세스로 넘긴 뒤 stdout 응답을 채널로 발송한다.
+- 인증은 **Claude Code subscription**(Pro/Max)의 장기 토큰(`claude setup-token`)을 사용한다. Anthropic API 키·별도 과금 없음.
+- 텔레그램 봇 토큰·chat_id 등 채널 자격 증명은 `shared/` 아래 `*.local.*` 파일에만 두고 스크립트가 직접 로드한다 (git 커밋 차단됨).
 
 ---
 
@@ -32,39 +36,46 @@ my_ai_master/
 ├─ README.md                # 이 파일
 ├─ services/                # 서비스별 격리 폴더
 │   └─ <service_name>/
-│       ├─ prompt.md        # /schedule 에 붙여넣을 단일 소스 프롬프트
-│       ├─ README.md        # 서비스 개요·등록·재개 절차
-│       └─ samples/         # 실행 결과 예시 아카이브 (프롬프트 튜닝 대조용)
+│       ├─ prompt.md        # 검색·분석·요약 지시사항 (claude -p 에 stdin으로 전달)
+│       ├─ run_local.py     # 로컬 실행 진입점 (prompt.md 로드 → claude 서브프로세스 → 채널 발송)
+│       ├─ README.md        # 서비스 개요·세팅·운영 절차
+│       ├─ logs/            # 일자별 실행 로그 (아카이브)
+│       └─ samples/         # 초기 수동 결과물 (프롬프트 튜닝 대조용)
 ├─ shared/                  # 서비스 간 공용 자산
+│   ├─ claude_code/         # Claude Code CLI 인증(subscription 토큰) 가이드
 │   ├─ telegram/            # 봇 토큰·chat_id + 사용 가이드
-│   ├─ github/              # kapdolli PAT + Claude App 사용 가이드
-│   └─ cloudflare/          # tg-relay Worker (현재 sandbox egress에 차단됨, 로컬 사용 가능)
+│   ├─ github/              # kapdolli PAT + Claude App 사용 가이드 (현재 서비스에서 미사용)
+│   └─ cloudflare/          # tg-relay Worker (로컬 실행 전환으로 현재 미사용, 삭제 검토 대상)
 └─ docs/                    # 원본 요청서, 이전 진행 기록 등
     ├─ 초기요청사항.txt
     └─ archive/             # 이전 계획서 및 여정 기록
 ```
 
 **4가지 원칙**
-1. 서비스는 `services/<name>/` 단위 폴더로 격리한다. 최소 `prompt.md` + `README.md`를 갖는다.
-2. **로직 소유자는 Claude Code 자체.** `prompt.md`가 유일한 실행 사양이며, 프롬프트 개정 = 서비스 개정.
-3. 공용 자산(토큰, 공통 스니펫)은 `shared/`에 둔다. 실제 자격 증명은 `*.local.*` 파일에만 두고 git에는 올리지 않는다.
-4. 실행 결과 예시는 `services/<name>/samples/`에 날짜별로 아카이빙한다.
+1. 서비스는 `services/<name>/` 단위 폴더로 격리한다. 최소 `prompt.md` + `run_local.py` + `README.md`를 갖는다.
+2. **로직의 지능은 Claude가 담당.** `run_local.py`는 얇은 래퍼(프롬프트 로드, `claude -p` 호출, 응답 저장/발송)이며 검색·분석·요약 로직은 `prompt.md`에만 기술한다. Python 표준 라이브러리만 사용 — 별도 pip 패키지 없음.
+3. 공용 자산(토큰, 공통 스니펫)은 `shared/`에 둔다. 실제 자격 증명은 `*.local.*` 파일에만 두고 git에는 올리지 않는다. Claude CLI 자체 인증은 `~/.claude/`에 저장(저장소 밖).
+4. 실행 로그는 `services/<name>/logs/`에 자동 저장된다. 프롬프트 튜닝 대조용 초기 수동 결과물은 `samples/`에 보관.
 
 ---
 
 ## 등록된 서비스
 
-| 이름 | 폴더 | 실행 시각 | 채널 | 상태 |
-|------|------|-----------|------|------|
-| 아이디어 서치 에이전트 | [`services/idea_search/`](services/idea_search/README.md) | 매일 18:00 KST (09:00 UTC) | Telegram (예정) | ⚠ **배달 차단** — 라우틴은 매일 정상 실행되고 리포트도 생성되나 Anthropic sandbox egress 정책으로 텔레그램 발송 불가. 재개 방향은 서비스 README 참조. 오늘까지의 여정은 `docs/archive/2026-07-31-egress-blocked.md` |
+| 이름 | 폴더 | 실행 트리거 | 채널 | 상태 |
+|------|------|-------------|------|------|
+| 아이디어검색가 | [`services/idea_search/`](services/idea_search/README.md) | 매일 18:00 KST (스케줄) | Telegram | 🟢 정상 — 하루 1회 유망 아이디어 10개 후보 리포트 |
+| 아이템분석가 | [`services/item_analyzer/`](services/item_analyzer/README.md) | On-demand (사용자가 후보 지정) | Telegram | 🟢 정상 — 아이디어검색가 후보 중 하나를 골라 1인·비전문가·부업 관점 실행 가능성 + 국내/해외 사례 분석 |
+
+**연계 흐름**: 아이디어검색가(매일 자동) → 관심 아이템 선택 → 아이템분석가(on-demand)로 심층 분석 → 실행 여부 판단.
 
 ---
 
 ## 새 서비스 추가 절차
 
 1. `services/<service_name>/` 폴더 생성 (snake_case)
-2. `prompt.md` 작성 — `/schedule` 프롬프트 입력란에 그대로 복사할 수 있는 완결된 지시문
-3. `README.md` 작성 — 목적, 실행 시각, 등록 절차, 재개 절차, 테스트 방법
-4. Claude Code에서 `/schedule` 실행 → 이름, 주기, 환경변수, 프롬프트 입력
-5. "지금 실행"으로 즉시 테스트
-6. 최상위 `README.md`의 "등록된 서비스" 표에 한 줄 추가
+2. `prompt.md` 작성 — 검색·분석·요약 지시사항 (Claude에 그대로 전달됨)
+3. `run_local.py` 작성 — `idea_search/run_local.py`를 템플릿으로 복사 후 프롬프트 경로·발송 채널만 수정
+4. `README.md` 작성 — 목적, 실행 시각, 세팅 절차, 운영 절차, 테스트 방법
+5. `python services/<service_name>/run_local.py --dry-run` 으로 로컬 테스트
+6. Windows 작업 스케줄러 등록 (idea_search README의 4번 절차 참고)
+7. 최상위 `README.md`의 "등록된 서비스" 표에 한 줄 추가
