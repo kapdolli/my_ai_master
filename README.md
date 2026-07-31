@@ -36,12 +36,12 @@ my_ai_master/
 │       ├─ README.md        # 서비스 개요·등록·재개 절차
 │       └─ samples/         # 실행 결과 예시 아카이브 (프롬프트 튜닝 대조용)
 ├─ shared/                  # 서비스 간 공용 자산
-│   └─ telegram/
-│       ├─ config.local.json    # bot_token, chat_id (gitignore)
-│       └─ README.md
+│   ├─ telegram/            # 봇 토큰·chat_id + 사용 가이드
+│   ├─ github/              # kapdolli PAT + Claude App 사용 가이드
+│   └─ cloudflare/          # tg-relay Worker (현재 sandbox egress에 차단됨, 로컬 사용 가능)
 └─ docs/                    # 원본 요청서, 이전 진행 기록 등
     ├─ 초기요청사항.txt
-    └─ archive/
+    └─ archive/             # 이전 계획서 및 여정 기록
 ```
 
 **4가지 원칙**
@@ -56,7 +56,7 @@ my_ai_master/
 
 | 이름 | 폴더 | 실행 시각 | 채널 | 상태 |
 |------|------|-----------|------|------|
-| 아이디어 서치 에이전트 | [`services/idea_search/`](services/idea_search/README.md) | 매일 18:00 KST (09:00 UTC) | Telegram | 스케줄 등록 대기 |
+| 아이디어 서치 에이전트 | [`services/idea_search/`](services/idea_search/README.md) | 매일 18:00 KST (09:00 UTC) | Telegram (예정) | ⚠ **배달 차단** — 라우틴은 매일 정상 실행되고 리포트도 생성되나 Anthropic sandbox egress 정책으로 텔레그램 발송 불가. 재개 방향은 서비스 README 참조. 오늘까지의 여정은 `docs/archive/2026-07-31-egress-blocked.md` |
 
 ---
 

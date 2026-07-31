@@ -1,16 +1,17 @@
 # 아이디어 서치 에이전트 — 실행 프롬프트
 
-> 이 파일 전체를 Claude Code의 `/schedule` 프롬프트 입력란에 그대로 복사해 등록한다.
-> 프롬프트 개정 = 서비스 개정. 수정 후에는 스케줄을 갱신하고 `samples/`에 새 결과를 아카이빙한다.
+> **상태 (2026-07-31)**: 이 프롬프트는 라우틴 `trig_014gH3d4moi4fhd2J2JyDfw2`에 등록된 현행 버전.
+> STEP 3의 Cloudflare Worker 호출이 sandbox egress에 차단되어 **배달은 실패**하지만, STEP 1~2는 정상 동작해 리포트 본문은 세션 로그에 남음.
+> 재개 방향은 [`README.md`](README.md) 하단 참조.
 
 ---
 
-오늘 날짜와 시간을 확인하고, 다음 작업을 순서대로 수행하라.
+오늘 날짜(KST 기준)를 확인하고, 다음 작업을 순서대로 수행하라.
 
 ## 목표
 Reddit, HackerNews, Product Hunt 등 국내외 커뮤니티에서 오늘 주목할 만한
 사업 아이디어 / AI 활용 아이템 / 수익화 방법을 수집하고 한국어로 요약한 뒤
-텔레그램으로 전송한다.
+Cloudflare Worker 릴레이를 경유해 텔레그램으로 전송한다.
 
 ## [STEP 1] 검색
 
@@ -33,33 +34,76 @@ Reddit, HackerNews, Product Hunt 등 국내외 커뮤니티에서 오늘 주목�
 
 상위 10개를 선별한다.
 
-## [STEP 3] 텔레그램 전송
+## [STEP 3] Cloudflare Worker 경유 텔레그램 발송
 
-아래 형식으로 메시지를 구성하고, WebFetch GET 요청으로 텔레그램에 전송한다.
-메시지가 1500자 초과 시 섹션별로 분할해 여러 번 전송한다.
+리포트 본문을 아래 포맷으로 구성해 임시 파일로 저장하고, curl로 Worker에 POST한다.
 
---- 메시지 포맷 ---
-📋 오늘의 아이디어 리포트
-{YYYY-MM-DD} | 총 {N}개 아이템
-━━━━━━━━━━━━━━━━━━
+### 리포트 포맷 (Markdown, 텔레그램은 plain text로 보이므로 가독성 우선)
 
-🚀 창업아이디어
-• [아이템명] 한 줄 요약
+```
+📋 오늘의 아이디어 리포트 YYYY-MM-DD
+총 {N}개 아이템 선별 (Reddit · HN · Product Hunt · IndieHackers · 한국)
+
+🤖 AI 활용
+────────────────────
+① [아이템명]
+  한 줄 요약: ...
   난이도: 하 | 수익성: ★★★★ | AI활용: ★★★★★
-  🔗 원문: {URL}
+  핵심: ...
+  원문: {URL}
 
-🤖 AI활용
-• [아이템명] ...
+② [아이템명]
+...
 
-💰 수익화
-• [아이템명] ...
+🚀 창업 아이디어
+────────────────────
+...
 
-📈 트렌딩
-• [아이템명] ...
---- 포맷 끝 ---
+💰 수익화 검증
+────────────────────
+...
 
-텔레그램 전송 URL (WebFetch GET):
-https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage?chat_id={TELEGRAM_CHAT_ID}&parse_mode=HTML&text={URL인코딩된메시지}
+📈 트렌딩 아이템
+────────────────────
+...
 
-환경변수 TELEGRAM_TOKEN, TELEGRAM_CHAT_ID를 사용한다.
-전송 성공 시 "ok": true 응답을 확인한다.
+📌 오늘의 추천 픽 (즉시 실행 가능성 기준)
+1. ...
+2. ...
+3. ...
+```
+
+### 발송 스크립트
+
+```bash
+DATE=$(TZ='Asia/Seoul' date +%Y-%m-%d)
+
+# 리포트 본문을 임시 파일로 저장 (위 포맷으로 마굴보기 둘러싼 것)
+cat > /tmp/report.txt <<'REPORT_EOF'
+📋 오늘의 아이디어 리포트 [여기 $DATE 값 넣음]
+총 N개 아이템 선별 ...
+
+🤖 AI 활용
+────────────────────
+① [아이템명]
+... (이하 생략)
+REPORT_EOF
+
+# JSON payload 만들기 (jq로 안전하게 이스케이프)
+jq -n --rawfile r /tmp/report.txt '{message: $r}' > /tmp/payload.json
+
+# Worker 호출
+RESP=$(curl -sS -X POST https://tg-relay.elfcarpin.workers.dev \
+  -H "Content-Type: application/json; charset=utf-8" \
+  -H "X-Shared-Secret: YR6jTkUYKfEw2YcIavouxKbmGmMcOSKh2-8TujAKZ7M" \
+  --data-binary @/tmp/payload.json)
+
+echo "=== Worker 응답 ==="
+echo "$RESP" | jq .
+```
+
+응답에 `"ok": true` 있으면 성공. Worker가 자동으로 3800자 단위로 분할해 텔레그램 여러 메시지로 보내므로 클라이언트에서는 분할 불필요.
+
+실패(`"ok": false` 또는 HTTP != 200) 시: 응답 전체 + Worker URL + heredoc으로 머진 본문 앞 200자를 세션 로그에 남긴다.
+
+성공 여부와 무관하게, 리포트 본문 전문을 세션 로그에 출력해 사용자가 세션에서도 내용을 볼 수 있게 한다.
