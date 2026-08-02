@@ -63,10 +63,13 @@ my_ai_master/
 
 | 이름 | 폴더 | 실행 트리거 | 채널 | 상태 |
 |------|------|-------------|------|------|
-| 아이디어검색가 | [`services/idea_search/`](services/idea_search/README.md) | 매일 18:00 KST (스케줄) | Telegram | 🟢 정상 — 하루 1회 유망 아이디어 10개 후보 리포트 |
+| 아이디어검색가 | [`services/idea_search/`](services/idea_search/README.md) | 매일 18:00 KST (스케줄) | Telegram | 🟢 정상 — 하루 1회 유망 IT/AI 아이디어 10개 후보 리포트 |
 | 아이템분석가 | [`services/item_analyzer/`](services/item_analyzer/README.md) | On-demand (사용자가 후보 지정) | Telegram | 🟢 정상 — 아이디어검색가 후보 중 하나를 골라 1인·비전문가·부업 관점 실행 가능성 + 국내/해외 사례 분석 |
+| 국어강사아이템 | [`services/korean_teacher_items/`](services/korean_teacher_items/README.md) | **On-demand 전용 (스케줄 없음 — 사용자가 요청할 때만 실행)** | Telegram | 🟡 대기 — 중고등 국어강사·학원운영 10년·50대 중반 여성 페르소나 맞춤 부업/경력전환 아이템 조사 |
 
-**연계 흐름**: 아이디어검색가(매일 자동) → 관심 아이템 선택 → 아이템분석가(on-demand)로 심층 분석 → 실행 여부 판단.
+**연계 흐름**:
+- IT/AI 트랙: 아이디어검색가(매일 자동) → 관심 아이템 선택 → 아이템분석가(on-demand)로 심층 분석 → 실행 여부 판단.
+- 국어강사 트랙: 국어강사아이템(on-demand — "갑돌아 국어강사아이템 돌려줘"로 호출) → 관심 아이템이 있으면 아이템분석가로 넘겨 심층 분석.
 
 ---
 
