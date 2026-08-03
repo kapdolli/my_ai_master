@@ -48,7 +48,7 @@ my_ai_master/
 │   └─ cloudflare/          # tg-relay Worker (로컬 실행 전환으로 현재 미사용, 삭제 검토 대상)
 └─ docs/                    # 원본 요청서, 이전 진행 기록 등
     ├─ 초기요청사항.txt
-    └─ archive/             # 이전 계획서 및 여정 기록
+    └─ archive/             # 이전 계획서 및 여정 기록 (인덱스: archive/README.md)
 ```
 
 **4가지 원칙**
