@@ -57,6 +57,8 @@ my_ai_master/
 3. 공용 자산(토큰, 공통 스니펫)은 `shared/`에 둔다. 실제 자격 증명은 `*.local.*` 파일에만 두고 git에는 올리지 않는다. Claude CLI 자체 인증은 `~/.claude/`에 저장(저장소 밖).
 4. 실행 로그는 `services/<name>/logs/`에 자동 저장된다. 프롬프트 튜닝 대조용 초기 수동 결과물은 `samples/`에 보관.
 
+> 예외: [`services/susi_competition/`](services/susi_competition/README.md) 는 Claude 호출이 없는 순수 스크래핑 서비스라 `prompt.md`/`run_local.py` 대신 PowerShell 진입점(`refresh_all.ps1`)과 Python 스크립트를 두고, 유일하게 pip 패키지(`requests`, `beautifulsoup4`)를 사용한다.
+
 ---
 
 ## 등록된 서비스
@@ -66,9 +68,11 @@ my_ai_master/
 | 아이디어검색가 | [`services/idea_search/`](services/idea_search/README.md) | 매일 18:00 KST (스케줄) | Telegram | 🟢 정상 — 하루 1회 유망 IT/AI 아이디어 10개 후보 리포트 |
 | 아이템분석가 | [`services/item_analyzer/`](services/item_analyzer/README.md) | On-demand (사용자가 후보 지정) | Telegram | 🟢 정상 — 아이디어검색가 후보 중 하나를 골라 1인·비전문가·부업 관점 실행 가능성 + 국내/해외 사례 분석 |
 | 국어강사아이템 | [`services/korean_teacher_items/`](services/korean_teacher_items/README.md) | **On-demand 전용 (스케줄 없음 — 사용자가 요청할 때만 실행)** | Telegram | 🟡 대기 — 중고등 국어강사·학원운영 10년·50대 중반 여성 페르소나 맞춤 부업/경력전환 아이템 조사 |
+| 수시경쟁률 | [`services/susi_competition/`](services/susi_competition/README.md) | 1시간 간격 (작업 스케줄러 `SusiRefresh`) | [GitHub Pages](https://kapdolli.github.io/my_ai_master/) | 🟢 정상 — 2027 수시 저경쟁 학과(상위50 대학 농어촌·논술·기회균형) 페이지 자동 갱신·배포 |
 
 **연계 흐름**:
 - IT/AI 트랙: 아이디어검색가(매일 자동) → 관심 아이템 선택 → 아이템분석가(on-demand)로 심층 분석 → 실행 여부 판단.
+- 수시 트랙: 독립 서비스 — Claude 호출 없이 로컬 스크래핑 결과를 GitHub Pages 로 배포한다 (다른 트랙과 연계 없음).
 - 국어강사 트랙: 국어강사아이템(on-demand — "갑돌아 국어강사아이템 돌려줘"로 호출) → 관심 아이템이 있으면 아이템분석가로 넘겨 심층 분석.
 
 ---
