@@ -22,23 +22,35 @@ CSV_PATH = HERE / "susi_2027_top50_nong_nonsul.csv"     # 필터 결과 (본 테
 FULL_CSV = HERE / "susi_2027_low_competition.csv"        # 전체 (관심 학과 조회용)
 OUT_HTML = HERE / "susi_2027_top50.html"
 
-# 상단 고정 관심 학과 — (라벨, 대학 부분매치, 학과 부분매치 OR college 매치)
+# 상단 고정 관심 학과.
+#   uni:            대학명 부분매치
+#   match:          department OR college 부분매치
+#   admission_kw:   (선택) admission_type 안에 반드시 있어야 하는 문자열
+#   prefer_campus:  (선택) 대학의 캠퍼스명 부분매치 (같은 학과가 여러 캠퍼스 중복모집일 때)
 PINNED = [
-    {"label": "가천대 반도체대학",     "uni": "가천대",   "match": "반도체대학",
-     "prefer_campus": "성남"},
-    {"label": "성균관대 건설환경공학부", "uni": "성균관",   "match": "건설환경",
-     "prefer_campus": "서울"},
-    {"label": "건국대 KU자유전공",     "uni": "건국대",   "match": "KU자유전공학부",
-     "prefer_campus": "서울"},
-    {"label": "세종대 자유전공",       "uni": "세종대",   "match": "자유전공",
-     "prefer_campus": ""},
+    {"label": "가천대 반도체대학 (논술)",
+     "uni": "가천대", "match": "반도체대학",
+     "admission_kw": "논술", "prefer_campus": "성남"},
+    {"label": "성균관대 건설환경공학부 (논술위주 수리형)",
+     "uni": "성균관", "match": "건설환경",
+     "admission_kw": "수리형", "prefer_campus": "서울"},
+    {"label": "건국대 KU자유전공",
+     "uni": "건국대", "match": "KU자유전공학부",
+     "admission_kw": "", "prefer_campus": "서울"},
+    {"label": "세종대 자유전공",
+     "uni": "세종대", "match": "자유전공",
+     "admission_kw": "", "prefer_campus": ""},
 ]
 
 
-def _match(row: dict, uni_kw: str, match_kw: str) -> bool:
-    if uni_kw not in row["university"]:
+def _match(row: dict, p: dict) -> bool:
+    if p["uni"] not in row["university"]:
         return False
-    return (match_kw in row["department"]) or (match_kw in row["college"])
+    if p["match"] not in row["department"] and p["match"] not in row["college"]:
+        return False
+    if p.get("admission_kw") and p["admission_kw"] not in row["admission_type"]:
+        return False
+    return True
 
 
 def collect_pinned() -> list[dict]:
@@ -48,9 +60,9 @@ def collect_pinned() -> list[dict]:
 
     out = []
     for p in PINNED:
-        hits = [r for r in all_rows if _match(r, p["uni"], p["match"])]
+        hits = [r for r in all_rows if _match(r, p)]
         # 중복 캠퍼스(성남/인천 통합모집 등)는 우선 캠퍼스만 남긴다.
-        if p["prefer_campus"]:
+        if p.get("prefer_campus"):
             filtered = [r for r in hits if p["prefer_campus"] in r["university"]]
             if filtered:
                 hits = filtered

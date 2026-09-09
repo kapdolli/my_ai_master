@@ -70,7 +70,7 @@ def fetch_main_page(force_refresh: bool = False) -> str:
     cache_file = CACHE_DIR / "main_page.html"
     if cache_file.exists() and not force_refresh:
         return cache_file.read_text(encoding="utf-8")
-    r = requests.get(APP_URL, timeout=30, allow_redirects=True)
+    r = requests.get(APP_URL, timeout=30, allow_redirects=True, headers=_HTTP_HEADERS)
     r.raise_for_status()
     cache_file.write_text(r.text, encoding="utf-8")
     return r.text
@@ -130,13 +130,40 @@ _HDR_APPS = "지원인원"
 _HDR_RATE = "경쟁률"
 
 
+# Browser-like headers — some Korean admission servers 403 requests without them,
+# which is what killed 60% of the universities in the GitHub Actions run.
+_HTTP_HEADERS = {
+    "User-Agent": (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/128.0.0.0 Safari/537.36"
+    ),
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+    "Accept-Language": "ko-KR,ko;q=0.9,en;q=0.8",
+}
+
+
 def _fetch_comp_page(url: str) -> str:
     key = re.sub(r"[^0-9A-Za-z]+", "_", url)[-80:]
     cache_file = CACHE_DIR / f"comp_{key}.html"
     if cache_file.exists():
         return cache_file.read_text(encoding="utf-8")
-    r = requests.get(url, timeout=30)
-    r.raise_for_status()
+
+    # Retry on transient errors — jinhak/uway occasionally throw 503s under load.
+    import time as _time
+    last_exc: Exception | None = None
+    for attempt in range(3):
+        try:
+            r = requests.get(url, timeout=30, headers=_HTTP_HEADERS)
+            r.raise_for_status()
+            break
+        except Exception as e:
+            last_exc = e
+            if attempt < 2:
+                _time.sleep(1.5 * (attempt + 1))
+    else:
+        raise last_exc  # type: ignore[misc]
+
     # Only trust r.encoding when the server actually declared a charset;
     # requests defaults to ISO-8859-1 for `text/html`, which mangles UTF-8.
     declared = None
@@ -182,6 +209,33 @@ def _table_headers(table) -> list[str]:
     return [th.get_text(" ", strip=True) for th in first_tr.find_all("th")]
 
 
+def _unit_colspan(table) -> int:
+    """Return colspan of the 모집단위 <th> — 성균관대 논술처럼 계열+학과 두
+    셀을 하나의 논리적 모집단위로 묶는 케이스를 처리하기 위함."""
+    thead = table.find("thead")
+    first_tr = thead.find("tr") if thead else table.find("tr")
+    if not first_tr:
+        return 1
+    for th in first_tr.find_all("th"):
+        if th.get_text(" ", strip=True) == _HDR_UNIT:
+            try:
+                return int(th.get("colspan") or 1)
+            except ValueError:
+                return 1
+    return 1
+
+
+def _visible_tds(tr) -> list:
+    """Skip <td style="display:none"> spacer cells (진학사 논술 테이블 패턴)."""
+    out = []
+    for td in tr.find_all("td"):
+        style = (td.get("style") or "").lower().replace(" ", "")
+        if "display:none" in style:
+            continue
+        out.append(td)
+    return out
+
+
 def _preceding_section_title(table) -> str:
     """Find the nearest heading (h2/h3) preceding this table, e.g. 전형 name."""
     node = table.previous_element
@@ -214,6 +268,8 @@ def parse_departments(
         # (rowspan-grouped). Both 진학사 and 유웨이 layouts put it first.
         college_hdr = headers[0] if headers[0] in _COLLEGE_HEADERS else ""
         has_college_col = bool(college_hdr)
+        # 성균관대 논술처럼 모집단위가 colspan=2 (계열+학과 두 셀)인 케이스.
+        unit_span = _unit_colspan(table)
 
         title = _preceding_section_title(table)
         # Strip trailing "경쟁률 현황" boilerplate but keep "[정원내]" etc.
@@ -228,7 +284,7 @@ def parse_departments(
         rows = body_rows.find_all("tr") if body_rows else table.find_all("tr")[1:]
 
         for tr in rows:
-            tds = tr.find_all("td")
+            tds = _visible_tds(tr)
             if not tds:
                 continue
 
@@ -248,12 +304,19 @@ def parse_departments(
                     cells = tds
                 college_remaining -= 1
 
-            if len(cells) < 4:
-                continue
-            dept_name = cells[0].get_text(" ", strip=True)
-            quota = _parse_int(cells[1].get_text())
-            apps = _parse_int(cells[2].get_text())
-            rate = _parse_rate(cells[3].get_text())
+            # 모집단위가 colspan=2 이면 앞의 두 셀을 합쳐서 학과명 구성.
+            if unit_span >= 2 and len(cells) >= 5:
+                parts = [c.get_text(" ", strip=True) for c in cells[:2]]
+                dept_name = " / ".join(p for p in parts if p) or parts[-1]
+                q_idx, a_idx, r_idx = 2, 3, 4
+            else:
+                if len(cells) < 4:
+                    continue
+                dept_name = cells[0].get_text(" ", strip=True)
+                q_idx, a_idx, r_idx = 1, 2, 3
+            quota = _parse_int(cells[q_idx].get_text())
+            apps = _parse_int(cells[a_idx].get_text())
+            rate = _parse_rate(cells[r_idx].get_text())
             if dept_name in {"", "총계", "소계", "합계", "계"}:
                 continue
             # Rows starting with 총계 header may contain <th> in tbody — skip.
