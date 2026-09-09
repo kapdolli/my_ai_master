@@ -357,6 +357,8 @@ def main(argv: list[str] | None = None) -> int:
                    help="이 경쟁률 미만인 학과만 (예: 1.0)")
     p.add_argument("--min-quota", type=int, default=1,
                    help="최소 모집인원 (기본 1)")
+    p.add_argument("--admission-contains", nargs="+", default=None,
+                   help="전형명에 이 키워드 중 하나가 들어간 학과만 (예: 농어촌 논술)")
     p.add_argument("--include-zero-apps", action="store_true",
                    help="지원자 0명 학과도 포함 (기본 제외 — 아직 미개시 케이스)")
     p.add_argument("--workers", type=int, default=12, help="병렬 다운로드 스레드 수")
@@ -374,6 +376,9 @@ def main(argv: list[str] | None = None) -> int:
     depts = [d for d in depts if d.quota >= args.min_quota]
     if args.max_rate is not None:
         depts = [d for d in depts if d.rate < args.max_rate]
+    if args.admission_contains:
+        kws = args.admission_contains
+        depts = [d for d in depts if any(k in d.admission_type for k in kws)]
 
     depts.sort(key=lambda d: (d.rate, -d.quota))
     print(f"[i] 필터 후 {len(depts)}개 학과 (총 소요 {time.time()-t0:.1f}s)", file=sys.stderr)
