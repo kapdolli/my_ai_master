@@ -137,6 +137,52 @@ def is_excluded(uni_name: str,
     return False
 
 
+# ---------------------------------------------------------------------------
+# 전형 태깅
+# ---------------------------------------------------------------------------
+# 대학마다 표기가 다양해서 (12+가지) Excel에서 걸러 볼 수 있도록 태그를 붙인다.
+#
+# 전형대분류:   논술 | 농어촌
+# 전형세부유형: 논술 | 농어촌_교과 | 농어촌_종합 | 농어촌_일반 | 기회균형_혼합
+# 정원외:       O | (빈 값=정원내)
+#
+# 특히 '기회균형_혼합' 은 "농어촌" 이 이름에 있지만 국가보훈/수급자/자립아동
+# 등 다른 자격 지원자도 함께 경쟁하는 통합 전형(예: 경희대 기회균형전형Ⅰ).
+
+_OTHER_ELIGIBILITY_TOKENS = (
+    "국가보훈", "보훈", "수급자", "기초생활", "차상위",
+    "자립", "다문화", "특성화", "특수교육", "장애",
+    "서해5도", "북한이탈", "새터민",
+)
+
+
+def tag_admission(admission_type: str) -> tuple[str, str, str]:
+    """Return (전형대분류, 전형세부유형, 정원외)."""
+    t = admission_type
+    is_out_of_quota = ("정원외" in t) or ("정원 외" in t)
+    out_flag = "O" if is_out_of_quota else ""
+
+    if "논술" in t:
+        return "논술", "논술", out_flag
+
+    # 농어촌 계열
+    if "농어촌" in t or "농특" in t:
+        # 다른 자격이 함께 나열되어 있으면 '기회균형 혼합'.
+        # ('농어촌 및 특수교육대상자' 같이 다른 자격 토큰이 등장하는 경우 포함)
+        if any(tok in t for tok in _OTHER_ELIGIBILITY_TOKENS):
+            return "농어촌", "기회균형_혼합", out_flag
+        # 학생부교과 vs 학생부종합 vs 기타로 세분.
+        if "학생부교과" in t or "교과" in t:
+            # '(교과)' 표기(가천대 '농어촌(교과) 전형' 등)와
+            # '학생부교과(농어촌학생전형)' 를 모두 잡는다.
+            return "농어촌", "농어촌_교과", out_flag
+        if "학생부종합" in t or "(종합)" in t or "종합" in t:
+            return "농어촌", "농어촌_종합", out_flag
+        return "농어촌", "농어촌_일반", out_flag
+
+    return "기타", "기타", out_flag
+
+
 def uni_match(uni_name: str, uni_region: str,
               ranks: dict[tuple[str, str | None], int]) -> int | None:
     """Return the rank if this CSV university matches an entry, else None."""
@@ -185,6 +231,7 @@ def main() -> int:
             continue
         r = dict(r)
         r["rank"] = rank
+        r["전형대분류"], r["전형세부유형"], r["정원외"] = tag_admission(r["admission_type"])
         matched.append(r)
     print(f"[i] 제외 규칙에 걸린 학과: {excluded_hits}", file=sys.stderr)
 
@@ -199,24 +246,32 @@ def main() -> int:
     if unmatched_ranks:
         print(f"[i] 매칭 없는 순위: {sorted(unmatched_ranks)}", file=sys.stderr)
 
+    # 태그 분포 요약
+    from collections import Counter
+    tag_dist = Counter(r["전형세부유형"] for r in matched)
+    print(f"[i] 전형세부유형 분포: {dict(tag_dist)}", file=sys.stderr)
+
+    ordered = ["rank", "전형대분류", "전형세부유형", "정원외"]
     with OUT_CSV.open("w", newline="", encoding="utf-8-sig") as f:
-        fields = ["rank"] + [k for k in matched[0].keys() if k != "rank"]
+        fields = ordered + [k for k in matched[0].keys() if k not in ordered]
         w = csv.DictWriter(f, fieldnames=fields)
         w.writeheader()
         w.writerows(matched)
     print(f"[i] 결과 저장: {OUT_CSV}", file=sys.stderr)
 
-    # 콘솔 표
+    # 콘솔 표 (상위 50)
     print()
-    print(f"{'순위':>4}  {'경쟁률':>6}  {'모집':>4}  {'지원':>4}  "
-          f"{'지역':<4}  {'대학':<18}  {'전형':<24}  {'학과'}")
+    print(f"{'#':>3}  {'순위':>3}  {'경쟁률':>5}  {'모/지':>5}  "
+          f"{'지역':<4}  {'세부유형':<10}  {'정외':<3}  "
+          f"{'대학':<15}  {'학과'}")
     print("-" * 130)
-    for i, d in enumerate(matched, 1):
+    for i, d in enumerate(matched[:50], 1):
+        mj = f"{int(d['quota'])}/{int(d['applicants'])}"
+        dept = (d['college'] + ' / ' if d['college'] else '') + d['department']
         print(
-            f"{d['rank']:>4}  {float(d['rate']):>6.2f}  {int(d['quota']):>4}  "
-            f"{int(d['applicants']):>4}  {d['region']:<4}  "
-            f"{d['university'][:18]:<18}  {d['admission_type'][:24]:<24}  "
-            f"{(d['college'] + ' / ' if d['college'] else '') + d['department']}"
+            f"{i:>3}  #{d['rank']:>2}  {float(d['rate']):>5.2f}  {mj:>5}  "
+            f"{d['region']:<4}  {d['전형세부유형']:<10}  {d['정원외']:<3}  "
+            f"{d['university'][:15]:<15}  {dept[:55]}"
         )
     return 0
 
