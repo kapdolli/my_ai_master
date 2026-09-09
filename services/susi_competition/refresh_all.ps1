@@ -1,4 +1,4 @@
-# 4단계 통합 갱신 스크립트 (로컬 실행 전용)
+﻿# 4단계 통합 갱신 스크립트 (로컬 실행 전용)
 # 실행 후 자동으로 git add — auto-commit 프로세스가 push 하면 GitHub Actions 가 Pages 배포.
 #
 # 사용:
