@@ -1,0 +1,76 @@
+name: Refresh 수시 경쟁률
+
+on:
+  # 5분 간격 (GitHub Actions는 최소 5분 스케줄만 허용, 실제로는 5~15분 지연)
+  schedule:
+    - cron: "*/5 * * * *"
+  # 수동 실행 버튼
+  workflow_dispatch:
+
+# 동시 실행 방지 (이전 실행 취소)
+concurrency:
+  group: refresh
+  cancel-in-progress: true
+
+permissions:
+  contents: write   # git push 용
+  pages: write
+  id-token: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install deps
+        run: pip install requests beautifulsoup4
+
+      - name: Delete cache to force fresh fetch
+        run: rm -rf services/susi_competition/.cache
+
+      - name: 1) Full data refresh
+        working-directory: services/susi_competition
+        run: |
+          python -X utf8 find_low_competition.py \
+            --regions 서울 경기 인천 충남 충북 대전 세종 \
+            --max-rate 999 --top 1 --refresh
+
+      - name: 2) 농특/논술 <2.0 filter
+        working-directory: services/susi_competition
+        run: |
+          python -X utf8 find_low_competition.py \
+            --regions 서울 경기 충남 충북 대전 세종 \
+            --admission-contains 농어촌 농특 논술 \
+            --max-rate 2.0 --top 800 \
+            --csv susi_2027_nong_nonsul_low.csv
+
+      - name: 3) top50 filter + tags
+        working-directory: services/susi_competition
+        run: python -X utf8 filter_top50.py
+
+      - name: 4) Build HTML
+        working-directory: services/susi_competition
+        run: python -X utf8 build_html.py
+
+      - name: Copy HTML to docs/ for Pages
+        run: |
+          mkdir -p docs
+          cp services/susi_competition/susi_2027_top50.html docs/index.html
+          cp services/susi_competition/*.csv docs/ || true
+
+      - name: Commit & push (only if changed)
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add docs/ services/susi_competition/*.csv || true
+          if git diff --cached --quiet; then
+            echo "No changes."
+          else
+            git commit -m "chore: auto-refresh $(date -u '+%Y-%m-%d %H:%M UTC')"
+            git push
+          fi
