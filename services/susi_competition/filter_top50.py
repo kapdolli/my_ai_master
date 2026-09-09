@@ -18,6 +18,7 @@ if sys.platform == "win32":
 HERE = Path(__file__).parent
 RANK_FILE = HERE / "top50_univ100_2026.txt"
 DEPT_CSV = HERE / "susi_2027_nong_nonsul_low.csv"
+EXCLUDE_FILE = HERE / "exclusions.txt"
 OUT_CSV = HERE / "susi_2027_top50_nong_nonsul.csv"
 
 # 약칭 → 정식명(내 CSV의 표기와 일치해야 함) 예외 사전.
@@ -87,6 +88,55 @@ def load_ranks(top_n: int = 50) -> dict[tuple[str, str | None], int]:
     return ranks
 
 
+def load_exclusions() -> tuple[set[str], set[tuple[str, str]], bool]:
+    """
+    Return (exclude_all_campuses, exclude_specific_campuses, exclude_women_univ).
+    - exclude_all_campuses:  {"홍익대학교", ...}  — 캠퍼스 무관 전체 제외
+    - exclude_specific:      {("고려대학교", "세종"), ...}
+    - exclude_women:         True 면 '여자대학교'로 끝나는 모든 대학 제외
+    """
+    if not EXCLUDE_FILE.exists():
+        return set(), set(), False
+    all_camp: set[str] = set()
+    spec: set[tuple[str, str]] = set()
+    women = False
+    for raw in EXCLUDE_FILE.read_text(encoding="utf-8").splitlines():
+        line = raw.split("#", 1)[0].strip()
+        if not line:
+            continue
+        if line == "all_women_univ":
+            women = True
+            continue
+        m = re.match(r"^([^(]+?)\s*(?:\(([^)]+)\))?\s*$", line)
+        if not m:
+            continue
+        base = m.group(1).strip()
+        campus = (m.group(2) or "").strip()
+        if campus:
+            spec.add((base, campus))
+        else:
+            all_camp.add(base)
+    return all_camp, spec, women
+
+
+def is_excluded(uni_name: str,
+                excl_all: set[str],
+                excl_spec: set[tuple[str, str]],
+                excl_women: bool) -> bool:
+    m = re.match(r"^([^(]+?)\s*(?:\(([^)]+)\))?\s*$", uni_name)
+    if not m:
+        return False
+    base = m.group(1).strip()
+    campus = (m.group(2) or "").strip()
+    if base in excl_all:
+        return True
+    if (base, campus) in excl_spec:
+        return True
+    if excl_women and base.endswith("여자대학교"):
+        return True
+    return False
+
+
 def uni_match(uni_name: str, uni_region: str,
               ranks: dict[tuple[str, str | None], int]) -> int | None:
     """Return the rank if this CSV university matches an entry, else None."""
@@ -116,17 +166,27 @@ def main() -> int:
     ranks = load_ranks(50)
     print(f"[i] 순위표 로드: {len(ranks)}개 항목 (top 50)", file=sys.stderr)
 
+    excl_all, excl_spec, excl_women = load_exclusions()
+    print(f"[i] 제외 규칙: 전체캠퍼스={sorted(excl_all)} / 특정캠퍼스={sorted(excl_spec)}"
+          f" / 여대전체={excl_women}", file=sys.stderr)
+
     with DEPT_CSV.open(encoding="utf-8-sig") as f:
         rows = list(csv.DictReader(f))
     print(f"[i] 소스 CSV 로드: {len(rows)}개 학과", file=sys.stderr)
 
     matched: list[dict] = []
+    excluded_hits = 0
     for r in rows:
         rank = uni_match(r["university"], r["region"], ranks)
-        if rank is not None:
-            r = dict(r)
-            r["rank"] = rank
-            matched.append(r)
+        if rank is None:
+            continue
+        if is_excluded(r["university"], excl_all, excl_spec, excl_women):
+            excluded_hits += 1
+            continue
+        r = dict(r)
+        r["rank"] = rank
+        matched.append(r)
+    print(f"[i] 제외 규칙에 걸린 학과: {excluded_hits}", file=sys.stderr)
 
     matched.sort(key=lambda x: (float(x["rate"]), x["rank"]))
     print(f"[i] top50 대학에 속한 학과: {len(matched)}", file=sys.stderr)
