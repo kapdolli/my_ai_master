@@ -1,41 +1,49 @@
 name: Refresh 수시 경쟁률
 
-on:
-  # 5분 간격 (GitHub Actions는 최소 5분 스케줄만 허용, 실제로는 5~15분 지연)
-  schedule:
-    - cron: "*/5 * * * *"
-  # 수동 실행 버튼
-  workflow_dispatch:
+# GitHub Pages 로 직접 배포하는 방식.
+# main 에 커밋을 남기지 않으므로 로컬 auto-commit 과 충돌하지 않는다.
+# 매 실행마다 fresh 하게 스크랩 → 아티팩트 업로드 → Pages 배포.
 
-# 동시 실행 방지 (이전 실행 취소)
+on:
+  schedule:
+    - cron: "*/5 * * * *"       # 5분 간격 (GH Actions 최소 주기, 실제 5~15분 지연)
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "services/susi_competition/**"
+      - ".github/workflows/refresh.yml"
+
 concurrency:
-  group: refresh
+  group: pages
   cancel-in-progress: true
 
 permissions:
-  contents: write   # git push 용
+  contents: read
   pages: write
   id-token: write
 
 jobs:
-  refresh:
+  build-and-deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
 
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+          cache: pip
 
       - name: Install deps
         run: pip install requests beautifulsoup4
 
-      - name: Delete cache to force fresh fetch
-        run: rm -rf services/susi_competition/.cache
-
       - name: 1) Full data refresh
         working-directory: services/susi_competition
         run: |
+          rm -rf .cache
           python -X utf8 find_low_competition.py \
             --regions 서울 경기 인천 충남 충북 대전 세종 \
             --max-rate 999 --top 1 --refresh
@@ -57,20 +65,17 @@ jobs:
         working-directory: services/susi_competition
         run: python -X utf8 build_html.py
 
-      - name: Copy HTML to docs/ for Pages
+      - name: Assemble _site/
         run: |
-          mkdir -p docs
-          cp services/susi_competition/susi_2027_top50.html docs/index.html
-          cp services/susi_competition/*.csv docs/ || true
+          mkdir -p _site
+          cp services/susi_competition/susi_2027_top50.html _site/index.html
+          cp services/susi_competition/*.csv _site/ 2>/dev/null || true
 
-      - name: Commit & push (only if changed)
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs/ services/susi_competition/*.csv || true
-          if git diff --cached --quiet; then
-            echo "No changes."
-          else
-            git commit -m "chore: auto-refresh $(date -u '+%Y-%m-%d %H:%M UTC')"
-            git push
-          fi
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4
