@@ -154,15 +154,25 @@ HTML_TEMPLATE = r"""<!doctype html>
     background: #fff; cursor: pointer; font: inherit; }
   button:hover { background: #f3f4f6; }
   .tablewrap { background: var(--panel); border: 1px solid var(--line);
-    border-radius: 8px; overflow: hidden; }
-  table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  th, td { padding: 8px 10px; text-align: left; border-bottom: 1px solid var(--line);
-    vertical-align: top; }
+    border-radius: 8px; overflow-x: auto; }
+  table { width: 100%; border-collapse: separate; border-spacing: 0;
+    font-size: 13px; }
+  th, td { padding: 8px 10px; text-align: left;
+    border-bottom: 1px solid var(--line); vertical-align: top;
+    white-space: nowrap; }
   th { background: #f9fafb; font-weight: 600; cursor: pointer;
-    position: sticky; top: 71px; z-index: 10; user-select: none; }
-  th.sortable::after { content: " ⇅"; color: #d1d5db; font-size: 11px; }
-  th.sorted-asc::after { content: " ▲"; color: var(--accent); }
-  th.sorted-desc::after { content: " ▼"; color: var(--accent); }
+    user-select: none; box-shadow: inset 0 -1px 0 var(--line); }
+  th.sortable { padding-right: 18px; position: relative; }
+  th.sortable::after {
+    content: "⇅"; color: #d1d5db; font-size: 11px;
+    position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+  }
+  th.sorted-asc::after { content: "▲"; color: var(--accent); }
+  th.sorted-desc::after { content: "▼"; color: var(--accent); }
+  th:first-child, td:first-child { padding-left: 12px; }
+  /* 순위 column: number stays right-aligned to avoid arrow overlap */
+  th:first-child { text-align: center; }
+  td:first-child { text-align: center; }
   td.num { text-align: right; font-variant-numeric: tabular-nums; }
   tr:hover { background: #fefce8; }
   tr.mixed { background: #fef3c7; }

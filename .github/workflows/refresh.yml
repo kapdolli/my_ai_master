@@ -1,18 +1,17 @@
-name: Refresh 수시 경쟁률
+name: Deploy 수시 페이지
 
-# GitHub Pages 로 직접 배포하는 방식.
-# main 에 커밋을 남기지 않으므로 로컬 auto-commit 과 충돌하지 않는다.
-# 매 실행마다 fresh 하게 스크랩 → 아티팩트 업로드 → Pages 배포.
+# GitHub Actions runner (US IP)는 진학사/유웨이 사이트에서 60% 대학이
+# 차단되므로, 스크래핑은 로컬에서 돌리고 (services/susi_competition/refresh_all.ps1)
+# Actions 는 로컬이 push한 HTML/CSV 를 GitHub Pages 로 배포만 한다.
 
 on:
-  schedule:
-    - cron: "*/5 * * * *"       # 5분 간격 (GH Actions 최소 주기, 실제 5~15분 지연)
-  workflow_dispatch:
   push:
     branches: [main]
     paths:
-      - "services/susi_competition/**"
+      - "services/susi_competition/susi_2027_top50.html"
+      - "services/susi_competition/*.csv"
       - ".github/workflows/refresh.yml"
+  workflow_dispatch:
 
 concurrency:
   group: pages
@@ -24,7 +23,7 @@ permissions:
   id-token: write
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
     environment:
       name: github-pages
@@ -32,51 +31,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "3.11"
-          cache: pip
-          cache-dependency-path: services/susi_competition/requirements.txt
-
-      - name: Install deps
-        run: pip install -r services/susi_competition/requirements.txt
-
-      - name: 1) Full data refresh
-        working-directory: services/susi_competition
-        run: |
-          rm -rf .cache
-          python -X utf8 find_low_competition.py \
-            --regions 서울 경기 인천 충남 충북 대전 세종 \
-            --max-rate 999 --top 1 --refresh
-
-      - name: 2) 농특/논술 <2.0 filter
-        working-directory: services/susi_competition
-        run: |
-          python -X utf8 find_low_competition.py \
-            --regions 서울 경기 충남 충북 대전 세종 \
-            --admission-contains 농어촌 농특 논술 \
-            --max-rate 2.0 --top 800 \
-            --csv susi_2027_nong_nonsul_low.csv
-
-      - name: 3) top50 filter + tags
-        working-directory: services/susi_competition
-        run: python -X utf8 filter_top50.py
-
-      - name: 4) Build HTML
-        working-directory: services/susi_competition
-        run: python -X utf8 build_html.py
-
       - name: Assemble _site/
         run: |
           mkdir -p _site
-          cp services/susi_competition/susi_2027_top50.html _site/index.html
+          if [ -f services/susi_competition/susi_2027_top50.html ]; then
+            cp services/susi_competition/susi_2027_top50.html _site/index.html
+          else
+            echo "<h1>Not yet generated. Run refresh_all.ps1 locally.</h1>" > _site/index.html
+          fi
           cp services/susi_competition/*.csv _site/ 2>/dev/null || true
+          ls -la _site/
 
       - uses: actions/configure-pages@v5
-
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site
-
       - id: deployment
         uses: actions/deploy-pages@v4
