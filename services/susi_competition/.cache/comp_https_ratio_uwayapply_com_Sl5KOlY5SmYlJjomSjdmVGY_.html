@@ -1,0 +1,1348 @@
+					<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>극동대학교 경/쟁/률/서/비/스</title>
+		<script language="javascript" type="text/javascript" src="/ratioadmin/Image/js/img_url_new.js"></script>
+		<link href=".//css/2017/ratio_1.css" rel="stylesheet" type="text/css">
+		
+		<script language="javascript" type="text/javascript" src=".//js/jquery.min.js"></script>
+		
+		<script language="javascript" type="text/javascript" src=".//js/htm_control.js"></script>
+<script>
+	$(function(){
+		if(!location.href.match(/(v=pc)/)){
+			$('head').append('<meta name=\'viewport\' content=\'user-scalable=no, width=device-width\' />');if(navigator.userAgent.match(/(iPhone|Android|Opera Mini|SymblanOS|Windows CE|BlackBerry|Nokia|SonyEricsson|web OS|Palm)/) ){	$('body').after('<div style=\'text-align: center;\'><a style=\'color:#5b595b;\' href='+location.href+'?&v=pc><img src=\'.//btn_pcView.gif\' alt=\'PC버전으로보기\'></a></div>');	$('#ul_gobtn').hide(); }
+		}
+		
+		if( !$('fieldset').is('.finalwrap') ){
+			$("#header").attr("style",'height:75px;');
+			$("#container").attr("style",'padding-top:50px;');
+		}
+		// https 일때 comment 랑 univImage 대응
+		const host = location.href.split(":")[0];
+		if( host.match(/(https)/) ){
+			if( $('#ratio_comment').length ){
+				const s = document.createElement("script");
+				s.type = "text/javascript";
+				s.src = $('#ratio_comment').attr("src").replace('http','https');
+				$("body").append(s);
+			}
+			if( $('#univImage_dev').length ){
+				const s = document.createElement("script");
+				s.type = "text/javascript";
+				s.src = $('#univImage_dev').attr("src").replace('http','https');
+				$("body").append(s);
+			}
+		}
+	});
+	$(window).scroll(function() {
+		if($(window).scrollTop()>10) {
+			$("#header").addClass("fixed");
+		} else {
+			$("#header").removeClass("fixed");
+		}
+	});
+</script>
+</head>
+<body>		<center>
+			<span id="TopCon" style="position:fixed;top:0;left:0;width:100%;z-index:100;text-align:center;color:#cf1015;font:bold 16px 'malgun gothic';padding-top:28px;letter-spaicng:-5px"></span>
+		</center>
+<div id="compb">
+	<div id="wrapper">
+		<div id="white">
+		<div id="border">
+			<div id="header">
+				<h1><img id=UivImg src=".//univ_2017/0451.gif?2026090909" alt='극동대학교'></h1>
+				<h2><span class="stext">2027학년도</span><br /><span class="btextr">수시모집 </span><span class="btextb">경쟁률</span></h2>
+						<fieldset class="finalwrap">
+			<!--원서접수바로가기버튼시작-->
+			<ul id="ul_gobtn" class="btn">
+				<li style='background:#da3b40 url(.//btn_bg.png) no-repeat right center;'><a href='http://ipsi3.uwayapply.com/2027/susi2/kdu/?CHA=1' target=_new_apply id='id_gouway' title='원서접수 바로가기(새 창 열림)'><b>원서접수</b> 바로가기</a></li>
+				
+				
+				
+			</ul>
+			<!--원서접수바로가기버튼끝-->
+			
+			<!--전형바로가기시작-->
+			<form name="search">
+				<span id='ID_DateStr'><label for='final'>2026년 09월 09일 09시 20분 기준&nbsp;</label></span>
+				<select id='final' name='selectType' class='form3' onChange='javascript:viewType(this.value);'>
+  <option value=''>--------전 체--------</option>
+  <option value='00101'>정원 내 학생부교과 일반학생전형(면접)</option>
+  <option value='00102'>정원 내 학생부교과 교과우수자전형</option>
+  <option value='00103'>정원 내 학생부교과 기회균형전형(정원 내)</option>
+  <option value='00104'>정원 내 학생부교과 지역인재전형1</option>
+  <option value='00105'>정원 내 학생부교과 지역인재전형2</option>
+  <option value='00222'>정원 내 실기 일반학생전형(실기)</option>
+  <option value='00309'>정원 외 학생부교과 특성화고 동일계전형(정원 외)</option>
+  <option value='00310'>정원 외 학생부교과 농어촌학생전형(정원 외)</option>
+  <option value='00311'>정원 외 학생부교과 기회균형전형(정원 외)</option>
+  <option value='00406'>정원 내 실적 체육특기우수자</option>
+</select>
+
+										<script>
+											function fnScrollMove(id,spd){
+												// 2017.09.01 이희창 - 해당 id로 스크롤 이동 !
+												var offset = $("#" + id).offset();
+												if(offset && offset.top){
+													var spd=( typeof(spd) == "number" ? spd : 0);	// 이동속도
+													var h_height=( typeof($("#header:visible").height()) == "number" ? $("#header:visible").height() : 0 );	// 탑헤더의 크기 빼줌
+													$("html, body").animate({scrollTop : Number(Number(offset.top)-Number(h_height)-20)}, spd);
+												}
+											}
+											function viewType(arg)
+											{
+												if( arg=="" ){
+													fnScrollMove("container");
+												}else{
+													fnScrollMove("Div_"+arg);
+												}
+											}
+											 
+											function viewGr(arg)
+											{
+											 	document.search.selectType.options.length = 0;
+											 	document.search.selectType.options[0]=new Option("전체",arg,0,0);
+											 	switch (arg) {
+											
+											 		default :
+													document.search.selectType.options[1]=new Option('정원 내 학생부교과 일반학생전형(면접)','00101',0,0); 
+		document.search.selectType.options[2]=new Option('정원 내 학생부교과 교과우수자전형','00102',0,0); 
+		document.search.selectType.options[3]=new Option('정원 내 학생부교과 기회균형전형(정원 내)','00103',0,0); 
+		document.search.selectType.options[4]=new Option('정원 내 학생부교과 지역인재전형1','00104',0,0); 
+		document.search.selectType.options[5]=new Option('정원 내 학생부교과 지역인재전형2','00105',0,0); 
+		document.search.selectType.options[6]=new Option('정원 내 실기 일반학생전형(실기)','00222',0,0); 
+		document.search.selectType.options[7]=new Option('정원 외 학생부교과 특성화고 동일계전형(정원 외)','00309',0,0); 
+		document.search.selectType.options[8]=new Option('정원 외 학생부교과 농어촌학생전형(정원 외)','00310',0,0); 
+		document.search.selectType.options[9]=new Option('정원 외 학생부교과 기회균형전형(정원 외)','00311',0,0); 
+		document.search.selectType.options[10]=new Option('정원 내 실적 체육특기우수자','00406',0,0); 
+
+											 		break;
+											 	}
+											 	
+										 		viewType(arg);
+											}
+											
+										</script>
+			
+			</form>
+			<!--전형바로가기시작-->
+		</fieldset>
+ 
+			</div><!-- //header -->
+			<div id="container">
+				<div class="contentsTop">
+								
+			<dl class="info" id="Ratio_Comment" style="margin:38px 0 10px 0;">
+				□ 경쟁률은 10분 단위로 업데이트됩니다.<br />□ 접수마감은 2026년 09월 11일(금) 17:00까지입니다.<br />□ 경쟁률 서비스는 2026년 09월 11일(금) 16:30 까지 제공됩니다.
+			</dl>
+			<script type='text/javascript' src='//ratio.uwayapply.com/2027/susi2/kdu/1/ratio_comment.js?20260909092010' id='ratio_comment'></script>
+					<script type='text/javascript' src='//ratio.uwayapply.com/2027/susi2/kdu/1/univImage_dev.js?20260909092010' id='univImage_dev'></script>
+				</div><!-- //contentsTop -->
+				<div id="table"><p style="text-align:center"> <img src='UNIVIMAGE_0' width=100%> </p>
+		<div class="both11">
+		<h3 style="background:url(.//color/bul_color1.png) no-repeat 0 15px;" class="p_left">
+			<span id="strTitleId_TypeStat" class="bul">전형별 경쟁률 현황</h3></span></div>
+		<table cellpadding='0' cellspacing='0'>
+		<caption class='caphidden'>전형별 경쟁률 현황</caption>
+		
+		<thead>
+			<!--tr style='background:url(.//2011/vline.png) no-repeat 0 50%;'-->
+			<tr>
+			<th class="bgnone noline lline" scope="col" width = "25%" ><span id="strTdTitleId_TypeStat_TYPENM">구분</span></th><th class="noline" scope="col" width = "25%" ><span id="strTdTitleId_TypeStat_INWON">총모집인원</span></th><th class="noline" scope="col" width = "25%" ><span id="strTdTitleId_TypeStat_APPLY">지원인원</span></th><th class="noline rline" scope="col" width = "25%" ><span id="strTdTitleId_TypeStat_RATIO">경쟁률</span></th>
+			</tr>
+		</thead>
+			<tbody>
+        <tr class='trFieldValue' id='Tr_00101_0'>
+			<td  style='cursor:pointer;' onClick=javascript:viewType('00101')  rowspan='1'  class="txtFieldValue" align='left'>  일반학생전형(면접)</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('00101')  rowspan='1'  class="txtFieldValue" align='center'>213</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('00101')  rowspan='1'  class="txtFieldValue" align='center'>477</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('00101')  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>2.24 : 1</b></font></td> 
+
+		</tr>
+        <tr class='trFieldValue' id='Tr_00102_0'>
+			<td  style='cursor:pointer;' onClick=javascript:viewType('00102')  rowspan='1'  class="txtFieldValue" align='left'>  교과우수자전형</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('00102')  rowspan='1'  class="txtFieldValue" align='center'>382</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('00102')  rowspan='1'  class="txtFieldValue" align='center'>339</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('00102')  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.89 : 1</b></font></td> 
+
+		</tr>
+        <tr class='trFieldValue' id='Tr_00103_0'>
+			<td  style='cursor:pointer;' onClick=javascript:viewType('00103')  rowspan='1'  class="txtFieldValue" align='left'>  기회균형전형(정원 내)</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('00103')  rowspan='1'  class="txtFieldValue" align='center'>5</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('00103')  rowspan='1'  class="txtFieldValue" align='center'>4</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('00103')  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.80 : 1</b></font></td> 
+
+		</tr>
+        <tr class='trFieldValue' id='Tr_00104_0'>
+			<td  style='cursor:pointer;' onClick=javascript:viewType('00104')  rowspan='1'  class="txtFieldValue" align='left'>  지역인재전형1</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('00104')  rowspan='1'  class="txtFieldValue" align='center'>37</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('00104')  rowspan='1'  class="txtFieldValue" align='center'>67</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('00104')  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>1.81 : 1</b></font></td> 
+
+		</tr>
+        <tr class='trFieldValue' id='Tr_00105_0'>
+			<td  style='cursor:pointer;' onClick=javascript:viewType('00105')  rowspan='1'  class="txtFieldValue" align='left'>  지역인재전형2</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('00105')  rowspan='1'  class="txtFieldValue" align='center'>3</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('00105')  rowspan='1'  class="txtFieldValue" align='center'>0</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('00105')  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.00 : 1</b></font></td> 
+
+		</tr>
+        <tr class='trFieldValue' id='Tr_00222_0'>
+			<td  style='cursor:pointer;' onClick=javascript:viewType('00222')  rowspan='1'  class="txtFieldValue" align='left'>  일반학생전형(실기)</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('00222')  rowspan='1'  class="txtFieldValue" align='center'>92</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('00222')  rowspan='1'  class="txtFieldValue" align='center'>167</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('00222')  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>1.82 : 1</b></font></td> 
+
+		</tr>
+        <tr class='trFieldValue' id='Tr_00309_0'>
+			<td  style='cursor:pointer;' onClick=javascript:viewType('00309')  rowspan='1'  class="txtFieldValue" align='left'>  특성화고 동일계전형(정원 외)</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('00309')  rowspan='1'  class="txtFieldValue" align='center'>11</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('00309')  rowspan='1'  class="txtFieldValue" align='center'>16</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('00309')  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>1.45 : 1</b></font></td> 
+
+		</tr>
+        <tr class='trFieldValue' id='Tr_00310_0'>
+			<td  style='cursor:pointer;' onClick=javascript:viewType('00310')  rowspan='1'  class="txtFieldValue" align='left'>  농어촌학생전형(정원 외)</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('00310')  rowspan='1'  class="txtFieldValue" align='center'>15</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('00310')  rowspan='1'  class="txtFieldValue" align='center'>27</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('00310')  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>1.80 : 1</b></font></td> 
+
+		</tr>
+        <tr class='trFieldValue' id='Tr_00311_0'>
+			<td  style='cursor:pointer;' onClick=javascript:viewType('00311')  rowspan='1'  class="txtFieldValue" align='left'>  기회균형전형(정원 외)</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('00311')  rowspan='1'  class="txtFieldValue" align='center'>15</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('00311')  rowspan='1'  class="txtFieldValue" align='center'>32</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('00311')  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>2.13 : 1</b></font></td> 
+
+		</tr>
+        <tr class='trFieldValue' id='Tr_00406_0'>
+			<td  style='cursor:pointer;' onClick=javascript:viewType('00406')  rowspan='1'  class="txtFieldValue" align='left'>  체육특기우수자</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('00406')  rowspan='1'  class="txtFieldValue" align='center'>5</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('00406')  rowspan='1'  class="txtFieldValue" align='center'>2</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('00406')  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.40 : 1</b></font></td> 
+
+		</tr></tbody>
+			<tr align="center"  id='Tr_Sum_0'>
+			<th colspan="1" class='tfoot'><span id='strSumId_Tot'>총계</span></th><th class='tfoot' colspan='1'>778</th><th class='tfoot' colspan='1'>1,131</th><th class='tfoot' colspan='1'><font color='#F10000'><b>1.45 : 1</b></font></th>
+			</tr>
+			
+	</table>
+		<form name=ratio method="post">
+
+			
+<div id="Div_00101" style="display:" class="DivType">
+	<span id="strStartNotiId_00101"></span>
+		<div class="both11">
+			<h3 style="background:url(.//color/bul_color1.png) no-repeat 0 15px;" class="p_left">
+				<span id="strTitleId_00101" class="bul">정원 내 학생부교과 일반학생전형(면접) 경쟁률 현황</span>
+			</h3>
+		</div>
+			<table cellpadding='0' cellspacing='0'>
+			<caption class='caphidden'>정원 내 학생부교과 일반학생전형(면접)</caption>
+			
+		<thead>
+			<!--tr style='background:url(.//2011/vline.png) no-repeat 0 50%;'-->
+			<tr>
+			<th class="bgnone noline lline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00101_UNITNM">모집단위</span></th><th class="noline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00101_INWON">모집인원</span></th><th class="noline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00101_APPLY">지원인원</span></th><th class="noline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00101_RATIO">경쟁률</span></th><th class="noline rline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00101_ETC3">학과홈페이지</span></th>
+			</tr>
+		</thead>
+			
+        <tr class='trFieldValue' id='Tr_00101_000040000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>항공운항서비스학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>60</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>259</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>4.32 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/flightsv/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_0' value='0'>
+						<input type=hidden name='Cam_0'     value='0'>
+						<input type=hidden name='Type_0'    value='01'>
+						<input type=hidden name='Unit_0'    value='21'>
+						<input type=hidden name='JuYa_0'    value='1'>
+						<input type=hidden name='Stat_0'    value='21'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00101_000050000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>항공운항학과(고정익, 회전익)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>30</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>21</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.70 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/dfo/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_1' value='0'>
+						<input type=hidden name='Cam_1'     value='0'>
+						<input type=hidden name='Type_1'    value='01'>
+						<input type=hidden name='Unit_1'    value='22'>
+						<input type=hidden name='JuYa_1'    value='1'>
+						<input type=hidden name='Stat_1'    value='22'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00101_000060000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>항공정비학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>34</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>37</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>1.09 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/flightm/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_2' value='0'>
+						<input type=hidden name='Cam_2'     value='0'>
+						<input type=hidden name='Type_2'    value='01'>
+						<input type=hidden name='Unit_2'    value='23'>
+						<input type=hidden name='JuYa_2'    value='1'>
+						<input type=hidden name='Stat_2'    value='23'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00101_000090000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>간호학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>41</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>97</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>2.37 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/nursing/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_3' value='0'>
+						<input type=hidden name='Cam_3'     value='0'>
+						<input type=hidden name='Type_3'    value='01'>
+						<input type=hidden name='Unit_3'    value='41'>
+						<input type=hidden name='JuYa_3'    value='1'>
+						<input type=hidden name='Stat_3'    value='41'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00101_000100000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>방사선학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>16</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>52</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>3.25 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/radiology/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_4' value='0'>
+						<input type=hidden name='Cam_4'     value='0'>
+						<input type=hidden name='Type_4'    value='01'>
+						<input type=hidden name='Unit_4'    value='42'>
+						<input type=hidden name='JuYa_4'    value='1'>
+						<input type=hidden name='Stat_4'    value='42'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00101_000110000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>임상병리학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>26</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>8</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.31 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/bmls/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_5' value='0'>
+						<input type=hidden name='Cam_5'     value='0'>
+						<input type=hidden name='Type_5'    value='01'>
+						<input type=hidden name='Unit_5'    value='43'>
+						<input type=hidden name='JuYa_5'    value='1'>
+						<input type=hidden name='Stat_5'    value='43'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00101_000120000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>작업치료학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>6</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>3</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.50 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/ot/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_6' value='0'>
+						<input type=hidden name='Cam_6'     value='0'>
+						<input type=hidden name='Type_6'    value='01'>
+						<input type=hidden name='Unit_6'    value='44'>
+						<input type=hidden name='JuYa_6'    value='1'>
+						<input type=hidden name='Stat_6'    value='44'>
+					
+		</tr>
+			<tr align="center"  id='Tr_Sum_00101'>
+			<th colspan="1" class='tfoot'><span id='strSumId_Type_00101'> 소계</span></th><th class='tfoot' colspan='1'>213</th><th class='tfoot' colspan='1'>477</th><th class='tfoot' colspan='1'><font color='#F10000'><b>2.24 : 1</b></font></th><th class='tfoot' colspan='1'></th>
+			</tr>
+			
+		</table>
+	<span id="strEndNotiId_00101"></span><div class="space20"> &nbsp;</div></div>
+<div id="Div_00102" style="display:" class="DivType">
+	<span id="strStartNotiId_00102"></span>
+		<div class="both11">
+			<h3 style="background:url(.//color/bul_color1.png) no-repeat 0 15px;" class="p_left">
+				<span id="strTitleId_00102" class="bul">정원 내 학생부교과 교과우수자전형 경쟁률 현황</span>
+			</h3>
+		</div>
+			<table cellpadding='0' cellspacing='0'>
+			<caption class='caphidden'>정원 내 학생부교과 교과우수자전형</caption>
+			
+		<thead>
+			<!--tr style='background:url(.//2011/vline.png) no-repeat 0 50%;'-->
+			<tr>
+			<th class="bgnone noline lline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00102_UNITNM">모집단위</span></th><th class="noline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00102_INWON">모집인원</span></th><th class="noline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00102_APPLY">지원인원</span></th><th class="noline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00102_RATIO">경쟁률</span></th><th class="noline rline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00102_ETC3">학과홈페이지</span></th>
+			</tr>
+		</thead>
+			
+        <tr class='trFieldValue' id='Tr_00102_000170000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>글로벌융합학부(경영서비스, 과학기술, K컬처)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>102</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>14</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.14 : 1</b></font></td> 
+<td  rowspan='2'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/ipsi/sub.do?mncd=1753 target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_7' value='0'>
+						<input type=hidden name='Cam_7'     value='0'>
+						<input type=hidden name='Type_7'    value='02'>
+						<input type=hidden name='Unit_7'    value='10'>
+						<input type=hidden name='JuYa_7'    value='1'>
+						<input type=hidden name='Stat_7'    value='10'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00102_000180000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>사회복지학부(사회복지, 재활상담치료, 안경광학, 상담복지)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>90</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>32</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.36 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_8' value='0'>
+						<input type=hidden name='Cam_8'     value='0'>
+						<input type=hidden name='Type_8'    value='02'>
+						<input type=hidden name='Unit_8'    value='11'>
+						<input type=hidden name='JuYa_8'    value='1'>
+						<input type=hidden name='Stat_8'    value='11'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00102_000190000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>군사학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>25</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>11</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.44 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/military/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_9' value='0'>
+						<input type=hidden name='Cam_9'     value='0'>
+						<input type=hidden name='Type_9'    value='02'>
+						<input type=hidden name='Unit_9'    value='12'>
+						<input type=hidden name='JuYa_9'    value='1'>
+						<input type=hidden name='Stat_9'    value='12'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00102_000210000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>항공운항학과(고정익, 회전익)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>31</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>64</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>2.06 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/dfo/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_10' value='0'>
+						<input type=hidden name='Cam_10'     value='0'>
+						<input type=hidden name='Type_10'    value='02'>
+						<input type=hidden name='Unit_10'    value='22'>
+						<input type=hidden name='JuYa_10'    value='1'>
+						<input type=hidden name='Stat_10'    value='22'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00102_000220000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>항공정비학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>12</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>46</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>3.83 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/flightm/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_11' value='0'>
+						<input type=hidden name='Cam_11'     value='0'>
+						<input type=hidden name='Type_11'    value='02'>
+						<input type=hidden name='Unit_11'    value='23'>
+						<input type=hidden name='JuYa_11'    value='1'>
+						<input type=hidden name='Stat_11'    value='23'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00102_000230000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>항공안전관리학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>26</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>6</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.23 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/flightsafemgt/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_12' value='0'>
+						<input type=hidden name='Cam_12'     value='0'>
+						<input type=hidden name='Type_12'    value='02'>
+						<input type=hidden name='Unit_12'    value='24'>
+						<input type=hidden name='JuYa_12'    value='1'>
+						<input type=hidden name='Stat_12'    value='24'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00102_000240000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>해킹보안학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>26</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>33</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>1.27 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/ins/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_13' value='0'>
+						<input type=hidden name='Cam_13'     value='0'>
+						<input type=hidden name='Type_13'    value='02'>
+						<input type=hidden name='Unit_13'    value='31'>
+						<input type=hidden name='JuYa_13'    value='1'>
+						<input type=hidden name='Stat_13'    value='31'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00102_000250000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>간호학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>20</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>39</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>1.95 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/nursing/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_14' value='0'>
+						<input type=hidden name='Cam_14'     value='0'>
+						<input type=hidden name='Type_14'    value='02'>
+						<input type=hidden name='Unit_14'    value='41'>
+						<input type=hidden name='JuYa_14'    value='1'>
+						<input type=hidden name='Stat_14'    value='41'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00102_000260000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>방사선학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>15</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>44</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>2.93 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/radiology/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_15' value='0'>
+						<input type=hidden name='Cam_15'     value='0'>
+						<input type=hidden name='Type_15'    value='02'>
+						<input type=hidden name='Unit_15'    value='42'>
+						<input type=hidden name='JuYa_15'    value='1'>
+						<input type=hidden name='Stat_15'    value='42'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00102_000270000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>임상병리학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>10</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>34</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>3.40 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/bmls/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_16' value='0'>
+						<input type=hidden name='Cam_16'     value='0'>
+						<input type=hidden name='Type_16'    value='02'>
+						<input type=hidden name='Unit_16'    value='43'>
+						<input type=hidden name='JuYa_16'    value='1'>
+						<input type=hidden name='Stat_16'    value='43'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00102_000280000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>작업치료학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>25</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>16</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.64 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/ot/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_17' value='0'>
+						<input type=hidden name='Cam_17'     value='0'>
+						<input type=hidden name='Type_17'    value='02'>
+						<input type=hidden name='Unit_17'    value='44'>
+						<input type=hidden name='JuYa_17'    value='1'>
+						<input type=hidden name='Stat_17'    value='44'>
+					
+		</tr>
+			<tr align="center"  id='Tr_Sum_00102'>
+			<th colspan="1" class='tfoot'><span id='strSumId_Type_00102'> 소계</span></th><th class='tfoot' colspan='1'>382</th><th class='tfoot' colspan='1'>339</th><th class='tfoot' colspan='1'><font color='#F10000'><b>0.89 : 1</b></font></th><th class='tfoot' colspan='1'></th>
+			</tr>
+			
+		</table>
+	<span id="strEndNotiId_00102"></span><div class="space20"> &nbsp;</div></div>
+<div id="Div_00103" style="display:" class="DivType">
+	<span id="strStartNotiId_00103"></span>
+		<div class="both11">
+			<h3 style="background:url(.//color/bul_color1.png) no-repeat 0 15px;" class="p_left">
+				<span id="strTitleId_00103" class="bul">정원 내 학생부교과 기회균형전형(정원 내) 경쟁률 현황</span>
+			</h3>
+		</div>
+			<table cellpadding='0' cellspacing='0'>
+			<caption class='caphidden'>정원 내 학생부교과 기회균형전형(정원 내)</caption>
+			
+		<thead>
+			<!--tr style='background:url(.//2011/vline.png) no-repeat 0 50%;'-->
+			<tr>
+			<th class="bgnone noline lline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00103_UNITNM">모집단위</span></th><th class="noline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00103_INWON">모집인원</span></th><th class="noline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00103_APPLY">지원인원</span></th><th class="noline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00103_RATIO">경쟁률</span></th><th class="noline rline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00103_ETC3">학과홈페이지</span></th>
+			</tr>
+		</thead>
+			
+        <tr class='trFieldValue' id='Tr_00103_000340000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>사회복지학부(사회복지, 재활상담치료, 안경광학, 상담복지)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>5</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>4</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.80 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/ipsi/sub.do?mncd=1753 target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_18' value='0'>
+						<input type=hidden name='Cam_18'     value='0'>
+						<input type=hidden name='Type_18'    value='03'>
+						<input type=hidden name='Unit_18'    value='11'>
+						<input type=hidden name='JuYa_18'    value='1'>
+						<input type=hidden name='Stat_18'    value='11'>
+					
+		</tr>
+			<tr align="center"  id='Tr_Sum_00103'>
+			<th colspan="1" class='tfoot'><span id='strSumId_Type_00103'> 소계</span></th><th class='tfoot' colspan='1'>5</th><th class='tfoot' colspan='1'>4</th><th class='tfoot' colspan='1'><font color='#F10000'><b>0.80 : 1</b></font></th><th class='tfoot' colspan='1'></th>
+			</tr>
+			
+		</table>
+	<span id="strEndNotiId_00103"></span><div class="space20"> &nbsp;</div></div>
+<div id="Div_00104" style="display:" class="DivType">
+	<span id="strStartNotiId_00104"></span>
+		<div class="both11">
+			<h3 style="background:url(.//color/bul_color1.png) no-repeat 0 15px;" class="p_left">
+				<span id="strTitleId_00104" class="bul">정원 내 학생부교과 지역인재전형1 경쟁률 현황</span>
+			</h3>
+		</div>
+			<table cellpadding='0' cellspacing='0'>
+			<caption class='caphidden'>정원 내 학생부교과 지역인재전형1</caption>
+			
+		<thead>
+			<!--tr style='background:url(.//2011/vline.png) no-repeat 0 50%;'-->
+			<tr>
+			<th class="bgnone noline lline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00104_UNITNM">모집단위</span></th><th class="noline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00104_INWON">모집인원</span></th><th class="noline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00104_APPLY">지원인원</span></th><th class="noline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00104_RATIO">경쟁률</span></th><th class="noline rline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00104_ETC3">학과홈페이지</span></th>
+			</tr>
+		</thead>
+			
+        <tr class='trFieldValue' id='Tr_00104_000570000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>간호학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>37</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>67</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>1.81 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/nursing/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_19' value='0'>
+						<input type=hidden name='Cam_19'     value='0'>
+						<input type=hidden name='Type_19'    value='04'>
+						<input type=hidden name='Unit_19'    value='41'>
+						<input type=hidden name='JuYa_19'    value='1'>
+						<input type=hidden name='Stat_19'    value='41'>
+					
+		</tr>
+			<tr align="center"  id='Tr_Sum_00104'>
+			<th colspan="1" class='tfoot'><span id='strSumId_Type_00104'> 소계</span></th><th class='tfoot' colspan='1'>37</th><th class='tfoot' colspan='1'>67</th><th class='tfoot' colspan='1'><font color='#F10000'><b>1.81 : 1</b></font></th><th class='tfoot' colspan='1'></th>
+			</tr>
+			
+		</table>
+	<span id="strEndNotiId_00104"></span><div class="space20"> &nbsp;</div></div>
+<div id="Div_00105" style="display:" class="DivType">
+	<span id="strStartNotiId_00105"></span>
+		<div class="both11">
+			<h3 style="background:url(.//color/bul_color1.png) no-repeat 0 15px;" class="p_left">
+				<span id="strTitleId_00105" class="bul">정원 내 학생부교과 지역인재전형2 경쟁률 현황</span>
+			</h3>
+		</div>
+			<table cellpadding='0' cellspacing='0'>
+			<caption class='caphidden'>정원 내 학생부교과 지역인재전형2</caption>
+			
+		<thead>
+			<!--tr style='background:url(.//2011/vline.png) no-repeat 0 50%;'-->
+			<tr>
+			<th class="bgnone noline lline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00105_UNITNM">모집단위</span></th><th class="noline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00105_INWON">모집인원</span></th><th class="noline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00105_APPLY">지원인원</span></th><th class="noline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00105_RATIO">경쟁률</span></th><th class="noline rline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00105_ETC3">학과홈페이지</span></th>
+			</tr>
+		</thead>
+			
+        <tr class='trFieldValue' id='Tr_00105_000730000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>간호학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>3</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.00 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/nursing/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_20' value='0'>
+						<input type=hidden name='Cam_20'     value='0'>
+						<input type=hidden name='Type_20'    value='05'>
+						<input type=hidden name='Unit_20'    value='41'>
+						<input type=hidden name='JuYa_20'    value='1'>
+						<input type=hidden name='Stat_20'    value='41'>
+					
+		</tr>
+			<tr align="center"  id='Tr_Sum_00105'>
+			<th colspan="1" class='tfoot'><span id='strSumId_Type_00105'> 소계</span></th><th class='tfoot' colspan='1'>3</th><th class='tfoot' colspan='1'>0</th><th class='tfoot' colspan='1'><font color='#F10000'><b>0.00 : 1</b></font></th><th class='tfoot' colspan='1'></th>
+			</tr>
+			
+		</table>
+	<span id="strEndNotiId_00105"></span><div class="space20"> &nbsp;</div></div>
+<div id="Div_00222" style="display:" class="DivType">
+	<span id="strStartNotiId_00222"></span>
+		<div class="both11">
+			<h3 style="background:url(.//color/bul_color1.png) no-repeat 0 15px;" class="p_left">
+				<span id="strTitleId_00222" class="bul">정원 내 실기 일반학생전형(실기) 경쟁률 현황</span>
+			</h3>
+		</div>
+			<table cellpadding='0' cellspacing='0'>
+			<caption class='caphidden'>정원 내 실기 일반학생전형(실기)</caption>
+			
+		<thead>
+			<!--tr style='background:url(.//2011/vline.png) no-repeat 0 50%;'-->
+			<tr>
+			<th class="bgnone noline lline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00222_UNITNM">모집단위</span></th><th class="noline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00222_INWON">모집인원</span></th><th class="noline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00222_APPLY">지원인원</span></th><th class="noline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00222_RATIO">경쟁률</span></th><th class="noline rline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00222_ETC3">학과홈페이지</span></th>
+			</tr>
+		</thead>
+			
+        <tr class='trFieldValue' id='Tr_00222_000930000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>만화·애니메이션학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>40</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>46</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>1.15 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/mediacon/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_21' value='0'>
+						<input type=hidden name='Cam_21'     value='0'>
+						<input type=hidden name='Type_21'    value='22'>
+						<input type=hidden name='Unit_21'    value='51'>
+						<input type=hidden name='JuYa_21'    value='1'>
+						<input type=hidden name='Stat_21'    value='51'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00222_000940000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>연극연기학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>30</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>115</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>3.83 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/acting/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_22' value='0'>
+						<input type=hidden name='Cam_22'     value='0'>
+						<input type=hidden name='Type_22'    value='22'>
+						<input type=hidden name='Unit_22'    value='52'>
+						<input type=hidden name='JuYa_22'    value='1'>
+						<input type=hidden name='Stat_22'    value='52'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00222_000950000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>스포츠재활학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>22</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>6</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.27 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/sport/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_23' value='0'>
+						<input type=hidden name='Cam_23'     value='0'>
+						<input type=hidden name='Type_23'    value='22'>
+						<input type=hidden name='Unit_23'    value='53'>
+						<input type=hidden name='JuYa_23'    value='1'>
+						<input type=hidden name='Stat_23'    value='53'>
+					
+		</tr>
+			<tr align="center"  id='Tr_Sum_00222'>
+			<th colspan="1" class='tfoot'><span id='strSumId_Type_00222'> 소계</span></th><th class='tfoot' colspan='1'>92</th><th class='tfoot' colspan='1'>167</th><th class='tfoot' colspan='1'><font color='#F10000'><b>1.82 : 1</b></font></th><th class='tfoot' colspan='1'></th>
+			</tr>
+			
+		</table>
+	<span id="strEndNotiId_00222"></span><div class="space20"> &nbsp;</div></div>
+<div id="Div_00309" style="display:" class="DivType">
+	<span id="strStartNotiId_00309"></span>
+		<div class="both11">
+			<h3 style="background:url(.//color/bul_color1.png) no-repeat 0 15px;" class="p_left">
+				<span id="strTitleId_00309" class="bul">정원 외 학생부교과 특성화고 동일계전형(정원 외) 경쟁률 현황</span>
+			</h3>
+		</div>
+			<table cellpadding='0' cellspacing='0'>
+			<caption class='caphidden'>정원 외 학생부교과 특성화고 동일계전형(정원 외)</caption>
+			
+		<thead>
+			<!--tr style='background:url(.//2011/vline.png) no-repeat 0 50%;'-->
+			<tr>
+			<th class="bgnone noline lline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00309_UNITNM">모집단위</span></th><th class="noline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00309_INWON">모집인원</span></th><th class="noline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00309_APPLY">지원인원</span></th><th class="noline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00309_RATIO">경쟁률</span></th><th class="noline rline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00309_ETC3">학과홈페이지</span></th>
+			</tr>
+		</thead>
+			
+        <tr class='trFieldValue' id='Tr_00309_001130000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>글로벌융합학부(경영서비스, 과학기술, K컬처)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>(10)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.00 : 1</b></font></td> 
+<td  rowspan='2'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/ipsi/sub.do?mncd=1753 target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_24' value='0'>
+						<input type=hidden name='Cam_24'     value='0'>
+						<input type=hidden name='Type_24'    value='09'>
+						<input type=hidden name='Unit_24'    value='10'>
+						<input type=hidden name='JuYa_24'    value='1'>
+						<input type=hidden name='Stat_24'    value='10'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00309_001140000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>사회복지학부(사회복지, 재활상담치료, 안경광학, 상담복지)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>(9)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.00 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_25' value='0'>
+						<input type=hidden name='Cam_25'     value='0'>
+						<input type=hidden name='Type_25'    value='09'>
+						<input type=hidden name='Unit_25'    value='11'>
+						<input type=hidden name='JuYa_25'    value='1'>
+						<input type=hidden name='Stat_25'    value='11'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00309_001150000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>군사학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>(2)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.00 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/military/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_26' value='0'>
+						<input type=hidden name='Cam_26'     value='0'>
+						<input type=hidden name='Type_26'    value='09'>
+						<input type=hidden name='Unit_26'    value='12'>
+						<input type=hidden name='JuYa_26'    value='1'>
+						<input type=hidden name='Stat_26'    value='12'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00309_001160000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>항공운항서비스학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>(6)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>1</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.17 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/flightsv/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_27' value='0'>
+						<input type=hidden name='Cam_27'     value='0'>
+						<input type=hidden name='Type_27'    value='09'>
+						<input type=hidden name='Unit_27'    value='21'>
+						<input type=hidden name='JuYa_27'    value='1'>
+						<input type=hidden name='Stat_27'    value='21'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00309_001170000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>항공운항학과(고정익, 회전익)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>(6)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.00 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/dfo/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_28' value='0'>
+						<input type=hidden name='Cam_28'     value='0'>
+						<input type=hidden name='Type_28'    value='09'>
+						<input type=hidden name='Unit_28'    value='22'>
+						<input type=hidden name='JuYa_28'    value='1'>
+						<input type=hidden name='Stat_28'    value='22'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00309_001190000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>항공안전관리학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>(2)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.00 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/flightsafemgt/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_29' value='0'>
+						<input type=hidden name='Cam_29'     value='0'>
+						<input type=hidden name='Type_29'    value='09'>
+						<input type=hidden name='Unit_29'    value='24'>
+						<input type=hidden name='JuYa_29'    value='1'>
+						<input type=hidden name='Stat_29'    value='24'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00309_001200000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>해킹보안학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>(2)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.00 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/ins/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_30' value='0'>
+						<input type=hidden name='Cam_30'     value='0'>
+						<input type=hidden name='Type_30'    value='09'>
+						<input type=hidden name='Unit_30'    value='31'>
+						<input type=hidden name='JuYa_30'    value='1'>
+						<input type=hidden name='Stat_30'    value='31'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00309_001210000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>간호학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>(10)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>15</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>1.50 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/nursing/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_31' value='0'>
+						<input type=hidden name='Cam_31'     value='0'>
+						<input type=hidden name='Type_31'    value='09'>
+						<input type=hidden name='Unit_31'    value='41'>
+						<input type=hidden name='JuYa_31'    value='1'>
+						<input type=hidden name='Stat_31'    value='41'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00309_001220000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>방사선학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>(3)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.00 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/radiology/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_32' value='0'>
+						<input type=hidden name='Cam_32'     value='0'>
+						<input type=hidden name='Type_32'    value='09'>
+						<input type=hidden name='Unit_32'    value='42'>
+						<input type=hidden name='JuYa_32'    value='1'>
+						<input type=hidden name='Stat_32'    value='42'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00309_001230000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>임상병리학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>(3)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.00 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/bmls/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_33' value='0'>
+						<input type=hidden name='Cam_33'     value='0'>
+						<input type=hidden name='Type_33'    value='09'>
+						<input type=hidden name='Unit_33'    value='43'>
+						<input type=hidden name='JuYa_33'    value='1'>
+						<input type=hidden name='Stat_33'    value='43'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00309_001240000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>작업치료학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>(3)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.00 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/ot/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_34' value='0'>
+						<input type=hidden name='Cam_34'     value='0'>
+						<input type=hidden name='Type_34'    value='09'>
+						<input type=hidden name='Unit_34'    value='44'>
+						<input type=hidden name='JuYa_34'    value='1'>
+						<input type=hidden name='Stat_34'    value='44'>
+					
+		</tr>
+			<tr align="center"  id='Tr_Sum_00309'>
+			<th colspan="1" class='tfoot'><span id='strSumId_Type_00309'> 소계</span></th><th class='tfoot' colspan='1'>11</th><th class='tfoot' colspan='1'>16</th><th class='tfoot' colspan='1'><font color='#F10000'><b>1.45 : 1</b></font></th><th class='tfoot' colspan='1'></th>
+			</tr>
+			
+		</table>
+	<span id="strEndNotiId_00309"></span><div class="space20"> &nbsp;</div></div>
+<div id="Div_00310" style="display:" class="DivType">
+	<span id="strStartNotiId_00310"></span>
+		<div class="both11">
+			<h3 style="background:url(.//color/bul_color1.png) no-repeat 0 15px;" class="p_left">
+				<span id="strTitleId_00310" class="bul">정원 외 학생부교과 농어촌학생전형(정원 외) 경쟁률 현황</span>
+			</h3>
+		</div>
+			<table cellpadding='0' cellspacing='0'>
+			<caption class='caphidden'>정원 외 학생부교과 농어촌학생전형(정원 외)</caption>
+			
+		<thead>
+			<!--tr style='background:url(.//2011/vline.png) no-repeat 0 50%;'-->
+			<tr>
+			<th class="bgnone noline lline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00310_UNITNM">모집단위</span></th><th class="noline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00310_INWON">모집인원</span></th><th class="noline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00310_APPLY">지원인원</span></th><th class="noline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00310_RATIO">경쟁률</span></th><th class="noline rline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00310_ETC3">학과홈페이지</span></th>
+			</tr>
+		</thead>
+			
+        <tr class='trFieldValue' id='Tr_00310_001290000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>글로벌융합학부(경영서비스, 과학기술, K컬처)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>(10)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.00 : 1</b></font></td> 
+<td  rowspan='2'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/ipsi/sub.do?mncd=1753 target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_35' value='0'>
+						<input type=hidden name='Cam_35'     value='0'>
+						<input type=hidden name='Type_35'    value='10'>
+						<input type=hidden name='Unit_35'    value='10'>
+						<input type=hidden name='JuYa_35'    value='1'>
+						<input type=hidden name='Stat_35'    value='10'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00310_001300000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>사회복지학부(사회복지, 재활상담치료, 안경광학, 상담복지)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>(9)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>1</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.11 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_36' value='0'>
+						<input type=hidden name='Cam_36'     value='0'>
+						<input type=hidden name='Type_36'    value='10'>
+						<input type=hidden name='Unit_36'    value='11'>
+						<input type=hidden name='JuYa_36'    value='1'>
+						<input type=hidden name='Stat_36'    value='11'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00310_001310000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>군사학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>(2)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.00 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/military/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_37' value='0'>
+						<input type=hidden name='Cam_37'     value='0'>
+						<input type=hidden name='Type_37'    value='10'>
+						<input type=hidden name='Unit_37'    value='12'>
+						<input type=hidden name='JuYa_37'    value='1'>
+						<input type=hidden name='Stat_37'    value='12'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00310_001320000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>항공운항서비스학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>(6)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>3</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.50 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/flightsv/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_38' value='0'>
+						<input type=hidden name='Cam_38'     value='0'>
+						<input type=hidden name='Type_38'    value='10'>
+						<input type=hidden name='Unit_38'    value='21'>
+						<input type=hidden name='JuYa_38'    value='1'>
+						<input type=hidden name='Stat_38'    value='21'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00310_001330000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>항공운항학과(고정익, 회전익)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>(6)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>2</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.33 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/dfo/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_39' value='0'>
+						<input type=hidden name='Cam_39'     value='0'>
+						<input type=hidden name='Type_39'    value='10'>
+						<input type=hidden name='Unit_39'    value='22'>
+						<input type=hidden name='JuYa_39'    value='1'>
+						<input type=hidden name='Stat_39'    value='22'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00310_001350000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>항공안전관리학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>(2)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.00 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/flightsafemgt/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_40' value='0'>
+						<input type=hidden name='Cam_40'     value='0'>
+						<input type=hidden name='Type_40'    value='10'>
+						<input type=hidden name='Unit_40'    value='24'>
+						<input type=hidden name='JuYa_40'    value='1'>
+						<input type=hidden name='Stat_40'    value='24'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00310_001360000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>해킹보안학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>(2)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.00 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/ins/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_41' value='0'>
+						<input type=hidden name='Cam_41'     value='0'>
+						<input type=hidden name='Type_41'    value='10'>
+						<input type=hidden name='Unit_41'    value='31'>
+						<input type=hidden name='JuYa_41'    value='1'>
+						<input type=hidden name='Stat_41'    value='31'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00310_001370000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>간호학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>(10)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>11</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>1.10 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/nursing/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_42' value='0'>
+						<input type=hidden name='Cam_42'     value='0'>
+						<input type=hidden name='Type_42'    value='10'>
+						<input type=hidden name='Unit_42'    value='41'>
+						<input type=hidden name='JuYa_42'    value='1'>
+						<input type=hidden name='Stat_42'    value='41'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00310_001380000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>방사선학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>(3)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>10</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>3.33 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/radiology/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_43' value='0'>
+						<input type=hidden name='Cam_43'     value='0'>
+						<input type=hidden name='Type_43'    value='10'>
+						<input type=hidden name='Unit_43'    value='42'>
+						<input type=hidden name='JuYa_43'    value='1'>
+						<input type=hidden name='Stat_43'    value='42'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00310_001390000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>임상병리학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>(3)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.00 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/bmls/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_44' value='0'>
+						<input type=hidden name='Cam_44'     value='0'>
+						<input type=hidden name='Type_44'    value='10'>
+						<input type=hidden name='Unit_44'    value='43'>
+						<input type=hidden name='JuYa_44'    value='1'>
+						<input type=hidden name='Stat_44'    value='43'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00310_001400000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>작업치료학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>(3)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.00 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/ot/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_45' value='0'>
+						<input type=hidden name='Cam_45'     value='0'>
+						<input type=hidden name='Type_45'    value='10'>
+						<input type=hidden name='Unit_45'    value='44'>
+						<input type=hidden name='JuYa_45'    value='1'>
+						<input type=hidden name='Stat_45'    value='44'>
+					
+		</tr>
+			<tr align="center"  id='Tr_Sum_00310'>
+			<th colspan="1" class='tfoot'><span id='strSumId_Type_00310'> 소계</span></th><th class='tfoot' colspan='1'>15</th><th class='tfoot' colspan='1'>27</th><th class='tfoot' colspan='1'><font color='#F10000'><b>1.80 : 1</b></font></th><th class='tfoot' colspan='1'></th>
+			</tr>
+			
+		</table>
+	<span id="strEndNotiId_00310"></span><div class="space20"> &nbsp;</div></div>
+<div id="Div_00311" style="display:" class="DivType">
+	<span id="strStartNotiId_00311"></span>
+		<div class="both11">
+			<h3 style="background:url(.//color/bul_color1.png) no-repeat 0 15px;" class="p_left">
+				<span id="strTitleId_00311" class="bul">정원 외 학생부교과 기회균형전형(정원 외) 경쟁률 현황</span>
+			</h3>
+		</div>
+			<table cellpadding='0' cellspacing='0'>
+			<caption class='caphidden'>정원 외 학생부교과 기회균형전형(정원 외)</caption>
+			
+		<thead>
+			<!--tr style='background:url(.//2011/vline.png) no-repeat 0 50%;'-->
+			<tr>
+			<th class="bgnone noline lline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00311_UNITNM">모집단위</span></th><th class="noline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00311_INWON">모집인원</span></th><th class="noline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00311_APPLY">지원인원</span></th><th class="noline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00311_RATIO">경쟁률</span></th><th class="noline rline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00311_ETC3">학과홈페이지</span></th>
+			</tr>
+		</thead>
+			
+        <tr class='trFieldValue' id='Tr_00311_001450000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>글로벌융합학부(경영서비스, 과학기술, K컬처)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>(15)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>1</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.07 : 1</b></font></td> 
+<td  rowspan='2'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/ipsi/sub.do?mncd=1753 target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_46' value='0'>
+						<input type=hidden name='Cam_46'     value='0'>
+						<input type=hidden name='Type_46'    value='11'>
+						<input type=hidden name='Unit_46'    value='10'>
+						<input type=hidden name='JuYa_46'    value='1'>
+						<input type=hidden name='Stat_46'    value='10'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00311_001460000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>사회복지학부(사회복지, 재활상담치료, 안경광학, 상담복지)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>(15)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>3</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.20 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_47' value='0'>
+						<input type=hidden name='Cam_47'     value='0'>
+						<input type=hidden name='Type_47'    value='11'>
+						<input type=hidden name='Unit_47'    value='11'>
+						<input type=hidden name='JuYa_47'    value='1'>
+						<input type=hidden name='Stat_47'    value='11'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00311_001470000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>군사학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>(4)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.00 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/military/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_48' value='0'>
+						<input type=hidden name='Cam_48'     value='0'>
+						<input type=hidden name='Type_48'    value='11'>
+						<input type=hidden name='Unit_48'    value='12'>
+						<input type=hidden name='JuYa_48'    value='1'>
+						<input type=hidden name='Stat_48'    value='12'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00311_001480000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>항공운항서비스학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>(12)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>3</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.25 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/flightsv/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_49' value='0'>
+						<input type=hidden name='Cam_49'     value='0'>
+						<input type=hidden name='Type_49'    value='11'>
+						<input type=hidden name='Unit_49'    value='21'>
+						<input type=hidden name='JuYa_49'    value='1'>
+						<input type=hidden name='Stat_49'    value='21'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00311_001490000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>항공운항학과(고정익, 회전익)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>(12)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>2</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.17 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/dfo/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_50' value='0'>
+						<input type=hidden name='Cam_50'     value='0'>
+						<input type=hidden name='Type_50'    value='11'>
+						<input type=hidden name='Unit_50'    value='22'>
+						<input type=hidden name='JuYa_50'    value='1'>
+						<input type=hidden name='Stat_50'    value='22'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00311_001510000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>항공안전관리학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>(4)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.00 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/flightsafemgt/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_51' value='0'>
+						<input type=hidden name='Cam_51'     value='0'>
+						<input type=hidden name='Type_51'    value='11'>
+						<input type=hidden name='Unit_51'    value='24'>
+						<input type=hidden name='JuYa_51'    value='1'>
+						<input type=hidden name='Stat_51'    value='24'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00311_001520000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>해킹보안학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>(4)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.00 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/ins/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_52' value='0'>
+						<input type=hidden name='Cam_52'     value='0'>
+						<input type=hidden name='Type_52'    value='11'>
+						<input type=hidden name='Unit_52'    value='31'>
+						<input type=hidden name='JuYa_52'    value='1'>
+						<input type=hidden name='Stat_52'    value='31'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00311_001530000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>간호학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>(12)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>13</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>1.08 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/nursing/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_53' value='0'>
+						<input type=hidden name='Cam_53'     value='0'>
+						<input type=hidden name='Type_53'    value='11'>
+						<input type=hidden name='Unit_53'    value='41'>
+						<input type=hidden name='JuYa_53'    value='1'>
+						<input type=hidden name='Stat_53'    value='41'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00311_001540000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>방사선학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>(6)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>7</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>1.17 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/radiology/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_54' value='0'>
+						<input type=hidden name='Cam_54'     value='0'>
+						<input type=hidden name='Type_54'    value='11'>
+						<input type=hidden name='Unit_54'    value='42'>
+						<input type=hidden name='JuYa_54'    value='1'>
+						<input type=hidden name='Stat_54'    value='42'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00311_001550000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>임상병리학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>(6)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>1</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.17 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/bmls/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_55' value='0'>
+						<input type=hidden name='Cam_55'     value='0'>
+						<input type=hidden name='Type_55'    value='11'>
+						<input type=hidden name='Unit_55'    value='43'>
+						<input type=hidden name='JuYa_55'    value='1'>
+						<input type=hidden name='Stat_55'    value='43'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_00311_001560000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>작업치료학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>(6)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>2</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.33 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/ot/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_56' value='0'>
+						<input type=hidden name='Cam_56'     value='0'>
+						<input type=hidden name='Type_56'    value='11'>
+						<input type=hidden name='Unit_56'    value='44'>
+						<input type=hidden name='JuYa_56'    value='1'>
+						<input type=hidden name='Stat_56'    value='44'>
+					
+		</tr>
+			<tr align="center"  id='Tr_Sum_00311'>
+			<th colspan="1" class='tfoot'><span id='strSumId_Type_00311'> 소계</span></th><th class='tfoot' colspan='1'>15</th><th class='tfoot' colspan='1'>32</th><th class='tfoot' colspan='1'><font color='#F10000'><b>2.13 : 1</b></font></th><th class='tfoot' colspan='1'></th>
+			</tr>
+			
+		</table>
+	<span id="strEndNotiId_00311"></span><div class="space20"> &nbsp;</div></div>
+<div id="Div_00406" style="display:" class="DivType">
+	<span id="strStartNotiId_00406"></span>
+		<div class="both11">
+			<h3 style="background:url(.//color/bul_color1.png) no-repeat 0 15px;" class="p_left">
+				<span id="strTitleId_00406" class="bul">정원 내 실적 체육특기우수자 경쟁률 현황</span>
+			</h3>
+		</div>
+			<table cellpadding='0' cellspacing='0'>
+			<caption class='caphidden'>정원 내 실적 체육특기우수자</caption>
+			
+		<thead>
+			<!--tr style='background:url(.//2011/vline.png) no-repeat 0 50%;'-->
+			<tr>
+			<th class="bgnone noline lline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00406_UNITNM">모집단위</span></th><th class="noline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00406_INWON">모집인원</span></th><th class="noline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00406_APPLY">지원인원</span></th><th class="noline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00406_RATIO">경쟁률</span></th><th class="noline rline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_00406_ETC3">학과홈페이지</span></th>
+			</tr>
+		</thead>
+			
+        <tr class='trFieldValue' id='Tr_00406_001110000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>스포츠재활학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>5</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>2</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>0.40 : 1</b></font></td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kdu.ac.kr/sport/main.do target=_blank><img src="http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_57' value='0'>
+						<input type=hidden name='Cam_57'     value='0'>
+						<input type=hidden name='Type_57'    value='06'>
+						<input type=hidden name='Unit_57'    value='53'>
+						<input type=hidden name='JuYa_57'    value='1'>
+						<input type=hidden name='Stat_57'    value='53'>
+					
+		</tr>
+			<tr align="center"  id='Tr_Sum_00406'>
+			<th colspan="1" class='tfoot'><span id='strSumId_Type_00406'> 소계</span></th><th class='tfoot' colspan='1'>5</th><th class='tfoot' colspan='1'>2</th><th class='tfoot' colspan='1'><font color='#F10000'><b>0.40 : 1</b></font></th><th class='tfoot' colspan='1'></th>
+			</tr>
+			
+		</table>
+	<span id="strEndNotiId_00406"></span><div class="space20"> &nbsp;</div></div>				
+				<input type=hidden name="exemode" value="">
+				<input type=hidden name="maxrow" value="58">
+				</form>
+			</div><!-- //table -->
+			</div><!-- //container -->
+		</div><!-- //border -->
+		</div>
+		
+	<div id="footer">
+			<h4><img src=".//foot_logo_1.png" alt="uwayapply" /></h4>
+			<p class="copy">Copyright uwayapply.com All Rights Reserved.</p>
+		</div><!-- //footer -->
+	</div><!-- //wrapper -->
+</body>
+</html>
+<!-- // 모니터링확인용 -->

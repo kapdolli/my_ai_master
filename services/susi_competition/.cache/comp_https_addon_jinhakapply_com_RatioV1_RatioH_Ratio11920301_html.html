@@ -1,0 +1,1385 @@
+
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head id="Head1"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><meta http-equiv="Expires" content="-1" /><meta http-equiv="Pragma" content="no-cache" /><meta http-equiv="Cache-Control" content="No-Cache" /><title>
+	중원대학교 경쟁률 서비스
+</title><link href="/RatioV1/Common/Css/template/jinhakratio_blue_v3.css" rel="stylesheet" type="text/css" />
+	<!-- <script type="text/javascript" src="/ApplyV8/scripts/jquery.js"></script> -->
+	<script type="text/javascript" src="/RatioV1/Common/Script/jquery.js"></script>
+	<script language="javascript" type="text/javascript">
+//IE forEach문 문제
+if (window.NodeList && !NodeList.prototype.forEach) { NodeList.prototype.forEach = Array.prototype.forEach;}
+
+if ( document.addEventListener && navigator.appName!="Microsoft Internet Explorer") {
+	window.captureEvents(Event.ONKEYDOWN); 
+	document.addEventListener("DOMContentLoaded", function(){
+		if(document.getElementById('Logo')){
+			document.getElementById('Logo').innerHTML = '<a href="http://apply.jinhak.com" target="_blank"><img src="/RatioV1/img/blank.gif" width="150" height="23" border="0"></a>';
+		}
+	}, false );
+//IE
+} else if ( document.attachEvent ) {
+	document.attachEvent("onreadystatechange", function(){
+		if ( document.readyState === "complete" ) {
+			if(document.getElementById('Logo')){
+				document.getElementById('Logo').innerHTML = '<a href="http://apply.jinhak.com" target="_blank"><img src="/RatioV1/img/blank.gif" width="150" height="23" border="0"></a>';
+			}
+		}
+	});
+}
+// 나를 호출한 넘이 있다면.. 
+if (document.referrer != "")
+{
+	// 해당 값이 특정한 곳이라면.. 
+	if (document.referrer.toLowerCase().indexOf("uway") != -1)
+	{
+		window.parent.href = 'http://apply.jinhak.com';
+
+	}
+}
+
+// chess :: Link 
+window.onload = function(){
+	if(document.getElementById('TopLink').children.length > 0){
+    	var isV8Link = new RegExp(/(www\.jinhakapply\.com\/frame)[\d]{6}\.(aspx)/);
+		document.querySelectorAll('#TopLink a').forEach(function(link){
+			if(!isV8Link.test(link)){ // V8 링크가 아닐 시 https로 자동 변환.
+			    link.href = link.href.replace('http://', 'https://');
+			}
+		});    	
+	}
+}
+
+</script>
+	<script type="text/javascript">
+<!--
+			function selType_onChange() {
+				var selType = document.getElementById("selType");
+				var value = selType.options[selType.selectedIndex].value;
+				var strSelectRatio = '2';
+
+				if (strSelectRatio == '2' || strSelectRatio == '3') {
+					// 전체일 경우 전부 보임
+					if(value == 0){
+						$('div[id^=SelType]').show()
+					}
+					else{
+						$('div[id^=SelType]').hide()
+						$('#SelType' + value).show();
+						document.getElementById("SelType" + value).scrollIntoView();
+					}
+					
+					return;
+				}
+				else {
+					//HIde Show 처리
+					if (value == 0) {
+						SelType_Change('block');
+					}
+					else {
+						SelType_Change('none');
+						document.getElementById("SelType" + value).style.display = 'block';
+						document.getElementById("SelType" + value).scrollIntoView();
+					}
+				}
+			}
+
+		function SelType_Change(flag) {
+			var arrDiv = document.getElementsByTagName("div");
+			for (var i = 0; i < arrDiv.length; i++) {
+				if (arrDiv[i].id.indexOf("SelType") != -1) {
+					document.getElementById(arrDiv[i].id).style.display = flag;
+				}
+			}
+		}
+
+		//=============================================================
+		// 반응형 경쟁률 스크롤 이벤트 추가
+		//=============================================================
+		window.addEventListener('scroll', function(){
+			var height = window.innerHeight;
+			var scrollPosition = document.documentElement.scrollTop;
+
+			if(scrollPosition > height){
+				$('.quick_menu').show("slow");
+			} else{
+				$('.quick_menu').hide("slow");
+			}
+		});
+
+		function MoveTop(){
+			$('html, body').animate({
+				scrollTop : 0
+			}, 300)
+
+		}
+		//=============================================================
+
+		$(document).ready(function () {
+			/****************************************************************************************
+			 엑셀버튼 추가  
+			****************************************************************************************/
+			$('#btnExcel').click(ExportExcel);
+		});
+
+    /****************************************************************************************
+     엑셀버튼 추가  
+    ****************************************************************************************/
+		function ExportExcel() {
+			// 마우스 오버 이벤트 삭제(IE에서 문제가 될 수 있음)
+			var divData = $('#Ratio1192030').html();
+			divData = divData.replace(/<tr onmouseover=\"this.className='over';\" onmouseout=\"this.className='';\">/gi, "<tr>");
+			divData = divData.replace(/'/g, '"');
+
+			var PostHtml = "<form method='post' action='/RatioV1/Common/Etc/RatioExcel.aspx' style='top:-198501px;' id='tempForm'>";
+			PostHtml += "<input type='hidden' name='ServiceName' value='" + encodeURIComponent('중원대학교') + "' >";
+			PostHtml += "<input type='hidden' name='Data' value='" + encodeURIComponent($('#TopType').html()) + encodeURIComponent(divData) + "' >";
+			PostHtml += "</form>";
+
+			$('#JHService').prepend(PostHtml);
+			$('#tempForm').submit();
+			$("tempForm").remove();
+
+			return false;
+		}
+		-->
+	</script>
+</head>
+
+<body id="JHService">
+	<form method="post" action="./Ratio11920301.aspx?idx=30965&amp;Company=jinhak&amp;Name=Ratio" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUJODE1ODcwMTUwZGQekmBgJtLbjtDHw44W5+2iAO9x5w==" />
+
+<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="EF177C08" />
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdABM7EItUt+GAL4AJPQAgoPIxxGV0aKErUllaWtqgLmJ8ZaG0AO9Rqc3b7Xsgz83EV+vZpz7pHcUsCLij8W/ugo0HdURCvPvFrGlIDCmhstLFf+2GcBAKa67eG/d81AgN4SDQhNa5YtjFo46aVAeX3GT88STNBlwdKXXde5tdEifI1ONBOzM+HmRk+q29TJ2Fp44mAf9fVoFHWhAmw/Ob32Xpay1QLQtzXl0r15i4rcx0FsPK0Tp2K0D0ps3QtZhVgUcz0FU92fxH73VWZHGNR9gfSU0shkPL1myNgDWQ1gvXkFGIhRG7fW5/1YvH0fv2n3XpKWERNCu4WB9jZ5Kd/bP9dOtlCIGTuu2fCZTAqPfVDrCnG1BiQSwiYTeQyTu+kbdv/wPztYBGAsgLttq6LTHx4YQGgqk1Dri+AYJ1kr2RbR+NcJk=" />
+		<!-- bgcolor : #DF3151, #51B79F, #E29F30, #82BD3E, #318CC7 -->
+
+		<div id="RoundT">
+			<div class="header">
+				<h1 class="univ"><img src="http://apply.jinhakapply.com/WebAppForms/Wonseo/LogImg/1192.gif" id="UnivLogo" alt="대학로고" /></h1>
+				<span id="TextType">
+					<p class="tit">
+						<span id="TitleYear">2027학년도</span>&nbsp;
+						<span id="TitleService">수시모집</span>&nbsp;
+						<span id="TitleText">경쟁률</span>
+					</p>
+				</span>
+				
+			</div>
+
+			<div class="cont">
+				
+				<div id="Top" class="notiBox">
+					<div class="notiBox_in">
+						<!-- 이미지 영역 -->
+						<div id="divImgPromotion" class="promotion">
+							<img src="/RatioV1/img/img1192030.png" id="ImgPromotion" />
+						</div>
+						<!-- //이미지 영역 -->
+						<ul id="TopType" class="ul3">※ 원서접수 기간: 2026. 9. 7.(월) ~ 9. 11.(금) 18:00 <br/>
+※ 경쟁률은 매 10분마다 업데이트 됩니다.<br/>
+※ 경쟁률 서비스는 9월 11일(금) 15시까지만 공개하며, 이후는 공개하지 않습니다.<br/>
+※ 최종 확인 결과에 따라 모집단위별 지원인원은 변경될 수 있습니다.</ul>
+						<div id="TopLink" class="notnBtn"></div>
+					</div>
+				</div>
+
+				<div id="RatioSort" class="RateState">
+					<p id="RatioTime" class="time">2026-09-09 오전 9:20 현황</p>
+					<!-- 경쟁률 현황 Select //-->
+					<div class="RateState_in">
+						<select name="selType" id="selType" class="SltBox" onchange="return selType_onChange();">
+	<option value="0">전형 전체</option>
+	<option value="410">학생부교과 (일반전형1)</option>
+	<option value="411">학생부교과 (일반전형2)</option>
+	<option value="412">학생부교과 (지역인재전형1)</option>
+	<option value="413">학생부교과 (지역인재전형2)</option>
+	<option value="414">학생부교과 (기회균형선발)</option>
+	<option value="415">학생부교과 (성인학습자전형)</option>
+	<option value="416">학생부종합 (학생부종합전형)</option>
+	<option value="421">실기중심전형</option>
+	<option value="431">실기위주 (체육우수인재(스포츠산업전공))</option>
+	<option value="432">실기위주 (체육우수인재(축구전공))</option>
+	<option value="433">실기위주 (체육우수인재(골프전공))</option>
+	<option value="434">실기위주 (체육우수인재(스포츠지도전공))</option>
+	<option value="435">실기위주 (체육우수인재(생활체육융합전공))</option>
+	<option value="436">실기위주 (체육우수인재(스포츠과학전공))</option>
+	<option value="451">학생부교과 (농어촌학생)</option>
+	<option value="452">학생부교과 (특성화고교졸업자)</option>
+	<option value="453">학생부교과 (장애인등대상자)</option>
+
+</select>
+					</div>
+					<!--// 군별 경쟁률 현황 Select -->
+				</div>
+
+				<!--// 엑셀 저장범위 -->
+				<div id="Ratio1192030">
+					<!-- 컨텐츠 -->
+					
+					<!--// 컨텐츠 -->
+
+					<!-- 컨텐츠 -->
+					<div>
+	<h2><strong>전체</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio2">
+		<colgroup>
+			<col width="25%" />
+			<col width="25%" />
+			<col width="25%" />
+			<col width="25%" />
+		</colgroup>
+		<tr>
+			<th>구분</th>
+			<th>총모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+			</tr>
+		<tr style="text-align:center;">
+			<td>정원내</td>
+			<td>787</td>
+			<td>647</td>
+			<td style="font-weight:bold;">0.82 : 1</td>
+		</tr>
+		<tr style="text-align:center;">
+			<td>정원외</td>
+			<td>50</td>
+			<td>30</td>
+			<td style="font-weight:bold;">0.60 : 1</td>
+		</tr>
+	</table>
+	</div>
+<div>
+<a name='lik_top'></a>
+	<h2><strong>전형별</strong> 경쟁률 현황</h2>
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio2">
+		<colgroup>
+			<col width="13%" />
+			<col width="" />
+			<col width="15%" />
+			<col width="15%" />
+			<col width="15%" />
+		</colgroup>
+		<tr>
+			<th>구분</th>
+			<th>전형명</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<tr style="text-align:center;">
+			<td style="text-align:center;background-color:#f8f8f8;" rowspan="6">학생부교과</td>
+			<td onclick='document.getElementById("selType").value="410";selType_onChange();'>학생부교과 (일반전형1)</td>
+			<td>391</td>
+			<td>283</td>
+			<td style="font-weight:bold;">0.72 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="411";selType_onChange();'>학생부교과 (일반전형2)</td>
+			<td>126</td>
+			<td>133</td>
+			<td style="font-weight:bold;">1.06 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="412";selType_onChange();'>학생부교과 (지역인재전형1)</td>
+			<td>35</td>
+			<td>38</td>
+			<td style="font-weight:bold;">1.09 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="413";selType_onChange();'>학생부교과 (지역인재전형2)</td>
+			<td>4</td>
+			<td>1</td>
+			<td style="font-weight:bold;">0.25 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="414";selType_onChange();'>학생부교과 (기회균형선발)</td>
+			<td>21</td>
+			<td>3</td>
+			<td style="font-weight:bold;">0.14 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="415";selType_onChange();'>학생부교과 (성인학습자전형)</td>
+			<td>34</td>
+			<td>3</td>
+			<td style="font-weight:bold;">0.09 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td style="text-align:center;background-color:#f8f8f8;" rowspan="1">학생부종합</td>
+			<td onclick='document.getElementById("selType").value="416";selType_onChange();'>학생부종합 (학생부종합전형)</td>
+			<td>50</td>
+			<td>55</td>
+			<td style="font-weight:bold;">1.10 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td style="text-align:center;background-color:#f8f8f8;" rowspan="7">실기/실적</td>
+			<td onclick='document.getElementById("selType").value="421";selType_onChange();'>실기중심전형</td>
+			<td>18</td>
+			<td>20</td>
+			<td style="font-weight:bold;">1.11 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="431";selType_onChange();'>실기위주 (체육우수인재(스포츠산업전공))</td>
+			<td>10</td>
+			<td>3</td>
+			<td style="font-weight:bold;">0.30 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="432";selType_onChange();'>실기위주 (체육우수인재(축구전공))</td>
+			<td>25</td>
+			<td>30</td>
+			<td style="font-weight:bold;">1.20 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="433";selType_onChange();'>실기위주 (체육우수인재(골프전공))</td>
+			<td>25</td>
+			<td>48</td>
+			<td style="font-weight:bold;">1.92 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="434";selType_onChange();'>실기위주 (체육우수인재(스포츠지도전공))</td>
+			<td>25</td>
+			<td>3</td>
+			<td style="font-weight:bold;">0.12 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="435";selType_onChange();'>실기위주 (체육우수인재(생활체육융합전공))</td>
+			<td>15</td>
+			<td>17</td>
+			<td style="font-weight:bold;">1.13 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="436";selType_onChange();'>실기위주 (체육우수인재(스포츠과학전공))</td>
+			<td>8</td>
+			<td>10</td>
+			<td style="font-weight:bold;">1.25 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td style="text-align:center;background-color:#f8f8f8;" rowspan="3">정원외</td>
+			<td onclick='document.getElementById("selType").value="451";selType_onChange();'>학생부교과 (농어촌학생)</td>
+			<td>32</td>
+			<td>25</td>
+			<td style="font-weight:bold;">0.78 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="452";selType_onChange();'>학생부교과 (특성화고교졸업자)</td>
+			<td>12</td>
+			<td>3</td>
+			<td style="font-weight:bold;">0.25 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="453";selType_onChange();'>학생부교과 (장애인등대상자)</td>
+			<td>6</td>
+			<td>2</td>
+			<td style="font-weight:bold;">0.33 : 1</td>
+		</tr>	</table>
+	</div>
+
+					<!--// 컨텐츠 -->
+
+					<!-- 컨텐츠 -->
+						<a name='lik_410'></a><div id="SelType410">
+	<h2><strong>학생부교과 (일반전형1)</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit">
+간호학과&nbsp;<a href='https://jwu-expo.kr/department/nursing' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td rowspan="1">59</td>
+			<td>93</td>
+			<td class="rate4" rowspan = '1'>1.58 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+작업치료학과&nbsp;<a href='https://jwu-expo.kr/department/occupational-therapy' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>30</td>
+			<td>15</td>
+			<td class="rate4">0.50 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+임상병리학과&nbsp;<a href='https://jwu-expo.kr/department/clinical-laboratory' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>30</td>
+			<td>30</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+보건복지학과&nbsp;<a href='https://jwu-expo.kr/department/health-welfare' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>18</td>
+			<td>8</td>
+			<td class="rate4">0.44 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+뷰티메디컬학과&nbsp;<a href='https://jwu-expo.kr/department/beauty-medical' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>6</td>
+			<td>18</td>
+			<td class="rate4">3.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+항공운항학과&nbsp;<a href='https://jwu-expo.kr/department/aviation-operation' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>19</td>
+			<td>14</td>
+			<td class="rate4">0.74 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+글로벌항공서비스학과&nbsp;<a href='https://jwu-expo.kr/department/global-aviation-service' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>15</td>
+			<td>10</td>
+			<td class="rate4">0.67 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+항공정비학과&nbsp;<a href='https://jwu-expo.kr/department/aviation-maintenance' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>25</td>
+			<td>26</td>
+			<td class="rate4">1.04 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+드론봇군사학과&nbsp;<a href='https://jwu-expo.kr/department/drone-military' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>5</td>
+			<td>4</td>
+			<td class="rate4">0.80 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+종교문화학부(종교문화유산학과&nbsp;<a href='https://jwu-expo.kr/department/religious-heritage' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+&nbsp;한국어교육문화학과&nbsp;<a href='https://jwu-expo.kr/department/korean-edu-culture' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+)			</td>
+			<td>15</td>
+			<td>6</td>
+			<td class="rate4">0.40 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+경찰행정학과&nbsp;<a href='https://jwu-expo.kr/department/police-administration' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>13</td>
+			<td>21</td>
+			<td class="rate4">1.62 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+AI드라마제작학과&nbsp;<a href='https://jwu-expo.kr/department/ai-drama-production' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>18</td>
+			<td>4</td>
+			<td class="rate4">0.22 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+AI융합디자인학부(만화애니메이션전공,AI미디어디자인전공)&nbsp;<a href='https://jwu-expo.kr/department/ai-design' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>10</td>
+			<td>3</td>
+			<td class="rate4">0.30 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+자율전공학부&nbsp;<a href='https://jwu-expo.kr/department/free-major' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>38</td>
+			<td>12</td>
+			<td class="rate4">0.32 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+기계공학과&nbsp;<a href='https://jwu-expo.kr/department/mechanical-engineering' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>24</td>
+			<td>5</td>
+			<td class="rate4">0.21 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+바이오융합학과&nbsp;<a href='https://jwu-expo.kr/department/bio-convergence' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>27</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+전기반도체컴퓨터공학과&nbsp;<a href='https://jwu-expo.kr/department/semiconductor-computer' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>22</td>
+			<td>7</td>
+			<td class="rate4">0.32 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+스마트농산림학과&nbsp;<a href='https://jwu-expo.kr/department/smart-agriculture' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>17</td>
+			<td>7</td>
+			<td class="rate4">0.41 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=1>총계</td>
+			<td>391</td>
+			<td>283</td>
+			<td class="rate4">0.72 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_411'></a><div id="SelType411">
+	<h2><strong>학생부교과 (일반전형2)</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit">
+간호학과&nbsp;<a href='https://jwu-expo.kr/department/nursing' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td rowspan="1">30</td>
+			<td>59</td>
+			<td class="rate4" rowspan = '1'>1.97 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+임상병리학과&nbsp;<a href='https://jwu-expo.kr/department/clinical-laboratory' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>5</td>
+			<td>2</td>
+			<td class="rate4">0.40 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+뷰티메디컬학과&nbsp;<a href='https://jwu-expo.kr/department/beauty-medical' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>10</td>
+			<td>10</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+글로벌항공서비스학과&nbsp;<a href='https://jwu-expo.kr/department/global-aviation-service' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>15</td>
+			<td>14</td>
+			<td class="rate4">0.93 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+드론봇군사학과&nbsp;<a href='https://jwu-expo.kr/department/drone-military' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>14</td>
+			<td>7</td>
+			<td class="rate4">0.50 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+경찰행정학과&nbsp;<a href='https://jwu-expo.kr/department/police-administration' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>10</td>
+			<td>1</td>
+			<td class="rate4">0.10 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+자율전공학부&nbsp;<a href='https://jwu-expo.kr/department/free-major' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>5</td>
+			<td>1</td>
+			<td class="rate4">0.20 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+스포츠산업학부(스포츠산업전공&nbsp;<a href='https://jwu-expo.kr/department/sports-industry-major' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+&nbsp;축구전공&nbsp;<a href='https://jwu-expo.kr/department/soccer-major' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+&nbsp;골프전공&nbsp;<a href='https://jwu-expo.kr/department/golf-major' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+)			</td>
+			<td>15</td>
+			<td>14</td>
+			<td class="rate4">0.93 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+스포츠과학부(스포츠지도전공&nbsp;<a href='https://jwu-expo.kr/department/sports-coaching-major' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+&nbsp;생활체육융합전공&nbsp;<a href='https://jwu-expo.kr/department/life-sports-fusion-major' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+&nbsp;스포츠과학전공&nbsp;<a href='https://jwu-expo.kr/department/sports-science-major' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+)			</td>
+			<td>22</td>
+			<td>25</td>
+			<td class="rate4">1.14 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=1>총계</td>
+			<td>126</td>
+			<td>133</td>
+			<td class="rate4">1.06 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_412'></a><div id="SelType412">
+	<h2><strong>학생부교과 (지역인재전형1)</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit">
+간호학과&nbsp;<a href='https://jwu-expo.kr/department/nursing' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td rowspan="1">30</td>
+			<td>37</td>
+			<td class="rate4" rowspan = '1'>1.23 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+보건복지학과&nbsp;<a href='https://jwu-expo.kr/department/health-welfare' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>3</td>
+			<td>1</td>
+			<td class="rate4">0.33 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+항공운항학과&nbsp;<a href='https://jwu-expo.kr/department/aviation-operation' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>2</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=1>총계</td>
+			<td>35</td>
+			<td>38</td>
+			<td class="rate4">1.09 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_413'></a><div id="SelType413">
+	<h2><strong>학생부교과 (지역인재전형2)</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit">
+간호학과&nbsp;<a href='https://jwu-expo.kr/department/nursing' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td rowspan="1">4</td>
+			<td>1</td>
+			<td class="rate4" rowspan = '1'>0.25 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=1>총계</td>
+			<td>4</td>
+			<td>1</td>
+			<td class="rate4">0.25 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_414'></a><div id="SelType414">
+	<h2><strong>학생부교과 (기회균형선발)</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit">
+작업치료학과&nbsp;<a href='https://jwu-expo.kr/department/occupational-therapy' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td rowspan="1">4</td>
+			<td>2</td>
+			<td class="rate4" rowspan = '1'>0.50 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+임상병리학과&nbsp;<a href='https://jwu-expo.kr/department/clinical-laboratory' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>5</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+보건복지학과&nbsp;<a href='https://jwu-expo.kr/department/health-welfare' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>2</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+뷰티메디컬학과&nbsp;<a href='https://jwu-expo.kr/department/beauty-medical' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>2</td>
+			<td>1</td>
+			<td class="rate4">0.50 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+경찰행정학과&nbsp;<a href='https://jwu-expo.kr/department/police-administration' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>3</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+바이오융합학과&nbsp;<a href='https://jwu-expo.kr/department/bio-convergence' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>2</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+전기반도체컴퓨터공학과&nbsp;<a href='https://jwu-expo.kr/department/semiconductor-computer' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>3</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=1>총계</td>
+			<td>21</td>
+			<td>3</td>
+			<td class="rate4">0.14 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_415'></a><div id="SelType415">
+	<h2><strong>학생부교과 (성인학습자전형)</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit">
+New-Start학과&nbsp;<a href='https://jwu-expo.kr/department/new-start' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td rowspan="1">34</td>
+			<td>3</td>
+			<td class="rate4" rowspan = '1'>0.09 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=1>총계</td>
+			<td>34</td>
+			<td>3</td>
+			<td class="rate4">0.09 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_416'></a><div id="SelType416">
+	<h2><strong>학생부종합 (학생부종합전형)</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit">
+간호학과&nbsp;<a href='https://jwu-expo.kr/department/nursing' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td rowspan="1">40</td>
+			<td>55</td>
+			<td class="rate4" rowspan = '1'>1.38 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+임상병리학과&nbsp;<a href='https://jwu-expo.kr/department/clinical-laboratory' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>10</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=1>총계</td>
+			<td>50</td>
+			<td>55</td>
+			<td class="rate4">1.10 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_421'></a><div id="SelType421">
+	<h2><strong>실기중심전형</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit">
+AI융합디자인학부(만화애니메이션전공,AI미디어디자인전공)&nbsp;<a href='https://jwu-expo.kr/department/ai-design' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td rowspan="1">13</td>
+			<td>11</td>
+			<td class="rate4" rowspan = '1'>0.85 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+스포츠과학부(스포츠지도전공&nbsp;<a href='https://jwu-expo.kr/department/sports-coaching-major' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+&nbsp;생활체육융합전공&nbsp;<a href='https://jwu-expo.kr/department/life-sports-fusion-major' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+&nbsp;스포츠과학전공&nbsp;<a href='https://jwu-expo.kr/department/sports-science-major' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+)			</td>
+			<td>5</td>
+			<td>9</td>
+			<td class="rate4">1.80 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=1>총계</td>
+			<td>18</td>
+			<td>20</td>
+			<td class="rate4">1.11 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_431'></a><div id="SelType431">
+	<h2><strong>실기위주 (체육우수인재(스포츠산업전공))</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit">
+스포츠산업학부&nbsp;<a href='https://jwu-expo.kr/department/sports-coaching-major' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td rowspan="1">10</td>
+			<td>3</td>
+			<td class="rate4" rowspan = '1'>0.30 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=1>총계</td>
+			<td>10</td>
+			<td>3</td>
+			<td class="rate4">0.30 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_432'></a><div id="SelType432">
+	<h2><strong>실기위주 (체육우수인재(축구전공))</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit">
+스포츠산업학부&nbsp;<a href='https://jwu-expo.kr/department/life-sports-fusion-major' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td rowspan="1">25</td>
+			<td>30</td>
+			<td class="rate4" rowspan = '1'>1.20 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=1>총계</td>
+			<td>25</td>
+			<td>30</td>
+			<td class="rate4">1.20 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_433'></a><div id="SelType433">
+	<h2><strong>실기위주 (체육우수인재(골프전공))</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit">
+스포츠산업학부&nbsp;<a href='https://jwu-expo.kr/department/sports-science-major' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td rowspan="1">25</td>
+			<td>48</td>
+			<td class="rate4" rowspan = '1'>1.92 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=1>총계</td>
+			<td>25</td>
+			<td>48</td>
+			<td class="rate4">1.92 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_434'></a><div id="SelType434">
+	<h2><strong>실기위주 (체육우수인재(스포츠지도전공))</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit">
+스포츠과학부&nbsp;<a href='https://jwu-expo.kr/department/sports-coaching-major' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td rowspan="1">25</td>
+			<td>3</td>
+			<td class="rate4" rowspan = '1'>0.12 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=1>총계</td>
+			<td>25</td>
+			<td>3</td>
+			<td class="rate4">0.12 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_435'></a><div id="SelType435">
+	<h2><strong>실기위주 (체육우수인재(생활체육융합전공))</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit">
+스포츠과학부&nbsp;<a href='https://jwu-expo.kr/department/life-sports-fusion-major' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td rowspan="1">15</td>
+			<td>17</td>
+			<td class="rate4" rowspan = '1'>1.13 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=1>총계</td>
+			<td>15</td>
+			<td>17</td>
+			<td class="rate4">1.13 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_436'></a><div id="SelType436">
+	<h2><strong>실기위주 (체육우수인재(스포츠과학전공))</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit">
+스포츠과학부&nbsp;<a href='https://jwu-expo.kr/department/sports-science-major' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td rowspan="1">8</td>
+			<td>10</td>
+			<td class="rate4" rowspan = '1'>1.25 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=1>총계</td>
+			<td>8</td>
+			<td>10</td>
+			<td class="rate4">1.25 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_451'></a><div id="SelType451">
+	<h2><strong>[정원외] 학생부교과 (농어촌학생)</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+		</colgroup>
+		<tr>
+			<th>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit">
+간호학과&nbsp;<a href='https://jwu-expo.kr/department/nursing' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td rowspan="1">15 이내</td>
+			<td >18</td>
+		</tr>
+		<tr>
+			<td class="unit">
+작업치료학과&nbsp;<a href='https://jwu-expo.kr/department/occupational-therapy' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>3 이내</td>
+			<td>3</td>
+		</tr>
+		<tr>
+			<td class="unit">
+임상병리학과&nbsp;<a href='https://jwu-expo.kr/department/clinical-laboratory' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>5 이내</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+보건복지학과&nbsp;<a href='https://jwu-expo.kr/department/health-welfare' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>2 이내</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit">
+뷰티메디컬학과&nbsp;<a href='https://jwu-expo.kr/department/beauty-medical' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>2 이내</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit">
+항공운항학과&nbsp;<a href='https://jwu-expo.kr/department/aviation-operation' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>2 이내</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit">
+글로벌항공서비스학과&nbsp;<a href='https://jwu-expo.kr/department/global-aviation-service' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>2 이내</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+종교문화학부(종교문화유산학과&nbsp;<a href='https://jwu-expo.kr/department/religious-heritage' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+&nbsp;한국어교육문화학과&nbsp;<a href='https://jwu-expo.kr/department/korean-edu-culture' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+)			</td>
+			<td>1 이내</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit">
+경찰행정학과&nbsp;<a href='https://jwu-expo.kr/department/police-administration' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>2 이내</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+AI드라마제작학과&nbsp;<a href='https://jwu-expo.kr/department/ai-drama-production' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>2 이내</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit">
+AI융합디자인학부(만화애니메이션전공,AI미디어디자인전공)&nbsp;<a href='https://jwu-expo.kr/department/ai-design' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>2 이내</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit">
+자율전공학부&nbsp;<a href='https://jwu-expo.kr/department/free-major' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>4 이내</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit">
+기계공학과&nbsp;<a href='https://jwu-expo.kr/department/mechanical-engineering' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>2 이내</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+바이오융합학과&nbsp;<a href='https://jwu-expo.kr/department/bio-convergence' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>2 이내</td>
+			<td>0</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=1>총계</td>
+			<td>32</td>
+			<td>25</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_452'></a><div id="SelType452">
+	<h2><strong>[정원외] 학생부교과 (특성화고교졸업자)</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+		</colgroup>
+		<tr>
+			<th>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit">
+작업치료학과&nbsp;<a href='https://jwu-expo.kr/department/occupational-therapy' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td rowspan="1">3 이내</td>
+			<td >2</td>
+		</tr>
+		<tr>
+			<td class="unit">
+종교문화학부(종교문화유산학과&nbsp;<a href='https://jwu-expo.kr/department/religious-heritage' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+&nbsp;한국어교육문화학과&nbsp;<a href='https://jwu-expo.kr/department/korean-edu-culture' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+)			</td>
+			<td>1 이내</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit">
+AI드라마제작학과&nbsp;<a href='https://jwu-expo.kr/department/ai-drama-production' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>2 이내</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit">
+AI융합디자인학부(만화애니메이션전공,AI미디어디자인전공)&nbsp;<a href='https://jwu-expo.kr/department/ai-design' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>1 이내</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit">
+자율전공학부&nbsp;<a href='https://jwu-expo.kr/department/free-major' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>4 이내</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td class="unit">
+바이오융합학과&nbsp;<a href='https://jwu-expo.kr/department/bio-convergence' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>2 이내</td>
+			<td>0</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=1>총계</td>
+			<td>12</td>
+			<td>3</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_453'></a><div id="SelType453">
+	<h2><strong>[정원외] 학생부교과 (장애인등대상자)</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+		</colgroup>
+		<tr>
+			<th>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit">
+작업치료학과&nbsp;<a href='https://jwu-expo.kr/department/occupational-therapy' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td rowspan="1">2 이내</td>
+			<td >0</td>
+		</tr>
+		<tr>
+			<td class="unit">
+뷰티메디컬학과&nbsp;<a href='https://jwu-expo.kr/department/beauty-medical' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>2 이내</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit">
+자율전공학부&nbsp;<a href='https://jwu-expo.kr/department/free-major' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a>
+			</td>
+			<td>2 이내</td>
+			<td>2</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=1>총계</td>
+			<td>6</td>
+			<td>2</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+
+					<!--// 컨텐츠 -->
+				</div>
+
+				<div class="btnR">
+					
+					
+				</div>
+			</div> <!-- cont end -->
+
+			
+
+			<div class="quick_menu" style="display:none;">
+				<a class="btn_top" href="javascript:void(0);MoveTop()">상단으로 이동</a> 
+			</div>
+
+			<div class="footer" id="Logo1">
+				<a href="http://www.jinhakapply.com" target="_blank"><img src="/RatioV1/img/jinhak_logo.gif" border="0"></a>
+			</div>
+	</form>
+</body>
+
+</html>

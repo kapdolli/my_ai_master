@@ -1,0 +1,1271 @@
+
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head id="Head1"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><meta http-equiv="Expires" content="-1" /><meta http-equiv="Pragma" content="no-cache" /><meta http-equiv="Cache-Control" content="No-Cache" /><title>
+	한신대학교 경쟁률 서비스
+</title><link href="/RatioV1/Common/Css/template/jinhakratio_green_v3.css" rel="stylesheet" type="text/css" />
+	<!-- <script type="text/javascript" src="/ApplyV8/scripts/jquery.js"></script> -->
+	<script type="text/javascript" src="/RatioV1/Common/Script/jquery.js"></script>
+	<script language="javascript" type="text/javascript">
+//IE forEach문 문제
+if (window.NodeList && !NodeList.prototype.forEach) { NodeList.prototype.forEach = Array.prototype.forEach;}
+
+if ( document.addEventListener && navigator.appName!="Microsoft Internet Explorer") {
+	window.captureEvents(Event.ONKEYDOWN); 
+	document.addEventListener("DOMContentLoaded", function(){
+		if(document.getElementById('Logo')){
+			document.getElementById('Logo').innerHTML = '<a href="http://apply.jinhak.com" target="_blank"><img src="/RatioV1/img/blank.gif" width="150" height="23" border="0"></a>';
+		}
+	}, false );
+//IE
+} else if ( document.attachEvent ) {
+	document.attachEvent("onreadystatechange", function(){
+		if ( document.readyState === "complete" ) {
+			if(document.getElementById('Logo')){
+				document.getElementById('Logo').innerHTML = '<a href="http://apply.jinhak.com" target="_blank"><img src="/RatioV1/img/blank.gif" width="150" height="23" border="0"></a>';
+			}
+		}
+	});
+}
+// 나를 호출한 넘이 있다면.. 
+if (document.referrer != "")
+{
+	// 해당 값이 특정한 곳이라면.. 
+	if (document.referrer.toLowerCase().indexOf("uway") != -1)
+	{
+		window.parent.href = 'http://apply.jinhak.com';
+
+	}
+}
+
+// chess :: Link 
+window.onload = function(){
+	if(document.getElementById('TopLink').children.length > 0){
+    	var isV8Link = new RegExp(/(www\.jinhakapply\.com\/frame)[\d]{6}\.(aspx)/);
+		document.querySelectorAll('#TopLink a').forEach(function(link){
+			if(!isV8Link.test(link)){ // V8 링크가 아닐 시 https로 자동 변환.
+			    link.href = link.href.replace('http://', 'https://');
+			}
+		});    	
+	}
+}
+
+</script>
+	<script type="text/javascript">
+<!--
+			function selType_onChange() {
+				var selType = document.getElementById("selType");
+				var value = selType.options[selType.selectedIndex].value;
+				var strSelectRatio = '2';
+
+				if (strSelectRatio == '2' || strSelectRatio == '3') {
+					// 전체일 경우 전부 보임
+					if(value == 0){
+						$('div[id^=SelType]').show()
+					}
+					else{
+						$('div[id^=SelType]').hide()
+						$('#SelType' + value).show();
+						document.getElementById("SelType" + value).scrollIntoView();
+					}
+					
+					return;
+				}
+				else {
+					//HIde Show 처리
+					if (value == 0) {
+						SelType_Change('block');
+					}
+					else {
+						SelType_Change('none');
+						document.getElementById("SelType" + value).style.display = 'block';
+						document.getElementById("SelType" + value).scrollIntoView();
+					}
+				}
+			}
+
+		function SelType_Change(flag) {
+			var arrDiv = document.getElementsByTagName("div");
+			for (var i = 0; i < arrDiv.length; i++) {
+				if (arrDiv[i].id.indexOf("SelType") != -1) {
+					document.getElementById(arrDiv[i].id).style.display = flag;
+				}
+			}
+		}
+
+		//=============================================================
+		// 반응형 경쟁률 스크롤 이벤트 추가
+		//=============================================================
+		window.addEventListener('scroll', function(){
+			var height = window.innerHeight;
+			var scrollPosition = document.documentElement.scrollTop;
+
+			if(scrollPosition > height){
+				$('.quick_menu').show("slow");
+			} else{
+				$('.quick_menu').hide("slow");
+			}
+		});
+
+		function MoveTop(){
+			$('html, body').animate({
+				scrollTop : 0
+			}, 300)
+
+		}
+		//=============================================================
+
+		$(document).ready(function () {
+			/****************************************************************************************
+			 엑셀버튼 추가  
+			****************************************************************************************/
+			$('#btnExcel').click(ExportExcel);
+		});
+
+    /****************************************************************************************
+     엑셀버튼 추가  
+    ****************************************************************************************/
+		function ExportExcel() {
+			// 마우스 오버 이벤트 삭제(IE에서 문제가 될 수 있음)
+			var divData = $('#Ratio1163045').html();
+			divData = divData.replace(/<tr onmouseover=\"this.className='over';\" onmouseout=\"this.className='';\">/gi, "<tr>");
+			divData = divData.replace(/'/g, '"');
+
+			var PostHtml = "<form method='post' action='/RatioV1/Common/Etc/RatioExcel.aspx' style='top:-198501px;' id='tempForm'>";
+			PostHtml += "<input type='hidden' name='ServiceName' value='" + encodeURIComponent('한신대학교') + "' >";
+			PostHtml += "<input type='hidden' name='Data' value='" + encodeURIComponent($('#TopType').html()) + encodeURIComponent(divData) + "' >";
+			PostHtml += "</form>";
+
+			$('#JHService').prepend(PostHtml);
+			$('#tempForm').submit();
+			$("tempForm").remove();
+
+			return false;
+		}
+		-->
+	</script>
+</head>
+
+<body id="JHService">
+	<form method="post" action="./Ratio11630451.aspx?idx=31995&amp;Company=jinhak&amp;Name=Ratio" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwULLTE0NjIwMDMwODRkZH4drGqUX4/ZUtGlxeoZlgFOsg6x" />
+
+<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="DEBF6FE7" />
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAAxbfAknhuv4PLJuKyFWAS4GxGV0aKErUllaWtqgLmJ8Zahlklm1wLkEaaJidHvgKO6I8HOL5VqP2QmRxGbS71iAer07j1ADhxy1ugXgre2TZbswCt4bqeWmGIruyypljSDO2E4lhPfzIoow0+azIG7zzRCeOA5LHE40oc7KSz9gG3QcCrgoQbRMZ+c+SwDST4ehtADvUanN2+17IM/NxFfr2ac+6R3FLAi4o/Fv7oKNB3VEQrz7xaxpSAwpobLSxX+75ITKyN9dsR5939act/A6D1jNWA==" />
+		<!-- bgcolor : #DF3151, #51B79F, #E29F30, #82BD3E, #318CC7 -->
+
+		<div id="RoundT">
+			<div class="header">
+				<h1 class="univ"><img src="http://apply.jinhakapply.com/WebAppForms/Wonseo/LogImg/1163.gif" id="UnivLogo" alt="대학로고" /></h1>
+				<span id="TextType">
+					<p class="tit">
+						<span id="TitleYear">2027학년도</span>&nbsp;
+						<span id="TitleService">수시모집</span>&nbsp;
+						<span id="TitleText">경쟁률</span>
+					</p>
+				</span>
+				
+			</div>
+
+			<div class="cont">
+				
+				<div id="Top" class="notiBox">
+					<div class="notiBox_in">
+						<ul id="TopType" class="ul3"><strong><span style="color : red">※ 원서접수 마감 : 9/11(금) 18:00</span></strong><br>
+※ 경쟁률은 10분 단위로 실시간 업데이트됩니다.<br>※ 경쟁률 공개 마감시간 : 9/11(금) 12:00<br>
+※ 원서접수 최종 현황은 집계 및 확인 후 공지됩니다.<br>
+<strong><sapn style="color:#0089ea;">※ 장학금 안내 : [신학전공] 신학생전액장학금(목사후보생)</span><br>
+<span style="color : red">※ 자유전공학부 : 모든 전공 100% 선택 가능<br>
+ ※ 전형 간 복수지원 가능(지원 횟수 제한 없음)</span></strong></ul>
+						<!-- 이미지 영역 -->
+						
+						<!-- //이미지 영역 -->
+						
+						<div id="TopLink" class="notnBtn" style="place-self: flex-end; flex: auto;text-align:left;"><a class="st1" href="http://apply.jinhakapply.com/Notice/1163045/A" target="_blank">원서접수 바로가기</a>
+</div>
+					</div>
+				</div>
+
+				<div id="RatioSort" class="RateState">
+					<p id="RatioTime" class="time">2026-09-09 오전 9:20 현황</p>
+					<!-- 경쟁률 현황 Select //-->
+					<div class="RateState_in">
+						<select name="selType" id="selType" class="SltBox" onchange="return selType_onChange();">
+	<option value="0">전형 전체</option>
+	<option value="427"> 논술</option>
+	<option value="406"> 참인재</option>
+	<option value="401"> 학생부우수자</option>
+	<option value="428"> 학교장추천</option>
+	<option value="405"> 사회배려자</option>
+	<option value="426"> 고른기회</option>
+	<option value="419"> 체육실기</option>
+	<option value="410"> 기회균형선발</option>
+	<option value="411"> 농어촌학생</option>
+	<option value="412"> 특성화고교졸업자</option>
+
+</select>
+					</div>
+					<!--// 군별 경쟁률 현황 Select -->
+				</div>
+
+				<!--// 엑셀 저장범위 -->
+				<div id="Ratio1163045">
+					<!-- 컨텐츠 -->
+					
+					<!--// 컨텐츠 -->
+
+					<!-- 컨텐츠 -->
+					<div>
+<a name='lik_top'></a>
+	<h2><strong>전형별</strong> 경쟁률 현황</h2>
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio2">
+		<colgroup>
+			<col width="" />
+			<col width="20%" />
+			<col width="20%" />
+			<col width="20%" />
+		</colgroup>
+		<tr>
+			<th>전형명</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="427";selType_onChange();'> 논술</td>
+			<td>231</td>
+			<td>148</td>
+			<td style="font-weight:bold;">0.64 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="406";selType_onChange();'> 참인재</td>
+			<td>315</td>
+			<td>536</td>
+			<td style="font-weight:bold;">1.70 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="401";selType_onChange();'> 학생부우수자 <span style="color:red;">(계열모집)</span></td>
+			<td>324</td>
+			<td>364</td>
+			<td style="font-weight:bold;">1.12 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="428";selType_onChange();'> 학교장추천 <span style="color:red;">(계열모집)</span></td>
+			<td>55</td>
+			<td>21</td>
+			<td style="font-weight:bold;">0.38 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="405";selType_onChange();'> 사회배려자 <span style="color:red;">(계열모집)</span></td>
+			<td>63</td>
+			<td>67</td>
+			<td style="font-weight:bold;">1.06 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="426";selType_onChange();'> 고른기회 <span style="color:red;">(계열모집)</span></td>
+			<td>63</td>
+			<td>46</td>
+			<td style="font-weight:bold;">0.73 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="419";selType_onChange();'> 체육실기</td>
+			<td>22</td>
+			<td>7</td>
+			<td style="font-weight:bold;">0.32 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="410";selType_onChange();'> 기회균형선발</td>
+			<td>26</td>
+			<td>51</td>
+			<td style="font-weight:bold;">1.96 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="411";selType_onChange();'> 농어촌학생</td>
+			<td>20</td>
+			<td>53</td>
+			<td style="font-weight:bold;">2.65 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="412";selType_onChange();'> 특성화고교졸업자</td>
+			<td>17</td>
+			<td>58</td>
+			<td style="font-weight:bold;">3.41 : 1</td>
+		</tr>		<!-- 총계 //-->
+		<tr class="total">
+			<td>총계</td>
+			<td>1,136</td>
+			<td>1,351</td>
+			<td class="rate4">1.19 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+
+					<!--// 컨텐츠 -->
+
+					<!-- 컨텐츠 -->
+						<a name='lik_427'></a><div id="SelType427">
+	<h2><strong> 논술</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th>계열</th>
+			<th>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit" rowspan="19">인문</td>
+			<td class="unit">자유전공학부</td>
+			<td>30</td>
+			<td>28</td>
+			<td class="rate4">0.93 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">한국어문학</td>
+			<td>6</td>
+			<td>1</td>
+			<td class="rate4">0.17 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">철학</td>
+			<td>5</td>
+			<td>3</td>
+			<td class="rate4">0.60 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">한국사학</td>
+			<td>6</td>
+			<td>5</td>
+			<td class="rate4">0.83 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">문예창작학</td>
+			<td>6</td>
+			<td>3</td>
+			<td class="rate4">0.50 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">독일어문화학</td>
+			<td>6</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">영미문화학</td>
+			<td>6</td>
+			<td>4</td>
+			<td class="rate4">0.67 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">중국어문화콘텐츠학</td>
+			<td>6</td>
+			<td>3</td>
+			<td class="rate4">0.50 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">일본학</td>
+			<td>6</td>
+			<td>2</td>
+			<td class="rate4">0.33 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">동아시아통상학</td>
+			<td>8</td>
+			<td>4</td>
+			<td class="rate4">0.50 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">경제금융학</td>
+			<td>12</td>
+			<td>3</td>
+			<td class="rate4">0.25 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">국제관계학</td>
+			<td>7</td>
+			<td>2</td>
+			<td class="rate4">0.29 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">공공인재빅데이터융합학</td>
+			<td>7</td>
+			<td>3</td>
+			<td class="rate4">0.43 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">경영학</td>
+			<td>10</td>
+			<td>9</td>
+			<td class="rate4">0.90 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">미디어영상광고홍보학</td>
+			<td>8</td>
+			<td>12</td>
+			<td class="rate4">1.50 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">사회학</td>
+			<td>6</td>
+			<td>1</td>
+			<td class="rate4">0.17 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">사회복지학</td>
+			<td>5</td>
+			<td>8</td>
+			<td class="rate4">1.60 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">재활상담학</td>
+			<td>5</td>
+			<td>2</td>
+			<td class="rate4">0.40 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">심리·아동학</td>
+			<td>6</td>
+			<td>5</td>
+			<td class="rate4">0.83 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="4">자연</td>
+			<td class="unit">금융공학</td>
+			<td>10</td>
+			<td>3</td>
+			<td class="rate4">0.30 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">빅데이터융합학</td>
+			<td>10</td>
+			<td>2</td>
+			<td class="rate4">0.20 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">AI·SW학<br/>(소프트웨어/인공지능/데이터사이언스/XR콘텐츠/지능형IoT)</td>
+			<td>50</td>
+			<td>37</td>
+			<td class="rate4">0.74 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">AI시스템반도체학</td>
+			<td>10</td>
+			<td>8</td>
+			<td class="rate4">0.80 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=2>총계</td>
+			<td>231</td>
+			<td>148</td>
+			<td class="rate4">0.64 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_406'></a><div id="SelType406">
+	<h2><strong> 참인재</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th>계열</th>
+			<th>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit" rowspan="1">자유전공학부</td>
+			<td class="unit">자유전공학부</td>
+			<td>35</td>
+			<td>59</td>
+			<td class="rate4">1.69 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="6">신학·인문융합계열</td>
+			<td class="unit">신학</td>
+			<td>14</td>
+			<td>6</td>
+			<td class="rate4">0.43 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">미디어융합기독교교육</td>
+			<td>8</td>
+			<td>7</td>
+			<td class="rate4">0.88 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">한국어문학</td>
+			<td>7</td>
+			<td>14</td>
+			<td class="rate4">2.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">철학</td>
+			<td>7</td>
+			<td>11</td>
+			<td class="rate4">1.57 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">한국사학</td>
+			<td>10</td>
+			<td>15</td>
+			<td class="rate4">1.50 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">문예창작학</td>
+			<td>10</td>
+			<td>44</td>
+			<td class="rate4">4.40 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="5">문화콘텐츠계열</td>
+			<td class="unit">독일어문화학</td>
+			<td>6</td>
+			<td>9</td>
+			<td class="rate4">1.50 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">영미문화학</td>
+			<td>10</td>
+			<td>14</td>
+			<td class="rate4">1.40 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">중국어문화콘텐츠학</td>
+			<td>9</td>
+			<td>21</td>
+			<td class="rate4">2.33 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">디지털영상문화콘텐츠학</td>
+			<td>8</td>
+			<td>28</td>
+			<td class="rate4">3.50 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">일본학</td>
+			<td>8</td>
+			<td>35</td>
+			<td class="rate4">4.38 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="4">글로벌융합계열</td>
+			<td class="unit">동아시아통상학</td>
+			<td>7</td>
+			<td>7</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">경제금융학</td>
+			<td>14</td>
+			<td>17</td>
+			<td class="rate4">1.21 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">국제관계학</td>
+			<td>9</td>
+			<td>6</td>
+			<td class="rate4">0.67 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">공공인재빅데이터융합학</td>
+			<td>9</td>
+			<td>6</td>
+			<td class="rate4">0.67 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">경영계열</td>
+			<td class="unit">경영학</td>
+			<td>18</td>
+			<td>27</td>
+			<td class="rate4">1.50 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">미디어계열</td>
+			<td class="unit">미디어영상광고홍보학</td>
+			<td>14</td>
+			<td>36</td>
+			<td class="rate4">2.57 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="4">휴먼서비스계열</td>
+			<td class="unit">사회학</td>
+			<td>7</td>
+			<td>9</td>
+			<td class="rate4">1.29 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">사회복지학</td>
+			<td>8</td>
+			<td>48</td>
+			<td class="rate4">6.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">재활상담학</td>
+			<td>8</td>
+			<td>14</td>
+			<td class="rate4">1.75 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">심리·아동학</td>
+			<td>10</td>
+			<td>30</td>
+			<td class="rate4">3.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="2">첨단융합계열</td>
+			<td class="unit">금융공학</td>
+			<td>6</td>
+			<td>3</td>
+			<td class="rate4">0.50 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">빅데이터융합학</td>
+			<td>6</td>
+			<td>14</td>
+			<td class="rate4">2.33 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">AI·SW계열</td>
+			<td class="unit">AI·SW학<br/>(소프트웨어/인공지능/데이터사이언스/XR콘텐츠/지능형IoT)</td>
+			<td>60</td>
+			<td>46</td>
+			<td class="rate4">0.77 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">AI시스템반도체학</td>
+			<td class="unit">AI시스템반도체학</td>
+			<td>7</td>
+			<td>10</td>
+			<td class="rate4">1.43 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=2>총계</td>
+			<td>315</td>
+			<td>536</td>
+			<td class="rate4">1.70 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_401'></a><div id="SelType401">
+	<h2><strong> 학생부우수자</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th>모집단위</th>
+			<th>전공</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit" rowspan="1">자유전공학부</td>
+			<td class="unit">자유전공학부</td>
+			<td>35</td>
+			<td>24</td>
+			<td class="rate4">0.69 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">신학·인문융합계열</td>
+			<td class="unit">신학<br>미디어융합기독교교육<br>한국어문학<br>철학<br>한국사학<br>문예창작학</td>
+			<td>40</td>
+			<td>55</td>
+			<td class="rate4">1.38 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">문화콘텐츠계열</td>
+			<td class="unit">독일어문화학<br>영미문화학<br>중국어문화콘텐츠학<br>디지털영상문화콘텐츠학<br>일본학</td>
+			<td>39</td>
+			<td>43</td>
+			<td class="rate4">1.10 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">글로벌융합계열</td>
+			<td class="unit">동아시아통상학<br>경제금융학<br>국제관계학<br>공공인재빅데이터융합학</td>
+			<td>38</td>
+			<td>26</td>
+			<td class="rate4">0.68 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">경영계열</td>
+			<td class="unit">경영학</td>
+			<td>27</td>
+			<td>54</td>
+			<td class="rate4">2.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">미디어계열</td>
+			<td class="unit">미디어영상광고홍보학</td>
+			<td>21</td>
+			<td>35</td>
+			<td class="rate4">1.67 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">휴먼서비스계열</td>
+			<td class="unit">사회학<br>사회복지학<br>재활상담학<br>심리·아동학</td>
+			<td>42</td>
+			<td>28</td>
+			<td class="rate4">0.67 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">첨단융합계열</td>
+			<td class="unit">금융공학<br>빅데이터융합학</td>
+			<td>22</td>
+			<td>8</td>
+			<td class="rate4">0.36 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">AI·SW계열</td>
+			<td class="unit">AI·SW학<br>(소프트웨어/인공지능/데이터사이언스/XR콘텐츠/지능형IoT)</td>
+			<td>50</td>
+			<td>63</td>
+			<td class="rate4">1.26 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">AI시스템반도체학</td>
+			<td class="unit">AI시스템반도체학</td>
+			<td>10</td>
+			<td>28</td>
+			<td class="rate4">2.80 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=2>총계</td>
+			<td>324</td>
+			<td>364</td>
+			<td class="rate4">1.12 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_428'></a><div id="SelType428">
+	<h2><strong> 학교장추천</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th>모집단위</th>
+			<th>전공</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit" rowspan="1">신학·인문융합계열</td>
+			<td class="unit">신학<br>미디어융합기독교교육<br>한국어문학<br>철학<br>한국사학<br>문예창작학</td>
+			<td>10</td>
+			<td>7</td>
+			<td class="rate4">0.70 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">문화콘텐츠계열</td>
+			<td class="unit">독일어문화학<br>영미문화학<br>중국어문화콘텐츠학<br>디지털영상문화콘텐츠학<br>일본학</td>
+			<td>8</td>
+			<td>1</td>
+			<td class="rate4">0.13 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">글로벌융합계열</td>
+			<td class="unit">동아시아통상학<br>경제금융학<br>국제관계학<br>공공인재빅데이터융합학</td>
+			<td>8</td>
+			<td>3</td>
+			<td class="rate4">0.38 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">경영계열</td>
+			<td class="unit">경영학</td>
+			<td>4</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">미디어계열</td>
+			<td class="unit">미디어영상광고홍보학</td>
+			<td>4</td>
+			<td>3</td>
+			<td class="rate4">0.75 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">휴먼서비스계열</td>
+			<td class="unit">사회학<br>사회복지학<br>재활상담학<br>심리·아동학</td>
+			<td>6</td>
+			<td>2</td>
+			<td class="rate4">0.33 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">첨단융합계열</td>
+			<td class="unit">금융공학<br>빅데이터융합학</td>
+			<td>5</td>
+			<td>1</td>
+			<td class="rate4">0.20 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">AI·SW계열</td>
+			<td class="unit">AI·SW학<br>(소프트웨어/인공지능/데이터사이언스/XR콘텐츠/지능형IoT)</td>
+			<td>10</td>
+			<td>4</td>
+			<td class="rate4">0.40 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=2>총계</td>
+			<td>55</td>
+			<td>21</td>
+			<td class="rate4">0.38 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_405'></a><div id="SelType405">
+	<h2><strong> 사회배려자</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th>모집단위</th>
+			<th>전공</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit" rowspan="1">신학·인문융합계열</td>
+			<td class="unit">신학<br>미디어융합기독교교육<br>한국어문학<br>철학<br>한국사학<br>문예창작학</td>
+			<td>10</td>
+			<td>11</td>
+			<td class="rate4">1.10 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">문화콘텐츠계열</td>
+			<td class="unit">독일어문화학<br>영미문화학<br>중국어문화콘텐츠학<br>디지털영상문화콘텐츠학<br>일본학</td>
+			<td>10</td>
+			<td>15</td>
+			<td class="rate4">1.50 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">글로벌융합계열</td>
+			<td class="unit">동아시아통상학<br>경제금융학<br>국제관계학<br>공공인재빅데이터융합학</td>
+			<td>8</td>
+			<td>6</td>
+			<td class="rate4">0.75 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">경영계열</td>
+			<td class="unit">경영학</td>
+			<td>5</td>
+			<td>3</td>
+			<td class="rate4">0.60 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">미디어계열</td>
+			<td class="unit">미디어영상광고홍보학</td>
+			<td>5</td>
+			<td>6</td>
+			<td class="rate4">1.20 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">휴먼서비스계열</td>
+			<td class="unit">사회학<br>사회복지학<br>재활상담학<br>심리·아동학</td>
+			<td>7</td>
+			<td>11</td>
+			<td class="rate4">1.57 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">첨단융합계열</td>
+			<td class="unit">금융공학<br>빅데이터융합학</td>
+			<td>8</td>
+			<td>4</td>
+			<td class="rate4">0.50 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">AI·SW계열</td>
+			<td class="unit">AI·SW학<br>(소프트웨어/인공지능/데이터사이언스/XR콘텐츠/지능형IoT)</td>
+			<td>10</td>
+			<td>11</td>
+			<td class="rate4">1.10 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=2>총계</td>
+			<td>63</td>
+			<td>67</td>
+			<td class="rate4">1.06 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_426'></a><div id="SelType426">
+	<h2><strong> 고른기회</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th>모집단위</th>
+			<th>전공</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit" rowspan="1">신학·인문융합계열</td>
+			<td class="unit">신학<br>미디어융합기독교교육<br>한국어문학<br>철학<br>한국사학<br>문예창작학</td>
+			<td>12</td>
+			<td>12</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">문화콘텐츠계열</td>
+			<td class="unit">독일어문화학<br>영미문화학<br>중국어문화콘텐츠학<br>디지털영상문화콘텐츠학<br>일본학</td>
+			<td>8</td>
+			<td>10</td>
+			<td class="rate4">1.25 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">글로벌융합계열</td>
+			<td class="unit">동아시아통상학<br>경제금융학<br>국제관계학<br>공공인재빅데이터융합학</td>
+			<td>12</td>
+			<td>3</td>
+			<td class="rate4">0.25 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">경영계열</td>
+			<td class="unit">경영학</td>
+			<td>3</td>
+			<td>10</td>
+			<td class="rate4">3.33 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">미디어계열</td>
+			<td class="unit">미디어영상광고홍보학</td>
+			<td>3</td>
+			<td>2</td>
+			<td class="rate4">0.67 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">휴먼서비스계열</td>
+			<td class="unit">사회학<br>사회복지학<br>재활상담학<br>심리·아동학</td>
+			<td>5</td>
+			<td>5</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">첨단융합계열</td>
+			<td class="unit">금융공학<br>빅데이터융합학</td>
+			<td>5</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">AI·SW계열</td>
+			<td class="unit">AI·SW학<br>(소프트웨어/인공지능/데이터사이언스/XR콘텐츠/지능형IoT)</td>
+			<td>15</td>
+			<td>4</td>
+			<td class="rate4">0.27 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=2>총계</td>
+			<td>63</td>
+			<td>46</td>
+			<td class="rate4">0.73 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_419'></a><div id="SelType419">
+	<h2><strong> 체육실기</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th>계열</th>
+			<th>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit" rowspan="1">특수체육학</td>
+			<td class="unit">특수체육학</td>
+			<td>22</td>
+			<td>7</td>
+			<td class="rate4">0.32 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=2>총계</td>
+			<td>22</td>
+			<td>7</td>
+			<td class="rate4">0.32 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_410'></a><div id="SelType410">
+	<h2><strong> 기회균형선발</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th>계열</th>
+			<th>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit" rowspan="1">문화콘텐츠계열</td>
+			<td class="unit">디지털영상문화콘텐츠학</td>
+			<td>3</td>
+			<td>5</td>
+			<td class="rate4">1.67 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">경영계열</td>
+			<td class="unit">경영학</td>
+			<td>3</td>
+			<td>5</td>
+			<td class="rate4">1.67 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">미디어계열</td>
+			<td class="unit">미디어영상광고홍보학</td>
+			<td>4</td>
+			<td>4</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="3">휴먼서비스계열</td>
+			<td class="unit">사회복지학</td>
+			<td>4</td>
+			<td>12</td>
+			<td class="rate4">3.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">재활상담학</td>
+			<td>2</td>
+			<td>6</td>
+			<td class="rate4">3.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">심리·아동학</td>
+			<td>3</td>
+			<td>11</td>
+			<td class="rate4">3.67 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">AI·SW계열</td>
+			<td class="unit">AI·SW학<br/>(소프트웨어/인공지능/데이터사이언스/XR콘텐츠/지능형IoT)</td>
+			<td>7</td>
+			<td>8</td>
+			<td class="rate4">1.14 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=2>총계</td>
+			<td>26</td>
+			<td>51</td>
+			<td class="rate4">1.96 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_411'></a><div id="SelType411">
+	<h2><strong> 농어촌학생</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th>계열</th>
+			<th>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit" rowspan="1">문화콘텐츠계열</td>
+			<td class="unit">디지털영상문화콘텐츠학</td>
+			<td>1</td>
+			<td>3</td>
+			<td class="rate4">3.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">경영계열</td>
+			<td class="unit">경영학</td>
+			<td>3</td>
+			<td>6</td>
+			<td class="rate4">2.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">미디어계열</td>
+			<td class="unit">미디어영상광고홍보학</td>
+			<td>4</td>
+			<td>10</td>
+			<td class="rate4">2.50 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="2">휴먼서비스계열</td>
+			<td class="unit">사회복지학</td>
+			<td>3</td>
+			<td>14</td>
+			<td class="rate4">4.67 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">심리·아동학</td>
+			<td>3</td>
+			<td>1</td>
+			<td class="rate4">0.33 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">AI·SW계열</td>
+			<td class="unit">AI·SW학<br/>(소프트웨어/인공지능/데이터사이언스/XR콘텐츠/지능형IoT)</td>
+			<td>6</td>
+			<td>19</td>
+			<td class="rate4">3.17 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=2>총계</td>
+			<td>20</td>
+			<td>53</td>
+			<td class="rate4">2.65 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_412'></a><div id="SelType412">
+	<h2><strong> 특성화고교졸업자</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th>계열</th>
+			<th>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit" rowspan="1">문화콘텐츠계열</td>
+			<td class="unit">디지털영상문화콘텐츠학</td>
+			<td>2</td>
+			<td>13</td>
+			<td class="rate4">6.50 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">경영계열</td>
+			<td class="unit">경영학</td>
+			<td>4</td>
+			<td>9</td>
+			<td class="rate4">2.25 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">미디어계열</td>
+			<td class="unit">미디어영상광고홍보학</td>
+			<td>4</td>
+			<td>18</td>
+			<td class="rate4">4.50 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">AI·SW계열</td>
+			<td class="unit">AI·SW학<br/>(소프트웨어/인공지능/데이터사이언스/XR콘텐츠/지능형IoT)</td>
+			<td>7</td>
+			<td>18</td>
+			<td class="rate4">2.57 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=2>총계</td>
+			<td>17</td>
+			<td>58</td>
+			<td class="rate4">3.41 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+
+					<!--// 컨텐츠 -->
+				</div>
+
+				<div class="btnR">
+					
+					
+				</div>
+			</div> <!-- cont end -->
+
+			
+
+			<div class="quick_menu" style="display:none;">
+				<a class="btn_top" href="javascript:void(0);MoveTop()">상단으로 이동</a> 
+			</div>
+
+			<div class="footer" id="Logo1">
+				<a href="http://www.jinhakapply.com" target="_blank"><img src="/RatioV1/img/jinhak_logo.gif" border="0"></a>
+				
+			</div>
+	</form>
+</body>
+
+</html>

@@ -1,0 +1,182 @@
+					<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>한국과학기술원(KAIST) 경/쟁/률/서/비/스</title>
+		<script language="javascript" type="text/javascript" src="/ratioadmin/Image/js/img_url_new.js"></script>
+		<link href=".//css/2017/ratio_1.css" rel="stylesheet" type="text/css">
+		
+		<script language="javascript" type="text/javascript" src=".//js/jquery.min.js"></script>
+		
+		<script language="javascript" type="text/javascript" src=".//js/htm_control.js"></script>
+<script>
+	$(function(){
+		if(!location.href.match(/(v=pc)/)){
+			$('head').append('<meta name=\'viewport\' content=\'user-scalable=no, width=device-width\' />');if(navigator.userAgent.match(/(iPhone|Android|Opera Mini|SymblanOS|Windows CE|BlackBerry|Nokia|SonyEricsson|web OS|Palm)/) ){	$('body').after('<div style=\'text-align: center;\'><a style=\'color:#5b595b;\' href='+location.href+'?&v=pc><img src=\'.//btn_pcView.gif\' alt=\'PC버전으로보기\'></a></div>');	$('#ul_gobtn').hide(); }
+		}
+		
+		if( !$('fieldset').is('.finalwrap') ){
+			$("#header").attr("style",'height:75px;');
+			$("#container").attr("style",'padding-top:50px;');
+		}
+		// https 일때 comment 랑 univImage 대응
+		const host = location.href.split(":")[0];
+		if( host.match(/(https)/) ){
+			if( $('#ratio_comment').length ){
+				const s = document.createElement("script");
+				s.type = "text/javascript";
+				s.src = $('#ratio_comment').attr("src").replace('http','https');
+				$("body").append(s);
+			}
+			if( $('#univImage_dev').length ){
+				const s = document.createElement("script");
+				s.type = "text/javascript";
+				s.src = $('#univImage_dev').attr("src").replace('http','https');
+				$("body").append(s);
+			}
+		}
+	});
+	$(window).scroll(function() {
+		if($(window).scrollTop()>10) {
+			$("#header").addClass("fixed");
+		} else {
+			$("#header").removeClass("fixed");
+		}
+	});
+</script>
+</head>
+<body>		<center>
+			<span id="TopCon" style="position:fixed;top:0;left:0;width:100%;z-index:100;text-align:center;color:#cf1015;font:bold 16px 'malgun gothic';padding-top:28px;letter-spaicng:-5px"></span>
+		</center>
+<div id="compb">
+	<div id="wrapper">
+		<div id="white">
+		<div id="border">
+			<div id="header">
+				<h1><img id=UivImg src=".//univ_2017/0093.gif?2026090818" alt='한국과학기술원(KAIST)'></h1>
+				<h2><span class="stext">2027학년도</span><br /><span class="btextr">수시모집 </span><span class="btextb">경쟁률</span></h2>
+						<fieldset class="finalwrap">
+			<!--원서접수바로가기버튼시작-->
+			<ul id="ul_gobtn" class="btn">
+				<li style='background:#da3b40 url(.//btn_bg.png) no-repeat right center;'><a href='http://ipsi2.uwayapply.com/2027/susi1/kaist/?CHA=1' target=_new_apply id='id_gouway' title='원서접수 바로가기(새 창 열림)'><b>원서접수</b> 바로가기</a></li>
+				
+				
+				
+			</ul>
+			<!--원서접수바로가기버튼끝-->
+			
+			<!--전형바로가기시작-->
+			<form name="search">
+				<span id='ID_DateStr'><label for='final'>2026년 09월 08일 18시 00분 기준&nbsp;</label></span>
+				
+			</form>
+			<!--전형바로가기시작-->
+		</fieldset>
+ 
+			</div><!-- //header -->
+			<div id="container">
+				<div class="contentsTop">
+								
+			<dl class="info" id="Ratio_Comment" style="margin:38px 0 10px 0;">
+				□ 경쟁률은 매일 18시에 업데이트됩니다.<br />□ 경쟁률 서비스는 9월 9일 오후 18시까지 제공합니다.<br />□ 접수마감 : 2026년 09월 09일(수) 18:00까지.
+			</dl>
+			<script type='text/javascript' src='//ratio.uwayapply.com/2027/susi1/kaist/1/ratio_comment.js?20260908180007' id='ratio_comment'></script>
+					
+				</div><!-- //contentsTop -->
+				<div id="table">
+		<div class="both11">
+		<h3 style="background:url(.//color/bul_color1.png) no-repeat 0 15px;" class="p_left">
+			<span id="strTitleId_TotalStat" class="bul">전체 경쟁률 현황</span></h3>
+		</div>
+		<table cellpadding='0' cellspacing='0'>
+		<caption class='caphidden'>전체 경쟁률 현황</caption>
+		
+		<thead>
+			<!--tr style='background:url(.//2011/vline.png) no-repeat 0 50%;'-->
+			<tr>
+			<th class="bgnone noline lline" scope="col" width = "25%" ><span id="strTdTitleId_TotStat_TOTAL">구분</span></th><th class="noline" scope="col" width = "25%" ><span id="strTdTitleId_TotStat_INWON">총모집인원</span></th><th class="noline" scope="col" width = "25%" ><span id="strTdTitleId_TotStat_APPLY">지원인원</span></th><th class="noline rline" scope="col" width = "25%" ><span id="strTdTitleId_TotStat_RATIO">경쟁률</span></th>
+			</tr>
+		</thead>
+			<tbody></tbody>
+			<tr align="center"  id='Tr_Sum_0'>
+			<th colspan="1" class='tfoot'><span id='strSumId_Tot'>총계</span></th><th class='tfoot' colspan='1'>865</th><th class='tfoot' colspan='1'>4,416</th><th class='tfoot' colspan='1'>5.11 : 1</th>
+			</tr>
+			
+	</table>
+		<div class="both11">
+		<h3 style="background:url(.//color/bul_color1.png) no-repeat 0 15px;" class="p_left">
+			<span id="strTitleId_TypeStat" class="bul">전형별 경쟁률 현황</h3></span></div>
+		<table cellpadding='0' cellspacing='0'>
+		<caption class='caphidden'>전형별 경쟁률 현황</caption>
+		
+		<thead>
+			<!--tr style='background:url(.//2011/vline.png) no-repeat 0 50%;'-->
+			<tr>
+			<th class="bgnone noline lline" scope="col" width = "25%" ><span id="strTdTitleId_TypeStat_TYPENM">구분</span></th><th class="noline" scope="col" width = "25%" ><span id="strTdTitleId_TypeStat_INWON">총모집인원</span></th><th class="noline" scope="col" width = "25%" ><span id="strTdTitleId_TypeStat_APPLY">지원인원</span></th><th class="noline rline" scope="col" width = "25%" ><span id="strTdTitleId_TypeStat_RATIO">경쟁률</span></th>
+			</tr>
+		</thead>
+			<tbody>
+        <tr class='trFieldValue' id='Tr_0005_0'>
+			<td  style='cursor:pointer;' onClick=javascript:viewType('0005')  rowspan='1'  class="txtFieldValue" align='left'>  창의도전전형</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0005')  rowspan='1'  class="txtFieldValue" align='center'>270</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0005')  rowspan='1'  class="txtFieldValue" align='center'>1,682</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0005')  rowspan='1'  class="txtFieldValue" align='center'>6.23 : 1</td> 
+
+		</tr>
+        <tr class='trFieldValue' id='Tr_0010_0'>
+			<td  style='cursor:pointer;' onClick=javascript:viewType('0010')  rowspan='1'  class="txtFieldValue" align='left'>  학교장추천전형</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0010')  rowspan='1'  class="txtFieldValue" align='center'>85</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0010')  rowspan='1'  class="txtFieldValue" align='center'>402</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0010')  rowspan='1'  class="txtFieldValue" align='center'>4.73 : 1</td> 
+
+		</tr>
+        <tr class='trFieldValue' id='Tr_0015_0'>
+			<td  style='cursor:pointer;' onClick=javascript:viewType('0015')  rowspan='1'  class="txtFieldValue" align='left'>  일반전형</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0015')  rowspan='1'  class="txtFieldValue" align='center'>380</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0015')  rowspan='1'  class="txtFieldValue" align='center'>1,870</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0015')  rowspan='1'  class="txtFieldValue" align='center'>4.92 : 1</td> 
+
+		</tr>
+        <tr class='trFieldValue' id='Tr_0016_0'>
+			<td  style='cursor:pointer;' onClick=javascript:viewType('0016')  rowspan='1'  class="txtFieldValue" align='left'>  고른기회전형</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0016')  rowspan='1'  class="txtFieldValue" align='center'>60</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0016')  rowspan='1'  class="txtFieldValue" align='center'>258</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0016')  rowspan='1'  class="txtFieldValue" align='center'>4.30 : 1</td> 
+
+		</tr>
+        <tr class='trFieldValue' id='Tr_0040_0'>
+			<td  style='cursor:pointer;' onClick=javascript:viewType('0040')  rowspan='1'  class="txtFieldValue" align='left'>  특기자전형</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0040')  rowspan='1'  class="txtFieldValue" align='center'>30</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0040')  rowspan='1'  class="txtFieldValue" align='center'>132</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0040')  rowspan='1'  class="txtFieldValue" align='center'>4.40 : 1</td> 
+
+		</tr>
+        <tr class='trFieldValue' id='Tr_0017_0'>
+			<td  style='cursor:pointer;' onClick=javascript:viewType('0017')  rowspan='1'  class="txtFieldValue" align='left'>  반도체시스템인재전형</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0017')  rowspan='1'  class="txtFieldValue" align='center'>40</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0017')  rowspan='1'  class="txtFieldValue" align='center'>72</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0017')  rowspan='1'  class="txtFieldValue" align='center'>1.80 : 1</td> 
+
+		</tr></tbody>
+			<tr align="center"  id='Tr_Sum_0'>
+			<th colspan="1" class='tfoot'><span id='strSumId_Tot'>총계</span></th><th class='tfoot' colspan='1'>865</th><th class='tfoot' colspan='1'>4,416</th><th class='tfoot' colspan='1'>5.11 : 1</th>
+			</tr>
+			
+	</table>				
+				<input type=hidden name="exemode" value="">
+				<input type=hidden name="maxrow" value="0">
+				</form>
+			</div><!-- //table -->
+			</div><!-- //container -->
+		</div><!-- //border -->
+		</div>
+		
+	<div id="footer">
+			<h4><img src=".//foot_logo_1.png" alt="uwayapply" /></h4>
+			<p class="copy">Copyright uwayapply.com All Rights Reserved.</p>
+		</div><!-- //footer -->
+	</div><!-- //wrapper -->
+</body>
+</html>
+<!-- // 모니터링확인용 -->

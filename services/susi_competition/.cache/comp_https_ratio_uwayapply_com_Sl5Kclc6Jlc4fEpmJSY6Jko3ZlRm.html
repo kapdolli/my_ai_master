@@ -1,0 +1,1491 @@
+					<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>한성대학교 경/쟁/률/서/비/스</title>
+		<script language="javascript" type="text/javascript" src="/ratioadmin/Image/js/img_url_new.js"></script>
+		<link href=".//css/2017/ratio_1.css" rel="stylesheet" type="text/css">
+		
+		<script language="javascript" type="text/javascript" src=".//js/jquery.min.js"></script>
+		
+		<script language="javascript" type="text/javascript" src=".//js/htm_control.js"></script>
+<script>
+	$(function(){
+		if(!location.href.match(/(v=pc)/)){
+			$('head').append('<meta name=\'viewport\' content=\'user-scalable=no, width=device-width\' />');if(navigator.userAgent.match(/(iPhone|Android|Opera Mini|SymblanOS|Windows CE|BlackBerry|Nokia|SonyEricsson|web OS|Palm)/) ){	$('body').after('<div style=\'text-align: center;\'><a style=\'color:#5b595b;\' href='+location.href+'?&v=pc><img src=\'.//btn_pcView.gif\' alt=\'PC버전으로보기\'></a></div>');	$('#ul_gobtn').hide(); }
+		}
+		
+		if( !$('fieldset').is('.finalwrap') ){
+			$("#header").attr("style",'height:75px;');
+			$("#container").attr("style",'padding-top:50px;');
+		}
+		// https 일때 comment 랑 univImage 대응
+		const host = location.href.split(":")[0];
+		if( host.match(/(https)/) ){
+			if( $('#ratio_comment').length ){
+				const s = document.createElement("script");
+				s.type = "text/javascript";
+				s.src = $('#ratio_comment').attr("src").replace('http','https');
+				$("body").append(s);
+			}
+			if( $('#univImage_dev').length ){
+				const s = document.createElement("script");
+				s.type = "text/javascript";
+				s.src = $('#univImage_dev').attr("src").replace('http','https');
+				$("body").append(s);
+			}
+		}
+	});
+	$(window).scroll(function() {
+		if($(window).scrollTop()>10) {
+			$("#header").addClass("fixed");
+		} else {
+			$("#header").removeClass("fixed");
+		}
+	});
+</script>
+</head>
+<body>		<center>
+			<span id="TopCon" style="position:fixed;top:0;left:0;width:100%;z-index:100;text-align:center;color:#cf1015;font:bold 16px 'malgun gothic';padding-top:28px;letter-spaicng:-5px"></span>
+		</center>
+<div id="compb">
+	<div id="wrapper">
+		<div id="white">
+		<div id="border">
+			<div id="header">
+				<h1><img id=UivImg src=".//univ_2017/0069.gif?2026090909" alt='한성대학교'></h1>
+				<h2><span class="stext">2027학년도</span><br /><span class="btextr">수시모집 </span><span class="btextb">경쟁률</span></h2>
+						<fieldset class="finalwrap">
+			<!--원서접수바로가기버튼시작-->
+			<ul id="ul_gobtn" class="btn">
+				<li style='background:#da3b40 url(.//btn_bg.png) no-repeat right center;'><a href='http://ipsi3.uwayapply.com/2027/susi2/hansung/?CHA=1' target=_new_apply id='id_gouway' title='원서접수 바로가기(새 창 열림)'><b>원서접수</b> 바로가기</a></li>
+				
+				
+				
+			</ul>
+			<!--원서접수바로가기버튼끝-->
+			
+			<!--전형바로가기시작-->
+			<form name="search">
+				<span id='ID_DateStr'><label for='final'>2026년 09월 09일 09시 20분 기준&nbsp;</label></span>
+				<select id='final' name='selectType' class='form3' onChange='javascript:viewType(this.value);'>
+  <option value=''>--------전 체--------</option>
+  <option value='0034'>교과우수전형</option>
+  <option value='0032'>지역균형전형</option>
+  <option value='0038'>한성인재전형</option>
+  <option value='0029'>기회균형-고른기회전형</option>
+  <option value='0091'>기회균형-성인학습자전형</option>
+  <option value='0035'>실기우수자전형</option>
+  <option value='0014'>농어촌학생전형</option>
+  <option value='0028'>특성화고교졸업자전형</option>
+  <option value='0041'>특성화고교졸재직자전형</option>
+</select>
+
+										<script>
+											function fnScrollMove(id,spd){
+												// 2017.09.01 이희창 - 해당 id로 스크롤 이동 !
+												var offset = $("#" + id).offset();
+												if(offset && offset.top){
+													var spd=( typeof(spd) == "number" ? spd : 0);	// 이동속도
+													var h_height=( typeof($("#header:visible").height()) == "number" ? $("#header:visible").height() : 0 );	// 탑헤더의 크기 빼줌
+													$("html, body").animate({scrollTop : Number(Number(offset.top)-Number(h_height)-20)}, spd);
+												}
+											}
+											function viewType(arg)
+											{
+												if( arg=="" ){
+													fnScrollMove("container");
+												}else{
+													fnScrollMove("Div_"+arg);
+												}
+											}
+											 
+											function viewGr(arg)
+											{
+											 	document.search.selectType.options.length = 0;
+											 	document.search.selectType.options[0]=new Option("전체",arg,0,0);
+											 	switch (arg) {
+											
+											 		default :
+													document.search.selectType.options[1]=new Option('교과우수전형','0034',0,0); 
+		document.search.selectType.options[2]=new Option('지역균형전형','0032',0,0); 
+		document.search.selectType.options[3]=new Option('한성인재전형','0038',0,0); 
+		document.search.selectType.options[4]=new Option('기회균형-고른기회전형','0029',0,0); 
+		document.search.selectType.options[5]=new Option('기회균형-성인학습자전형','0091',0,0); 
+		document.search.selectType.options[6]=new Option('실기우수자전형','0035',0,0); 
+		document.search.selectType.options[7]=new Option('농어촌학생전형','0014',0,0); 
+		document.search.selectType.options[8]=new Option('특성화고교졸업자전형','0028',0,0); 
+		document.search.selectType.options[9]=new Option('특성화고교졸재직자전형','0041',0,0); 
+
+											 		break;
+											 	}
+											 	
+										 		viewType(arg);
+											}
+											
+										</script>
+			
+			</form>
+			<!--전형바로가기시작-->
+		</fieldset>
+ 
+			</div><!-- //header -->
+			<div id="container">
+				<div class="contentsTop">
+								
+			<dl class="info" id="Ratio_Comment" style="margin:38px 0 10px 0;">
+				□ 경쟁률은 매일 10분 단위로 업데이트됩니다.<br />□ <font color=red>경쟁률 서비스는 11일(금) 15시까지 제공</font>합니다.<br />□ <font color=blue>접수마감 : 2026년 09월 11일(금) 18:00까지</font>입니다.<br />□ 최종 경쟁률 현황은 12일(토) 오전 10시에 공지합니다.
+			</dl>
+			<script type='text/javascript' src='//ratio.uwayapply.com/2027/susi2/hansung/1/ratio_comment.js?20260909092006' id='ratio_comment'></script>
+					
+				</div><!-- //contentsTop -->
+				<div id="table">
+		<div class="both11">
+		<h3 style="background:url(.//color/bul_color1.png) no-repeat 0 15px;" class="p_left">
+			<span id="strTitleId_TotalStat" class="bul">전체 경쟁률 현황</span></h3>
+		</div>
+		<table cellpadding='0' cellspacing='0'>
+		<caption class='caphidden'>전체 경쟁률 현황</caption>
+		
+		<thead>
+			<!--tr style='background:url(.//2011/vline.png) no-repeat 0 50%;'-->
+			<tr>
+			<th class="bgnone noline lline" scope="col" width = "25%" ><span id="strTdTitleId_TotStat_TOTAL">구분</span></th><th class="noline" scope="col" width = "25%" ><span id="strTdTitleId_TotStat_INWON">총모집인원</span></th><th class="noline" scope="col" width = "25%" ><span id="strTdTitleId_TotStat_APPLY">지원인원</span></th><th class="noline rline" scope="col" width = "25%" ><span id="strTdTitleId_TotStat_RATIO">경쟁률</span></th>
+			</tr>
+		</thead>
+			<tbody></tbody>
+			<tr align="center"  id='Tr_Sum_0'>
+			<th colspan="1" class='tfoot'><span id='strSumId_Tot'>총계</span></th><th class='tfoot' colspan='1'>1,110</th><th class='tfoot' colspan='1'>2,184</th><th class='tfoot' colspan='1'><font color='#666666'><b>1.97 : 1</b></font></th>
+			</tr>
+			
+	</table>
+		<div class="both11">
+		<h3 style="background:url(.//color/bul_color1.png) no-repeat 0 15px;" class="p_left">
+			<span id="strTitleId_TypeStat" class="bul">전형별 경쟁률 현황</h3></span></div>
+		<table cellpadding='0' cellspacing='0'>
+		<caption class='caphidden'>전형별 경쟁률 현황</caption>
+		
+		<thead>
+			<!--tr style='background:url(.//2011/vline.png) no-repeat 0 50%;'-->
+			<tr>
+			<th class="bgnone noline lline" scope="col" width = "25%" ><span id="strTdTitleId_TypeStat_TYPENM">구분</span></th><th class="noline" scope="col" width = "25%" ><span id="strTdTitleId_TypeStat_INWON">총모집인원</span></th><th class="noline" scope="col" width = "25%" ><span id="strTdTitleId_TypeStat_APPLY">지원인원</span></th><th class="noline rline" scope="col" width = "25%" ><span id="strTdTitleId_TypeStat_RATIO">경쟁률</span></th>
+			</tr>
+		</thead>
+			<tbody>
+        <tr class='trFieldValue' id='Tr_0034_0'>
+			<td  style='cursor:pointer;' onClick=javascript:viewType('0034')  rowspan='1'  class="txtFieldValue" align='left'>  교과우수전형</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0034')  rowspan='1'  class="txtFieldValue" align='center'>260</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0034')  rowspan='1'  class="txtFieldValue" align='center'>188</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0034')  rowspan='1'  class="txtFieldValue" align='center'>0.72 : 1</td> 
+
+		</tr>
+        <tr class='trFieldValue' id='Tr_0032_0'>
+			<td  style='cursor:pointer;' onClick=javascript:viewType('0032')  rowspan='1'  class="txtFieldValue" align='left'>  지역균형전형</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0032')  rowspan='1'  class="txtFieldValue" align='center'>188</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0032')  rowspan='1'  class="txtFieldValue" align='center'>154</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0032')  rowspan='1'  class="txtFieldValue" align='center'>0.82 : 1</td> 
+
+		</tr>
+        <tr class='trFieldValue' id='Tr_0038_0'>
+			<td  style='cursor:pointer;' onClick=javascript:viewType('0038')  rowspan='1'  class="txtFieldValue" align='left'>  한성인재전형</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0038')  rowspan='1'  class="txtFieldValue" align='center'>310</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0038')  rowspan='1'  class="txtFieldValue" align='center'>770</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0038')  rowspan='1'  class="txtFieldValue" align='center'><font color='#666666'><b>2.48 : 1</b></font></td> 
+
+		</tr>
+        <tr class='trFieldValue' id='Tr_0029_0'>
+			<td  style='cursor:pointer;' onClick=javascript:viewType('0029')  rowspan='1'  class="txtFieldValue" align='left'>  기회균형-고른기회전형</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0029')  rowspan='1'  class="txtFieldValue" align='center'>45</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0029')  rowspan='1'  class="txtFieldValue" align='center'>133</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0029')  rowspan='1'  class="txtFieldValue" align='center'><font color='#666666'><b>2.96 : 1</b></font></td> 
+
+		</tr>
+        <tr class='trFieldValue' id='Tr_0091_0'>
+			<td  style='cursor:pointer;' onClick=javascript:viewType('0091')  rowspan='1'  class="txtFieldValue" align='left'>  기회균형-성인학습자전형</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0091')  rowspan='1'  class="txtFieldValue" align='center'>20</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0091')  rowspan='1'  class="txtFieldValue" align='center'>43</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0091')  rowspan='1'  class="txtFieldValue" align='center'><font color='#666666'><b>2.15 : 1</b></font></td> 
+
+		</tr>
+        <tr class='trFieldValue' id='Tr_0035_0'>
+			<td  style='cursor:pointer;' onClick=javascript:viewType('0035')  rowspan='1'  class="txtFieldValue" align='left'>  실기우수자전형</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0035')  rowspan='1'  class="txtFieldValue" align='center'>128</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0035')  rowspan='1'  class="txtFieldValue" align='center'>582</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0035')  rowspan='1'  class="txtFieldValue" align='center'><font color='#4B4BFF'><b>4.55 : 1</b></font></td> 
+
+		</tr>
+        <tr class='trFieldValue' id='Tr_0014_0'>
+			<td  style='cursor:pointer;' onClick=javascript:viewType('0014')  rowspan='1'  class="txtFieldValue" align='left'>  농어촌학생전형</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0014')  rowspan='1'  class="txtFieldValue" align='center'>58</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0014')  rowspan='1'  class="txtFieldValue" align='center'>109</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0014')  rowspan='1'  class="txtFieldValue" align='center'><font color='#666666'><b>1.88 : 1</b></font></td> 
+
+		</tr>
+        <tr class='trFieldValue' id='Tr_0028_0'>
+			<td  style='cursor:pointer;' onClick=javascript:viewType('0028')  rowspan='1'  class="txtFieldValue" align='left'>  특성화고교졸업자전형</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0028')  rowspan='1'  class="txtFieldValue" align='center'>21</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0028')  rowspan='1'  class="txtFieldValue" align='center'>84</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0028')  rowspan='1'  class="txtFieldValue" align='center'><font color='#4B4BFF'><b>4.00 : 1</b></font></td> 
+
+		</tr>
+        <tr class='trFieldValue' id='Tr_0041_0'>
+			<td  style='cursor:pointer;' onClick=javascript:viewType('0041')  rowspan='1'  class="txtFieldValue" align='left'>  특성화고교졸재직자전형</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0041')  rowspan='1'  class="txtFieldValue" align='center'>80</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0041')  rowspan='1'  class="txtFieldValue" align='center'>121</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('0041')  rowspan='1'  class="txtFieldValue" align='center'><font color='#666666'><b>1.51 : 1</b></font></td> 
+
+		</tr></tbody>
+			<tr align="center"  id='Tr_Sum_0'>
+			<th colspan="1" class='tfoot'><span id='strSumId_Tot'>총계</span></th><th class='tfoot' colspan='1'>1,110</th><th class='tfoot' colspan='1'>2,184</th><th class='tfoot' colspan='1'><font color='#666666'><b>1.97 : 1</b></font></th>
+			</tr>
+			
+	</table>
+		<form name=ratio method="post">
+
+			
+<div id="Div_0034" style="display:" class="DivType">
+	<span id="strStartNotiId_0034"></span>
+		<div class="both11">
+			<h3 style="background:url(.//color/bul_color1.png) no-repeat 0 15px;" class="p_left">
+				<span id="strTitleId_0034" class="bul">교과우수전형 경쟁률 현황</span>
+			</h3>
+		</div>
+			<table cellpadding='0' cellspacing='0'>
+			<caption class='caphidden'>교과우수전형</caption>
+			
+		<thead>
+			<!--tr style='background:url(.//2011/vline.png) no-repeat 0 50%;'-->
+			<tr>
+			<th class="bgnone noline lline" scope="col" width = "25%" ><span id="strTdTitleId_UnitStat_0034_UPUNITNM">대학</span></th><th class="noline" scope="col" width = "30%" ><span id="strTdTitleId_UnitStat_0034_UNITNM">모집단위</span></th><th class="noline" scope="col" width = "15%" ><span id="strTdTitleId_UnitStat_0034_INWON">모집인원</span></th><th class="noline" scope="col" width = "15%" ><span id="strTdTitleId_UnitStat_0034_APPLY">지원인원</span></th><th class="noline rline" scope="col" width = "15%" ><span id="strTdTitleId_UnitStat_0034_RATIO">경쟁률</span></th>
+			</tr>
+		</thead>
+			
+        <tr class='trFieldValue' id='Tr_0034_000010000'>
+			<td  rowspan='2'  class="txtFieldValue" align='left'>크리에이티브인문예술대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='left'>크리에이티브인문학부</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>12</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>20</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#666666'><b>1.67 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_0' value='0'>
+						<input type=hidden name='Cam_0'     value='0'>
+						<input type=hidden name='Type_0'    value='34'>
+						<input type=hidden name='Unit_0'    value='510'>
+						<input type=hidden name='JuYa_0'    value='1'>
+						<input type=hidden name='Stat_0'    value='510'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0034_000020000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>크리에이티브인문학부(야)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>15</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>26</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#666666'><b>1.73 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_1' value='0'>
+						<input type=hidden name='Cam_1'     value='0'>
+						<input type=hidden name='Type_1'    value='34'>
+						<input type=hidden name='Unit_1'    value='520'>
+						<input type=hidden name='JuYa_1'    value='2'>
+						<input type=hidden name='Stat_1'    value='520'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0034_000100000'>
+			<td  rowspan='2'  class="txtFieldValue" align='left'>미래융합사회과학대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='left'>미래융합사회과학대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>10</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>7</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0.70 : 1</td> 
+
+						<input type=hidden name='ApplyGr_2' value='0'>
+						<input type=hidden name='Cam_2'     value='0'>
+						<input type=hidden name='Type_2'    value='34'>
+						<input type=hidden name='Unit_2'    value='610'>
+						<input type=hidden name='JuYa_2'    value='1'>
+						<input type=hidden name='Stat_2'    value='610'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0034_000110000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>미래융합사회과학대학(야)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>24</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>15</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0.63 : 1</td> 
+
+						<input type=hidden name='ApplyGr_3' value='0'>
+						<input type=hidden name='Cam_3'     value='0'>
+						<input type=hidden name='Type_3'    value='34'>
+						<input type=hidden name='Unit_3'    value='620'>
+						<input type=hidden name='JuYa_3'    value='2'>
+						<input type=hidden name='Stat_3'    value='620'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0034_000120000'>
+			<td  rowspan='2'  class="txtFieldValue" align='left'>AI디자인대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='left'>AI패션학부</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>7</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>5</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0.71 : 1</td> 
+
+						<input type=hidden name='ApplyGr_4' value='0'>
+						<input type=hidden name='Cam_4'     value='0'>
+						<input type=hidden name='Type_4'    value='34'>
+						<input type=hidden name='Unit_4'    value='750'>
+						<input type=hidden name='JuYa_4'    value='1'>
+						<input type=hidden name='Stat_4'    value='750'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0034_000130000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>AI패션학부(야)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>13</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>10</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0.77 : 1</td> 
+
+						<input type=hidden name='ApplyGr_5' value='0'>
+						<input type=hidden name='Cam_5'     value='0'>
+						<input type=hidden name='Type_5'    value='34'>
+						<input type=hidden name='Unit_5'    value='760'>
+						<input type=hidden name='JuYa_5'    value='2'>
+						<input type=hidden name='Stat_5'    value='760'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0034_000170000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>IT공과대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='left'>IT공과대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>65</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>22</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0.34 : 1</td> 
+
+						<input type=hidden name='ApplyGr_6' value='0'>
+						<input type=hidden name='Cam_6'     value='0'>
+						<input type=hidden name='Type_6'    value='34'>
+						<input type=hidden name='Unit_6'    value='810'>
+						<input type=hidden name='JuYa_6'    value='1'>
+						<input type=hidden name='Stat_6'    value='810'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0034_000180000'>
+			<td  rowspan='6'  class="txtFieldValue" align='left'>AI융합대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='left'>AI응용학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>20</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>2</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0.10 : 1</td> 
+
+						<input type=hidden name='ApplyGr_7' value='0'>
+						<input type=hidden name='Cam_7'     value='0'>
+						<input type=hidden name='Type_7'    value='34'>
+						<input type=hidden name='Unit_7'    value='970'>
+						<input type=hidden name='JuYa_7'    value='1'>
+						<input type=hidden name='Stat_7'    value='970'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0034_000190000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>융합보안학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>10</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>5</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0.50 : 1</td> 
+
+						<input type=hidden name='ApplyGr_8' value='0'>
+						<input type=hidden name='Cam_8'     value='0'>
+						<input type=hidden name='Type_8'    value='34'>
+						<input type=hidden name='Unit_8'    value='990'>
+						<input type=hidden name='JuYa_8'    value='1'>
+						<input type=hidden name='Stat_8'    value='990'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0034_000200000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>미래모빌리티학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>10</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>21</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#666666'><b>2.10 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_9' value='0'>
+						<input type=hidden name='Cam_9'     value='0'>
+						<input type=hidden name='Type_9'    value='34'>
+						<input type=hidden name='Unit_9'    value='930'>
+						<input type=hidden name='JuYa_9'    value='1'>
+						<input type=hidden name='Stat_9'    value='930'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0034_000210000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>AI기계로봇공학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>10</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>6</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0.60 : 1</td> 
+
+						<input type=hidden name='ApplyGr_10' value='0'>
+						<input type=hidden name='Cam_10'     value='0'>
+						<input type=hidden name='Type_10'    value='34'>
+						<input type=hidden name='Unit_10'    value='830'>
+						<input type=hidden name='JuYa_10'    value='1'>
+						<input type=hidden name='Stat_10'    value='830'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0034_000220000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>문학문화콘텐츠학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>14</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>3</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0.21 : 1</td> 
+
+						<input type=hidden name='ApplyGr_11' value='0'>
+						<input type=hidden name='Cam_11'     value='0'>
+						<input type=hidden name='Type_11'    value='34'>
+						<input type=hidden name='Unit_11'    value='950'>
+						<input type=hidden name='JuYa_11'    value='1'>
+						<input type=hidden name='Stat_11'    value='950'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0034_000230000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>상상력인재학부</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>50</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>46</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0.92 : 1</td> 
+
+						<input type=hidden name='ApplyGr_12' value='0'>
+						<input type=hidden name='Cam_12'     value='0'>
+						<input type=hidden name='Type_12'    value='34'>
+						<input type=hidden name='Unit_12'    value='910'>
+						<input type=hidden name='JuYa_12'    value='1'>
+						<input type=hidden name='Stat_12'    value='910'>
+					
+		</tr>
+			<tr align="center"  id='Tr_Sum_0034'>
+			<th colspan="2" class='tfoot'><span id='strSumId_Type_0034'> 소계</span></th><th class='tfoot' colspan='1'>260</th><th class='tfoot' colspan='1'>188</th><th class='tfoot' colspan='1'>0.72 : 1</th>
+			</tr>
+			
+		</table>
+	<span id="strEndNotiId_0034"></span><div class="space20"> &nbsp;</div></div>
+<div id="Div_0032" style="display:" class="DivType">
+	<span id="strStartNotiId_0032"></span>
+		<div class="both11">
+			<h3 style="background:url(.//color/bul_color1.png) no-repeat 0 15px;" class="p_left">
+				<span id="strTitleId_0032" class="bul">지역균형전형 경쟁률 현황</span>
+			</h3>
+		</div>
+			<table cellpadding='0' cellspacing='0'>
+			<caption class='caphidden'>지역균형전형</caption>
+			
+		<thead>
+			<!--tr style='background:url(.//2011/vline.png) no-repeat 0 50%;'-->
+			<tr>
+			<th class="bgnone noline lline" scope="col" width = "25%" ><span id="strTdTitleId_UnitStat_0032_UPUNITNM">대학</span></th><th class="noline" scope="col" width = "30%" ><span id="strTdTitleId_UnitStat_0032_UNITNM">모집단위</span></th><th class="noline" scope="col" width = "15%" ><span id="strTdTitleId_UnitStat_0032_INWON">모집인원</span></th><th class="noline" scope="col" width = "15%" ><span id="strTdTitleId_UnitStat_0032_APPLY">지원인원</span></th><th class="noline rline" scope="col" width = "15%" ><span id="strTdTitleId_UnitStat_0032_RATIO">경쟁률</span></th>
+			</tr>
+		</thead>
+			
+        <tr class='trFieldValue' id='Tr_0032_000250000'>
+			<td  rowspan='2'  class="txtFieldValue" align='left'>크리에이티브인문예술대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='left'>크리에이티브인문학부</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>10</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>9</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0.90 : 1</td> 
+
+						<input type=hidden name='ApplyGr_13' value='0'>
+						<input type=hidden name='Cam_13'     value='0'>
+						<input type=hidden name='Type_13'    value='32'>
+						<input type=hidden name='Unit_13'    value='510'>
+						<input type=hidden name='JuYa_13'    value='1'>
+						<input type=hidden name='Stat_13'    value='510'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0032_000260000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>크리에이티브인문학부(야)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>10</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>10</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#666666'><b>1.00 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_14' value='0'>
+						<input type=hidden name='Cam_14'     value='0'>
+						<input type=hidden name='Type_14'    value='32'>
+						<input type=hidden name='Unit_14'    value='520'>
+						<input type=hidden name='JuYa_14'    value='2'>
+						<input type=hidden name='Stat_14'    value='520'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0032_000340000'>
+			<td  rowspan='2'  class="txtFieldValue" align='left'>미래융합사회과학대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='left'>미래융합사회과학대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>4</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>2</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0.50 : 1</td> 
+
+						<input type=hidden name='ApplyGr_15' value='0'>
+						<input type=hidden name='Cam_15'     value='0'>
+						<input type=hidden name='Type_15'    value='32'>
+						<input type=hidden name='Unit_15'    value='610'>
+						<input type=hidden name='JuYa_15'    value='1'>
+						<input type=hidden name='Stat_15'    value='610'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0032_000350000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>미래융합사회과학대학(야)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>18</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>13</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0.72 : 1</td> 
+
+						<input type=hidden name='ApplyGr_16' value='0'>
+						<input type=hidden name='Cam_16'     value='0'>
+						<input type=hidden name='Type_16'    value='32'>
+						<input type=hidden name='Unit_16'    value='620'>
+						<input type=hidden name='JuYa_16'    value='2'>
+						<input type=hidden name='Stat_16'    value='620'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0032_000360000'>
+			<td  rowspan='4'  class="txtFieldValue" align='left'>AI디자인대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='left'>AI패션학부</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>3</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>13</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#4B4BFF'><b>4.33 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_17' value='0'>
+						<input type=hidden name='Cam_17'     value='0'>
+						<input type=hidden name='Type_17'    value='32'>
+						<input type=hidden name='Unit_17'    value='750'>
+						<input type=hidden name='JuYa_17'    value='1'>
+						<input type=hidden name='Stat_17'    value='750'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0032_000370000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>AI패션학부(야)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>7</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>6</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0.86 : 1</td> 
+
+						<input type=hidden name='ApplyGr_18' value='0'>
+						<input type=hidden name='Cam_18'     value='0'>
+						<input type=hidden name='Type_18'    value='32'>
+						<input type=hidden name='Unit_18'    value='760'>
+						<input type=hidden name='JuYa_18'    value='2'>
+						<input type=hidden name='Stat_18'    value='760'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0032_000390000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>AI뷰티디자인학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>5</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>13</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#666666'><b>2.60 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_19' value='0'>
+						<input type=hidden name='Cam_19'     value='0'>
+						<input type=hidden name='Type_19'    value='32'>
+						<input type=hidden name='Unit_19'    value='771'>
+						<input type=hidden name='JuYa_19'    value='1'>
+						<input type=hidden name='Stat_19'    value='771'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0032_000400000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>AI뷰티디자인학과(야)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>7</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>10</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#666666'><b>1.43 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_20' value='0'>
+						<input type=hidden name='Cam_20'     value='0'>
+						<input type=hidden name='Type_20'    value='32'>
+						<input type=hidden name='Unit_20'    value='781'>
+						<input type=hidden name='JuYa_20'    value='2'>
+						<input type=hidden name='Stat_20'    value='781'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0032_000410000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>IT공과대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='left'>IT공과대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>38</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>15</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0.39 : 1</td> 
+
+						<input type=hidden name='ApplyGr_21' value='0'>
+						<input type=hidden name='Cam_21'     value='0'>
+						<input type=hidden name='Type_21'    value='32'>
+						<input type=hidden name='Unit_21'    value='810'>
+						<input type=hidden name='JuYa_21'    value='1'>
+						<input type=hidden name='Stat_21'    value='810'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0032_000440000'>
+			<td  rowspan='4'  class="txtFieldValue" align='left'>AI융합대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='left'>미래모빌리티학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>10</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>4</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0.40 : 1</td> 
+
+						<input type=hidden name='ApplyGr_22' value='0'>
+						<input type=hidden name='Cam_22'     value='0'>
+						<input type=hidden name='Type_22'    value='32'>
+						<input type=hidden name='Unit_22'    value='930'>
+						<input type=hidden name='JuYa_22'    value='1'>
+						<input type=hidden name='Stat_22'    value='930'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0032_000450000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>AI기계로봇공학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>17</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>8</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0.47 : 1</td> 
+
+						<input type=hidden name='ApplyGr_23' value='0'>
+						<input type=hidden name='Cam_23'     value='0'>
+						<input type=hidden name='Type_23'    value='32'>
+						<input type=hidden name='Unit_23'    value='830'>
+						<input type=hidden name='JuYa_23'    value='1'>
+						<input type=hidden name='Stat_23'    value='830'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0032_000460000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>문학문화콘텐츠학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>20</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>16</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0.80 : 1</td> 
+
+						<input type=hidden name='ApplyGr_24' value='0'>
+						<input type=hidden name='Cam_24'     value='0'>
+						<input type=hidden name='Type_24'    value='32'>
+						<input type=hidden name='Unit_24'    value='950'>
+						<input type=hidden name='JuYa_24'    value='1'>
+						<input type=hidden name='Stat_24'    value='950'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0032_000470000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>상상력인재학부</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>39</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>35</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0.90 : 1</td> 
+
+						<input type=hidden name='ApplyGr_25' value='0'>
+						<input type=hidden name='Cam_25'     value='0'>
+						<input type=hidden name='Type_25'    value='32'>
+						<input type=hidden name='Unit_25'    value='910'>
+						<input type=hidden name='JuYa_25'    value='1'>
+						<input type=hidden name='Stat_25'    value='910'>
+					
+		</tr>
+			<tr align="center"  id='Tr_Sum_0032'>
+			<th colspan="2" class='tfoot'><span id='strSumId_Type_0032'> 소계</span></th><th class='tfoot' colspan='1'>188</th><th class='tfoot' colspan='1'>154</th><th class='tfoot' colspan='1'>0.82 : 1</th>
+			</tr>
+			
+		</table>
+	<span id="strEndNotiId_0032"></span><div class="space20"> &nbsp;</div></div>
+<div id="Div_0038" style="display:" class="DivType">
+	<span id="strStartNotiId_0038"></span>
+		<div class="both11">
+			<h3 style="background:url(.//color/bul_color1.png) no-repeat 0 15px;" class="p_left">
+				<span id="strTitleId_0038" class="bul">한성인재전형 경쟁률 현황</span>
+			</h3>
+		</div>
+			<table cellpadding='0' cellspacing='0'>
+			<caption class='caphidden'>한성인재전형</caption>
+			
+		<thead>
+			<!--tr style='background:url(.//2011/vline.png) no-repeat 0 50%;'-->
+			<tr>
+			<th class="bgnone noline lline" scope="col" width = "25%" ><span id="strTdTitleId_UnitStat_0038_UPUNITNM">대학</span></th><th class="noline" scope="col" width = "30%" ><span id="strTdTitleId_UnitStat_0038_UNITNM">모집단위</span></th><th class="noline" scope="col" width = "15%" ><span id="strTdTitleId_UnitStat_0038_INWON">모집인원</span></th><th class="noline" scope="col" width = "15%" ><span id="strTdTitleId_UnitStat_0038_APPLY">지원인원</span></th><th class="noline rline" scope="col" width = "15%" ><span id="strTdTitleId_UnitStat_0038_RATIO">경쟁률</span></th>
+			</tr>
+		</thead>
+			
+        <tr class='trFieldValue' id='Tr_0038_000490000'>
+			<td  rowspan='2'  class="txtFieldValue" align='left'>크리에이티브인문예술대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='left'>크리에이티브인문학부</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>35</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>83</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#666666'><b>2.37 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_26' value='0'>
+						<input type=hidden name='Cam_26'     value='0'>
+						<input type=hidden name='Type_26'    value='38'>
+						<input type=hidden name='Unit_26'    value='510'>
+						<input type=hidden name='JuYa_26'    value='1'>
+						<input type=hidden name='Stat_26'    value='510'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0038_000500000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>크리에이티브인문학부(야)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>9</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>22</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#666666'><b>2.44 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_27' value='0'>
+						<input type=hidden name='Cam_27'     value='0'>
+						<input type=hidden name='Type_27'    value='38'>
+						<input type=hidden name='Unit_27'    value='520'>
+						<input type=hidden name='JuYa_27'    value='2'>
+						<input type=hidden name='Stat_27'    value='520'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0038_000580000'>
+			<td  rowspan='2'  class="txtFieldValue" align='left'>미래융합사회과학대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='left'>미래융합사회과학대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>40</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>97</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#666666'><b>2.43 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_28' value='0'>
+						<input type=hidden name='Cam_28'     value='0'>
+						<input type=hidden name='Type_28'    value='38'>
+						<input type=hidden name='Unit_28'    value='610'>
+						<input type=hidden name='JuYa_28'    value='1'>
+						<input type=hidden name='Stat_28'    value='610'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0038_000590000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>미래융합사회과학대학(야)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>26</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>63</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#666666'><b>2.42 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_29' value='0'>
+						<input type=hidden name='Cam_29'     value='0'>
+						<input type=hidden name='Type_29'    value='38'>
+						<input type=hidden name='Unit_29'    value='620'>
+						<input type=hidden name='JuYa_29'    value='2'>
+						<input type=hidden name='Stat_29'    value='620'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0038_000600000'>
+			<td  rowspan='4'  class="txtFieldValue" align='left'>AI디자인대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='left'>AI패션학부</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>18</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>58</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#4B4BFF'><b>3.22 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_30' value='0'>
+						<input type=hidden name='Cam_30'     value='0'>
+						<input type=hidden name='Type_30'    value='38'>
+						<input type=hidden name='Unit_30'    value='750'>
+						<input type=hidden name='JuYa_30'    value='1'>
+						<input type=hidden name='Stat_30'    value='750'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0038_000610000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>AI패션학부(야)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>12</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>22</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#666666'><b>1.83 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_31' value='0'>
+						<input type=hidden name='Cam_31'     value='0'>
+						<input type=hidden name='Type_31'    value='38'>
+						<input type=hidden name='Unit_31'    value='760'>
+						<input type=hidden name='JuYa_31'    value='2'>
+						<input type=hidden name='Stat_31'    value='760'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0038_000630000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>AI뷰티디자인학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>5</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>120</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>24.00 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_32' value='0'>
+						<input type=hidden name='Cam_32'     value='0'>
+						<input type=hidden name='Type_32'    value='38'>
+						<input type=hidden name='Unit_32'    value='771'>
+						<input type=hidden name='JuYa_32'    value='1'>
+						<input type=hidden name='Stat_32'    value='771'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0038_000640000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>AI뷰티디자인학과(야)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>3</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>19</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>6.33 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_33' value='0'>
+						<input type=hidden name='Cam_33'     value='0'>
+						<input type=hidden name='Type_33'    value='38'>
+						<input type=hidden name='Unit_33'    value='781'>
+						<input type=hidden name='JuYa_33'    value='2'>
+						<input type=hidden name='Stat_33'    value='781'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0038_000650000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>IT공과대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='left'>IT공과대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>45</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>67</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#666666'><b>1.49 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_34' value='0'>
+						<input type=hidden name='Cam_34'     value='0'>
+						<input type=hidden name='Type_34'    value='38'>
+						<input type=hidden name='Unit_34'    value='810'>
+						<input type=hidden name='JuYa_34'    value='1'>
+						<input type=hidden name='Stat_34'    value='810'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0038_000660000'>
+			<td  rowspan='6'  class="txtFieldValue" align='left'>AI융합대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='left'>AI응용학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>27</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>23</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0.85 : 1</td> 
+
+						<input type=hidden name='ApplyGr_35' value='0'>
+						<input type=hidden name='Cam_35'     value='0'>
+						<input type=hidden name='Type_35'    value='38'>
+						<input type=hidden name='Unit_35'    value='970'>
+						<input type=hidden name='JuYa_35'    value='1'>
+						<input type=hidden name='Stat_35'    value='970'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0038_000670000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>융합보안학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>10</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>11</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#666666'><b>1.10 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_36' value='0'>
+						<input type=hidden name='Cam_36'     value='0'>
+						<input type=hidden name='Type_36'    value='38'>
+						<input type=hidden name='Unit_36'    value='990'>
+						<input type=hidden name='JuYa_36'    value='1'>
+						<input type=hidden name='Stat_36'    value='990'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0038_000680000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>미래모빌리티학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>7</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>13</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#666666'><b>1.86 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_37' value='0'>
+						<input type=hidden name='Cam_37'     value='0'>
+						<input type=hidden name='Type_37'    value='38'>
+						<input type=hidden name='Unit_37'    value='930'>
+						<input type=hidden name='JuYa_37'    value='1'>
+						<input type=hidden name='Stat_37'    value='930'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0038_000690000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>AI기계로봇공학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>13</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>13</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#666666'><b>1.00 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_38' value='0'>
+						<input type=hidden name='Cam_38'     value='0'>
+						<input type=hidden name='Type_38'    value='38'>
+						<input type=hidden name='Unit_38'    value='830'>
+						<input type=hidden name='JuYa_38'    value='1'>
+						<input type=hidden name='Stat_38'    value='830'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0038_000700000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>문학문화콘텐츠학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>32</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>100</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#4B4BFF'><b>3.13 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_39' value='0'>
+						<input type=hidden name='Cam_39'     value='0'>
+						<input type=hidden name='Type_39'    value='38'>
+						<input type=hidden name='Unit_39'    value='950'>
+						<input type=hidden name='JuYa_39'    value='1'>
+						<input type=hidden name='Stat_39'    value='950'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0038_000710000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>상상력인재학부</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>28</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>59</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#666666'><b>2.11 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_40' value='0'>
+						<input type=hidden name='Cam_40'     value='0'>
+						<input type=hidden name='Type_40'    value='38'>
+						<input type=hidden name='Unit_40'    value='910'>
+						<input type=hidden name='JuYa_40'    value='1'>
+						<input type=hidden name='Stat_40'    value='910'>
+					
+		</tr>
+			<tr align="center"  id='Tr_Sum_0038'>
+			<th colspan="2" class='tfoot'><span id='strSumId_Type_0038'> 소계</span></th><th class='tfoot' colspan='1'>310</th><th class='tfoot' colspan='1'>770</th><th class='tfoot' colspan='1'><font color='#666666'><b>2.48 : 1</b></font></th>
+			</tr>
+			
+		</table>
+	<span id="strEndNotiId_0038"></span><div class="space20"> &nbsp;</div></div>
+<div id="Div_0029" style="display:" class="DivType">
+	<span id="strStartNotiId_0029"></span>
+		<div class="both11">
+			<h3 style="background:url(.//color/bul_color1.png) no-repeat 0 15px;" class="p_left">
+				<span id="strTitleId_0029" class="bul">기회균형-고른기회전형 경쟁률 현황</span>
+			</h3>
+		</div>
+			<table cellpadding='0' cellspacing='0'>
+			<caption class='caphidden'>기회균형-고른기회전형</caption>
+			
+		<thead>
+			<!--tr style='background:url(.//2011/vline.png) no-repeat 0 50%;'-->
+			<tr>
+			<th class="bgnone noline lline" scope="col" width = "25%" ><span id="strTdTitleId_UnitStat_0029_UPUNITNM">대학</span></th><th class="noline" scope="col" width = "30%" ><span id="strTdTitleId_UnitStat_0029_UNITNM">모집단위</span></th><th class="noline" scope="col" width = "15%" ><span id="strTdTitleId_UnitStat_0029_INWON">모집인원</span></th><th class="noline" scope="col" width = "15%" ><span id="strTdTitleId_UnitStat_0029_APPLY">지원인원</span></th><th class="noline rline" scope="col" width = "15%" ><span id="strTdTitleId_UnitStat_0029_RATIO">경쟁률</span></th>
+			</tr>
+		</thead>
+			
+        <tr class='trFieldValue' id='Tr_0029_000730000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>크리에이티브인문예술대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='left'>크리에이티브인문학부</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>12</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>29</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#666666'><b>2.42 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_41' value='0'>
+						<input type=hidden name='Cam_41'     value='0'>
+						<input type=hidden name='Type_41'    value='29'>
+						<input type=hidden name='Unit_41'    value='510'>
+						<input type=hidden name='JuYa_41'    value='1'>
+						<input type=hidden name='Stat_41'    value='510'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0029_000820000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>미래융합사회과학대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='left'>미래융합사회과학대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>15</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>52</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#4B4BFF'><b>3.47 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_42' value='0'>
+						<input type=hidden name='Cam_42'     value='0'>
+						<input type=hidden name='Type_42'    value='29'>
+						<input type=hidden name='Unit_42'    value='610'>
+						<input type=hidden name='JuYa_42'    value='1'>
+						<input type=hidden name='Stat_42'    value='610'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0029_000840000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>AI디자인대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='left'>AI패션학부</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>3</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>18</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>6.00 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_43' value='0'>
+						<input type=hidden name='Cam_43'     value='0'>
+						<input type=hidden name='Type_43'    value='29'>
+						<input type=hidden name='Unit_43'    value='750'>
+						<input type=hidden name='JuYa_43'    value='1'>
+						<input type=hidden name='Stat_43'    value='750'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0029_000890000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>IT공과대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='left'>IT공과대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>15</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>34</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#666666'><b>2.27 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_44' value='0'>
+						<input type=hidden name='Cam_44'     value='0'>
+						<input type=hidden name='Type_44'    value='29'>
+						<input type=hidden name='Unit_44'    value='810'>
+						<input type=hidden name='JuYa_44'    value='1'>
+						<input type=hidden name='Stat_44'    value='810'>
+					
+		</tr>
+			<tr align="center"  id='Tr_Sum_0029'>
+			<th colspan="2" class='tfoot'><span id='strSumId_Type_0029'> 소계</span></th><th class='tfoot' colspan='1'>45</th><th class='tfoot' colspan='1'>133</th><th class='tfoot' colspan='1'><font color='#666666'><b>2.96 : 1</b></font></th>
+			</tr>
+			
+		</table>
+	<span id="strEndNotiId_0029"></span><div class="space20"> &nbsp;</div></div>
+<div id="Div_0091" style="display:" class="DivType">
+	<span id="strStartNotiId_0091"></span>
+		<div class="both11">
+			<h3 style="background:url(.//color/bul_color1.png) no-repeat 0 15px;" class="p_left">
+				<span id="strTitleId_0091" class="bul">기회균형-성인학습자전형 경쟁률 현황</span>
+			</h3>
+		</div>
+			<table cellpadding='0' cellspacing='0'>
+			<caption class='caphidden'>기회균형-성인학습자전형</caption>
+			
+		<thead>
+			<!--tr style='background:url(.//2011/vline.png) no-repeat 0 50%;'-->
+			<tr>
+			<th class="bgnone noline lline" scope="col" width = "25%" ><span id="strTdTitleId_UnitStat_0091_UPUNITNM">대학</span></th><th class="noline" scope="col" width = "30%" ><span id="strTdTitleId_UnitStat_0091_UNITNM">모집단위</span></th><th class="noline" scope="col" width = "15%" ><span id="strTdTitleId_UnitStat_0091_INWON">모집인원</span></th><th class="noline" scope="col" width = "15%" ><span id="strTdTitleId_UnitStat_0091_APPLY">지원인원</span></th><th class="noline rline" scope="col" width = "15%" ><span id="strTdTitleId_UnitStat_0091_RATIO">경쟁률</span></th>
+			</tr>
+		</thead>
+			
+        <tr class='trFieldValue' id='Tr_0091_001200000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>미래플러스대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='left'>AI디지털융합인재학부</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>20</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>43</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#666666'><b>2.15 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_45' value='0'>
+						<input type=hidden name='Cam_45'     value='0'>
+						<input type=hidden name='Type_45'    value='91'>
+						<input type=hidden name='Unit_45'    value='840'>
+						<input type=hidden name='JuYa_45'    value='1'>
+						<input type=hidden name='Stat_45'    value='840'>
+					
+		</tr>
+			<tr align="center"  id='Tr_Sum_0091'>
+			<th colspan="2" class='tfoot'><span id='strSumId_Type_0091'> 소계</span></th><th class='tfoot' colspan='1'>20</th><th class='tfoot' colspan='1'>43</th><th class='tfoot' colspan='1'><font color='#666666'><b>2.15 : 1</b></font></th>
+			</tr>
+			
+		</table>
+	<span id="strEndNotiId_0091"></span><div class="space20"> &nbsp;</div></div>
+<div id="Div_0035" style="display:" class="DivType">
+	<span id="strStartNotiId_0035"></span>
+		<div class="both11">
+			<h3 style="background:url(.//color/bul_color1.png) no-repeat 0 15px;" class="p_left">
+				<span id="strTitleId_0035" class="bul">실기우수자전형 경쟁률 현황</span>
+			</h3>
+		</div>
+			<table cellpadding='0' cellspacing='0'>
+			<caption class='caphidden'>실기우수자전형</caption>
+			
+		<thead>
+			<!--tr style='background:url(.//2011/vline.png) no-repeat 0 50%;'-->
+			<tr>
+			<th class="bgnone noline lline" scope="col" width = "25%" ><span id="strTdTitleId_UnitStat_0035_UPUNITNM">대학</span></th><th class="noline" scope="col" width = "30%" ><span id="strTdTitleId_UnitStat_0035_UNITNM">모집단위</span></th><th class="noline" scope="col" width = "15%" ><span id="strTdTitleId_UnitStat_0035_INWON">모집인원</span></th><th class="noline" scope="col" width = "15%" ><span id="strTdTitleId_UnitStat_0035_APPLY">지원인원</span></th><th class="noline rline" scope="col" width = "15%" ><span id="strTdTitleId_UnitStat_0035_RATIO">경쟁률</span></th>
+			</tr>
+		</thead>
+			
+        <tr class='trFieldValue' id='Tr_0035_001230000'>
+			<td  rowspan='7'  class="txtFieldValue" align='left'>크리에이티브인문예술대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='left'>동양화_인물수묵담채화</td> 
+<td  rowspan='3'  class="txtFieldValue" align='center'>7</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>6</td> 
+<td  rowspan='3'  class="txtFieldValue" align='center'><font color='#4B4BFF'><b>3.86 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_46' value='0'>
+						<input type=hidden name='Cam_46'     value='0'>
+						<input type=hidden name='Type_46'    value='35'>
+						<input type=hidden name='Unit_46'    value='711A03'>
+						<input type=hidden name='JuYa_46'    value='1'>
+						<input type=hidden name='Stat_46'    value='711A03'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0035_001240000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>동양화_정물수묵담채화</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>15</td> 
+
+						<input type=hidden name='ApplyGr_47' value='0'>
+						<input type=hidden name='Cam_47'     value='0'>
+						<input type=hidden name='Type_47'    value='35'>
+						<input type=hidden name='Unit_47'    value='711A04'>
+						<input type=hidden name='JuYa_47'    value='1'>
+						<input type=hidden name='Stat_47'    value='711A04'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0035_001250000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>동양화_인물수채화</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>6</td> 
+
+						<input type=hidden name='ApplyGr_48' value='0'>
+						<input type=hidden name='Cam_48'     value='0'>
+						<input type=hidden name='Type_48'    value='35'>
+						<input type=hidden name='Unit_48'    value='711A02'>
+						<input type=hidden name='JuYa_48'    value='1'>
+						<input type=hidden name='Stat_48'    value='711A02'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0035_001260000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>서양화_인물수채화</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>7</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>59</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>8.43 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_49' value='0'>
+						<input type=hidden name='Cam_49'     value='0'>
+						<input type=hidden name='Type_49'    value='35'>
+						<input type=hidden name='Unit_49'    value='712A02'>
+						<input type=hidden name='JuYa_49'    value='1'>
+						<input type=hidden name='Stat_49'    value='712A02'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0035_001270000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>한국무용</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>10</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>46</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#4B4BFF'><b>4.60 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_50' value='0'>
+						<input type=hidden name='Cam_50'     value='0'>
+						<input type=hidden name='Type_50'    value='35'>
+						<input type=hidden name='Unit_50'    value='713'>
+						<input type=hidden name='JuYa_50'    value='1'>
+						<input type=hidden name='Stat_50'    value='713'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0035_001280000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>현대무용</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>8</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>22</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#666666'><b>2.75 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_51' value='0'>
+						<input type=hidden name='Cam_51'     value='0'>
+						<input type=hidden name='Type_51'    value='35'>
+						<input type=hidden name='Unit_51'    value='714'>
+						<input type=hidden name='JuYa_51'    value='1'>
+						<input type=hidden name='Stat_51'    value='714'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0035_001290000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>발레</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>10</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>20</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#666666'><b>2.00 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_52' value='0'>
+						<input type=hidden name='Cam_52'     value='0'>
+						<input type=hidden name='Type_52'    value='35'>
+						<input type=hidden name='Unit_52'    value='715'>
+						<input type=hidden name='JuYa_52'    value='1'>
+						<input type=hidden name='Stat_52'    value='715'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0035_001340000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>AI디자인대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='left'>AI융합디자인학부</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>86</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>408</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#4B4BFF'><b>4.74 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_53' value='0'>
+						<input type=hidden name='Cam_53'     value='0'>
+						<input type=hidden name='Type_53'    value='35'>
+						<input type=hidden name='Unit_53'    value='730'>
+						<input type=hidden name='JuYa_53'    value='1'>
+						<input type=hidden name='Stat_53'    value='730'>
+					
+		</tr>
+			<tr align="center"  id='Tr_Sum_0035'>
+			<th colspan="2" class='tfoot'><span id='strSumId_Type_0035'> 소계</span></th><th class='tfoot' colspan='1'>128</th><th class='tfoot' colspan='1'>582</th><th class='tfoot' colspan='1'><font color='#4B4BFF'><b>4.55 : 1</b></font></th>
+			</tr>
+			
+		</table>
+	<span id="strEndNotiId_0035"></span><div class="space20"> &nbsp;</div></div>
+<div id="Div_0014" style="display:" class="DivType">
+	<span id="strStartNotiId_0014"></span>
+		<div class="both11">
+			<h3 style="background:url(.//color/bul_color1.png) no-repeat 0 15px;" class="p_left">
+				<span id="strTitleId_0014" class="bul">농어촌학생전형 경쟁률 현황</span>
+			</h3>
+		</div>
+			<table cellpadding='0' cellspacing='0'>
+			<caption class='caphidden'>농어촌학생전형</caption>
+			
+		<thead>
+			<!--tr style='background:url(.//2011/vline.png) no-repeat 0 50%;'-->
+			<tr>
+			<th class="bgnone noline lline" scope="col" width = "25%" ><span id="strTdTitleId_UnitStat_0014_UPUNITNM">대학</span></th><th class="noline" scope="col" width = "30%" ><span id="strTdTitleId_UnitStat_0014_UNITNM">모집단위</span></th><th class="noline" scope="col" width = "15%" ><span id="strTdTitleId_UnitStat_0014_INWON">모집인원</span></th><th class="noline" scope="col" width = "15%" ><span id="strTdTitleId_UnitStat_0014_APPLY">지원인원</span></th><th class="noline rline" scope="col" width = "15%" ><span id="strTdTitleId_UnitStat_0014_RATIO">경쟁률</span></th>
+			</tr>
+		</thead>
+			
+        <tr class='trFieldValue' id='Tr_0014_001450000'>
+			<td  rowspan='2'  class="txtFieldValue" align='left'>크리에이티브인문예술대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='left'>크리에이티브인문학부</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>10</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>26</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#666666'><b>2.60 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_54' value='0'>
+						<input type=hidden name='Cam_54'     value='0'>
+						<input type=hidden name='Type_54'    value='14'>
+						<input type=hidden name='Unit_54'    value='510'>
+						<input type=hidden name='JuYa_54'    value='1'>
+						<input type=hidden name='Stat_54'    value='510'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0014_001460000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>크리에이티브인문학부(야)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>4</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>6</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#666666'><b>1.50 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_55' value='0'>
+						<input type=hidden name='Cam_55'     value='0'>
+						<input type=hidden name='Type_55'    value='14'>
+						<input type=hidden name='Unit_55'    value='520'>
+						<input type=hidden name='JuYa_55'    value='2'>
+						<input type=hidden name='Stat_55'    value='520'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0014_001540000'>
+			<td  rowspan='2'  class="txtFieldValue" align='left'>미래융합사회과학대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='left'>미래융합사회과학대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>10</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>18</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#666666'><b>1.80 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_56' value='0'>
+						<input type=hidden name='Cam_56'     value='0'>
+						<input type=hidden name='Type_56'    value='14'>
+						<input type=hidden name='Unit_56'    value='610'>
+						<input type=hidden name='JuYa_56'    value='1'>
+						<input type=hidden name='Stat_56'    value='610'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0014_001550000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>미래융합사회과학대학(야)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>6</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>10</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#666666'><b>1.67 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_57' value='0'>
+						<input type=hidden name='Cam_57'     value='0'>
+						<input type=hidden name='Type_57'    value='14'>
+						<input type=hidden name='Unit_57'    value='620'>
+						<input type=hidden name='JuYa_57'    value='2'>
+						<input type=hidden name='Stat_57'    value='620'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0014_001560000'>
+			<td  rowspan='2'  class="txtFieldValue" align='left'>AI디자인대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='left'>AI패션학부</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>4</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>11</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#666666'><b>2.75 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_58' value='0'>
+						<input type=hidden name='Cam_58'     value='0'>
+						<input type=hidden name='Type_58'    value='14'>
+						<input type=hidden name='Unit_58'    value='750'>
+						<input type=hidden name='JuYa_58'    value='1'>
+						<input type=hidden name='Stat_58'    value='750'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0014_001570000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>AI패션학부(야)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>1</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>2</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#666666'><b>2.00 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_59' value='0'>
+						<input type=hidden name='Cam_59'     value='0'>
+						<input type=hidden name='Type_59'    value='14'>
+						<input type=hidden name='Unit_59'    value='760'>
+						<input type=hidden name='JuYa_59'    value='2'>
+						<input type=hidden name='Stat_59'    value='760'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0014_001610000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>IT공과대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='left'>IT공과대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>19</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>15</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0.79 : 1</td> 
+
+						<input type=hidden name='ApplyGr_60' value='0'>
+						<input type=hidden name='Cam_60'     value='0'>
+						<input type=hidden name='Type_60'    value='14'>
+						<input type=hidden name='Unit_60'    value='810'>
+						<input type=hidden name='JuYa_60'    value='1'>
+						<input type=hidden name='Stat_60'    value='810'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0014_002300000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>AI디자인대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='left'>AI융합디자인학부</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>4</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>21</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>5.25 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_61' value='0'>
+						<input type=hidden name='Cam_61'     value='0'>
+						<input type=hidden name='Type_61'    value='14'>
+						<input type=hidden name='Unit_61'    value='730'>
+						<input type=hidden name='JuYa_61'    value='1'>
+						<input type=hidden name='Stat_61'    value='730'>
+					
+		</tr>
+			<tr align="center"  id='Tr_Sum_0014'>
+			<th colspan="2" class='tfoot'><span id='strSumId_Type_0014'> 소계</span></th><th class='tfoot' colspan='1'>58</th><th class='tfoot' colspan='1'>109</th><th class='tfoot' colspan='1'><font color='#666666'><b>1.88 : 1</b></font></th>
+			</tr>
+			
+		</table>
+	<span id="strEndNotiId_0014"></span><div class="space20"> &nbsp;</div></div>
+<div id="Div_0028" style="display:" class="DivType">
+	<span id="strStartNotiId_0028"></span>
+		<div class="both11">
+			<h3 style="background:url(.//color/bul_color1.png) no-repeat 0 15px;" class="p_left">
+				<span id="strTitleId_0028" class="bul">특성화고교졸업자전형 경쟁률 현황</span>
+			</h3>
+		</div>
+			<table cellpadding='0' cellspacing='0'>
+			<caption class='caphidden'>특성화고교졸업자전형</caption>
+			
+		<thead>
+			<!--tr style='background:url(.//2011/vline.png) no-repeat 0 50%;'-->
+			<tr>
+			<th class="bgnone noline lline" scope="col" width = "25%" ><span id="strTdTitleId_UnitStat_0028_UPUNITNM">대학</span></th><th class="noline" scope="col" width = "30%" ><span id="strTdTitleId_UnitStat_0028_UNITNM">모집단위</span></th><th class="noline" scope="col" width = "15%" ><span id="strTdTitleId_UnitStat_0028_INWON">모집인원</span></th><th class="noline" scope="col" width = "15%" ><span id="strTdTitleId_UnitStat_0028_APPLY">지원인원</span></th><th class="noline rline" scope="col" width = "15%" ><span id="strTdTitleId_UnitStat_0028_RATIO">경쟁률</span></th>
+			</tr>
+		</thead>
+			
+        <tr class='trFieldValue' id='Tr_0028_001780000'>
+			<td  rowspan='2'  class="txtFieldValue" align='left'>미래융합사회과학대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='left'>미래융합사회과학대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>5</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>22</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#4B4BFF'><b>4.40 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_62' value='0'>
+						<input type=hidden name='Cam_62'     value='0'>
+						<input type=hidden name='Type_62'    value='28'>
+						<input type=hidden name='Unit_62'    value='610'>
+						<input type=hidden name='JuYa_62'    value='1'>
+						<input type=hidden name='Stat_62'    value='610'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0028_001790000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>미래융합사회과학대학(야)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>2</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>6</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#4B4BFF'><b>3.00 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_63' value='0'>
+						<input type=hidden name='Cam_63'     value='0'>
+						<input type=hidden name='Type_63'    value='28'>
+						<input type=hidden name='Unit_63'    value='620'>
+						<input type=hidden name='JuYa_63'    value='2'>
+						<input type=hidden name='Stat_63'    value='620'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0028_001800000'>
+			<td  rowspan='4'  class="txtFieldValue" align='left'>AI디자인대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='left'>AI패션학부</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>2</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>10</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>5.00 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_64' value='0'>
+						<input type=hidden name='Cam_64'     value='0'>
+						<input type=hidden name='Type_64'    value='28'>
+						<input type=hidden name='Unit_64'    value='750'>
+						<input type=hidden name='JuYa_64'    value='1'>
+						<input type=hidden name='Stat_64'    value='750'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0028_001810000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>AI패션학부(야)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>1</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>3</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#4B4BFF'><b>3.00 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_65' value='0'>
+						<input type=hidden name='Cam_65'     value='0'>
+						<input type=hidden name='Type_65'    value='28'>
+						<input type=hidden name='Unit_65'    value='760'>
+						<input type=hidden name='JuYa_65'    value='2'>
+						<input type=hidden name='Stat_65'    value='760'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0028_001830000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>AI뷰티디자인학과</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>1</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>18</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#F10000'><b>18.00 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_66' value='0'>
+						<input type=hidden name='Cam_66'     value='0'>
+						<input type=hidden name='Type_66'    value='28'>
+						<input type=hidden name='Unit_66'    value='771'>
+						<input type=hidden name='JuYa_66'    value='1'>
+						<input type=hidden name='Stat_66'    value='771'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0028_001840000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>AI뷰티디자인학과(야)</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>1</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>1</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#666666'><b>1.00 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_67' value='0'>
+						<input type=hidden name='Cam_67'     value='0'>
+						<input type=hidden name='Type_67'    value='28'>
+						<input type=hidden name='Unit_67'    value='781'>
+						<input type=hidden name='JuYa_67'    value='2'>
+						<input type=hidden name='Stat_67'    value='781'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0028_001850000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>IT공과대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='left'>IT공과대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>7</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>22</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#4B4BFF'><b>3.14 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_68' value='0'>
+						<input type=hidden name='Cam_68'     value='0'>
+						<input type=hidden name='Type_68'    value='28'>
+						<input type=hidden name='Unit_68'    value='810'>
+						<input type=hidden name='JuYa_68'    value='1'>
+						<input type=hidden name='Stat_68'    value='810'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_0028_002540000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>AI디자인대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='left'>AI융합디자인학부</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>2</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>2</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#666666'><b>1.00 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_69' value='0'>
+						<input type=hidden name='Cam_69'     value='0'>
+						<input type=hidden name='Type_69'    value='28'>
+						<input type=hidden name='Unit_69'    value='730'>
+						<input type=hidden name='JuYa_69'    value='1'>
+						<input type=hidden name='Stat_69'    value='730'>
+					
+		</tr>
+			<tr align="center"  id='Tr_Sum_0028'>
+			<th colspan="2" class='tfoot'><span id='strSumId_Type_0028'> 소계</span></th><th class='tfoot' colspan='1'>21</th><th class='tfoot' colspan='1'>84</th><th class='tfoot' colspan='1'><font color='#4B4BFF'><b>4.00 : 1</b></font></th>
+			</tr>
+			
+		</table>
+	<span id="strEndNotiId_0028"></span><div class="space20"> &nbsp;</div></div>
+<div id="Div_0041" style="display:" class="DivType">
+	<span id="strStartNotiId_0041"></span>
+		<div class="both11">
+			<h3 style="background:url(.//color/bul_color1.png) no-repeat 0 15px;" class="p_left">
+				<span id="strTitleId_0041" class="bul">특성화고교졸재직자전형 경쟁률 현황</span>
+			</h3>
+		</div>
+			<table cellpadding='0' cellspacing='0'>
+			<caption class='caphidden'>특성화고교졸재직자전형</caption>
+			
+		<thead>
+			<!--tr style='background:url(.//2011/vline.png) no-repeat 0 50%;'-->
+			<tr>
+			<th class="bgnone noline lline" scope="col" width = "25%" ><span id="strTdTitleId_UnitStat_0041_UPUNITNM">대학</span></th><th class="noline" scope="col" width = "30%" ><span id="strTdTitleId_UnitStat_0041_UNITNM">모집단위</span></th><th class="noline" scope="col" width = "15%" ><span id="strTdTitleId_UnitStat_0041_INWON">모집인원</span></th><th class="noline" scope="col" width = "15%" ><span id="strTdTitleId_UnitStat_0041_APPLY">지원인원</span></th><th class="noline rline" scope="col" width = "15%" ><span id="strTdTitleId_UnitStat_0041_RATIO">경쟁률</span></th>
+			</tr>
+		</thead>
+			
+        <tr class='trFieldValue' id='Tr_0041_002160000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>미래플러스대학</td> 
+<td  rowspan='1'  class="txtFieldValue" align='left'>AI디지털융합인재학부</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>80</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>121</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><font color='#666666'><b>1.51 : 1</b></font></td> 
+
+						<input type=hidden name='ApplyGr_70' value='0'>
+						<input type=hidden name='Cam_70'     value='0'>
+						<input type=hidden name='Type_70'    value='41'>
+						<input type=hidden name='Unit_70'    value='840'>
+						<input type=hidden name='JuYa_70'    value='1'>
+						<input type=hidden name='Stat_70'    value='840'>
+					
+		</tr>
+			<tr align="center"  id='Tr_Sum_0041'>
+			<th colspan="2" class='tfoot'><span id='strSumId_Type_0041'> 소계</span></th><th class='tfoot' colspan='1'>80</th><th class='tfoot' colspan='1'>121</th><th class='tfoot' colspan='1'><font color='#666666'><b>1.51 : 1</b></font></th>
+			</tr>
+			
+		</table>
+	<span id="strEndNotiId_0041"></span><div class="space20"> &nbsp;</div></div>				
+				<input type=hidden name="exemode" value="">
+				<input type=hidden name="maxrow" value="71">
+				</form>
+			</div><!-- //table -->
+			</div><!-- //container -->
+		</div><!-- //border -->
+		</div>
+		
+	<div id="footer">
+			<h4><img src=".//foot_logo_1.png" alt="uwayapply" /></h4>
+			<p class="copy">Copyright uwayapply.com All Rights Reserved.</p>
+		</div><!-- //footer -->
+	</div><!-- //wrapper -->
+</body>
+</html>
+<!-- // 모니터링확인용 -->

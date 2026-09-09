@@ -1,0 +1,2026 @@
+
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head id="Head1"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><meta http-equiv="Expires" content="-1" /><meta http-equiv="Pragma" content="no-cache" /><meta http-equiv="Cache-Control" content="No-Cache" /><title>
+	대전대학교 경쟁률 서비스
+</title><link href="/RatioV1/Common/Css/template/jinhakratio_yellow_v3.css" rel="stylesheet" type="text/css" />
+	<!-- <script type="text/javascript" src="/ApplyV8/scripts/jquery.js"></script> -->
+	<script type="text/javascript" src="/RatioV1/Common/Script/jquery.js"></script>
+	<script language="javascript" type="text/javascript">
+//IE forEach문 문제
+if (window.NodeList && !NodeList.prototype.forEach) { NodeList.prototype.forEach = Array.prototype.forEach;}
+
+if ( document.addEventListener && navigator.appName!="Microsoft Internet Explorer") {
+	window.captureEvents(Event.ONKEYDOWN); 
+	document.addEventListener("DOMContentLoaded", function(){
+		if(document.getElementById('Logo')){
+			document.getElementById('Logo').innerHTML = '<a href="http://apply.jinhak.com" target="_blank"><img src="/RatioV1/img/blank.gif" width="150" height="23" border="0"></a>';
+		}
+	}, false );
+//IE
+} else if ( document.attachEvent ) {
+	document.attachEvent("onreadystatechange", function(){
+		if ( document.readyState === "complete" ) {
+			if(document.getElementById('Logo')){
+				document.getElementById('Logo').innerHTML = '<a href="http://apply.jinhak.com" target="_blank"><img src="/RatioV1/img/blank.gif" width="150" height="23" border="0"></a>';
+			}
+		}
+	});
+}
+// 나를 호출한 넘이 있다면.. 
+if (document.referrer != "")
+{
+	// 해당 값이 특정한 곳이라면.. 
+	if (document.referrer.toLowerCase().indexOf("uway") != -1)
+	{
+		window.parent.href = 'http://apply.jinhak.com';
+
+	}
+}
+
+// chess :: Link 
+window.onload = function(){
+	if(document.getElementById('TopLink').children.length > 0){
+    	var isV8Link = new RegExp(/(www\.jinhakapply\.com\/frame)[\d]{6}\.(aspx)/);
+		document.querySelectorAll('#TopLink a').forEach(function(link){
+			if(!isV8Link.test(link)){ // V8 링크가 아닐 시 https로 자동 변환.
+			    link.href = link.href.replace('http://', 'https://');
+			}
+		});    	
+	}
+}
+
+</script>
+	<script type="text/javascript">
+<!--
+			function selType_onChange() {
+				var selType = document.getElementById("selType");
+				var value = selType.options[selType.selectedIndex].value;
+				var strSelectRatio = '2';
+
+				if (strSelectRatio == '2' || strSelectRatio == '3') {
+					// 전체일 경우 전부 보임
+					if(value == 0){
+						$('div[id^=SelType]').show()
+					}
+					else{
+						$('div[id^=SelType]').hide()
+						$('#SelType' + value).show();
+						document.getElementById("SelType" + value).scrollIntoView();
+					}
+					
+					return;
+				}
+				else {
+					//HIde Show 처리
+					if (value == 0) {
+						SelType_Change('block');
+					}
+					else {
+						SelType_Change('none');
+						document.getElementById("SelType" + value).style.display = 'block';
+						document.getElementById("SelType" + value).scrollIntoView();
+					}
+				}
+			}
+
+		function SelType_Change(flag) {
+			var arrDiv = document.getElementsByTagName("div");
+			for (var i = 0; i < arrDiv.length; i++) {
+				if (arrDiv[i].id.indexOf("SelType") != -1) {
+					document.getElementById(arrDiv[i].id).style.display = flag;
+				}
+			}
+		}
+
+		//=============================================================
+		// 반응형 경쟁률 스크롤 이벤트 추가
+		//=============================================================
+		window.addEventListener('scroll', function(){
+			var height = window.innerHeight;
+			var scrollPosition = document.documentElement.scrollTop;
+
+			if(scrollPosition > height){
+				$('.quick_menu').show("slow");
+			} else{
+				$('.quick_menu').hide("slow");
+			}
+		});
+
+		function MoveTop(){
+			$('html, body').animate({
+				scrollTop : 0
+			}, 300)
+
+		}
+		//=============================================================
+
+		$(document).ready(function () {
+			/****************************************************************************************
+			 엑셀버튼 추가  
+			****************************************************************************************/
+			$('#btnExcel').click(ExportExcel);
+		});
+
+    /****************************************************************************************
+     엑셀버튼 추가  
+    ****************************************************************************************/
+		function ExportExcel() {
+			// 마우스 오버 이벤트 삭제(IE에서 문제가 될 수 있음)
+			var divData = $('#Ratio1050113').html();
+			divData = divData.replace(/<tr onmouseover=\"this.className='over';\" onmouseout=\"this.className='';\">/gi, "<tr>");
+			divData = divData.replace(/'/g, '"');
+
+			var PostHtml = "<form method='post' action='/RatioV1/Common/Etc/RatioExcel.aspx' style='top:-198501px;' id='tempForm'>";
+			PostHtml += "<input type='hidden' name='ServiceName' value='" + encodeURIComponent('대전대학교') + "' >";
+			PostHtml += "<input type='hidden' name='Data' value='" + encodeURIComponent($('#TopType').html()) + encodeURIComponent(divData) + "' >";
+			PostHtml += "</form>";
+
+			$('#JHService').prepend(PostHtml);
+			$('#tempForm').submit();
+			$("tempForm").remove();
+
+			return false;
+		}
+		-->
+	</script>
+</head>
+
+<body id="JHService">
+	<form method="post" action="./Ratio10501131.aspx?idx=30962&amp;Company=jinhak&amp;Name=Ratio" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUJODE1ODcwMTUwZGQC+Hj2BqYEkFgI8Gml2JMOt5LNMg==" />
+
+<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="76791696" />
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAA6DY+30zlHrz5Xa7fobjoH2xGV0aKErUllaWtqgLmJ8ZXq9O49QA4cctboF4K3tk2VZI7HhRPGmZk/PJwIoQfCv0ITWuWLYxaOOmlQHl9xk/PEkzQZcHSl13XubXRInyNTeVqWagQFyPJ7Nt1lHBKkS4983VHpZCrvJWSkHFfURDYjwc4vlWo/ZCZHEZtLvWIB2VS1x4ojyP/FhPepS0vbWzthOJYT38yKKMNPmsyBu86G0AO9Rqc3b7Xsgz83EV+vZpz7pHcUsCLij8W/ugo0H40E7Mz4eZGT6rb1MnYWnjid53/2k9zh5SES7+kSLQwM07lPT" />
+		<!-- bgcolor : #DF3151, #51B79F, #E29F30, #82BD3E, #318CC7 -->
+
+		<div id="RoundT">
+			<div class="header">
+				<h1 class="univ"><img src="http://apply.jinhakapply.com/WebAppForms/Wonseo/LogImg/1050.gif" id="UnivLogo" alt="대학로고" /></h1>
+				<span id="TextType">
+					<p class="tit">
+						<span id="TitleYear">2027학년도</span>&nbsp;
+						<span id="TitleService">수시모집</span>&nbsp;
+						<span id="TitleText">경쟁률</span>
+					</p>
+				</span>
+				
+			</div>
+
+			<div class="cont">
+				
+				<div id="Top" class="notiBox">
+					<div class="notiBox_in">
+						<!-- 이미지 영역 -->
+						<div id="divImgPromotion" class="promotion">
+							<img src="/RatioV1/img/img1050113.jpg?v=1" id="ImgPromotion" />
+						</div>
+						<!-- //이미지 영역 -->
+						<ul id="TopType" class="ul3"><li style="display: inline-block; width: 54%;">
+  <strong style="color:blue;">※ 접수기간 : 09.07(월) 09:00 ~ 09.11(금) 20:00</strong><br> 
+  <strong style="color:#FF0000">※ 경쟁률은 9월 11일(접수마감일) 18시까지 10분 단위로 공개됩니다.</strong>
+  <br>
+	※ 최종 확인 결과에 따라 모집단위별 지원인원은 변경될 수 있습니다.
+	<br>
+	<br>
+	<strong style="color:blue;">※ 전형 간에 중복지원 가능합니다.</strong>
+</li>
+<li style="display: inline-block; text-align: right; width: 45%;">
+	<a href="https://pf.kakao.com/_zkAxaxb" target="_blank" style="display: inline-block;">
+	<img src="/RatioV1/img/1050068_2.png" border="0" style="width: 100%;">
+	</a>
+</li></ul>
+						<div id="TopLink" class="notnBtn"><a class="st1" href="http://apply.jinhakapply.com/Notice/1050113/A" target="_blank">원서접수 바로가기</a>
+</div>
+					</div>
+				</div>
+
+				<div id="RatioSort" class="RateState">
+					<p id="RatioTime" class="time">2026-09-09 오전 9:20 현황</p>
+					<!-- 경쟁률 현황 Select //-->
+					<div class="RateState_in">
+						<select name="selType" id="selType" class="SltBox" onchange="return selType_onChange();">
+	<option value="0">전형 전체</option>
+	<option value="401">교과면접전형</option>
+	<option value="402">교과중점전형</option>
+	<option value="414">지역인재Ⅰ전형</option>
+	<option value="415">지역인재Ⅱ전형</option>
+	<option value="403">군사학과전형</option>
+	<option value="408">고른기회전형</option>
+	<option value="406">혜화인재전형</option>
+	<option value="404">특기자전형</option>
+	<option value="405">실기위주전형</option>
+	<option value="410">농어촌학생전형</option>
+	<option value="411">특성화고교졸업자전형</option>
+	<option value="416">기회균형전형</option>
+
+</select>
+					</div>
+					<!--// 군별 경쟁률 현황 Select -->
+				</div>
+
+				<!--// 엑셀 저장범위 -->
+				<div id="Ratio1050113">
+					<!-- 컨텐츠 -->
+					
+					<!--// 컨텐츠 -->
+
+					<!-- 컨텐츠 -->
+					<div>
+<a name='lik_top'></a>
+	<h2><strong>전형별</strong> 경쟁률 현황</h2>
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio2">
+		<colgroup>
+			<col width="" />
+			<col width="40%" />
+			<col width="10%" />
+			<col width="10%" />
+		</colgroup>
+		<tr>
+			<th colspan=2>전형명</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<tr style="text-align:center;">
+			<td class="unit" style="text-align:center" rowspan="6">학생부교과전형</td>
+			<td  style="text-align:left" onclick='document.getElementById("selType").value="401";selType_onChange();'>&nbsp;교과면접전형 <span style="color:blue"><strong>[학생부(교과/출석) 60% + 면접 40%]</strong></span></td>
+			<td>308</td>
+			<td>449</td>
+			<td style="font-weight:bold;">1.46 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td  style="text-align:left" onclick='document.getElementById("selType").value="402";selType_onChange();'>&nbsp;교과중점전형 <span style="color:blue"><strong>[학생부(교과/출석) 100%]</strong></span></td>
+			<td>867</td>
+			<td>1,334</td>
+			<td style="font-weight:bold;">1.54 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td  style="text-align:left" onclick='document.getElementById("selType").value="414";selType_onChange();'>&nbsp;지역인재Ⅰ전형 <span style="color:blue"><strong>[학생부(교과/출석) 100%]</strong></span></td>
+			<td>206</td>
+			<td>288</td>
+			<td style="font-weight:bold;">1.40 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td  style="text-align:left" onclick='document.getElementById("selType").value="415";selType_onChange();'>&nbsp;지역인재Ⅱ전형 <span style="color:blue"><strong>[학생부(교과/출석) 100%]</strong></span></td>
+			<td>4</td>
+			<td>13</td>
+			<td style="font-weight:bold;">3.25 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td  style="text-align:left" onclick='document.getElementById("selType").value="403";selType_onChange();'>&nbsp;군사학과전형</td>
+			<td>40</td>
+			<td>85</td>
+			<td style="font-weight:bold;">2.13 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td  style="text-align:left" onclick='document.getElementById("selType").value="408";selType_onChange();'>&nbsp;고른기회전형 <span style="color:blue"><strong>[학생부(교과/출석) 100%]</strong></span></td>
+			<td>33</td>
+			<td>29</td>
+			<td style="font-weight:bold;">0.88 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td class="unit" style="text-align:center" rowspan="1">학생부종합전형</td>
+			<td  style="text-align:left" onclick='document.getElementById("selType").value="406";selType_onChange();'>&nbsp;혜화인재전형 <span style="color:blue"><strong>[서류평가 60% + 면접 40%]</strong></span> <span style="color:red"><strong>자기소개서 없음</strong></span></td>
+			<td>45</td>
+			<td>148</td>
+			<td style="font-weight:bold;">3.29 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td class="unit" style="text-align:center" rowspan="2">실기위주전형</td>
+			<td  style="text-align:left" onclick='document.getElementById("selType").value="404";selType_onChange();'>&nbsp;특기자전형</td>
+			<td>13</td>
+			<td>14</td>
+			<td style="font-weight:bold;">1.08 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td  style="text-align:left" onclick='document.getElementById("selType").value="405";selType_onChange();'>&nbsp;실기위주전형</td>
+			<td>165</td>
+			<td>401</td>
+			<td style="font-weight:bold;">2.43 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td class="unit" style="text-align:center" rowspan="3">정원외</td>
+			<td  style="text-align:left" onclick='document.getElementById("selType").value="410";selType_onChange();'>&nbsp;농어촌학생전형 <span style="color:blue"><strong>[학생부(교과/출석) 100%]</strong></span></td>
+			<td>63</td>
+			<td>129</td>
+			<td style="font-weight:bold;">2.05 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td  style="text-align:left" onclick='document.getElementById("selType").value="411";selType_onChange();'>&nbsp;특성화고교졸업자전형 <span style="color:blue"><strong>[학생부(교과/출석) 100%]</strong></span></td>
+			<td>17</td>
+			<td>24</td>
+			<td style="font-weight:bold;">1.41 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td  style="text-align:left" onclick='document.getElementById("selType").value="416";selType_onChange();'>&nbsp;기회균형전형 <span style="color:blue"><strong>[학생부(교과/출석) 100%]</strong></span></td>
+			<td>14</td>
+			<td>44</td>
+			<td style="font-weight:bold;">3.14 : 1</td>
+		</tr>		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan='2'>총계</td>
+			<td>1,775</td>
+			<td>2,958</td>
+			<td class="rate4">1.67 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+
+					<!--// 컨텐츠 -->
+
+					<!-- 컨텐츠 -->
+						<a name='lik_401'></a><div id="SelType401">
+	<h2><strong>교과면접전형</strong> <span style="color:blue">[1단계:교과/출석 100%, 2단계:교과/출석 60% + 면접 40%]</span> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="" />
+			<col width="15%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="15%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th colspan='2'>모집단위</th>
+			<th>학과소개</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit" rowspan="1">혜화리버럴아츠칼리지</td>
+			<td class="unit" colspan='2'>글로벌문화콘텐츠학전공, 국어국문창작학전공, 역사문화학전공, 영미언어문화학전공, 경제학전공, 생명과학전공, PPE(정치·경제·철학)전공, MCS(수학·컴퓨터과학)전공, 학생설계전공</td>
+			<td><a href='https://www.dju.ac.kr/hlac/main.do' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>25</td>
+			<td>13</td>
+			<td class="rate4">0.52 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="4">디자인·아트대학</td>
+			<td class="unit" colspan='2'>건축학과(4년제)</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3741' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>8</td>
+			<td>6</td>
+			<td class="rate4">0.75 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>패션디자인ㆍ비즈니스학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3778' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>10</td>
+			<td>13</td>
+			<td class="rate4">1.30 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>뷰티디자인학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3754' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>15</td>
+			<td>48</td>
+			<td class="rate2">3.20 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>공연예술영상콘텐츠학과<span style=color:#0089ea>(연기트랙, 영상콘텐츠트랙)</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3745' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>5</td>
+			<td>14</td>
+			<td class="rate4">2.80 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="5">사회과학대학</td>
+			<td class="unit" colspan='2'>경찰학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3744' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>17</td>
+			<td>27</td>
+			<td class="rate4">1.59 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>법행정학부<span style=color:#0089ea>(법학전공, 행정학전공)</span></td>
+			<td><div>법학전공 <a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3752' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div><div>행정학전공 <a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3781' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div></td>
+			<td>12</td>
+			<td>13</td>
+			<td class="rate4">1.08 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>사회복지학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3759' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>13</td>
+			<td>12</td>
+			<td class="rate4">0.92 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>상담학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3765' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>12</td>
+			<td>10</td>
+			<td class="rate4">0.83 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>중등특수교육과<span style=color:#ff543d>[사범]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3774' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>6</td>
+			<td>6</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="4">경영대학</td>
+			<td class="unit" colspan='2'>경영학부<span style=color:#0089ea>(경영학전공, 회계학전공)</span></td>
+			<td><div>경영학전공 <a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3742' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div><div>회계학전공 <a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3783' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div></td>
+			<td>13</td>
+			<td>17</td>
+			<td class="rate4">1.31 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>비즈니스일본어학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3756' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>9</td>
+			<td>15</td>
+			<td class="rate4">1.67 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>물류통상학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3750' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>4</td>
+			<td>2</td>
+			<td class="rate4">0.50 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>산업ㆍ광고심리학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3760' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>9</td>
+			<td>15</td>
+			<td class="rate4">1.67 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="4">공과대학</td>
+			<td class="unit" colspan='2'>건축공학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3740' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>5</td>
+			<td>3</td>
+			<td class="rate4">0.60 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>건설환경안전공학부<span style=color:#0089ea>(건설환경공학전공, 재난안전공학전공)</span></td>
+			<td><div>건설환경공학전공 <a href='https://www.dju.ac.kr/cese/cm/cntnts/cntntsView.do?mi=7543&cntntsId=4484' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div><div>재난안전공학전공 <a href='https://www.dju.ac.kr/cese/cm/cntnts/cntntsView.do?mi=7546&cntntsId=4486' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div></td>
+			<td>7</td>
+			<td>6</td>
+			<td class="rate4">0.86 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>소방방재학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3763' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>10</td>
+			<td>24</td>
+			<td class="rate4">2.40 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>반도체공학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3946' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>5</td>
+			<td>8</td>
+			<td class="rate4">1.60 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="4">SW융합대학</td>
+			<td class="unit" colspan='2'>컴퓨터공학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3776' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>13</td>
+			<td>3</td>
+			<td class="rate4">0.23 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>정보통신공학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=4156' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>6</td>
+			<td>2</td>
+			<td class="rate4">0.33 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>정보보안학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3772' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>4</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>AI소프트웨어학부<span style=color:#0089ea>(빅데이터전공, 인공지능전공)</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3948' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>10</td>
+			<td>1</td>
+			<td class="rate4">0.10 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="7">보건의료과학대학</td>
+			<td class="unit" colspan='2'>간호학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3738' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>18</td>
+			<td>32</td>
+			<td class="rate4">1.78 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>물리치료학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3751' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>10</td>
+			<td>31</td>
+			<td class="rate2">3.10 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>임상병리학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3770' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>10</td>
+			<td>16</td>
+			<td class="rate4">1.60 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>응급구조학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3769' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>10</td>
+			<td>17</td>
+			<td class="rate4">1.70 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>식품영양학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3764' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>10</td>
+			<td>20</td>
+			<td class="rate4">2.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>보건의료경영학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3753' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>10</td>
+			<td>10</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>화장품학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3782' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>4</td>
+			<td>7</td>
+			<td class="rate4">1.75 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">한의과대학</td>
+			<td class="unit" colspan='2'>한의예과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3780' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>18</td>
+			<td>58</td>
+			<td class="rate2">3.22 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=4>총계</td>
+			<td>308</td>
+			<td>449</td>
+			<td class="rate4">1.46 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	<ul class="exceptNoticeBox">
+	<li>혜화리버럴아츠칼리지 : 전공 선택 100% 보장</li>
+	</ul>
+	</div>
+	<style>
+	.exceptNoticeBox > li:before {content: "※";display: block;position: absolute;top: 0;left: 0;}
+	.exceptNoticeBox > li {list-style:none;position:relative;padding-left:16px;color:red; font-weight:bold;}
+	</style>
+	<a name='lik_402'></a><div id="SelType402">
+	<h2><strong>교과중점전형</strong> <span style="color:blue">[교과/출석 100%]</span> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="" />
+			<col width="15%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="15%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th colspan='2'>모집단위</th>
+			<th>학과소개</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit" rowspan="1">혜화리버럴아츠칼리지</td>
+			<td class="unit" colspan='2'>글로벌문화콘텐츠학전공, 국어국문창작학전공, 역사문화학전공, 영미언어문화학전공, 경제학전공, 생명과학전공, PPE(정치·경제·철학)전공, MCS(수학·컴퓨터과학)전공, 학생설계전공</td>
+			<td><a href='https://www.dju.ac.kr/hlac/main.do' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>90</td>
+			<td>108</td>
+			<td class="rate4">1.20 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="3">디자인·아트대학</td>
+			<td class="unit" colspan='2'>건축학과(4년제)</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3741' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>18</td>
+			<td>24</td>
+			<td class="rate4">1.33 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>패션디자인ㆍ비즈니스학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3778' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>26</td>
+			<td>33</td>
+			<td class="rate4">1.27 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>뷰티디자인학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3754' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>20</td>
+			<td>87</td>
+			<td class="rate2">4.35 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="5">사회과학대학</td>
+			<td class="unit" colspan='2'>경찰학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3744' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>26</td>
+			<td>43</td>
+			<td class="rate4">1.65 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>법행정학부<span style=color:#0089ea>(법학전공, 행정학전공)</span></td>
+			<td><div>법학전공 <a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3752' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div><div>행정학전공 <a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3781' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div></td>
+			<td>40</td>
+			<td>41</td>
+			<td class="rate4">1.03 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>사회복지학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3759' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>30</td>
+			<td>78</td>
+			<td class="rate4">2.60 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>상담학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3765' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>24</td>
+			<td>26</td>
+			<td class="rate4">1.08 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>중등특수교육과<span style=color:#ff543d>[사범]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3774' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>11</td>
+			<td>21</td>
+			<td class="rate4">1.91 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="4">경영대학</td>
+			<td class="unit" colspan='2'>경영학부<span style=color:#0089ea>(경영학전공, 회계학전공)</span></td>
+			<td><div>경영학전공 <a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3742' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div><div>회계학전공 <a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3783' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div></td>
+			<td>55</td>
+			<td>77</td>
+			<td class="rate4">1.40 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>비즈니스일본어학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3756' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>15</td>
+			<td>35</td>
+			<td class="rate4">2.33 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>물류통상학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3750' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>29</td>
+			<td>31</td>
+			<td class="rate4">1.07 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>산업ㆍ광고심리학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3760' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>23</td>
+			<td>24</td>
+			<td class="rate4">1.04 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="4">공과대학</td>
+			<td class="unit" colspan='2'>건축공학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3740' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>16</td>
+			<td>27</td>
+			<td class="rate4">1.69 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>건설환경안전공학부<span style=color:#0089ea>(건설환경공학전공, 재난안전공학전공)</span></td>
+			<td><div>건설환경공학전공 <a href='https://www.dju.ac.kr/cese/cm/cntnts/cntntsView.do?mi=7543&cntntsId=4484' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div><div>재난안전공학전공 <a href='https://www.dju.ac.kr/cese/cm/cntnts/cntntsView.do?mi=7546&cntntsId=4486' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div></td>
+			<td>52</td>
+			<td>39</td>
+			<td class="rate4">0.75 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>소방방재학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3763' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>30</td>
+			<td>74</td>
+			<td class="rate4">2.47 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>반도체공학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3946' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>21</td>
+			<td>45</td>
+			<td class="rate4">2.14 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="4">SW융합대학</td>
+			<td class="unit" colspan='2'>컴퓨터공학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3776' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>56</td>
+			<td>53</td>
+			<td class="rate4">0.95 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>정보통신공학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=4156' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>34</td>
+			<td>37</td>
+			<td class="rate4">1.09 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>정보보안학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3772' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>17</td>
+			<td>14</td>
+			<td class="rate4">0.82 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>AI소프트웨어학부<span style=color:#0089ea>(빅데이터전공, 인공지능전공)</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3948' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>42</td>
+			<td>40</td>
+			<td class="rate4">0.95 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="7">보건의료과학대학</td>
+			<td class="unit" colspan='2'>간호학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3738' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>28</td>
+			<td>51</td>
+			<td class="rate4">1.82 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>물리치료학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3751' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>12</td>
+			<td>21</td>
+			<td class="rate4">1.75 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>임상병리학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3770' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>12</td>
+			<td>28</td>
+			<td class="rate4">2.33 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>응급구조학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3769' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>14</td>
+			<td>35</td>
+			<td class="rate4">2.50 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>식품영양학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3764' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>30</td>
+			<td>37</td>
+			<td class="rate4">1.23 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>보건의료경영학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3753' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>25</td>
+			<td>47</td>
+			<td class="rate4">1.88 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>화장품학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3782' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>21</td>
+			<td>35</td>
+			<td class="rate4">1.67 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">한의과대학</td>
+			<td class="unit" colspan='2'>한의예과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3780' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>10</td>
+			<td>57</td>
+			<td class="rate1">5.70 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">자유전공학부</td>
+			<td class="unit" colspan='2'>자유전공학부</td>
+			<td><a href='' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>40</td>
+			<td>66</td>
+			<td class="rate4">1.65 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=4>총계</td>
+			<td>867</td>
+			<td>1,334</td>
+			<td class="rate4">1.54 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	<ul class="exceptNoticeBox">
+	<li>혜화리버럴아츠칼리지 : 전공 선택 100% 보장</li>
+	</ul>
+	<ul class="exceptNoticeBox">
+	<li>자유전공학부는 중등특수교육과, 군사학과, 간호학과, 물리치료학과, 임상병리학과, 응급구조학과, 한의예과, 커뮤니케이션디자인학과, 웹툰애니메이션학과를 제외한 전 학문 분야에서 전공 선택 가능</li>
+	</ul>
+	</div>
+	<style>
+	.exceptNoticeBox > li:before {content: "※";display: block;position: absolute;top: 0;left: 0;}
+	.exceptNoticeBox > li {list-style:none;position:relative;padding-left:16px;color:red; font-weight:bold;}
+	</style>
+	<a name='lik_414'></a><div id="SelType414">
+	<h2><strong>지역인재Ⅰ전형</strong> <span style="color:blue">[교과/출석 100%]</span> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="" />
+			<col width="15%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="15%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th colspan='2'>모집단위</th>
+			<th>학과소개</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit" rowspan="1">혜화리버럴아츠칼리지</td>
+			<td class="unit" colspan='2'>글로벌문화콘텐츠학전공, 국어국문창작학전공, 역사문화학전공, 영미언어문화학전공, 경제학전공, 생명과학전공, PPE(정치·경제·철학)전공, MCS(수학·컴퓨터과학)전공, 학생설계전공</td>
+			<td><a href='https://www.dju.ac.kr/hlac/main.do' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>25</td>
+			<td>20</td>
+			<td class="rate4">0.80 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="3">디자인·아트대학</td>
+			<td class="unit" colspan='2'>건축학과(4년제)</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3741' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>4</td>
+			<td>1</td>
+			<td class="rate4">0.25 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>패션디자인ㆍ비즈니스학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3778' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>5</td>
+			<td>4</td>
+			<td class="rate4">0.80 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>뷰티디자인학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3754' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>5</td>
+			<td>2</td>
+			<td class="rate4">0.40 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="5">사회과학대학</td>
+			<td class="unit" colspan='2'>경찰학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3744' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>8</td>
+			<td>19</td>
+			<td class="rate4">2.38 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>법행정학부<span style=color:#0089ea>(법학전공, 행정학전공)</span></td>
+			<td><div>법학전공 <a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3752' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div><div>행정학전공 <a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3781' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div></td>
+			<td>8</td>
+			<td>12</td>
+			<td class="rate4">1.50 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>사회복지학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3759' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>8</td>
+			<td>11</td>
+			<td class="rate4">1.38 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>상담학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3765' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>4</td>
+			<td>2</td>
+			<td class="rate4">0.50 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>중등특수교육과<span style=color:#ff543d>[사범]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3774' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>3</td>
+			<td>2</td>
+			<td class="rate4">0.67 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="3">경영대학</td>
+			<td class="unit" colspan='2'>경영학부<span style=color:#0089ea>(경영학전공, 회계학전공)</span></td>
+			<td><div>경영학전공 <a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3742' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div><div>회계학전공 <a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3783' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div></td>
+			<td>8</td>
+			<td>10</td>
+			<td class="rate4">1.25 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>비즈니스일본어학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3756' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>4</td>
+			<td>8</td>
+			<td class="rate4">2.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>산업ㆍ광고심리학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3760' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>6</td>
+			<td>8</td>
+			<td class="rate4">1.33 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="4">공과대학</td>
+			<td class="unit" colspan='2'>건축공학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3740' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>4</td>
+			<td>3</td>
+			<td class="rate4">0.75 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>건설환경안전공학부<span style=color:#0089ea>(건설환경공학전공, 재난안전공학전공)</span></td>
+			<td><div>건설환경공학전공 <a href='https://www.dju.ac.kr/cese/cm/cntnts/cntntsView.do?mi=7543&cntntsId=4484' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div><div>재난안전공학전공 <a href='https://www.dju.ac.kr/cese/cm/cntnts/cntntsView.do?mi=7546&cntntsId=4486' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div></td>
+			<td>6</td>
+			<td>5</td>
+			<td class="rate4">0.83 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>소방방재학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3763' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>7</td>
+			<td>14</td>
+			<td class="rate4">2.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>반도체공학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3946' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>4</td>
+			<td>11</td>
+			<td class="rate4">2.75 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="3">SW융합대학</td>
+			<td class="unit" colspan='2'>컴퓨터공학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3776' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>7</td>
+			<td>5</td>
+			<td class="rate4">0.71 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>정보보안학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3772' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>4</td>
+			<td>2</td>
+			<td class="rate4">0.50 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>AI소프트웨어학부<span style=color:#0089ea>(빅데이터전공, 인공지능전공)</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3948' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>6</td>
+			<td>3</td>
+			<td class="rate4">0.50 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="7">보건의료과학대학</td>
+			<td class="unit" colspan='2'>간호학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3738' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>18</td>
+			<td>13</td>
+			<td class="rate4">0.72 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>물리치료학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3751' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>5</td>
+			<td>6</td>
+			<td class="rate4">1.20 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>임상병리학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3770' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>7</td>
+			<td>30</td>
+			<td class="rate2">4.29 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>응급구조학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3769' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>6</td>
+			<td>3</td>
+			<td class="rate4">0.50 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>식품영양학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3764' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>6</td>
+			<td>5</td>
+			<td class="rate4">0.83 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>보건의료경영학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3753' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>5</td>
+			<td>9</td>
+			<td class="rate4">1.80 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>화장품학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3782' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>5</td>
+			<td>2</td>
+			<td class="rate4">0.40 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">한의과대학</td>
+			<td class="unit" colspan='2'>한의예과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3780' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>23</td>
+			<td>72</td>
+			<td class="rate2">3.13 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">자유전공학부</td>
+			<td class="unit" colspan='2'>자유전공학부</td>
+			<td><a href='' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>5</td>
+			<td>6</td>
+			<td class="rate4">1.20 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=4>총계</td>
+			<td>206</td>
+			<td>288</td>
+			<td class="rate4">1.40 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	<ul class="exceptNoticeBox">
+	<li>혜화리버럴아츠칼리지 : 전공 선택 100% 보장</li>
+	</ul>
+	<ul class="exceptNoticeBox">
+	<li>자유전공학부는 중등특수교육과, 군사학과, 간호학과, 물리치료학과, 임상병리학과, 응급구조학과, 한의예과, 커뮤니케이션디자인학과, 웹툰애니메이션학과를 제외한 전 학문 분야에서 전공 선택 가능</li>
+	</ul>
+	</div>
+	<style>
+	.exceptNoticeBox > li:before {content: "※";display: block;position: absolute;top: 0;left: 0;}
+	.exceptNoticeBox > li {list-style:none;position:relative;padding-left:16px;color:red; font-weight:bold;}
+	</style>
+	<a name='lik_415'></a><div id="SelType415">
+	<h2><strong>지역인재Ⅱ전형</strong> <span style="color:blue">[교과/출석 100%]</span> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="" />
+			<col width="15%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="15%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th colspan='2'>모집단위</th>
+			<th>학과소개</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit" rowspan="1">보건의료과학대학</td>
+			<td class="unit" colspan='2'>간호학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3738' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>2</td>
+			<td>1</td>
+			<td class="rate4">0.50 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">한의과대학</td>
+			<td class="unit" colspan='2'>한의예과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3780' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>2</td>
+			<td>12</td>
+			<td class="rate1">6.00 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=4>총계</td>
+			<td>4</td>
+			<td>13</td>
+			<td class="rate2">3.25 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<style>
+	.exceptNoticeBox > li:before {content: "※";display: block;position: absolute;top: 0;left: 0;}
+	.exceptNoticeBox > li {list-style:none;position:relative;padding-left:16px;color:red; font-weight:bold;}
+	</style>
+	<a name='lik_403'></a><div id="SelType403">
+	<h2><strong>군사학과전형</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="" />
+			<col width="15%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="15%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th colspan='2'>모집단위</th>
+			<th>학과소개</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit" rowspan="2">사회과학대학</td>
+			<td class="unit" colspan='2'>군사학과(남자) <span style="color:red"><strong>[육군최초협약대학]</strong></span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3747' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>30</td>
+			<td>61</td>
+			<td class="rate4">2.03 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>군사학과(여자) <span style="color:red"><strong>[육군최초협약대학]</strong></span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3747' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>10</td>
+			<td>24</td>
+			<td class="rate4">2.40 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=4>총계</td>
+			<td>40</td>
+			<td>85</td>
+			<td class="rate4">2.13 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<style>
+	.exceptNoticeBox > li:before {content: "※";display: block;position: absolute;top: 0;left: 0;}
+	.exceptNoticeBox > li {list-style:none;position:relative;padding-left:16px;color:red; font-weight:bold;}
+	</style>
+	<a name='lik_408'></a><div id="SelType408">
+	<h2><strong>고른기회전형</strong> <span style="color:blue">[교과/출석 100%]</span> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="" />
+			<col width="15%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="15%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th colspan='2'>모집단위</th>
+			<th>학과소개</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit" rowspan="1">디자인·아트대학</td>
+			<td class="unit" colspan='2'>패션디자인ㆍ비즈니스학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3778' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>4</td>
+			<td>3</td>
+			<td class="rate4">0.75 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="2">사회과학대학</td>
+			<td class="unit" colspan='2'>경찰학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3744' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>4</td>
+			<td>3</td>
+			<td class="rate4">0.75 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>사회복지학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3759' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>4</td>
+			<td>6</td>
+			<td class="rate4">1.50 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="3">경영대학</td>
+			<td class="unit" colspan='2'>경영학부<span style=color:#0089ea>(경영학전공, 회계학전공)</span></td>
+			<td><div>경영학전공 <a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3742' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div><div>회계학전공 <a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3783' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div></td>
+			<td>4</td>
+			<td>5</td>
+			<td class="rate4">1.25 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>물류통상학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3750' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>2</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>산업ㆍ광고심리학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3760' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>2</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">공과대학</td>
+			<td class="unit" colspan='2'>소방방재학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3763' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>3</td>
+			<td>3</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="2">SW융합대학</td>
+			<td class="unit" colspan='2'>컴퓨터공학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3776' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>4</td>
+			<td>3</td>
+			<td class="rate4">0.75 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>AI소프트웨어학부<span style=color:#0089ea>(빅데이터전공, 인공지능전공)</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3948' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>2</td>
+			<td>3</td>
+			<td class="rate4">1.50 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">보건의료과학대학</td>
+			<td class="unit" colspan='2'>식품영양학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3764' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>4</td>
+			<td>3</td>
+			<td class="rate4">0.75 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=4>총계</td>
+			<td>33</td>
+			<td>29</td>
+			<td class="rate4">0.88 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<style>
+	.exceptNoticeBox > li:before {content: "※";display: block;position: absolute;top: 0;left: 0;}
+	.exceptNoticeBox > li {list-style:none;position:relative;padding-left:16px;color:red; font-weight:bold;}
+	</style>
+	<a name='lik_406'></a><div id="SelType406">
+	<h2><strong>혜화인재전형</strong> <span style="color:blue">[1단계:서류평가 100%, 2단계:서류평가 60% + 면접 40% / <span style="color:red">자기소개서 없음</span>]</span> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="" />
+			<col width="15%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="15%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th colspan='2'>모집단위</th>
+			<th>학과소개</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit" rowspan="5">보건의료과학대학</td>
+			<td class="unit" colspan='2'>간호학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3738' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>12</td>
+			<td>54</td>
+			<td class="rate2">4.50 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>물리치료학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3751' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>8</td>
+			<td>18</td>
+			<td class="rate4">2.25 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>임상병리학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3770' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>6</td>
+			<td>7</td>
+			<td class="rate4">1.17 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>응급구조학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3769' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>6</td>
+			<td>15</td>
+			<td class="rate4">2.50 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>스포츠과학부<span style=color:#0089ea>(체육학전공, 운동재활전공)</span></td>
+			<td><div>체육학전공 <a href='https://www.dju.ac.kr/ses/cm/cntnts/cntntsView.do?mi=7506&cntntsId=4473' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div><div>운동재활전공 <a href='https://www.dju.ac.kr/ses/cm/cntnts/cntntsView.do?mi=7507&cntntsId=4494' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div></td>
+			<td>5</td>
+			<td>9</td>
+			<td class="rate4">1.80 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">한의과대학</td>
+			<td class="unit" colspan='2'>한의예과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3780' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>8</td>
+			<td>45</td>
+			<td class="rate1">5.63 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=4>총계</td>
+			<td>45</td>
+			<td>148</td>
+			<td class="rate2">3.29 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<style>
+	.exceptNoticeBox > li:before {content: "※";display: block;position: absolute;top: 0;left: 0;}
+	.exceptNoticeBox > li {list-style:none;position:relative;padding-left:16px;color:red; font-weight:bold;}
+	</style>
+	<a name='lik_404'></a><div id="SelType404">
+	<h2><strong>특기자전형</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="" />
+			<col width="15%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="15%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th colspan='2'>모집단위</th>
+			<th>학과소개</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit" rowspan="4">보건의료과학대학</td>
+			<td class="unit" colspan='2'>스포츠과학부-정구</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3762' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>3</td>
+			<td>2</td>
+			<td class="rate4">0.67 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>스포츠과학부-펜싱</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3762' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>4</td>
+			<td>4</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>스포츠과학부-검도</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3762' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>3</td>
+			<td>3</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>스포츠과학부-복싱</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3762' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>3</td>
+			<td>5</td>
+			<td class="rate4">1.67 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=4>총계</td>
+			<td>13</td>
+			<td>14</td>
+			<td class="rate4">1.08 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<style>
+	.exceptNoticeBox > li:before {content: "※";display: block;position: absolute;top: 0;left: 0;}
+	.exceptNoticeBox > li {list-style:none;position:relative;padding-left:16px;color:red; font-weight:bold;}
+	</style>
+	<a name='lik_405'></a><div id="SelType405">
+	<h2><strong>실기위주전형</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="" />
+			<col width="15%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="15%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th colspan='2'>모집단위</th>
+			<th>학과소개</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit" rowspan="3">디자인·아트대학</td>
+			<td class="unit" colspan='2'>커뮤니케이션디자인학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3775' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>50</td>
+			<td>52</td>
+			<td class="rate4">1.04 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>웹툰애니메이션학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3768' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>60</td>
+			<td>276</td>
+			<td class="rate2">4.60 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>공연예술영상콘텐츠학과<span style=color:#0089ea>(연기트랙, 영상콘텐츠트랙)</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3745' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>15</td>
+			<td>14</td>
+			<td class="rate4">0.93 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">보건의료과학대학</td>
+			<td class="unit" colspan='2'>스포츠과학부<span style=color:#0089ea>(체육학전공, 운동재활전공)</span></td>
+			<td><div>체육학전공 <a href='https://www.dju.ac.kr/ses/cm/cntnts/cntntsView.do?mi=7506&cntntsId=4473' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div><div>운동재활전공 <a href='https://www.dju.ac.kr/ses/cm/cntnts/cntntsView.do?mi=7507&cntntsId=4494' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div></td>
+			<td>40</td>
+			<td>59</td>
+			<td class="rate4">1.48 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=4>총계</td>
+			<td>165</td>
+			<td>401</td>
+			<td class="rate4">2.43 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<style>
+	.exceptNoticeBox > li:before {content: "※";display: block;position: absolute;top: 0;left: 0;}
+	.exceptNoticeBox > li {list-style:none;position:relative;padding-left:16px;color:red; font-weight:bold;}
+	</style>
+	<a name='lik_410'></a><div id="SelType410">
+	<h2><strong>농어촌학생전형</strong> <span style="color:blue">[교과/출석 100%]</span> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="" />
+			<col width="15%" />
+			<col width="10%" />
+			<col width="10%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th colspan='2'>모집단위</th>
+			<th>학과소개</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit" rowspan="1">혜화리버럴아츠칼리지</td>
+			<td class="unit" colspan='2'>글로벌문화콘텐츠학전공, 국어국문창작학전공, 역사문화학전공, 영미언어문화학전공, 경제학전공, 생명과학전공, PPE(정치·경제·철학)전공, MCS(수학·컴퓨터과학)전공, 학생설계전공</td>
+			<td><a href='https://www.dju.ac.kr/hlac/main.do' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>14이내</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="3">디자인·아트대학</td>
+			<td class="unit" colspan='2'>건축학과(4년제)</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3741' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>3이내</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>패션디자인ㆍ비즈니스학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3778' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>4이내</td>
+			<td>7</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>뷰티디자인학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3754' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>4이내</td>
+			<td>6</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="4">사회과학대학</td>
+			<td class="unit" colspan='2'>경찰학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3744' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>5이내</td>
+			<td>15</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>법행정학부<span style=color:#0089ea>(법학전공, 행정학전공)</span></td>
+			<td><div>법학전공 <a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3752' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div><div>행정학전공 <a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3781' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div></td>
+			<td>6이내</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>사회복지학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3759' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>5이내</td>
+			<td>9</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>상담학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3765' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>4이내</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="4">경영대학</td>
+			<td class="unit" colspan='2'>경영학부<span style=color:#0089ea>(경영학전공, 회계학전공)</span></td>
+			<td><div>경영학전공 <a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3742' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div><div>회계학전공 <a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3783' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div></td>
+			<td>8이내</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>비즈니스일본어학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3756' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>3이내</td>
+			<td>2</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>물류통상학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3750' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>3이내</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>산업ㆍ광고심리학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3760' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>4이내</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="4">공과대학</td>
+			<td class="unit" colspan='2'>건축공학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3740' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>2이내</td>
+			<td>2</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>건설환경안전공학부<span style=color:#0089ea>(건설환경공학전공, 재난안전공학전공)</span></td>
+			<td><div>건설환경공학전공 <a href='https://www.dju.ac.kr/cese/cm/cntnts/cntntsView.do?mi=7543&cntntsId=4484' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div><div>재난안전공학전공 <a href='https://www.dju.ac.kr/cese/cm/cntnts/cntntsView.do?mi=7546&cntntsId=4486' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div></td>
+			<td>6이내</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>소방방재학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3763' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>5이내</td>
+			<td>5</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>반도체공학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3946' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>3이내</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="4">SW융합대학</td>
+			<td class="unit" colspan='2'>컴퓨터공학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3776' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>8이내</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>정보통신공학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=4156' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>4이내</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>정보보안학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3772' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>2이내</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>AI소프트웨어학부<span style=color:#0089ea>(빅데이터전공, 인공지능전공)</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3948' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>6이내</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="8">보건의료과학대학</td>
+			<td class="unit" colspan='2'>간호학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3738' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>3이내</td>
+			<td>7</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>물리치료학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3751' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>4이내</td>
+			<td>7</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>임상병리학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3770' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>4이내</td>
+			<td>4</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>응급구조학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3769' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>4이내</td>
+			<td>11</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>식품영양학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3764' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>5이내</td>
+			<td>7</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>스포츠과학부<span style=color:#0089ea>(체육학전공, 운동재활전공)</span></td>
+			<td><div>체육학전공 <a href='https://www.dju.ac.kr/ses/cm/cntnts/cntntsView.do?mi=7506&cntntsId=4473' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div><div>운동재활전공 <a href='https://www.dju.ac.kr/ses/cm/cntnts/cntntsView.do?mi=7507&cntntsId=4494' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div></td>
+			<td>3이내</td>
+			<td>6</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>보건의료경영학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3753' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>4이내</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>화장품학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3782' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>3이내</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">한의과대학</td>
+			<td class="unit" colspan='2'>한의예과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3780' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>3이내</td>
+			<td>32</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=4>총계</td>
+			<td>63</td>
+			<td>129</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	<ul class="exceptNoticeBox">
+	<li>혜화리버럴아츠칼리지 : 전공 선택 100% 보장</li>
+	</ul>
+	</div>
+	<style>
+	.exceptNoticeBox > li:before {content: "※";display: block;position: absolute;top: 0;left: 0;}
+	.exceptNoticeBox > li {list-style:none;position:relative;padding-left:16px;color:red; font-weight:bold;}
+	</style>
+	<a name='lik_411'></a><div id="SelType411">
+	<h2><strong>특성화고교졸업자전형</strong> <span style="color:blue">[교과/출석 100%]</span> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="" />
+			<col width="15%" />
+			<col width="10%" />
+			<col width="10%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th colspan='2'>모집단위</th>
+			<th>학과소개</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit" rowspan="3">디자인·아트대학</td>
+			<td class="unit" colspan='2'>건축학과(4년제)</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3741' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>3이내</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>패션디자인ㆍ비즈니스학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3778' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>4이내</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>뷰티디자인학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3754' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>4이내</td>
+			<td>4</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1">경영대학</td>
+			<td class="unit" colspan='2'>경영학부<span style=color:#0089ea>(경영학전공, 회계학전공)</span></td>
+			<td><div>경영학전공 <a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3742' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div><div>회계학전공 <a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3783' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div></td>
+			<td>8이내</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="2">공과대학</td>
+			<td class="unit" colspan='2'>건축공학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3740' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>2이내</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>소방방재학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3763' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>5이내</td>
+			<td>6</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="3">SW융합대학</td>
+			<td class="unit" colspan='2'>컴퓨터공학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3776' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>8이내</td>
+			<td>2</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>정보보안학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3772' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>2이내</td>
+			<td>3</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>AI소프트웨어학부<span style=color:#0089ea>(빅데이터전공, 인공지능전공)</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3948' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>6이내</td>
+			<td>2</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="2">보건의료과학대학</td>
+			<td class="unit" colspan='2'>보건의료경영학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3753' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>4이내</td>
+			<td>3</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>화장품학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3782' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>3이내</td>
+			<td>1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=4>총계</td>
+			<td>17</td>
+			<td>24</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<style>
+	.exceptNoticeBox > li:before {content: "※";display: block;position: absolute;top: 0;left: 0;}
+	.exceptNoticeBox > li {list-style:none;position:relative;padding-left:16px;color:red; font-weight:bold;}
+	</style>
+	<a name='lik_416'></a><div id="SelType416">
+	<h2><strong>기회균형전형</strong> <span style="color:blue">[교과/출석 100%]</span> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="" />
+			<col width="15%" />
+			<col width="10%" />
+			<col width="10%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th colspan='2'>모집단위</th>
+			<th>학과소개</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit" rowspan="1">혜화리버럴아츠칼리지</td>
+			<td class="unit" colspan='2'>글로벌문화콘텐츠학전공, 국어국문창작학전공, 역사문화학전공, 영미언어문화학전공, 경제학전공, 생명과학전공, PPE(정치·경제·철학)전공, MCS(수학·컴퓨터과학)전공, 학생설계전공</td>
+			<td><a href='https://www.dju.ac.kr/hlac/main.do' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>14이내</td>
+			<td>6</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="3">디자인·아트대학</td>
+			<td class="unit" colspan='2'>건축학과(4년제)</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3741' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>3이내</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>패션디자인ㆍ비즈니스학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3778' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>4이내</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>뷰티디자인학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3754' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>4이내</td>
+			<td>7</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="4">사회과학대학</td>
+			<td class="unit" colspan='2'>경찰학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3744' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>5이내</td>
+			<td>4</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>법행정학부<span style=color:#0089ea>(법학전공, 행정학전공)</span></td>
+			<td><div>법학전공 <a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3752' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div><div>행정학전공 <a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3781' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div></td>
+			<td>6이내</td>
+			<td>2</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>사회복지학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3759' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>5이내</td>
+			<td>3</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>상담학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3765' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>4이내</td>
+			<td>2</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="4">경영대학</td>
+			<td class="unit" colspan='2'>경영학부<span style=color:#0089ea>(경영학전공, 회계학전공)</span></td>
+			<td><div>경영학전공 <a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3742' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div><div>회계학전공 <a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3783' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div></td>
+			<td>8이내</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>비즈니스일본어학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3756' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>3이내</td>
+			<td>4</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>물류통상학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3750' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>3이내</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>산업ㆍ광고심리학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3760' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>4이내</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="4">공과대학</td>
+			<td class="unit" colspan='2'>건축공학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3740' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>2이내</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>건설환경안전공학부<span style=color:#0089ea>(건설환경공학전공, 재난안전공학전공)</span></td>
+			<td><div>건설환경공학전공 <a href='https://www.dju.ac.kr/cese/cm/cntnts/cntntsView.do?mi=7543&cntntsId=4484' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div><div>재난안전공학전공 <a href='https://www.dju.ac.kr/cese/cm/cntnts/cntntsView.do?mi=7546&cntntsId=4486' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></a></div></td>
+			<td>6이내</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>소방방재학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3763' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>5이내</td>
+			<td>5</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>반도체공학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3946' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>3이내</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="3">SW융합대학</td>
+			<td class="unit" colspan='2'>컴퓨터공학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3776' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>8이내</td>
+			<td>2</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>정보보안학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3772' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>2이내</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>AI소프트웨어학부<span style=color:#0089ea>(빅데이터전공, 인공지능전공)</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3948' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>6이내</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="3">보건의료과학대학</td>
+			<td class="unit" colspan='2'>식품영양학과<span style=color:#ff543d>[교직]</span></td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3764' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>5이내</td>
+			<td>2</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>보건의료경영학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3753' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>4이내</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>화장품학과</td>
+			<td><a href='https://www.dju.ac.kr/dju/cm/cntnts/cntntsView.do?mi=6107&cntntsId=3782' target = '_blank'><img src='/RatioV1/img/ico_home_1.png' alt='학과홈페이지'></ a ></td>
+			<td>3이내</td>
+			<td>2</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=4>총계</td>
+			<td>14</td>
+			<td>44</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	<ul class="exceptNoticeBox">
+	<li>혜화리버럴아츠칼리지 : 전공 선택 100% 보장</li>
+	</ul>
+	</div>
+	<style>
+	.exceptNoticeBox > li:before {content: "※";display: block;position: absolute;top: 0;left: 0;}
+	.exceptNoticeBox > li {list-style:none;position:relative;padding-left:16px;color:red; font-weight:bold;}
+	</style>
+
+					<!--// 컨텐츠 -->
+				</div>
+
+				<div class="btnR">
+					<a href="javascript:print();" id="btnPrint">
+						<img src="/RatioV1/img/btn_print.gif" width="86" height="21" border="0" alt="인쇄하기"></a>
+					
+				</div>
+			</div> <!-- cont end -->
+
+			
+
+			<div class="quick_menu" style="display:none;">
+				<a class="btn_top" href="javascript:void(0);MoveTop()">상단으로 이동</a> 
+			</div>
+
+			<div class="footer" id="Logo1">
+				<a href="http://www.jinhakapply.com" target="_blank"><img src="/RatioV1/img/jinhak_logo.gif" border="0"></a>
+				
+			</div>
+	</form>
+</body>
+
+</html>

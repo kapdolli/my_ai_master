@@ -1,0 +1,866 @@
+
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head id="Head1"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><meta http-equiv="Expires" content="-1" /><meta http-equiv="Pragma" content="no-cache" /><meta http-equiv="Cache-Control" content="No-Cache" /><title>
+	서울기독대학교 경쟁률 서비스
+</title><link href="/RatioV1/Common/Css/template/jinhakratio_blue_v3.css" rel="stylesheet" type="text/css" />
+	<!-- <script type="text/javascript" src="/ApplyV8/scripts/jquery.js"></script> -->
+	<script type="text/javascript" src="/RatioV1/Common/Script/jquery.js"></script>
+	<script language="javascript" type="text/javascript">
+//IE forEach문 문제
+if (window.NodeList && !NodeList.prototype.forEach) { NodeList.prototype.forEach = Array.prototype.forEach;}
+
+if ( document.addEventListener && navigator.appName!="Microsoft Internet Explorer") {
+	window.captureEvents(Event.ONKEYDOWN); 
+	document.addEventListener("DOMContentLoaded", function(){
+		if(document.getElementById('Logo')){
+			document.getElementById('Logo').innerHTML = '<a href="http://apply.jinhak.com" target="_blank"><img src="/RatioV1/img/blank.gif" width="150" height="23" border="0"></a>';
+		}
+	}, false );
+//IE
+} else if ( document.attachEvent ) {
+	document.attachEvent("onreadystatechange", function(){
+		if ( document.readyState === "complete" ) {
+			if(document.getElementById('Logo')){
+				document.getElementById('Logo').innerHTML = '<a href="http://apply.jinhak.com" target="_blank"><img src="/RatioV1/img/blank.gif" width="150" height="23" border="0"></a>';
+			}
+		}
+	});
+}
+// 나를 호출한 넘이 있다면.. 
+if (document.referrer != "")
+{
+	// 해당 값이 특정한 곳이라면.. 
+	if (document.referrer.toLowerCase().indexOf("uway") != -1)
+	{
+		window.parent.href = 'http://apply.jinhak.com';
+
+	}
+}
+
+// chess :: Link 
+window.onload = function(){
+	if(document.getElementById('TopLink').children.length > 0){
+    	var isV8Link = new RegExp(/(www\.jinhakapply\.com\/frame)[\d]{6}\.(aspx)/);
+		document.querySelectorAll('#TopLink a').forEach(function(link){
+			if(!isV8Link.test(link)){ // V8 링크가 아닐 시 https로 자동 변환.
+			    link.href = link.href.replace('http://', 'https://');
+			}
+		});    	
+	}
+}
+
+</script>
+	<script type="text/javascript">
+<!--
+			function selType_onChange() {
+				var selType = document.getElementById("selType");
+				var value = selType.options[selType.selectedIndex].value;
+				var strSelectRatio = '2';
+
+				if (strSelectRatio == '2' || strSelectRatio == '3') {
+					// 전체일 경우 전부 보임
+					if(value == 0){
+						$('div[id^=SelType]').show()
+					}
+					else{
+						$('div[id^=SelType]').hide()
+						$('#SelType' + value).show();
+						document.getElementById("SelType" + value).scrollIntoView();
+					}
+					
+					return;
+				}
+				else {
+					//HIde Show 처리
+					if (value == 0) {
+						SelType_Change('block');
+					}
+					else {
+						SelType_Change('none');
+						document.getElementById("SelType" + value).style.display = 'block';
+						document.getElementById("SelType" + value).scrollIntoView();
+					}
+				}
+			}
+
+		function SelType_Change(flag) {
+			var arrDiv = document.getElementsByTagName("div");
+			for (var i = 0; i < arrDiv.length; i++) {
+				if (arrDiv[i].id.indexOf("SelType") != -1) {
+					document.getElementById(arrDiv[i].id).style.display = flag;
+				}
+			}
+		}
+
+		//=============================================================
+		// 반응형 경쟁률 스크롤 이벤트 추가
+		//=============================================================
+		window.addEventListener('scroll', function(){
+			var height = window.innerHeight;
+			var scrollPosition = document.documentElement.scrollTop;
+
+			if(scrollPosition > height){
+				$('.quick_menu').show("slow");
+			} else{
+				$('.quick_menu').hide("slow");
+			}
+		});
+
+		function MoveTop(){
+			$('html, body').animate({
+				scrollTop : 0
+			}, 300)
+
+		}
+		//=============================================================
+
+		$(document).ready(function () {
+			/****************************************************************************************
+			 엑셀버튼 추가  
+			****************************************************************************************/
+			$('#btnExcel').click(ExportExcel);
+		});
+
+    /****************************************************************************************
+     엑셀버튼 추가  
+    ****************************************************************************************/
+		function ExportExcel() {
+			// 마우스 오버 이벤트 삭제(IE에서 문제가 될 수 있음)
+			var divData = $('#Ratio1052059').html();
+			divData = divData.replace(/<tr onmouseover=\"this.className='over';\" onmouseout=\"this.className='';\">/gi, "<tr>");
+			divData = divData.replace(/'/g, '"');
+
+			var PostHtml = "<form method='post' action='/RatioV1/Common/Etc/RatioExcel.aspx' style='top:-198501px;' id='tempForm'>";
+			PostHtml += "<input type='hidden' name='ServiceName' value='" + encodeURIComponent('서울기독대학교') + "' >";
+			PostHtml += "<input type='hidden' name='Data' value='" + encodeURIComponent($('#TopType').html()) + encodeURIComponent(divData) + "' >";
+			PostHtml += "</form>";
+
+			$('#JHService').prepend(PostHtml);
+			$('#tempForm').submit();
+			$("tempForm").remove();
+
+			return false;
+		}
+		-->
+	</script>
+</head>
+
+<body id="JHService">
+	<form method="post" action="./Ratio10520591.aspx?idx=29935&amp;Company=jinhak&amp;Name=Ratio" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUJODE1ODcwMTUwZGRFLN99KZheWSOr7eNFwv/Or6Ju3Q==" />
+
+<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="265950D4" />
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAAt3ea2HpQ6YpfhUQzIxyrwGxGV0aKErUllaWtqgLmJ8ZaG0AO9Rqc3b7Xsgz83EV+vaxyLylwj/DR39/NqhI7i+HgdLzBJTyfi7Ev0v0KdPGiYB/19WgUdaECbD85vfZenyD3I+cdROxO09f1+I2dglqMN1YV2nOzTv6qcOzZGO3lqvgcd20njNNW33Bn2RYfsmwufavLx/eg/ageKUgHse7Ya7VG9e2/jY7ab6R8ybMRdjdxRLfPGb4xll6JHcmBmQyZKu" />
+		<!-- bgcolor : #DF3151, #51B79F, #E29F30, #82BD3E, #318CC7 -->
+
+		<div id="RoundT">
+			<div class="header">
+				<h1 class="univ"><img src="http://apply.jinhakapply.com/WebAppForms/Wonseo/LogImg/1052.gif" id="UnivLogo" alt="대학로고" /></h1>
+				<span id="TextType">
+					<p class="tit">
+						<span id="TitleYear">2027학년도</span>&nbsp;
+						<span id="TitleService">수시모집</span>&nbsp;
+						<span id="TitleText">경쟁률</span>
+					</p>
+				</span>
+				
+			</div>
+
+			<div class="cont">
+				
+				<div id="Top" class="notiBox">
+					<div class="notiBox_in">
+						<!-- 이미지 영역 -->
+						
+						<!-- //이미지 영역 -->
+						<ul id="TopType" class="ul3"><b><font color="blue">- 원서접수 마감 : 9월 11일 18시</font><br>- <font color="red">지원자 현황</font>은 마감일인 <font color="red">9월 11일 17시까지만 제공</font>됩니다.</b><br>
+<b>2027학년도 신·편입생 100% 학비감면<br>
+(첫학기의 국가장학금 신청자에 한함/국가장학금+학비감면)</b></ul>
+						<div id="TopLink" class="notnBtn"><a class="st1" href="http://apply.jinhakapply.com/Notice/1052059/A" target="_blank">원서접수 바로가기</a>
+<a class="st2" href="http://www.scu.ac.kr" target="_blank">대학홈페이지 바로가기</a>
+<a style="background:#abccf1" href="http://admission.scu.ac.kr/" target="_blank">입시홈페이지 바로가기</a>
+</div>
+					</div>
+				</div>
+
+				<div id="RatioSort" class="RateState">
+					<p id="RatioTime" class="time">2026-09-09 오전 9:20 현황</p>
+					<!-- 경쟁률 현황 Select //-->
+					<div class="RateState_in">
+						<select name="selType" id="selType" class="SltBox" onchange="return selType_onChange();">
+	<option value="0">전형 전체</option>
+	<option value="410"> 일반전형</option>
+	<option value="422"> [SCU인재]교회추천자</option>
+	<option value="423"> [SCU인재]학교장 추천자</option>
+	<option value="421"> [기회균형]만학도</option>
+	<option value="471"> (정원외)농어촌 출신자</option>
+	<option value="473"> (정원외)특성화고교출신자</option>
+	<option value="480"> (정원외)특성화고 등을 졸업한 재직자</option>
+	<option value="475"> (정원외)기초생활수급자 및 차상위 계층</option>
+	<option value="472"> (정원외)재외국민 및 외국인</option>
+
+</select>
+					</div>
+					<!--// 군별 경쟁률 현황 Select -->
+				</div>
+
+				<!--// 엑셀 저장범위 -->
+				<div id="Ratio1052059">
+					<!-- 컨텐츠 -->
+					
+					<!--// 컨텐츠 -->
+
+					<!-- 컨텐츠 -->
+					<div>
+<a name='lik_top'></a>
+	<h2><strong>전형별</strong> 경쟁률 현황</h2>
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio2">
+		<colgroup>
+			<col width="" />
+			<col width="20%" />
+			<col width="20%" />
+			<col width="20%" />
+		</colgroup>
+		<tr>
+			<th>전형명</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="410";selType_onChange();'> 일반전형</td>
+			<td>113</td>
+			<td>79</td>
+			<td style="font-weight:bold;">0.7 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="422";selType_onChange();'> [SCU인재]교회추천자</td>
+			<td>4</td>
+			<td>2</td>
+			<td style="font-weight:bold;">0.5 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="423";selType_onChange();'> [SCU인재]학교장 추천자</td>
+			<td>1</td>
+			<td>1</td>
+			<td style="font-weight:bold;">1.0 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="421";selType_onChange();'> [기회균형]만학도</td>
+			<td>9</td>
+			<td>4</td>
+			<td style="font-weight:bold;">0.4 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="471";selType_onChange();'> (정원외)농어촌 출신자</td>
+			<td>2</td>
+			<td>2</td>
+			<td style="font-weight:bold;">1.0 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="473";selType_onChange();'> (정원외)특성화고교출신자</td>
+			<td>2</td>
+			<td>0</td>
+			<td style="font-weight:bold;">0.0 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="480";selType_onChange();'> (정원외)특성화고 등을 졸업한 재직자</td>
+			<td>7</td>
+			<td>0</td>
+			<td style="font-weight:bold;">0.0 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="475";selType_onChange();'> (정원외)기초생활수급자 및 차상위 계층</td>
+			<td>3</td>
+			<td>3</td>
+			<td style="font-weight:bold;">1.0 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="472";selType_onChange();'> (정원외)재외국민 및 외국인</td>
+			<td>2</td>
+			<td>0</td>
+			<td style="font-weight:bold;">0.0 : 1</td>
+		</tr>		<!-- 총계 //-->
+		<tr class="total">
+			<td>총계</td>
+			<td>143</td>
+			<td>91</td>
+			<td class="rate4">0.6 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+
+					<!--// 컨텐츠 -->
+
+					<!-- 컨텐츠 -->
+						<a name='lik_410'></a><div id="SelType410">
+	<h2><strong> 일반전형</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="" />
+			<col width="7%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th colspan="2">모집단위</th>
+			<th>전공소개</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit" rowspan="1"    colspan="2">기독교신학</td>
+			<td><a href="https://admission.scu.ac.kr/academics/human-services/theology" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>5</td>
+			<td>3</td>
+			<td class="rate4">0.6 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1"    colspan="2">사회복지</td>
+			<td><a href="https://admission.scu.ac.kr/academics/human-services/social-welfare" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>27</td>
+			<td>38</td>
+			<td class="rate4">1.4 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1"    colspan="2">글로벌휴먼경영</td>
+			<td><a href="https://admission.scu.ac.kr/academics/human-services/global-human-biz" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>26</td>
+			<td>6</td>
+			<td class="rate4">0.2 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1"    colspan="2">상담심리(야간)</td>
+			<td><a href="https://admission.scu.ac.kr/academics/healing-arts/counseling" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>4</td>
+			<td>2</td>
+			<td class="rate4">0.5 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="3"   >무용</td>
+			<td class="unit" width="30%" >한국무용</td>
+			<td><a href="https://admission.scu.ac.kr/academics/healing-arts/dance" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td rowspan = '3'>17</td>
+			<td>4</td>
+			<td rowspan ='3' class="rate4">1.2 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" width="30%" >발레</td>
+			<td><a href="https://admission.scu.ac.kr/academics/healing-arts/dance" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>10</td>
+		</tr>
+		<tr>
+			<td class="unit" width="30%" >현대무용</td>
+			<td><a href="https://admission.scu.ac.kr/academics/healing-arts/dance" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>6</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="4"   >음악</td>
+			<td class="unit" width="30%" >성악</td>
+			<td><a href="https://admission.scu.ac.kr/academics/healing-arts/music" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td rowspan = '4'>20</td>
+			<td>1</td>
+			<td rowspan ='4' class="rate4">0.3 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" width="30%" >피아노</td>
+			<td><a href="https://admission.scu.ac.kr/academics/healing-arts/music" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td class="unit" width="30%" >관현악</td>
+			<td><a href="https://admission.scu.ac.kr/academics/healing-arts/music" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit" width="30%" >실용음악</td>
+			<td><a href="https://admission.scu.ac.kr/academics/healing-arts/music" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>4</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1"    colspan="2">뮤지컬</td>
+			<td><a href="https://admission.scu.ac.kr/academics/healing-arts/musical" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>8</td>
+			<td>3</td>
+			<td class="rate4">0.4 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" rowspan="1"    colspan="2">운동건강관리</td>
+			<td><a href="https://admission.scu.ac.kr/academics/human-services/health-fitness" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>6</td>
+			<td>1</td>
+			<td class="rate4">0.2 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=3>총계</td>
+			<td>113</td>
+			<td>79</td>
+			<td class="rate4">0.7 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_422'></a><div id="SelType422">
+	<h2><strong> [SCU인재]교회추천자</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="" />
+			<col width="7%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th>모집단위</th>
+			<th>전공소개</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit">기독교신학</td>
+			<td><a href="https://admission.scu.ac.kr/academics/human-services/theology" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>4</td>
+			<td>2</td>
+			<td class="rate4">0.5 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=2>총계</td>
+			<td>4</td>
+			<td>2</td>
+			<td class="rate4">0.5 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_423'></a><div id="SelType423">
+	<h2><strong> [SCU인재]학교장 추천자</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="" />
+			<col width="7%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th>모집단위</th>
+			<th>전공소개</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit">글로벌휴먼경영</td>
+			<td><a href="https://admission.scu.ac.kr/academics/human-services/global-human-biz" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>1</td>
+			<td>1</td>
+			<td class="rate4">1.0 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=2>총계</td>
+			<td>1</td>
+			<td>1</td>
+			<td class="rate4">1.0 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_421'></a><div id="SelType421">
+	<h2><strong> [기회균형]만학도</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="" />
+			<col width="7%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th>모집단위</th>
+			<th>전공소개</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit">기독교신학</td>
+			<td><a href="https://admission.scu.ac.kr/academics/human-services/theology" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>5</td>
+			<td>3</td>
+			<td class="rate4">0.6 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">상담심리(야간)</td>
+			<td><a href="https://admission.scu.ac.kr/academics/healing-arts/counseling" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>4</td>
+			<td>1</td>
+			<td class="rate4">0.3 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=2>총계</td>
+			<td>9</td>
+			<td>4</td>
+			<td class="rate4">0.4 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_471'></a><div id="SelType471">
+	<h2><strong> (정원외)농어촌 출신자</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="" />
+			<col width="7%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th>모집단위</th>
+			<th>전공소개</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit">기독교신학</td>
+			<td><a href="https://admission.scu.ac.kr/academics/human-services/theology" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td rowspan = '3'>1</td>
+			<td>0</td>
+			<td rowspan ='3' class="rate4">2.0 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">사회복지</td>
+			<td><a href="https://admission.scu.ac.kr/academics/human-services/social-welfare" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>2</td>
+		</tr>
+		<tr>
+			<td class="unit">글로벌휴먼경영</td>
+			<td><a href="https://admission.scu.ac.kr/academics/human-services/global-human-biz" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit">무용</td>
+			<td><a href="https://admission.scu.ac.kr/academics/healing-arts/dance" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td rowspan = '4'>1</td>
+			<td>0</td>
+			<td rowspan ='4' class="rate4">0.0 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">음악</td>
+			<td><a href="https://admission.scu.ac.kr/academics/healing-arts/music" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit">뮤지컬</td>
+			<td><a href="https://admission.scu.ac.kr/academics/healing-arts/musical" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit">운동건강관리</td>
+			<td><a href="https://admission.scu.ac.kr/academics/human-services/health-fitness" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>0</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=2>총계</td>
+			<td>2</td>
+			<td>2</td>
+			<td class="rate4">1.0 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_473'></a><div id="SelType473">
+	<h2><strong> (정원외)특성화고교출신자</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="" />
+			<col width="7%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th>모집단위</th>
+			<th>전공소개</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit">기독교신학</td>
+			<td><a href="https://admission.scu.ac.kr/academics/human-services/theology" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td rowspan = '3'>1</td>
+			<td>0</td>
+			<td rowspan ='3' class="rate4">0.0 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">사회복지</td>
+			<td><a href="https://admission.scu.ac.kr/academics/human-services/social-welfare" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit">글로벌휴먼경영</td>
+			<td><a href="https://admission.scu.ac.kr/academics/human-services/global-human-biz" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit">무용</td>
+			<td><a href="https://admission.scu.ac.kr/academics/healing-arts/dance" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td rowspan = '4'>1</td>
+			<td>0</td>
+			<td rowspan ='4' class="rate4">0.0 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">음악</td>
+			<td><a href="https://admission.scu.ac.kr/academics/healing-arts/music" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit">뮤지컬</td>
+			<td><a href="https://admission.scu.ac.kr/academics/healing-arts/musical" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit">운동건강관리</td>
+			<td><a href="https://admission.scu.ac.kr/academics/human-services/health-fitness" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>0</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=2>총계</td>
+			<td>2</td>
+			<td>0</td>
+			<td class="rate4">0.0 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_480'></a><div id="SelType480">
+	<h2><strong> (정원외)특성화고 등을 졸업한 재직자</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="" />
+			<col width="7%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th>모집단위</th>
+			<th>전공소개</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit">상담심리(야간)</td>
+			<td><a href="https://admission.scu.ac.kr/academics/healing-arts/counseling" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>4</td>
+			<td>0</td>
+			<td class="rate4">0.0 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">무용</td>
+			<td><a href="https://admission.scu.ac.kr/academics/healing-arts/dance" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td rowspan = '4'>3</td>
+			<td>0</td>
+			<td rowspan ='4' class="rate4">0.0 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">음악</td>
+			<td><a href="https://admission.scu.ac.kr/academics/healing-arts/music" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit">뮤지컬</td>
+			<td><a href="https://admission.scu.ac.kr/academics/healing-arts/musical" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit">운동건강관리</td>
+			<td><a href="https://admission.scu.ac.kr/academics/human-services/health-fitness" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>0</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=2>총계</td>
+			<td>7</td>
+			<td>0</td>
+			<td class="rate4">0.0 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_475'></a><div id="SelType475">
+	<h2><strong> (정원외)기초생활수급자 및 차상위 계층</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="" />
+			<col width="7%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th>모집단위</th>
+			<th>전공소개</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit">기독교신학</td>
+			<td><a href="https://admission.scu.ac.kr/academics/human-services/theology" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td rowspan = '3'>2</td>
+			<td>0</td>
+			<td rowspan ='3' class="rate4">1.5 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">사회복지</td>
+			<td><a href="https://admission.scu.ac.kr/academics/human-services/social-welfare" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>2</td>
+		</tr>
+		<tr>
+			<td class="unit">글로벌휴먼경영</td>
+			<td><a href="https://admission.scu.ac.kr/academics/human-services/global-human-biz" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td class="unit">무용</td>
+			<td><a href="https://admission.scu.ac.kr/academics/healing-arts/dance" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td rowspan = '4'>1</td>
+			<td>0</td>
+			<td rowspan ='4' class="rate4">0.0 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">음악</td>
+			<td><a href="https://admission.scu.ac.kr/academics/healing-arts/music" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit">뮤지컬</td>
+			<td><a href="https://admission.scu.ac.kr/academics/healing-arts/musical" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit">운동건강관리</td>
+			<td><a href="https://admission.scu.ac.kr/academics/human-services/health-fitness" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>0</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=2>총계</td>
+			<td>3</td>
+			<td>3</td>
+			<td class="rate4">1.0 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_472'></a><div id="SelType472">
+	<h2><strong> (정원외)재외국민 및 외국인</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="" />
+			<col width="7%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th>모집단위</th>
+			<th>전공소개</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit">기독교신학</td>
+			<td><a href="https://admission.scu.ac.kr/academics/human-services/theology" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td rowspan = '8'>2</td>
+			<td>0</td>
+			<td rowspan ='8' class="rate4">0.0 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">사회복지</td>
+			<td><a href="https://admission.scu.ac.kr/academics/human-services/social-welfare" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit">글로벌휴먼경영</td>
+			<td><a href="https://admission.scu.ac.kr/academics/human-services/global-human-biz" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit">상담심리(야간)</td>
+			<td><a href="https://admission.scu.ac.kr/academics/healing-arts/counseling" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit">무용</td>
+			<td><a href="https://admission.scu.ac.kr/academics/healing-arts/dance" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit">음악</td>
+			<td><a href="https://admission.scu.ac.kr/academics/healing-arts/music" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit">뮤지컬</td>
+			<td><a href="https://admission.scu.ac.kr/academics/healing-arts/musical" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit">운동건강관리</td>
+			<td><a href="https://admission.scu.ac.kr/academics/human-services/health-fitness" target="_blank"><img src="/RatioV1/img/ico_home_1.png" alt="학과 홈페이지" /></a></td>
+			<td>0</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=2>총계</td>
+			<td>2</td>
+			<td>0</td>
+			<td class="rate4">0.0 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+
+					<!--// 컨텐츠 -->
+				</div>
+
+				<div class="btnR">
+					
+					
+				</div>
+			</div> <!-- cont end -->
+
+			
+
+			<div class="quick_menu" style="display:none;">
+				<a class="btn_top" href="javascript:void(0);MoveTop()">상단으로 이동</a> 
+			</div>
+
+			<div class="footer" id="Logo1">
+				<a href="http://www.jinhakapply.com" target="_blank"><img src="/RatioV1/img/jinhak_logo.gif" border="0"></a>
+			</div>
+	</form>
+</body>
+
+</html>

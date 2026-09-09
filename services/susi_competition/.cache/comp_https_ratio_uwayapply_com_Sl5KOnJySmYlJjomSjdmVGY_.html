@@ -1,0 +1,303 @@
+					<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>금강대학교 경/쟁/률/서/비/스</title>
+		<script language="javascript" type="text/javascript" src="/ratioadmin/Image/js/img_url_new.js"></script>
+		<link href=".//css/2017/ratio_1.css" rel="stylesheet" type="text/css">
+		
+		<script language="javascript" type="text/javascript" src=".//js/jquery.min.js"></script>
+		
+		<script language="javascript" type="text/javascript" src=".//js/htm_control.js"></script>
+<script>
+	$(function(){
+		if(!location.href.match(/(v=pc)/)){
+			$('head').append('<meta name=\'viewport\' content=\'user-scalable=no, width=device-width\' />');if(navigator.userAgent.match(/(iPhone|Android|Opera Mini|SymblanOS|Windows CE|BlackBerry|Nokia|SonyEricsson|web OS|Palm)/) ){	$('body').after('<div style=\'text-align: center;\'><a style=\'color:#5b595b;\' href='+location.href+'?&v=pc><img src=\'.//btn_pcView.gif\' alt=\'PC버전으로보기\'></a></div>');	$('#ul_gobtn').hide(); }
+		}
+		
+		if( !$('fieldset').is('.finalwrap') ){
+			$("#header").attr("style",'height:75px;');
+			$("#container").attr("style",'padding-top:50px;');
+		}
+		// https 일때 comment 랑 univImage 대응
+		const host = location.href.split(":")[0];
+		if( host.match(/(https)/) ){
+			if( $('#ratio_comment').length ){
+				const s = document.createElement("script");
+				s.type = "text/javascript";
+				s.src = $('#ratio_comment').attr("src").replace('http','https');
+				$("body").append(s);
+			}
+			if( $('#univImage_dev').length ){
+				const s = document.createElement("script");
+				s.type = "text/javascript";
+				s.src = $('#univImage_dev').attr("src").replace('http','https');
+				$("body").append(s);
+			}
+		}
+	});
+	$(window).scroll(function() {
+		if($(window).scrollTop()>10) {
+			$("#header").addClass("fixed");
+		} else {
+			$("#header").removeClass("fixed");
+		}
+	});
+</script>
+</head>
+<body>		<center>
+			<span id="TopCon" style="position:fixed;top:0;left:0;width:100%;z-index:100;text-align:center;color:#cf1015;font:bold 16px 'malgun gothic';padding-top:28px;letter-spaicng:-5px"></span>
+		</center>
+<div id="compb">
+	<div id="wrapper">
+		<div id="white">
+		<div id="border">
+			<div id="header">
+				<h1><img id=UivImg src=".//univ_2017/0925.gif?2026090909" alt='금강대학교'></h1>
+				<h2><span class="stext">2027학년도</span><br /><span class="btextr">수시모집 </span><span class="btextb">경쟁률</span></h2>
+						<fieldset class="finalwrap">
+			<!--원서접수바로가기버튼시작-->
+			<ul id="ul_gobtn" class="btn">
+				<li style='background:#da3b40 url(.//btn_bg.png) no-repeat right center;'><a href='http://ipsi2.uwayapply.com/2027/susi2/ggu/?CHA=1' target=_new_apply id='id_gouway' title='원서접수 바로가기(새 창 열림)'><b>원서접수</b> 바로가기</a></li>
+				
+				
+				
+			</ul>
+			<!--원서접수바로가기버튼끝-->
+			
+			<!--전형바로가기시작-->
+			<form name="search">
+				<span id='ID_DateStr'><label for='final'>2026년 09월 09일 09시 00분 기준&nbsp;</label></span>
+				<select id='final' name='selectType' class='form3' onChange='javascript:viewType(this.value);'>
+  <option value=''>--------전 체--------</option>
+  <option value='001'>일반전형</option>
+  <option value='002'>금강인재추천전형</option>
+  <option value='003'>기회균형특별전형</option>
+</select>
+
+										<script>
+											function fnScrollMove(id,spd){
+												// 2017.09.01 이희창 - 해당 id로 스크롤 이동 !
+												var offset = $("#" + id).offset();
+												if(offset && offset.top){
+													var spd=( typeof(spd) == "number" ? spd : 0);	// 이동속도
+													var h_height=( typeof($("#header:visible").height()) == "number" ? $("#header:visible").height() : 0 );	// 탑헤더의 크기 빼줌
+													$("html, body").animate({scrollTop : Number(Number(offset.top)-Number(h_height)-20)}, spd);
+												}
+											}
+											function viewType(arg)
+											{
+												if( arg=="" ){
+													fnScrollMove("container");
+												}else{
+													fnScrollMove("Div_"+arg);
+												}
+											}
+											 
+											function viewGr(arg)
+											{
+											 	document.search.selectType.options.length = 0;
+											 	document.search.selectType.options[0]=new Option("전체",arg,0,0);
+											 	switch (arg) {
+											
+											 		default :
+													document.search.selectType.options[1]=new Option('일반전형','001',0,0); 
+		document.search.selectType.options[2]=new Option('금강인재추천전형','002',0,0); 
+		document.search.selectType.options[3]=new Option('기회균형특별전형','003',0,0); 
+
+											 		break;
+											 	}
+											 	
+										 		viewType(arg);
+											}
+											
+										</script>
+			
+			</form>
+			<!--전형바로가기시작-->
+		</fieldset>
+ 
+			</div><!-- //header -->
+			<div id="container">
+				<div class="contentsTop">
+								
+			<dl class="info" id="Ratio_Comment" style="margin:38px 0 10px 0;">
+				<img src="UNIVIMAGE_0" width="100%"><br />□ 경쟁률은 매일 9시, 11시, 13시, 17시에 업데이트됩니다.<br />□ 경쟁률 서비스는 11일 17시까지 제공합니다.<br />□ 접수마감 : 2026년 09월 11일(금) 20:00까지.
+			</dl>
+			<script type='text/javascript' src='//ratio.uwayapply.com/2027/susi2/ggu/1/ratio_comment.js?20260909090005' id='ratio_comment'></script>
+					<script type='text/javascript' src='//ratio.uwayapply.com/2027/susi2/ggu/1/univImage_dev.js?20260909090005' id='univImage_dev'></script>
+				</div><!-- //contentsTop -->
+				<div id="table">
+		<form name=ratio method="post">
+
+			
+<div id="Div_001" style="display:" class="DivType">
+	<span id="strStartNotiId_001"></span>
+		<div class="both11">
+			<h3 style="background:url(.//color/bul_color1.png) no-repeat 0 15px;" class="p_left">
+				<span id="strTitleId_001" class="bul">일반전형 경쟁률 현황</span>
+			</h3>
+		</div>
+			<table cellpadding='0' cellspacing='0'>
+			<caption class='caphidden'>일반전형</caption>
+			
+		<thead>
+			<!--tr style='background:url(.//2011/vline.png) no-repeat 0 50%;'-->
+			<tr>
+			<th class="bgnone noline lline" scope="col" width = "40%" colspan="2"><span id="strTdTitleId_UnitStat_001_UNITNM">모집단위</span></th><th class="noline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_001_INWON">모집인원</span></th><th class="noline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_001_APPLY">지원인원</span></th><th class="noline rline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_001_RATIO">경쟁률</span></th>
+			</tr>
+		</thead>
+			
+        <tr class='trFieldValue' id='Tr_001_000010000'>
+			<td  rowspan='1' colspan="2" class="txtFieldValue" align='left'>프라마나학부 | 불교학전공, 행정학전공, 경영학전공, 사회복지학전공, 프라마나전공</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>40</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>6</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0.15 : 1</td> 
+
+						<input type=hidden name='ApplyGr_0' value='0'>
+						<input type=hidden name='Cam_0'     value='0'>
+						<input type=hidden name='Type_0'    value='1'>
+						<input type=hidden name='Unit_0'    value='100'>
+						<input type=hidden name='JuYa_0'    value='1'>
+						<input type=hidden name='Stat_0'    value='10'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_001_000020000'>
+			<td  rowspan='1' colspan="2" class="txtFieldValue" align='left'>불교문화학부 | 불교미술전공, 불교음악전공, 불교문화콘텐츠전공</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>38</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>3</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0.08 : 1</td> 
+
+						<input type=hidden name='ApplyGr_1' value='0'>
+						<input type=hidden name='Cam_1'     value='0'>
+						<input type=hidden name='Type_1'    value='1'>
+						<input type=hidden name='Unit_1'    value='200'>
+						<input type=hidden name='JuYa_1'    value='1'>
+						<input type=hidden name='Stat_1'    value='20'>
+					
+		</tr>
+			<tr align="center"  id='Tr_Sum_001'>
+			<th colspan="2" class='tfoot'><span id='strSumId_Type_001'> 소계</span></th><th class='tfoot' colspan='1'>78</th><th class='tfoot' colspan='1'>9</th><th class='tfoot' colspan='1'>0.12 : 1</th>
+			</tr>
+			
+		</table>
+	<span id="strEndNotiId_001"></span><div class="space20"> &nbsp;</div></div>
+<div id="Div_002" style="display:" class="DivType">
+	<span id="strStartNotiId_002"></span>
+		<div class="both11">
+			<h3 style="background:url(.//color/bul_color1.png) no-repeat 0 15px;" class="p_left">
+				<span id="strTitleId_002" class="bul">금강인재추천전형 경쟁률 현황</span>
+			</h3>
+		</div>
+			<table cellpadding='0' cellspacing='0'>
+			<caption class='caphidden'>금강인재추천전형</caption>
+			
+		<thead>
+			<!--tr style='background:url(.//2011/vline.png) no-repeat 0 50%;'-->
+			<tr>
+			<th class="bgnone noline lline" scope="col" width = "40%" colspan="2"><span id="strTdTitleId_UnitStat_002_UNITNM">모집단위</span></th><th class="noline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_002_INWON">모집인원</span></th><th class="noline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_002_APPLY">지원인원</span></th><th class="noline rline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_002_RATIO">경쟁률</span></th>
+			</tr>
+		</thead>
+			
+        <tr class='trFieldValue' id='Tr_002_000030000'>
+			<td  rowspan='1' colspan="2" class="txtFieldValue" align='left'>프라마나학부 | 불교학전공, 행정학전공, 경영학전공, 사회복지학전공, 프라마나전공</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>12</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0.00 : 1</td> 
+
+						<input type=hidden name='ApplyGr_2' value='0'>
+						<input type=hidden name='Cam_2'     value='0'>
+						<input type=hidden name='Type_2'    value='2'>
+						<input type=hidden name='Unit_2'    value='100'>
+						<input type=hidden name='JuYa_2'    value='1'>
+						<input type=hidden name='Stat_2'    value='10'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_002_000040000'>
+			<td  rowspan='1' colspan="2" class="txtFieldValue" align='left'>불교문화학부 | 불교미술전공, 불교음악전공, 불교문화콘텐츠전공</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>8</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0.00 : 1</td> 
+
+						<input type=hidden name='ApplyGr_3' value='0'>
+						<input type=hidden name='Cam_3'     value='0'>
+						<input type=hidden name='Type_3'    value='2'>
+						<input type=hidden name='Unit_3'    value='200'>
+						<input type=hidden name='JuYa_3'    value='1'>
+						<input type=hidden name='Stat_3'    value='20'>
+					
+		</tr>
+			<tr align="center"  id='Tr_Sum_002'>
+			<th colspan="2" class='tfoot'><span id='strSumId_Type_002'> 소계</span></th><th class='tfoot' colspan='1'>20</th><th class='tfoot' colspan='1'>0</th><th class='tfoot' colspan='1'>0.00 : 1</th>
+			</tr>
+			
+		</table>
+	<span id="strEndNotiId_002"></span><div class="space20"> &nbsp;</div></div>
+<div id="Div_003" style="display:" class="DivType">
+	<span id="strStartNotiId_003"></span>
+		<div class="both11">
+			<h3 style="background:url(.//color/bul_color1.png) no-repeat 0 15px;" class="p_left">
+				<span id="strTitleId_003" class="bul">기회균형특별전형 경쟁률 현황</span>
+			</h3>
+		</div>
+			<table cellpadding='0' cellspacing='0'>
+			<caption class='caphidden'>기회균형특별전형</caption>
+			
+		<thead>
+			<!--tr style='background:url(.//2011/vline.png) no-repeat 0 50%;'-->
+			<tr>
+			<th class="bgnone noline lline" scope="col" width = "40%" colspan="2"><span id="strTdTitleId_UnitStat_003_UNITNM">모집단위</span></th><th class="noline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_003_INWON">모집인원</span></th><th class="noline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_003_APPLY">지원인원</span></th><th class="noline rline" scope="col" width = "20%" ><span id="strTdTitleId_UnitStat_003_RATIO">경쟁률</span></th>
+			</tr>
+		</thead>
+			
+        <tr class='trFieldValue' id='Tr_003_000050000'>
+			<td  rowspan='1' colspan="2" class="txtFieldValue" align='left'>프라마나학부 | 불교학전공, 행정학전공, 경영학전공, 사회복지학전공, 프라마나전공</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>8</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>1</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0.13 : 1</td> 
+
+						<input type=hidden name='ApplyGr_4' value='0'>
+						<input type=hidden name='Cam_4'     value='0'>
+						<input type=hidden name='Type_4'    value='3'>
+						<input type=hidden name='Unit_4'    value='100'>
+						<input type=hidden name='JuYa_4'    value='1'>
+						<input type=hidden name='Stat_4'    value='10'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_003_000060000'>
+			<td  rowspan='1' colspan="2" class="txtFieldValue" align='left'>불교문화학부 | 불교미술전공, 불교음악전공, 불교문화콘텐츠전공</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>4</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0.00 : 1</td> 
+
+						<input type=hidden name='ApplyGr_5' value='0'>
+						<input type=hidden name='Cam_5'     value='0'>
+						<input type=hidden name='Type_5'    value='3'>
+						<input type=hidden name='Unit_5'    value='200'>
+						<input type=hidden name='JuYa_5'    value='1'>
+						<input type=hidden name='Stat_5'    value='20'>
+					
+		</tr>
+			<tr align="center"  id='Tr_Sum_003'>
+			<th colspan="2" class='tfoot'><span id='strSumId_Type_003'> 소계</span></th><th class='tfoot' colspan='1'>12</th><th class='tfoot' colspan='1'>1</th><th class='tfoot' colspan='1'>0.08 : 1</th>
+			</tr>
+			
+		</table>
+	<span id="strEndNotiId_003"></span><div class="space20"> &nbsp;</div></div>				
+				<input type=hidden name="exemode" value="">
+				<input type=hidden name="maxrow" value="6">
+				</form>
+			</div><!-- //table -->
+			</div><!-- //container -->
+		</div><!-- //border -->
+		</div>
+		
+	<div id="footer">
+			<h4><img src=".//foot_logo_1.png" alt="uwayapply" /></h4>
+			<p class="copy">Copyright uwayapply.com All Rights Reserved.</p>
+		</div><!-- //footer -->
+	</div><!-- //wrapper -->
+</body>
+</html>
+<!-- // 모니터링확인용 -->

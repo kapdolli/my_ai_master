@@ -1,0 +1,3491 @@
+
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head id="Head1"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><meta http-equiv="Expires" content="-1" /><meta http-equiv="Pragma" content="no-cache" /><meta http-equiv="Cache-Control" content="No-Cache" /><title>
+	한남대학교 경쟁률 서비스
+</title><link href="/RatioV1/Common/Css/template/jinhakratio_blue_v3.css" rel="stylesheet" type="text/css" />
+	<!-- <script type="text/javascript" src="/ApplyV8/scripts/jquery.js"></script> -->
+	<script type="text/javascript" src="/RatioV1/Common/Script/jquery.js"></script>
+	<script language="javascript" type="text/javascript">
+//IE forEach문 문제
+if (window.NodeList && !NodeList.prototype.forEach) { NodeList.prototype.forEach = Array.prototype.forEach;}
+
+if ( document.addEventListener && navigator.appName!="Microsoft Internet Explorer") {
+	window.captureEvents(Event.ONKEYDOWN); 
+	document.addEventListener("DOMContentLoaded", function(){
+		if(document.getElementById('Logo')){
+			document.getElementById('Logo').innerHTML = '<a href="http://apply.jinhak.com" target="_blank"><img src="/RatioV1/img/blank.gif" width="150" height="23" border="0"></a>';
+		}
+	}, false );
+//IE
+} else if ( document.attachEvent ) {
+	document.attachEvent("onreadystatechange", function(){
+		if ( document.readyState === "complete" ) {
+			if(document.getElementById('Logo')){
+				document.getElementById('Logo').innerHTML = '<a href="http://apply.jinhak.com" target="_blank"><img src="/RatioV1/img/blank.gif" width="150" height="23" border="0"></a>';
+			}
+		}
+	});
+}
+// 나를 호출한 넘이 있다면.. 
+if (document.referrer != "")
+{
+	// 해당 값이 특정한 곳이라면.. 
+	if (document.referrer.toLowerCase().indexOf("uway") != -1)
+	{
+		window.parent.href = 'http://apply.jinhak.com';
+
+	}
+}
+
+// chess :: Link 
+window.onload = function(){
+	if(document.getElementById('TopLink').children.length > 0){
+    	var isV8Link = new RegExp(/(www\.jinhakapply\.com\/frame)[\d]{6}\.(aspx)/);
+		document.querySelectorAll('#TopLink a').forEach(function(link){
+			if(!isV8Link.test(link)){ // V8 링크가 아닐 시 https로 자동 변환.
+			    link.href = link.href.replace('http://', 'https://');
+			}
+		});    	
+	}
+}
+
+</script>
+	<script type="text/javascript">
+<!--
+			function selType_onChange() {
+				var selType = document.getElementById("selType");
+				var value = selType.options[selType.selectedIndex].value;
+				var strSelectRatio = '2';
+
+				if (strSelectRatio == '2' || strSelectRatio == '3') {
+					// 전체일 경우 전부 보임
+					if(value == 0){
+						$('div[id^=SelType]').show()
+					}
+					else{
+						$('div[id^=SelType]').hide()
+						$('#SelType' + value).show();
+						document.getElementById("SelType" + value).scrollIntoView();
+					}
+					
+					return;
+				}
+				else {
+					//HIde Show 처리
+					if (value == 0) {
+						SelType_Change('block');
+					}
+					else {
+						SelType_Change('none');
+						document.getElementById("SelType" + value).style.display = 'block';
+						document.getElementById("SelType" + value).scrollIntoView();
+					}
+				}
+			}
+
+		function SelType_Change(flag) {
+			var arrDiv = document.getElementsByTagName("div");
+			for (var i = 0; i < arrDiv.length; i++) {
+				if (arrDiv[i].id.indexOf("SelType") != -1) {
+					document.getElementById(arrDiv[i].id).style.display = flag;
+				}
+			}
+		}
+
+		//=============================================================
+		// 반응형 경쟁률 스크롤 이벤트 추가
+		//=============================================================
+		window.addEventListener('scroll', function(){
+			var height = window.innerHeight;
+			var scrollPosition = document.documentElement.scrollTop;
+
+			if(scrollPosition > height){
+				$('.quick_menu').show("slow");
+			} else{
+				$('.quick_menu').hide("slow");
+			}
+		});
+
+		function MoveTop(){
+			$('html, body').animate({
+				scrollTop : 0
+			}, 300)
+
+		}
+		//=============================================================
+
+		$(document).ready(function () {
+			/****************************************************************************************
+			 엑셀버튼 추가  
+			****************************************************************************************/
+			$('#btnExcel').click(ExportExcel);
+		});
+
+    /****************************************************************************************
+     엑셀버튼 추가  
+    ****************************************************************************************/
+		function ExportExcel() {
+			// 마우스 오버 이벤트 삭제(IE에서 문제가 될 수 있음)
+			var divData = $('#Ratio1156093').html();
+			divData = divData.replace(/<tr onmouseover=\"this.className='over';\" onmouseout=\"this.className='';\">/gi, "<tr>");
+			divData = divData.replace(/'/g, '"');
+
+			var PostHtml = "<form method='post' action='/RatioV1/Common/Etc/RatioExcel.aspx' style='top:-198501px;' id='tempForm'>";
+			PostHtml += "<input type='hidden' name='ServiceName' value='" + encodeURIComponent('한남대학교') + "' >";
+			PostHtml += "<input type='hidden' name='Data' value='" + encodeURIComponent($('#TopType').html()) + encodeURIComponent(divData) + "' >";
+			PostHtml += "</form>";
+
+			$('#JHService').prepend(PostHtml);
+			$('#tempForm').submit();
+			$("tempForm").remove();
+
+			return false;
+		}
+		-->
+	</script>
+</head>
+
+<body id="JHService">
+	<form method="post" action="./Ratio11560931.aspx?idx=31994&amp;Company=jinhak&amp;Name=Ratio" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUJODE1ODcwMTUwZGSsNEgLPAptmM86diVSSiCpBfqSFQ==" />
+
+<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="59E92DB5" />
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdABPYEJ2mSXawoVZ2mhiIjL0jxGV0aKErUllaWtqgLmJ8ZVkjseFE8aZmT88nAihB8K9062UIgZO67Z8JlMCo99UONduVCYWS8oQ+r1BjmBNaBz/v9thrCzYAuJ0CP83akumy4fe8BFoBmdaCXT91tpTRLCdi6sxfk3CQi9FWEK+ME87YTiWE9/MiijDT5rMgbvMz0FU92fxH73VWZHGNR9gfb/8D87WARgLIC7baui0x8Yjwc4vlWo/ZCZHEZtLvWIA2rBhYuwQDOorpVwiAVQghLu2oaRmfq5Rg4l3sWObLcBcVZWlWWrktZBjhaacRRxZ63w2FdzBGKRTUCAGM7hrOmSELxT6zS8X1vPnniV1nPmstUC0Lc15dK9eYuK3MdBbeVqWagQFyPJ7Nt1lHBKkS+5Jo2aLeWJuyFKUkF21ubbXw+MY=" />
+		<!-- bgcolor : #DF3151, #51B79F, #E29F30, #82BD3E, #318CC7 -->
+
+		<div id="RoundT">
+			<div class="header">
+				<h1 class="univ"><img src="http://apply.jinhakapply.com/WebAppForms/Wonseo/LogImg/1156.gif" id="UnivLogo" alt="대학로고" /></h1>
+				<span id="TextType">
+					<p class="tit">
+						<span id="TitleYear">2027학년도</span>&nbsp;
+						<span id="TitleService">수시모집</span>&nbsp;
+						<span id="TitleText">경쟁률</span>
+					</p>
+				</span>
+				
+			</div>
+
+			<div class="cont">
+				
+				<div id="Top" class="notiBox">
+					<div class="notiBox_in">
+						<!-- 이미지 영역 -->
+						<div id="divImgPromotion" class="promotion">
+							<img src="/RatioV1/img/img1156093.png" id="ImgPromotion" />
+						</div>
+						<!-- //이미지 영역 -->
+						<ul id="TopType" class="ul3"><span style="font-size:15px;">※ 경쟁률은 마감일(11일) 오후 17시까지 제공됩니다.<br><br>
+※ 경쟁률은 10분 단위로 업데이트됩니다.<br><br>
+<span style="font-size:15px;">※ 최종 경쟁률은 원서접수 마감일 21시 이후에 공개됩니다.<br><br></ul>
+						<div id="TopLink" class="notnBtn"></div>
+					</div>
+				</div>
+
+				<div id="RatioSort" class="RateState">
+					<p id="RatioTime" class="time">2026-09-09 오전 9:20 현황</p>
+					<!-- 경쟁률 현황 Select //-->
+					<div class="RateState_in">
+						<select name="selType" id="selType" class="SltBox" onchange="return selType_onChange();">
+	<option value="0">전형 전체</option>
+	<option value="402"> 일반전형</option>
+	<option value="451"> 지역인재교과우수자전형</option>
+	<option value="456"> 지역인재교과우수자(기초생활)전형</option>
+	<option value="458"> 기회균형특별전형</option>
+	<option value="459"> 사회통합전형</option>
+	<option value="455"> 어학인재전형</option>
+	<option value="405"> 농어촌(도서&#183;벽지)학생특별전형(정원외)</option>
+	<option value="433"> 기초생활수급자&#183;차상위계층&#183;한부모가족지원대상자전형(정원외)</option>
+	<option value="453"> 특성화고교출신자전형(정원외)</option>
+	<option value="406"> 장애인등대상자전형(정원외)</option>
+	<option value="460"> 만학도 특별전형(정원외)</option>
+	<option value="461"> 한남인재Ⅰ(서류)전형</option>
+	<option value="462"> 한남인재Ⅱ(서류+면접)전형</option>
+	<option value="420"> 창업인재(서류+면접)전형</option>
+	<option value="463"> 실기전형</option>
+	<option value="431"> 디자인특기자전형</option>
+	<option value="403"> 체육특기자전형</option>
+
+</select>
+					</div>
+					<!--// 군별 경쟁률 현황 Select -->
+				</div>
+
+				<!--// 엑셀 저장범위 -->
+				<div id="Ratio1156093">
+					<!-- 컨텐츠 -->
+					
+					<!--// 컨텐츠 -->
+
+					<!-- 컨텐츠 -->
+					<div>
+<a name='lik_top'></a>
+	<h2><strong>전형별</strong> 경쟁률 현황</h2>
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio2">
+		<colgroup>
+			<col width="15%" />
+			<col width="%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="10%" />
+		</colgroup>
+		<tr>
+			<th colspan = '2'>전형명</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;"  rowspan ='11'">학생부교과</td>
+			<td style="text-align:left;" onclick='document.getElementById("selType").value="402";selType_onChange();'>&nbsp;<b>일반전형 : <font color=blue>교과100%</font></b></td>
+			<td>1,350</td>
+			<td>1,506</td>
+			<td style="font-weight:bold;">1.12 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:left;" onclick='document.getElementById("selType").value="451";selType_onChange();'>&nbsp;<b>지역인재교과우수자전형 : <font color=blue>교과100%</font></b></td>
+			<td>459</td>
+			<td>341</td>
+			<td style="font-weight:bold;">0.74 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:left;" onclick='document.getElementById("selType").value="456";selType_onChange();'>&nbsp;<b>지역인재교과우수자(기초생활)전형 : <font color=blue>교과100%</font></b></td>
+			<td>15</td>
+			<td>10</td>
+			<td style="font-weight:bold;">0.67 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:left;" onclick='document.getElementById("selType").value="458";selType_onChange();'>&nbsp;<b>기회균형특별전형 : <font color=blue>교과100%</font></b></td>
+			<td>16</td>
+			<td>6</td>
+			<td style="font-weight:bold;">0.38 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:left;" onclick='document.getElementById("selType").value="459";selType_onChange();'>&nbsp;<b>사회통합전형 : <font color=blue>교과100%</font></b></td>
+			<td>8</td>
+			<td>11</td>
+			<td style="font-weight:bold;">1.38 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:left;" onclick='document.getElementById("selType").value="455";selType_onChange();'>&nbsp;<b>어학인재전형 : <font color=blue>교과50% + 면접50%</font></b></td>
+			<td>16</td>
+			<td>9</td>
+			<td style="font-weight:bold;">0.56 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:left;" onclick='document.getElementById("selType").value="405";selType_onChange();'>&nbsp;<b>농어촌(도서·벽지)학생특별전형(정원외) : <font color=blue>교과100%</font></b></td>
+			<td>66</td>
+			<td>109</td>
+			<td style="font-weight:bold;">1.65 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:left;" onclick='document.getElementById("selType").value="433";selType_onChange();'>&nbsp;<b>기초생활수급자·차상위계층 한부모가족지원대상자전형(정원외) : <font color=blue>교과100%</font></b></td>
+			<td>39</td>
+			<td>69</td>
+			<td style="font-weight:bold;">1.77 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:left;" onclick='document.getElementById("selType").value="453";selType_onChange();'>&nbsp;<b>특성화고교출신자전형(정원외) : <font color=blue>교과100%</font></b></td>
+			<td>39</td>
+			<td>31</td>
+			<td style="font-weight:bold;">0.79 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:left;" onclick='document.getElementById("selType").value="406";selType_onChange();'>&nbsp;<b>장애인등대상자전형(정원외) : <font color=blue>교과100%</font></b></td>
+			<td>10</td>
+			<td>13</td>
+			<td style="font-weight:bold;">1.30 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:left;" onclick='document.getElementById("selType").value="460";selType_onChange();'>&nbsp;<b>만학도 특별전형(정원외) : <font color=blue>교과100%</font></b></td>
+			<td>10</td>
+			<td>0</td>
+			<td style="font-weight:bold;">0.00 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;"  rowspan ='3'">학생부종합</td>
+			<td style="text-align:left;" onclick='document.getElementById("selType").value="461";selType_onChange();'>&nbsp;<b>한남인재Ⅰ(서류)전형 : <font color=blue>서류100%</font></b></td>
+			<td>471</td>
+			<td>487</td>
+			<td style="font-weight:bold;">1.03 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:left;" onclick='document.getElementById("selType").value="462";selType_onChange();'>&nbsp;<b>한남인재Ⅱ(서류+면접)전형 : <font color=blue>1단계 서류100% / 2단계(1단계 서류70% + 면접30%)</font></b></td>
+			<td>65</td>
+			<td>98</td>
+			<td style="font-weight:bold;">1.51 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:left;" onclick='document.getElementById("selType").value="420";selType_onChange();'>&nbsp;<b>창업인재(서류+면접)전형 : <font color=blue>1단계 서류100% / 2단계 (1단계 서류70% + 면접30%)</font></b></td>
+			<td>5</td>
+			<td>8</td>
+			<td style="font-weight:bold;">1.60 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;"  rowspan ='3'">실기/실적위주</td>
+			<td style="text-align:left;" onclick='document.getElementById("selType").value="463";selType_onChange();'>&nbsp;<b>실기전형 : <font color=blue>교과 + 실기</font></b></td>
+			<td>163</td>
+			<td>213</td>
+			<td style="font-weight:bold;">1.31 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:left;" onclick='document.getElementById("selType").value="431";selType_onChange();'>&nbsp;<b>디자인특기자전형 : <font color=blue>교과20% + 입상실적80%</font></b></td>
+			<td>2</td>
+			<td>1</td>
+			<td style="font-weight:bold;">0.50 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:left;" onclick='document.getElementById("selType").value="403";selType_onChange();'>&nbsp;<b>체육특기자전형 : <font color=blue>교과 + 출결 + 실기 (+입상실적)</font></b></td>
+			<td>10</td>
+			<td>32</td>
+			<td style="font-weight:bold;">3.20 : 1</td>
+		</tr>		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan='2'>총계</td>
+			<td>2,744</td>
+			<td>2,944</td>
+			<td class="rate4">1.07 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+
+					<!--// 컨텐츠 -->
+
+					<!-- 컨텐츠 -->
+						<a name='lik_402'></a><div id="SelType402">
+	<h2><strong> 일반전형</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="11%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th>모집단위</th>
+			<th>학과 홈페이지</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="9">문과대학</td>
+			<td class="unit"><b><font color=blue>문과대학자유전공학부</font></b></td>
+			<td><a href='https://www.hannam.ac.kr/kor/educate/educate_0100_01.html' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td rowspan="1">25</td>
+			<td>29</td>
+			<td class="rate4" rowspan = '1'>1.16 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">국어국문·창작학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://korean.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>31</td>
+			<td>49</td>
+			<td class="rate4">1.58 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">영어영문학과</td>
+			<td><a href='https://english.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>27</td>
+			<td>25</td>
+			<td class="rate4">0.93 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">디지털영어콘텐츠학과</td>
+			<td><a href='https://aec.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>17</td>
+			<td>14</td>
+			<td class="rate4">0.82 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">일어일문학과</td>
+			<td><a href='https://japan.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>11</td>
+			<td>30</td>
+			<td class="rate4">2.73 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">프랑스어문학과</td>
+			<td><a href='https://fr.hnu.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>11</td>
+			<td>6</td>
+			<td class="rate4">0.55 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">문헌정보학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://lis.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>13</td>
+			<td>29</td>
+			<td class="rate4">2.23 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">사학과</td>
+			<td><a href='https://history.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>12</td>
+			<td>16</td>
+			<td class="rate4">1.33 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">기독교학과</td>
+			<td><a href='https://christian.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>6</td>
+			<td>9</td>
+			<td class="rate4">1.50 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="5">사범대학</td>
+			<td class="unit">국어교육과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://kukkyo.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>15</td>
+			<td>24</td>
+			<td class="rate4">1.60 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">영어교육과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://eng-edu.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>14</td>
+			<td>16</td>
+			<td class="rate4">1.14 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">교육학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://edu.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>16</td>
+			<td>21</td>
+			<td class="rate4">1.31 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">역사교육과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://e-history.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>9</td>
+			<td>21</td>
+			<td class="rate4">2.33 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">수학교육과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://mathedu.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>9</td>
+			<td>20</td>
+			<td class="rate4">2.22 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="9">공과대학</td>
+			<td class="unit"><b><font color=blue>공과대학자유전공학부</font></b></td>
+			<td><a href='https://www.hannam.ac.kr/kor/educate/educate_0100_01.html' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>36</td>
+			<td>54</td>
+			<td class="rate4">1.50 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">정보통신공학과</td>
+			<td><a href='https://ice.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>27</td>
+			<td>16</td>
+			<td class="rate4">0.59 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">전기전자공학과</td>
+			<td><a href='https://ee.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>26</td>
+			<td>44</td>
+			<td class="rate4">1.69 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">멀티미디어공학과</td>
+			<td><a href='http://multi.hannam.ac.kr/main/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>23</td>
+			<td>15</td>
+			<td class="rate4">0.65 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">건축학과(5년제)</td>
+			<td><a href='https://archi.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>12</td>
+			<td>20</td>
+			<td class="rate4">1.67 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">건축공학과</td>
+			<td><a href='https://arch.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>14</td>
+			<td>13</td>
+			<td class="rate4">0.93 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">건설환경공학과</td>
+			<td><a href='https://civil.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>23</td>
+			<td>19</td>
+			<td class="rate4">0.83 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">기계공학과</td>
+			<td><a href='https://me.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>32</td>
+			<td>42</td>
+			<td class="rate4">1.31 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">화학공학과</td>
+			<td><a href='https://chem-eng.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>20</td>
+			<td>20</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="8">인공지능대학</td>
+			<td class="unit"><b><font color=blue>인공지능대학자유전공학부</font></b></td>
+			<td><a href='https://www.hannam.ac.kr/kor/educate/educate_0100_01.html' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>24</td>
+			<td>24</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">컴퓨터공학과</td>
+			<td><a href='https://ce.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>24</td>
+			<td>21</td>
+			<td class="rate4">0.88 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">AI융합학과</td>
+			<td><a href='https://ai.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>25</td>
+			<td>14</td>
+			<td class="rate4">0.56 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">산업정보공학과</td>
+			<td><a href='https://ime.hannam.ac.kr' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>23</td>
+			<td>15</td>
+			<td class="rate4">0.65 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">AI데이터사이언스학과</td>
+			<td><a href='https://bigdata.hannam.ac.kr' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>21</td>
+			<td>15</td>
+			<td class="rate4">0.71 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">나노반도체소재공학과</td>
+			<td><a href='https://nanosemi.hannam.ac.kr' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>17</td>
+			<td>13</td>
+			<td class="rate4">0.76 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">AI로봇융합공학과</td>
+			<td><a href='https://www.hannam.ac.kr/kor/educate/educate_0103_23.html' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>20</td>
+			<td>5</td>
+			<td class="rate4">0.25 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">수학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://math.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>21</td>
+			<td>13</td>
+			<td class="rate4">0.62 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="8">경상대학</td>
+			<td class="unit"><b><font color=blue>경상대학자유전공학부</font></b></td>
+			<td><a href='https://www.hannam.ac.kr/kor/educate/educate_0100_01.html' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>42</td>
+			<td>55</td>
+			<td class="rate4">1.31 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">경영학과</td>
+			<td><a href='https://business.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>52</td>
+			<td>59</td>
+			<td class="rate4">1.13 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">회계학과</td>
+			<td><a href='https://management.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>47</td>
+			<td>12</td>
+			<td class="rate4">0.26 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">무역물류학과</td>
+			<td><a href='https://trade.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>30</td>
+			<td>59</td>
+			<td class="rate4">1.97 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">경제학과</td>
+			<td><a href='https://enc.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>26</td>
+			<td>24</td>
+			<td class="rate4">0.92 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">중국경제통상학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://china.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>24</td>
+			<td>25</td>
+			<td class="rate4">1.04 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">호텔항공경영학과</td>
+			<td><a href='https://hotel.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>25</td>
+			<td>30</td>
+			<td class="rate4">1.20 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">경영정보학과</td>
+			<td><a href='https://mis.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>21</td>
+			<td>16</td>
+			<td class="rate4">0.76 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="9">사회과학대학</td>
+			<td class="unit"><b><font color=blue>사회과학대학자유전공학부</font></b></td>
+			<td><a href='https://www.hannam.ac.kr/kor/educate/educate_0100_01.html' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>37</td>
+			<td>47</td>
+			<td class="rate4">1.27 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">행정학과</td>
+			<td><a href='https://vision.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>27</td>
+			<td>37</td>
+			<td class="rate4">1.37 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">경찰학과</td>
+			<td><a href='https://police.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>16</td>
+			<td>22</td>
+			<td class="rate4">1.38 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">정치·언론학과</td>
+			<td><a href='https://pcis.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>16</td>
+			<td>12</td>
+			<td class="rate4">0.75 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">사회복지학과</td>
+			<td><a href='https://welfare.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>18</td>
+			<td>22</td>
+			<td class="rate4">1.22 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">아동복지학과</td>
+			<td><a href='https://child.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>15</td>
+			<td>26</td>
+			<td class="rate4">1.73 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">상담심리학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://counselpsy.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>18</td>
+			<td>39</td>
+			<td class="rate4">2.17 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">사회적경제기업학과</td>
+			<td><a href='https://seb.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>14</td>
+			<td>25</td>
+			<td class="rate4">1.79 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit"><b><font color=blue>법학부(법학/법무법학)</font></b></td>
+			<td><a href='https://law.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>30</td>
+			<td>22</td>
+			<td class="rate4">0.73 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="6">생명·나노과학대학</td>
+			<td class="unit"><b><font color=blue>생명·나노과학대학자유전공학부</font></b></td>
+			<td><a href='https://www.hannam.ac.kr/kor/educate/educate_0100_01.html' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>17</td>
+			<td>24</td>
+			<td class="rate4">1.41 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">생명시스템과학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://biosystem.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>31</td>
+			<td>18</td>
+			<td class="rate4">0.58 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">식품영양학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://nutri.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>22</td>
+			<td>43</td>
+			<td class="rate4">1.95 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">화학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://chem.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>16</td>
+			<td>20</td>
+			<td class="rate4">1.25 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">바이오제약공학과</td>
+			<td><a href='https://biopharm.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>16</td>
+			<td>17</td>
+			<td class="rate4">1.06 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">간호학과</td>
+			<td><a href='https://nursing.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>2</td>
+			<td>4</td>
+			<td class="rate4">2.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="2">아트&디자인테크놀로지대학</td>
+			<td class="unit">패션디자인학과</td>
+			<td><a href='https://clothing.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>15</td>
+			<td>22</td>
+			<td class="rate4">1.47 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">미디어영상학과</td>
+			<td><a href='http://hmedia.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>21</td>
+			<td>41</td>
+			<td class="rate4">1.95 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="1">린튼국제학부</td>
+			<td class="unit"><b><font color=blue>린튼국제학부(글로벌비즈니스/글로벌미디어·컬처)</font></b></td>
+			<td><a href='https://gb.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>20</td>
+			<td>24</td>
+			<td class="rate4">1.20 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="1">탈메이지교양·융합대학</td>
+			<td class="unit"><b><font color=blue>자유전공학부</font></b></td>
+			<td><a href='https://openmajor.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>128</td>
+			<td>89</td>
+			<td class="rate4">0.70 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=3>총계</td>
+			<td>1,350</td>
+			<td>1,506</td>
+			<td class="rate4">1.12 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_451'></a><div id="SelType451">
+	<h2><strong> 지역인재교과우수자전형</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="11%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th>모집단위</th>
+			<th>학과 홈페이지</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="9">문과대학</td>
+			<td class="unit"><b><font color=blue>문과대학자유전공학부</font></b></td>
+			<td><a href='https://www.hannam.ac.kr/kor/educate/educate_0100_01.html' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td rowspan="1">10</td>
+			<td>7</td>
+			<td class="rate4" rowspan = '1'>0.70 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">국어국문·창작학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://korean.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>10</td>
+			<td>6</td>
+			<td class="rate4">0.60 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">영어영문학과</td>
+			<td><a href='https://english.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>10</td>
+			<td>7</td>
+			<td class="rate4">0.70 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">디지털영어콘텐츠학과</td>
+			<td><a href='https://aec.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4</td>
+			<td>1</td>
+			<td class="rate4">0.25 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">일어일문학과</td>
+			<td><a href='https://japan.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>5</td>
+			<td>8</td>
+			<td class="rate4">1.60 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">프랑스어문학과</td>
+			<td><a href='https://fr.hnu.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4</td>
+			<td>1</td>
+			<td class="rate4">0.25 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">문헌정보학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://lis.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>5</td>
+			<td>4</td>
+			<td class="rate4">0.80 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">사학과</td>
+			<td><a href='https://history.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4</td>
+			<td>4</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">기독교학과</td>
+			<td><a href='https://christian.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>3</td>
+			<td>5</td>
+			<td class="rate4">1.67 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="5">사범대학</td>
+			<td class="unit">국어교육과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://kukkyo.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>3</td>
+			<td>6</td>
+			<td class="rate4">2.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">영어교육과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://eng-edu.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>3</td>
+			<td>7</td>
+			<td class="rate4">2.33 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">교육학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://edu.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>3</td>
+			<td>1</td>
+			<td class="rate4">0.33 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">역사교육과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://e-history.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4</td>
+			<td>5</td>
+			<td class="rate4">1.25 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">수학교육과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://mathedu.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4</td>
+			<td>4</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="9">공과대학</td>
+			<td class="unit"><b><font color=blue>공과대학자유전공학부</font></b></td>
+			<td><a href='https://www.hannam.ac.kr/kor/educate/educate_0100_01.html' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>13</td>
+			<td>11</td>
+			<td class="rate4">0.85 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">정보통신공학과</td>
+			<td><a href='https://ice.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>9</td>
+			<td>8</td>
+			<td class="rate4">0.89 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">전기전자공학과</td>
+			<td><a href='https://ee.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>6</td>
+			<td>3</td>
+			<td class="rate4">0.50 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">멀티미디어공학과</td>
+			<td><a href='http://multi.hannam.ac.kr/main/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>7</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">건축학과(5년제)</td>
+			<td><a href='https://archi.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>3</td>
+			<td>5</td>
+			<td class="rate4">1.67 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">건축공학과</td>
+			<td><a href='https://arch.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>5</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">건설환경공학과</td>
+			<td><a href='https://civil.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>6</td>
+			<td>2</td>
+			<td class="rate4">0.33 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">기계공학과</td>
+			<td><a href='https://me.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>10</td>
+			<td>5</td>
+			<td class="rate4">0.50 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">화학공학과</td>
+			<td><a href='https://chem-eng.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>7</td>
+			<td>8</td>
+			<td class="rate4">1.14 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="8">인공지능대학</td>
+			<td class="unit"><b><font color=blue>인공지능대학자유전공학부</font></b></td>
+			<td><a href='https://www.hannam.ac.kr/kor/educate/educate_0100_01.html' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>12</td>
+			<td>3</td>
+			<td class="rate4">0.25 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">컴퓨터공학과</td>
+			<td><a href='https://ce.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>8</td>
+			<td>7</td>
+			<td class="rate4">0.88 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">AI융합학과</td>
+			<td><a href='https://ai.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>9</td>
+			<td>4</td>
+			<td class="rate4">0.44 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">산업정보공학과</td>
+			<td><a href='https://ime.hannam.ac.kr' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4</td>
+			<td>2</td>
+			<td class="rate4">0.50 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">AI데이터사이언스학과</td>
+			<td><a href='https://bigdata.hannam.ac.kr' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>6</td>
+			<td>6</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">나노반도체소재공학과</td>
+			<td><a href='https://nanosemi.hannam.ac.kr' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4</td>
+			<td>3</td>
+			<td class="rate4">0.75 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">AI로봇융합공학과</td>
+			<td><a href='https://www.hannam.ac.kr/kor/educate/educate_0103_23.html' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>8</td>
+			<td>3</td>
+			<td class="rate4">0.38 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">수학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://math.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="8">경상대학</td>
+			<td class="unit"><b><font color=blue>경상대학자유전공학부</font></b></td>
+			<td><a href='https://www.hannam.ac.kr/kor/educate/educate_0100_01.html' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>19</td>
+			<td>9</td>
+			<td class="rate4">0.47 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">경영학과</td>
+			<td><a href='https://business.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>20</td>
+			<td>15</td>
+			<td class="rate4">0.75 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">회계학과</td>
+			<td><a href='https://management.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>13</td>
+			<td>7</td>
+			<td class="rate4">0.54 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">무역물류학과</td>
+			<td><a href='https://trade.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>9</td>
+			<td>7</td>
+			<td class="rate4">0.78 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">경제학과</td>
+			<td><a href='https://enc.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>9</td>
+			<td>9</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">중국경제통상학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://china.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>8</td>
+			<td>19</td>
+			<td class="rate4">2.38 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">호텔항공경영학과</td>
+			<td><a href='https://hotel.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>8</td>
+			<td>4</td>
+			<td class="rate4">0.50 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">경영정보학과</td>
+			<td><a href='https://mis.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>6</td>
+			<td>3</td>
+			<td class="rate4">0.50 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="9">사회과학대학</td>
+			<td class="unit"><b><font color=blue>사회과학대학자유전공학부</font></b></td>
+			<td><a href='https://www.hannam.ac.kr/kor/educate/educate_0100_01.html' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>12</td>
+			<td>15</td>
+			<td class="rate4">1.25 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">행정학과</td>
+			<td><a href='https://vision.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>11</td>
+			<td>5</td>
+			<td class="rate4">0.45 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">경찰학과</td>
+			<td><a href='https://police.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>5</td>
+			<td>8</td>
+			<td class="rate4">1.60 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">정치·언론학과</td>
+			<td><a href='https://pcis.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>6</td>
+			<td>1</td>
+			<td class="rate4">0.17 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">사회복지학과</td>
+			<td><a href='https://welfare.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4</td>
+			<td>5</td>
+			<td class="rate4">1.25 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">아동복지학과</td>
+			<td><a href='https://child.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4</td>
+			<td>1</td>
+			<td class="rate4">0.25 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">상담심리학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://counselpsy.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4</td>
+			<td>4</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">사회적경제기업학과</td>
+			<td><a href='https://seb.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>3</td>
+			<td>1</td>
+			<td class="rate4">0.33 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit"><b><font color=blue>법학부(법학/법무법학)</font></b></td>
+			<td><a href='https://law.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>8</td>
+			<td>5</td>
+			<td class="rate4">0.63 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="6">생명·나노과학대학</td>
+			<td class="unit"><b><font color=blue>생명·나노과학대학자유전공학부</font></b></td>
+			<td><a href='https://www.hannam.ac.kr/kor/educate/educate_0100_01.html' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>7</td>
+			<td>4</td>
+			<td class="rate4">0.57 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">생명시스템과학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://biosystem.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>10</td>
+			<td>8</td>
+			<td class="rate4">0.80 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">식품영양학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://nutri.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>6</td>
+			<td>8</td>
+			<td class="rate4">1.33 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">화학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://chem.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>8</td>
+			<td>9</td>
+			<td class="rate4">1.13 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">바이오제약공학과</td>
+			<td><a href='https://biopharm.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>10</td>
+			<td>8</td>
+			<td class="rate4">0.80 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">간호학과</td>
+			<td><a href='https://nursing.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>16</td>
+			<td>16</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="2">아트&디자인테크놀로지대학</td>
+			<td class="unit">패션디자인학과</td>
+			<td><a href='https://clothing.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>3</td>
+			<td>8</td>
+			<td class="rate4">2.67 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">미디어영상학과</td>
+			<td><a href='http://hmedia.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>6</td>
+			<td>12</td>
+			<td class="rate4">2.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="1">린튼국제학부</td>
+			<td class="unit"><b><font color=blue>린튼국제학부(글로벌비즈니스/글로벌미디어·컬처)</font></b></td>
+			<td><a href='https://gb.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>3</td>
+			<td>2</td>
+			<td class="rate4">0.67 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="1">탈메이지교양·융합대학</td>
+			<td class="unit"><b><font color=blue>자유전공학부</font></b></td>
+			<td><a href='https://openmajor.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>48</td>
+			<td>12</td>
+			<td class="rate4">0.25 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=3>총계</td>
+			<td>459</td>
+			<td>341</td>
+			<td class="rate4">0.74 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_456'></a><div id="SelType456">
+	<h2><strong> 지역인재교과우수자(기초생활)전형</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="11%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th>모집단위</th>
+			<th>학과 홈페이지</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="2">문과대학</td>
+			<td class="unit">일어일문학과</td>
+			<td><a href='https://japan.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td rowspan="1">1</td>
+			<td>1</td>
+			<td class="rate4" rowspan = '1'>1.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">문헌정보학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://lis.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="2">사범대학</td>
+			<td class="unit">역사교육과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://e-history.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">수학교육과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://mathedu.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="1">공과대학</td>
+			<td class="unit">전기전자공학과</td>
+			<td><a href='https://ee.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="1">인공지능대학</td>
+			<td class="unit">컴퓨터공학과</td>
+			<td><a href='https://ce.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1</td>
+			<td>1</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="4">사회과학대학</td>
+			<td class="unit">경찰학과</td>
+			<td><a href='https://police.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1</td>
+			<td>1</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">사회복지학과</td>
+			<td><a href='https://welfare.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">아동복지학과</td>
+			<td><a href='https://child.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">상담심리학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://counselpsy.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="2">생명·나노과학대학</td>
+			<td class="unit">식품영양학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://nutri.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">간호학과</td>
+			<td><a href='https://nursing.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>2</td>
+			<td>5</td>
+			<td class="rate4">2.50 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="2">아트&디자인테크놀로지대학</td>
+			<td class="unit">패션디자인학과</td>
+			<td><a href='https://clothing.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1</td>
+			<td>1</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">미디어영상학과</td>
+			<td><a href='http://hmedia.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1</td>
+			<td>1</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=3>총계</td>
+			<td>15</td>
+			<td>10</td>
+			<td class="rate4">0.67 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_458'></a><div id="SelType458">
+	<h2><strong> 기회균형특별전형</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="11%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th>모집단위</th>
+			<th>학과 홈페이지</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="1">문과대학</td>
+			<td class="unit">영어영문학과</td>
+			<td><a href='https://english.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td rowspan="1">1</td>
+			<td>0</td>
+			<td class="rate4" rowspan = '1'>0.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="6">공과대학</td>
+			<td class="unit">전기전자공학과</td>
+			<td><a href='https://ee.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">멀티미디어공학과</td>
+			<td><a href='http://multi.hannam.ac.kr/main/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1</td>
+			<td>1</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">건축학과(5년제)</td>
+			<td><a href='https://archi.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">건축공학과</td>
+			<td><a href='https://arch.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">건설환경공학과</td>
+			<td><a href='https://civil.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1</td>
+			<td>1</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">기계공학과</td>
+			<td><a href='https://me.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1</td>
+			<td>1</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="1">인공지능대학</td>
+			<td class="unit">컴퓨터공학과</td>
+			<td><a href='https://ce.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="2">경상대학</td>
+			<td class="unit">경영학과</td>
+			<td><a href='https://business.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>2</td>
+			<td>1</td>
+			<td class="rate4">0.50 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">경제학과</td>
+			<td><a href='https://enc.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="3">사회과학대학</td>
+			<td class="unit">행정학과</td>
+			<td><a href='https://vision.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>2</td>
+			<td>2</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">경찰학과</td>
+			<td><a href='https://police.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit"><b><font color=blue>법학부(법학/법무법학)</font></b></td>
+			<td><a href='https://law.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>2</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=3>총계</td>
+			<td>16</td>
+			<td>6</td>
+			<td class="rate4">0.38 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_459'></a><div id="SelType459">
+	<h2><strong> 사회통합전형</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="11%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th>모집단위</th>
+			<th>학과 홈페이지</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="1">사범대학</td>
+			<td class="unit">교육학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://edu.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td rowspan="1">1</td>
+			<td>0</td>
+			<td class="rate4" rowspan = '1'>0.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="2">공과대학</td>
+			<td class="unit">건축학과(5년제)</td>
+			<td><a href='https://archi.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">기계공학과</td>
+			<td><a href='https://me.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1</td>
+			<td>2</td>
+			<td class="rate4">2.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="4">사회과학대학</td>
+			<td class="unit">경찰학과</td>
+			<td><a href='https://police.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1</td>
+			<td>4</td>
+			<td class="rate2">4.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">사회복지학과</td>
+			<td><a href='https://welfare.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1</td>
+			<td>1</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">아동복지학과</td>
+			<td><a href='https://child.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1</td>
+			<td>2</td>
+			<td class="rate4">2.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">사회적경제기업학과</td>
+			<td><a href='https://seb.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1</td>
+			<td>1</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="1">생명·나노과학대학</td>
+			<td class="unit">식품영양학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://nutri.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1</td>
+			<td>1</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=3>총계</td>
+			<td>8</td>
+			<td>11</td>
+			<td class="rate4">1.38 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_455'></a><div id="SelType455">
+	<h2><strong> 어학인재전형</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="11%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th>모집단위</th>
+			<th>학과 홈페이지</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="1">린튼국제학부</td>
+			<td class="unit"><b><font color=blue>린튼국제학부(글로벌비즈니스/글로벌미디어·컬처)</font></b></td>
+			<td><a href='https://gb.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td rowspan="1">16</td>
+			<td>9</td>
+			<td class="rate4" rowspan = '1'>0.56 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=3>총계</td>
+			<td>16</td>
+			<td>9</td>
+			<td class="rate4">0.56 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_405'></a><div id="SelType405">
+	<h2><strong> 농어촌(도서·벽지)학생특별전형(정원외)</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="11%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th>모집단위</th>
+			<th>학과 홈페이지</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="9">문과대학</td>
+			<td class="unit"><b><font color=blue>문과대학자유전공학부</font></b></td>
+			<td><a href='https://www.hannam.ac.kr/kor/educate/educate_0100_01.html' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td rowspan="1">3이내</td>
+			<td>0</td>
+			<td class="rate4" rowspan = '58'>0.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">국어국문·창작학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://korean.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>5이내</td>
+			<td>3</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">영어영문학과</td>
+			<td><a href='https://english.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>5이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">디지털영어콘텐츠학과</td>
+			<td><a href='https://aec.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>2이내</td>
+			<td>1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">일어일문학과</td>
+			<td><a href='https://japan.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>2이내</td>
+			<td>4</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">프랑스어문학과</td>
+			<td><a href='https://fr.hnu.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>2이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">문헌정보학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://lis.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>3이내</td>
+			<td>7</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">사학과</td>
+			<td><a href='https://history.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>2이내</td>
+			<td>2</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">기독교학과</td>
+			<td><a href='https://christian.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="5">사범대학</td>
+			<td class="unit">국어교육과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://kukkyo.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1이내</td>
+			<td>3</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">영어교육과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://eng-edu.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1이내</td>
+			<td>1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">교육학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://edu.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>2이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">역사교육과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://e-history.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1이내</td>
+			<td>3</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">수학교육과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://mathedu.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="9">공과대학</td>
+			<td class="unit"><b><font color=blue>공과대학자유전공학부</font></b></td>
+			<td><a href='https://www.hannam.ac.kr/kor/educate/educate_0100_01.html' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4이내</td>
+			<td>1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">정보통신공학과</td>
+			<td><a href='https://ice.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">전기전자공학과</td>
+			<td><a href='https://ee.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4이내</td>
+			<td>5</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">멀티미디어공학과</td>
+			<td><a href='http://multi.hannam.ac.kr/main/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">건축학과(5년제)</td>
+			<td><a href='https://archi.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>2이내</td>
+			<td>2</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">건축공학과</td>
+			<td><a href='https://arch.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>2이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">건설환경공학과</td>
+			<td><a href='https://civil.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4이내</td>
+			<td>1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">기계공학과</td>
+			<td><a href='https://me.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>5이내</td>
+			<td>5</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">화학공학과</td>
+			<td><a href='https://chem-eng.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>3이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="8">인공지능대학</td>
+			<td class="unit"><b><font color=blue>인공지능대학자유전공학부</font></b></td>
+			<td><a href='https://www.hannam.ac.kr/kor/educate/educate_0100_01.html' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>3이내</td>
+			<td>1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">컴퓨터공학과</td>
+			<td><a href='https://ce.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>5이내</td>
+			<td>2</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">AI융합학과</td>
+			<td><a href='https://ai.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>5이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">산업정보공학과</td>
+			<td><a href='https://ime.hannam.ac.kr' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>3이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">AI데이터사이언스학과</td>
+			<td><a href='https://bigdata.hannam.ac.kr' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>3이내</td>
+			<td>1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">나노반도체소재공학과</td>
+			<td><a href='https://nanosemi.hannam.ac.kr' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>3이내</td>
+			<td>1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">AI로봇융합공학과</td>
+			<td><a href='https://www.hannam.ac.kr/kor/educate/educate_0103_23.html' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>3이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">수학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://math.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>3이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="8">경상대학</td>
+			<td class="unit"><b><font color=blue>경상대학자유전공학부</font></b></td>
+			<td><a href='https://www.hannam.ac.kr/kor/educate/educate_0100_01.html' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>6이내</td>
+			<td>1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">경영학과</td>
+			<td><a href='https://business.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>10이내</td>
+			<td>9</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">회계학과</td>
+			<td><a href='https://management.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>7이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">무역물류학과</td>
+			<td><a href='https://trade.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>5이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">경제학과</td>
+			<td><a href='https://enc.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>5이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">중국경제통상학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://china.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>3이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">호텔항공경영학과</td>
+			<td><a href='https://hotel.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4이내</td>
+			<td>4</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">경영정보학과</td>
+			<td><a href='https://mis.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>3이내</td>
+			<td>1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="9">사회과학대학</td>
+			<td class="unit"><b><font color=blue>사회과학대학자유전공학부</font></b></td>
+			<td><a href='https://www.hannam.ac.kr/kor/educate/educate_0100_01.html' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4이내</td>
+			<td>1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">행정학과</td>
+			<td><a href='https://vision.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>5이내</td>
+			<td>2</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">경찰학과</td>
+			<td><a href='https://police.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>3이내</td>
+			<td>7</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">정치·언론학과</td>
+			<td><a href='https://pcis.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>3이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">사회복지학과</td>
+			<td><a href='https://welfare.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>3이내</td>
+			<td>7</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">아동복지학과</td>
+			<td><a href='https://child.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>3이내</td>
+			<td>2</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">상담심리학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://counselpsy.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>3이내</td>
+			<td>4</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">사회적경제기업학과</td>
+			<td><a href='https://seb.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>2이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit"><b><font color=blue>법학부(법학/법무법학)</font></b></td>
+			<td><a href='https://law.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>5이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="6">생명·나노과학대학</td>
+			<td class="unit"><b><font color=blue>생명·나노과학대학자유전공학부</font></b></td>
+			<td><a href='https://www.hannam.ac.kr/kor/educate/educate_0100_01.html' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>2이내</td>
+			<td>1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">생명시스템과학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://biosystem.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>5이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">식품영양학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://nutri.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4이내</td>
+			<td>1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">화학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://chem.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>3이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">바이오제약공학과</td>
+			<td><a href='https://biopharm.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>3이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">간호학과</td>
+			<td><a href='https://nursing.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>2이내</td>
+			<td>7</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="2">아트&디자인테크놀로지대학</td>
+			<td class="unit">패션디자인학과</td>
+			<td><a href='https://clothing.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>3이내</td>
+			<td>5</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">미디어영상학과</td>
+			<td><a href='http://hmedia.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4이내</td>
+			<td>7</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="1">린튼국제학부</td>
+			<td class="unit"><b><font color=blue>린튼국제학부(글로벌비즈니스/글로벌미디어·컬처)</font></b></td>
+			<td><a href='https://gb.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="1">탈메이지교양·융합대학</td>
+			<td class="unit"><b><font color=blue>자유전공학부</font></b></td>
+			<td><a href='https://openmajor.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>23이내</td>
+			<td>7</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=3>총계</td>
+			<td>66</td>
+			<td>109</td>
+			<td class="rate4">1.65 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_433'></a><div id="SelType433">
+	<h2><strong> 기초생활수급자·차상위계층·한부모가족지원대상자전형(정원외)</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="11%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th>모집단위</th>
+			<th>학과 홈페이지</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="9">문과대학</td>
+			<td class="unit"><b><font color=blue>문과대학자유전공학부</font></b></td>
+			<td><a href='https://www.hannam.ac.kr/kor/educate/educate_0100_01.html' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td rowspan="1">7이내</td>
+			<td>2</td>
+			<td class="rate4" rowspan = '58'>0.05 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">국어국문·창작학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://korean.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>11이내</td>
+			<td>2</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">영어영문학과</td>
+			<td><a href='https://english.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>10이내</td>
+			<td>1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">디지털영어콘텐츠학과</td>
+			<td><a href='https://aec.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>5이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">일어일문학과</td>
+			<td><a href='https://japan.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4이내</td>
+			<td>3</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">프랑스어문학과</td>
+			<td><a href='https://fr.hnu.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">문헌정보학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://lis.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>7이내</td>
+			<td>1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">사학과</td>
+			<td><a href='https://history.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>5이내</td>
+			<td>2</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">기독교학과</td>
+			<td><a href='https://christian.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>3이내</td>
+			<td>1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="5">사범대학</td>
+			<td class="unit">국어교육과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://kukkyo.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1이내</td>
+			<td>3</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">영어교육과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://eng-edu.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">교육학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://edu.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1이내</td>
+			<td>1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">역사교육과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://e-history.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1이내</td>
+			<td>2</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">수학교육과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://mathedu.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1이내</td>
+			<td>1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="9">공과대학</td>
+			<td class="unit"><b><font color=blue>공과대학자유전공학부</font></b></td>
+			<td><a href='https://www.hannam.ac.kr/kor/educate/educate_0100_01.html' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>9이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">정보통신공학과</td>
+			<td><a href='https://ice.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>8이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">전기전자공학과</td>
+			<td><a href='https://ee.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>9이내</td>
+			<td>1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">멀티미디어공학과</td>
+			<td><a href='http://multi.hannam.ac.kr/main/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>8이내</td>
+			<td>1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">건축학과(5년제)</td>
+			<td><a href='https://archi.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>5이내</td>
+			<td>1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">건축공학과</td>
+			<td><a href='https://arch.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>5이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">건설환경공학과</td>
+			<td><a href='https://civil.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>8이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">기계공학과</td>
+			<td><a href='https://me.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>10이내</td>
+			<td>2</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">화학공학과</td>
+			<td><a href='https://chem-eng.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>7이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="8">인공지능대학</td>
+			<td class="unit"><b><font color=blue>인공지능대학자유전공학부</font></b></td>
+			<td><a href='https://www.hannam.ac.kr/kor/educate/educate_0100_01.html' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>7이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">컴퓨터공학과</td>
+			<td><a href='https://ce.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>10이내</td>
+			<td>1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">AI융합학과</td>
+			<td><a href='https://ai.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>10이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">산업정보공학과</td>
+			<td><a href='https://ime.hannam.ac.kr' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>7이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">AI데이터사이언스학과</td>
+			<td><a href='https://bigdata.hannam.ac.kr' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>7이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">나노반도체소재공학과</td>
+			<td><a href='https://nanosemi.hannam.ac.kr' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>6이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">AI로봇융합공학과</td>
+			<td><a href='https://www.hannam.ac.kr/kor/educate/educate_0103_23.html' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>6이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">수학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://math.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>6이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="8">경상대학</td>
+			<td class="unit"><b><font color=blue>경상대학자유전공학부</font></b></td>
+			<td><a href='https://www.hannam.ac.kr/kor/educate/educate_0100_01.html' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>12이내</td>
+			<td>2</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">경영학과</td>
+			<td><a href='https://business.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>21이내</td>
+			<td>3</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">회계학과</td>
+			<td><a href='https://management.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>14이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">무역물류학과</td>
+			<td><a href='https://trade.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>10이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">경제학과</td>
+			<td><a href='https://enc.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>10이내</td>
+			<td>1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">중국경제통상학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://china.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>7이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">호텔항공경영학과</td>
+			<td><a href='https://hotel.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>9이내</td>
+			<td>3</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">경영정보학과</td>
+			<td><a href='https://mis.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>7이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="9">사회과학대학</td>
+			<td class="unit"><b><font color=blue>사회과학대학자유전공학부</font></b></td>
+			<td><a href='https://www.hannam.ac.kr/kor/educate/educate_0100_01.html' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>9이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">행정학과</td>
+			<td><a href='https://vision.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>11이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">경찰학과</td>
+			<td><a href='https://police.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>7이내</td>
+			<td>3</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">정치·언론학과</td>
+			<td><a href='https://pcis.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>6이내</td>
+			<td>1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">사회복지학과</td>
+			<td><a href='https://welfare.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>7이내</td>
+			<td>5</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">아동복지학과</td>
+			<td><a href='https://child.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>6이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">상담심리학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://counselpsy.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>7이내</td>
+			<td>7</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">사회적경제기업학과</td>
+			<td><a href='https://seb.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit"><b><font color=blue>법학부(법학/법무법학)</font></b></td>
+			<td><a href='https://law.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>11이내</td>
+			<td>3</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="6">생명·나노과학대학</td>
+			<td class="unit"><b><font color=blue>생명·나노과학대학자유전공학부</font></b></td>
+			<td><a href='https://www.hannam.ac.kr/kor/educate/educate_0100_01.html' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">생명시스템과학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://biosystem.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>11이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">식품영양학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://nutri.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>8이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">화학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://chem.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>6이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">바이오제약공학과</td>
+			<td><a href='https://biopharm.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>6이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">간호학과</td>
+			<td><a href='https://nursing.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>2이내</td>
+			<td>4</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="2">아트&디자인테크놀로지대학</td>
+			<td class="unit">패션디자인학과</td>
+			<td><a href='https://clothing.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>6이내</td>
+			<td>2</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">미디어영상학과</td>
+			<td><a href='http://hmedia.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>8이내</td>
+			<td>8</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="1">린튼국제학부</td>
+			<td class="unit"><b><font color=blue>린튼국제학부(글로벌비즈니스/글로벌미디어·컬처)</font></b></td>
+			<td><a href='https://gb.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>9이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="1">탈메이지교양·융합대학</td>
+			<td class="unit"><b><font color=blue>자유전공학부</font></b></td>
+			<td><a href='https://openmajor.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>47이내</td>
+			<td>2</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=3>총계</td>
+			<td>39</td>
+			<td>69</td>
+			<td class="rate4">1.77 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_453'></a><div id="SelType453">
+	<h2><strong> 특성화고교출신자전형(정원외)</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="11%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th>모집단위</th>
+			<th>학과 홈페이지</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="7">공과대학</td>
+			<td class="unit">정보통신공학과</td>
+			<td><a href='https://ice.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td rowspan="1">4이내</td>
+			<td>0</td>
+			<td class="rate4" rowspan = '15'>0.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">전기전자공학과</td>
+			<td><a href='https://ee.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4이내</td>
+			<td>5</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">멀티미디어공학과</td>
+			<td><a href='http://multi.hannam.ac.kr/main/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4이내</td>
+			<td>2</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">건축학과(5년제)</td>
+			<td><a href='https://archi.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>2이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">건축공학과</td>
+			<td><a href='https://arch.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>2이내</td>
+			<td>2</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">건설환경공학과</td>
+			<td><a href='https://civil.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">기계공학과</td>
+			<td><a href='https://me.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>5이내</td>
+			<td>1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="3">인공지능대학</td>
+			<td class="unit">컴퓨터공학과</td>
+			<td><a href='https://ce.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>5이내</td>
+			<td>4</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">AI융합학과</td>
+			<td><a href='https://ai.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>5이내</td>
+			<td>2</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">산업정보공학과</td>
+			<td><a href='https://ime.hannam.ac.kr' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>3이내</td>
+			<td>2</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="4">경상대학</td>
+			<td class="unit">경영학과</td>
+			<td><a href='https://business.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>10이내</td>
+			<td>6</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">회계학과</td>
+			<td><a href='https://management.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>7이내</td>
+			<td>2</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">무역물류학과</td>
+			<td><a href='https://trade.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>5이내</td>
+			<td>1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">경제학과</td>
+			<td><a href='https://enc.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>5이내</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="1">아트&디자인테크놀로지대학</td>
+			<td class="unit">미디어영상학과</td>
+			<td><a href='http://hmedia.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4이내</td>
+			<td>4</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=3>총계</td>
+			<td>39</td>
+			<td>31</td>
+			<td class="rate4">0.79 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_406'></a><div id="SelType406">
+	<h2><strong> 장애인등대상자전형(정원외)</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="11%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th>모집단위</th>
+			<th>학과 홈페이지</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="2">문과대학</td>
+			<td class="unit">국어국문·창작학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://korean.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td rowspan="10">10</td>
+			<td>1</td>
+			<td class="rate4" rowspan = '10'>1.30 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">영어영문학과</td>
+			<td><a href='https://english.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="3">공과대학</td>
+			<td class="unit">전기전자공학과</td>
+			<td><a href='https://ee.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">기계공학과</td>
+			<td><a href='https://me.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">화학공학과</td>
+			<td><a href='https://chem-eng.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="1">인공지능대학</td>
+			<td class="unit">컴퓨터공학과</td>
+			<td><a href='https://ce.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="1">경상대학</td>
+			<td class="unit">경영학과</td>
+			<td><a href='https://business.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="2">사회과학대학</td>
+			<td class="unit">사회복지학과</td>
+			<td><a href='https://welfare.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>8</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit"><b><font color=blue>법학부(법학/법무법학)</font></b></td>
+			<td><a href='https://law.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="1">생명·나노과학대학</td>
+			<td class="unit">생명시스템과학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://biosystem.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>0</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=3>총계</td>
+			<td>10</td>
+			<td>13</td>
+			<td class="rate4">1.30 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_460'></a><div id="SelType460">
+	<h2><strong> 만학도 특별전형(정원외)</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="11%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th>모집단위</th>
+			<th>학과 홈페이지</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="1">문과대학</td>
+			<td class="unit">영어영문학과</td>
+			<td><a href='https://english.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td rowspan="13">10</td>
+			<td>0</td>
+			<td class="rate4" rowspan = '13'>0.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="6">공과대학</td>
+			<td class="unit">전기전자공학과</td>
+			<td><a href='https://ee.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">멀티미디어공학과</td>
+			<td><a href='http://multi.hannam.ac.kr/main/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">건축학과(5년제)</td>
+			<td><a href='https://archi.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">건축공학과</td>
+			<td><a href='https://arch.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">건설환경공학과</td>
+			<td><a href='https://civil.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">기계공학과</td>
+			<td><a href='https://me.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="1">인공지능대학</td>
+			<td class="unit">컴퓨터공학과</td>
+			<td><a href='https://ce.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="2">경상대학</td>
+			<td class="unit">경영학과</td>
+			<td><a href='https://business.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">경제학과</td>
+			<td><a href='https://enc.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="3">사회과학대학</td>
+			<td class="unit">행정학과</td>
+			<td><a href='https://vision.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">경찰학과</td>
+			<td><a href='https://police.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit"><b><font color=blue>법학부(법학/법무법학)</font></b></td>
+			<td><a href='https://law.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>0</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=3>총계</td>
+			<td>10</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_461'></a><div id="SelType461">
+	<h2><strong> 한남인재Ⅰ(서류)전형</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="11%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th>모집단위</th>
+			<th>학과 홈페이지</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="8">문과대학</td>
+			<td class="unit">국어국문·창작학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://korean.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td rowspan="1">13</td>
+			<td>15</td>
+			<td class="rate4" rowspan = '1'>1.15 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">영어영문학과</td>
+			<td><a href='https://english.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>14</td>
+			<td>15</td>
+			<td class="rate4">1.07 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">디지털영어콘텐츠학과</td>
+			<td><a href='https://aec.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>2</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">일어일문학과</td>
+			<td><a href='https://japan.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>5</td>
+			<td>11</td>
+			<td class="rate4">2.20 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">프랑스어문학과</td>
+			<td><a href='https://fr.hnu.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>5</td>
+			<td>1</td>
+			<td class="rate4">0.20 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">문헌정보학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://lis.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>12</td>
+			<td>24</td>
+			<td class="rate4">2.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">사학과</td>
+			<td><a href='https://history.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>7</td>
+			<td>10</td>
+			<td class="rate4">1.43 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">기독교학과</td>
+			<td><a href='https://christian.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4</td>
+			<td>3</td>
+			<td class="rate4">0.75 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="5">사범대학</td>
+			<td class="unit">국어교육과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://kukkyo.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>5</td>
+			<td>7</td>
+			<td class="rate4">1.40 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">영어교육과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://eng-edu.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>6</td>
+			<td>8</td>
+			<td class="rate4">1.33 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">교육학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://edu.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4</td>
+			<td>4</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">역사교육과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://e-history.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>8</td>
+			<td>15</td>
+			<td class="rate4">1.88 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">수학교육과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://mathedu.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4</td>
+			<td>1</td>
+			<td class="rate4">0.25 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="8">공과대학</td>
+			<td class="unit">정보통신공학과</td>
+			<td><a href='https://ice.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>6</td>
+			<td>5</td>
+			<td class="rate4">0.83 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">전기전자공학과</td>
+			<td><a href='https://ee.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>6</td>
+			<td>19</td>
+			<td class="rate2">3.17 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">멀티미디어공학과</td>
+			<td><a href='http://multi.hannam.ac.kr/main/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>7</td>
+			<td>4</td>
+			<td class="rate4">0.57 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">건축학과(5년제)</td>
+			<td><a href='https://archi.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>5</td>
+			<td>11</td>
+			<td class="rate4">2.20 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">건축공학과</td>
+			<td><a href='https://arch.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>6</td>
+			<td>7</td>
+			<td class="rate4">1.17 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">건설환경공학과</td>
+			<td><a href='https://civil.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>8</td>
+			<td>9</td>
+			<td class="rate4">1.13 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">기계공학과</td>
+			<td><a href='https://me.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>7</td>
+			<td>6</td>
+			<td class="rate4">0.86 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">화학공학과</td>
+			<td><a href='https://chem-eng.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>7</td>
+			<td>5</td>
+			<td class="rate4">0.71 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="6">인공지능대학</td>
+			<td class="unit">컴퓨터공학과</td>
+			<td><a href='https://ce.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>13</td>
+			<td>8</td>
+			<td class="rate4">0.62 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">AI융합학과</td>
+			<td><a href='https://ai.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>10</td>
+			<td>5</td>
+			<td class="rate4">0.50 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">산업정보공학과</td>
+			<td><a href='https://ime.hannam.ac.kr' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>7</td>
+			<td>2</td>
+			<td class="rate4">0.29 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">AI데이터사이언스학과</td>
+			<td><a href='https://bigdata.hannam.ac.kr' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>8</td>
+			<td>7</td>
+			<td class="rate4">0.88 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">나노반도체소재공학과</td>
+			<td><a href='https://nanosemi.hannam.ac.kr' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>7</td>
+			<td>4</td>
+			<td class="rate4">0.57 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">수학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://math.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4</td>
+			<td>1</td>
+			<td class="rate4">0.25 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="7">경상대학</td>
+			<td class="unit">경영학과</td>
+			<td><a href='https://business.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>27</td>
+			<td>27</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">회계학과</td>
+			<td><a href='https://management.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>11</td>
+			<td>3</td>
+			<td class="rate4">0.27 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">무역물류학과</td>
+			<td><a href='https://trade.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>11</td>
+			<td>6</td>
+			<td class="rate4">0.55 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">경제학과</td>
+			<td><a href='https://enc.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>12</td>
+			<td>6</td>
+			<td class="rate4">0.50 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">중국경제통상학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://china.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>5</td>
+			<td>3</td>
+			<td class="rate4">0.60 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">호텔항공경영학과</td>
+			<td><a href='https://hotel.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>14</td>
+			<td>12</td>
+			<td class="rate4">0.86 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">경영정보학과</td>
+			<td><a href='https://mis.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>6</td>
+			<td>1</td>
+			<td class="rate4">0.17 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="8">사회과학대학</td>
+			<td class="unit">행정학과</td>
+			<td><a href='https://vision.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>13</td>
+			<td>12</td>
+			<td class="rate4">0.92 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">경찰학과</td>
+			<td><a href='https://police.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>5</td>
+			<td>9</td>
+			<td class="rate4">1.80 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">정치·언론학과</td>
+			<td><a href='https://pcis.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>7</td>
+			<td>5</td>
+			<td class="rate4">0.71 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">사회복지학과</td>
+			<td><a href='https://welfare.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>11</td>
+			<td>21</td>
+			<td class="rate4">1.91 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">아동복지학과</td>
+			<td><a href='https://child.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>10</td>
+			<td>11</td>
+			<td class="rate4">1.10 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">상담심리학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://counselpsy.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>8</td>
+			<td>15</td>
+			<td class="rate4">1.88 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">사회적경제기업학과</td>
+			<td><a href='https://seb.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4</td>
+			<td>5</td>
+			<td class="rate4">1.25 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit"><b><font color=blue>법학부(법학/법무법학)</font></b></td>
+			<td><a href='https://law.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>16</td>
+			<td>15</td>
+			<td class="rate4">0.94 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="5">생명·나노과학대학</td>
+			<td class="unit">생명시스템과학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://biosystem.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>15</td>
+			<td>14</td>
+			<td class="rate4">0.93 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">식품영양학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://nutri.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>10</td>
+			<td>21</td>
+			<td class="rate4">2.10 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">화학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://chem.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>6</td>
+			<td>2</td>
+			<td class="rate4">0.33 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">바이오제약공학과</td>
+			<td><a href='https://biopharm.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>5</td>
+			<td>4</td>
+			<td class="rate4">0.80 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">간호학과</td>
+			<td><a href='https://nursing.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>11</td>
+			<td>16</td>
+			<td class="rate4">1.45 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="2">아트&디자인테크놀로지대학</td>
+			<td class="unit">패션디자인학과</td>
+			<td><a href='https://clothing.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>7</td>
+			<td>3</td>
+			<td class="rate4">0.43 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">미디어영상학과</td>
+			<td><a href='http://hmedia.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>7</td>
+			<td>22</td>
+			<td class="rate2">3.14 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="1">린튼국제학부</td>
+			<td class="unit"><b><font color=blue>린튼국제학부(글로벌비즈니스/글로벌미디어·컬처)</font></b></td>
+			<td><a href='https://gb.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>7</td>
+			<td>2</td>
+			<td class="rate4">0.29 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="1">탈메이지교양·융합대학</td>
+			<td class="unit"><b><font color=blue>자유전공학부</font></b></td>
+			<td><a href='https://openmajor.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>53</td>
+			<td>45</td>
+			<td class="rate4">0.85 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=3>총계</td>
+			<td>471</td>
+			<td>487</td>
+			<td class="rate4">1.03 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_462'></a><div id="SelType462">
+	<h2><strong> 한남인재Ⅱ(서류+면접)전형</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="11%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th>모집단위</th>
+			<th>학과 홈페이지</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="1">문과대학</td>
+			<td class="unit">문헌정보학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://lis.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td rowspan="1">4</td>
+			<td>3</td>
+			<td class="rate4" rowspan = '1'>0.75 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="5">사범대학</td>
+			<td class="unit">국어교육과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://kukkyo.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4</td>
+			<td>4</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">영어교육과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://eng-edu.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4</td>
+			<td>1</td>
+			<td class="rate4">0.25 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">교육학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://edu.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>5</td>
+			<td>10</td>
+			<td class="rate4">2.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">역사교육과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://e-history.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>5</td>
+			<td>12</td>
+			<td class="rate4">2.40 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">수학교육과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://mathedu.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>3</td>
+			<td>7</td>
+			<td class="rate4">2.33 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="2">공과대학</td>
+			<td class="unit">전기전자공학과</td>
+			<td><a href='https://ee.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4</td>
+			<td>4</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">건축학과(5년제)</td>
+			<td><a href='https://archi.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>3</td>
+			<td>1</td>
+			<td class="rate4">0.33 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="2">인공지능대학</td>
+			<td class="unit">컴퓨터공학과</td>
+			<td><a href='https://ce.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>5</td>
+			<td>5</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">AI융합학과</td>
+			<td><a href='https://ai.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>3</td>
+			<td>2</td>
+			<td class="rate4">0.67 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="2">사회과학대학</td>
+			<td class="unit">경찰학과</td>
+			<td><a href='https://police.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>6</td>
+			<td>13</td>
+			<td class="rate4">2.17 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">상담심리학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://counselpsy.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>4</td>
+			<td>11</td>
+			<td class="rate4">2.75 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="1">생명·나노과학대학</td>
+			<td class="unit">간호학과</td>
+			<td><a href='https://nursing.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>9</td>
+			<td>9</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="1">아트&디자인테크놀로지대학</td>
+			<td class="unit">미디어영상학과</td>
+			<td><a href='http://hmedia.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>6</td>
+			<td>16</td>
+			<td class="rate4">2.67 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=3>총계</td>
+			<td>65</td>
+			<td>98</td>
+			<td class="rate4">1.51 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_420'></a><div id="SelType420">
+	<h2><strong> 창업인재(서류+면접)전형</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="11%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th>모집단위</th>
+			<th>학과 홈페이지</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="1">경상대학</td>
+			<td class="unit">경영학과</td>
+			<td><a href='https://business.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td rowspan="1">3</td>
+			<td>7</td>
+			<td class="rate4" rowspan = '1'>2.33 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="1">아트&디자인테크놀로지대학</td>
+			<td class="unit">패션디자인학과</td>
+			<td><a href='https://clothing.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>2</td>
+			<td>1</td>
+			<td class="rate4">0.50 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=3>총계</td>
+			<td>5</td>
+			<td>8</td>
+			<td class="rate4">1.60 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_463'></a><div id="SelType463">
+	<h2><strong> 실기전형</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="11%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th>모집단위</th>
+			<th>학과 홈페이지</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="1">사범대학</td>
+			<td class="unit">미술교육과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://eduart.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td rowspan="1">29</td>
+			<td>52</td>
+			<td class="rate4" rowspan = '1'>1.79 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="1">생명·나노과학대학</td>
+			<td class="unit">스포츠과학과</td>
+			<td><a href='https://sports.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>30</td>
+			<td>48</td>
+			<td class="rate4">1.60 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="2">아트&디자인테크놀로지대학</td>
+			<td class="unit">융합디자인학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://design.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>74</td>
+			<td>66</td>
+			<td class="rate4">0.89 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">회화과</td>
+			<td><a href='https://fine-arts.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>30</td>
+			<td>47</td>
+			<td class="rate4">1.57 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=3>총계</td>
+			<td>163</td>
+			<td>213</td>
+			<td class="rate4">1.31 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_431'></a><div id="SelType431">
+	<h2><strong> 디자인특기자전형</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="11%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th>모집단위</th>
+			<th>학과 홈페이지</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="1">아트&디자인테크놀로지대학</td>
+			<td class="unit">융합디자인학과<font color="red"><b>[교직]</b></font></td>
+			<td><a href='https://design.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td rowspan="1">2</td>
+			<td>1</td>
+			<td class="rate4" rowspan = '1'>0.50 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=3>총계</td>
+			<td>2</td>
+			<td>1</td>
+			<td class="rate4">0.50 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_403'></a><div id="SelType403">
+	<h2><strong> 체육특기자전형</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="20%" />
+			<col width="" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="11%" />
+			<col width="11%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th>모집단위</th>
+			<th>학과 홈페이지</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style="text-align:center;" rowspan="6">생명·나노과학대학</td>
+			<td class="unit">스포츠과학과 레슬링</td>
+			<td><a href='https://sports.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td rowspan="1">2</td>
+			<td>2</td>
+			<td class="rate4" rowspan = '1'>1.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">스포츠과학과 축구(디펜더)</td>
+			<td><a href='https://sports.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>2</td>
+			<td>10</td>
+			<td class="rate2">5.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">스포츠과학과 축구(미드필더)</td>
+			<td><a href='https://sports.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1</td>
+			<td>9</td>
+			<td class="rate1">9.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">스포츠과학과 축구(포워드)</td>
+			<td><a href='https://sports.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>2</td>
+			<td>8</td>
+			<td class="rate2">4.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">스포츠과학과 탁구(남)</td>
+			<td><a href='https://sports.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>1</td>
+			<td>1</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit">스포츠과학과 탁구(여)</td>
+			<td><a href='https://sports.hannam.ac.kr/' target="_blank"><img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"></a></td>
+			<td>2</td>
+			<td>2</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=3>총계</td>
+			<td>10</td>
+			<td>32</td>
+			<td class="rate2">3.20 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+
+					<!--// 컨텐츠 -->
+				</div>
+
+				<div class="btnR">
+					<a href="javascript:print();" id="btnPrint">
+						<img src="/RatioV1/img/btn_print.gif" width="86" height="21" border="0" alt="인쇄하기"></a>
+					
+				</div>
+			</div> <!-- cont end -->
+
+			
+
+			<div class="quick_menu" style="display:none;">
+				<a class="btn_top" href="javascript:void(0);MoveTop()">상단으로 이동</a> 
+			</div>
+
+			<div class="footer" id="Logo1">
+				<a href="http://www.jinhakapply.com" target="_blank"><img src="/RatioV1/img/jinhak_logo.gif" border="0"></a>
+			</div>
+	</form>
+</body>
+
+</html>

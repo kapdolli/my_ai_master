@@ -1,0 +1,449 @@
+					<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ko" lang="ko">
+<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=euc-kr">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<title>한국침례신학대학교 경/쟁/률/서/비/스</title>
+		<script language="javascript" type="text/javascript" src="/ratioadmin/Image/js/img_url_new.js"></script>
+		<link href=".//css/2017/ratio_1.css" rel="stylesheet" type="text/css">
+		
+		<script language="javascript" type="text/javascript" src=".//js/jquery.min.js"></script>
+		
+		<script language="javascript" type="text/javascript" src=".//js/htm_control.js"></script>
+<script>
+	$(function(){
+		if(!location.href.match(/(v=pc)/)){
+			$('head').append('<meta name=\'viewport\' content=\'user-scalable=no, width=device-width\' />');if(navigator.userAgent.match(/(iPhone|Android|Opera Mini|SymblanOS|Windows CE|BlackBerry|Nokia|SonyEricsson|web OS|Palm)/) ){	$('body').after('<div style=\'text-align: center;\'><a style=\'color:#5b595b;\' href='+location.href+'?&v=pc><img src=\'.//btn_pcView.gif\' alt=\'PC버전으로보기\'></a></div>');	$('#ul_gobtn').hide(); }
+		}
+		
+		if( !$('fieldset').is('.finalwrap') ){
+			$("#header").attr("style",'height:75px;');
+			$("#container").attr("style",'padding-top:50px;');
+		}
+		// https 일때 comment 랑 univImage 대응
+		const host = location.href.split(":")[0];
+		if( host.match(/(https)/) ){
+			if( $('#ratio_comment').length ){
+				const s = document.createElement("script");
+				s.type = "text/javascript";
+				s.src = $('#ratio_comment').attr("src").replace('http','https');
+				$("body").append(s);
+			}
+			if( $('#univImage_dev').length ){
+				const s = document.createElement("script");
+				s.type = "text/javascript";
+				s.src = $('#univImage_dev').attr("src").replace('http','https');
+				$("body").append(s);
+			}
+		}
+	});
+	$(window).scroll(function() {
+		if($(window).scrollTop()>10) {
+			$("#header").addClass("fixed");
+		} else {
+			$("#header").removeClass("fixed");
+		}
+	});
+</script>
+</head>
+<body>		<center>
+			<span id="TopCon" style="position:fixed;top:0;left:0;width:100%;z-index:100;text-align:center;color:#cf1015;font:bold 16px 'malgun gothic';padding-top:28px;letter-spaicng:-5px"></span>
+		</center>
+<div id="compb">
+	<div id="wrapper">
+		<div id="white">
+		<div id="border">
+			<div id="header">
+				<h1><img id=UivImg src=".//univ_2017/0439.gif?2026090909" alt='한국침례신학대학교'></h1>
+				<h2><span class="stext">2027학년도</span><br /><span class="btextr">수시모집 </span><span class="btextb">경쟁률</span></h2>
+						<fieldset class="finalwrap">
+			<!--원서접수바로가기버튼시작-->
+			<ul id="ul_gobtn" class="btn">
+				<li style='background:#da3b40 url(.//btn_bg.png) no-repeat right center;'><a href='http://ipsi1.uwayapply.com/2027/susi2/kbtus/?CHA=1' target=_new_apply id='id_gouway' title='원서접수 바로가기(새 창 열림)'><b>원서접수</b> 바로가기</a></li>
+				
+				
+				
+			</ul>
+			<!--원서접수바로가기버튼끝-->
+			
+			<!--전형바로가기시작-->
+			<form name="search">
+				<span id='ID_DateStr'><label for='final'>2026년 09월 09일 09시 25분 기준&nbsp;</label></span>
+				<select id='final' name='selectType' class='form3' onChange='javascript:viewType(this.value);'>
+  <option value=''>--------전 체--------</option>
+  <option value='001'>기독교인전형</option>
+  <option value='003'>농어촌학생전형</option>
+  <option value='009'>장애인등대상자전형</option>
+</select>
+
+										<script>
+											function fnScrollMove(id,spd){
+												// 2017.09.01 이희창 - 해당 id로 스크롤 이동 !
+												var offset = $("#" + id).offset();
+												if(offset && offset.top){
+													var spd=( typeof(spd) == "number" ? spd : 0);	// 이동속도
+													var h_height=( typeof($("#header:visible").height()) == "number" ? $("#header:visible").height() : 0 );	// 탑헤더의 크기 빼줌
+													$("html, body").animate({scrollTop : Number(Number(offset.top)-Number(h_height)-20)}, spd);
+												}
+											}
+											function viewType(arg)
+											{
+												if( arg=="" ){
+													fnScrollMove("container");
+												}else{
+													fnScrollMove("Div_"+arg);
+												}
+											}
+											 
+											function viewGr(arg)
+											{
+											 	document.search.selectType.options.length = 0;
+											 	document.search.selectType.options[0]=new Option("전체",arg,0,0);
+											 	switch (arg) {
+											
+											 		default :
+													document.search.selectType.options[1]=new Option('기독교인전형','001',0,0); 
+		document.search.selectType.options[2]=new Option('농어촌학생전형','003',0,0); 
+		document.search.selectType.options[3]=new Option('장애인등대상자전형','009',0,0); 
+
+											 		break;
+											 	}
+											 	
+										 		viewType(arg);
+											}
+											
+										</script>
+			
+			</form>
+			<!--전형바로가기시작-->
+		</fieldset>
+ 
+			</div><!-- //header -->
+			<div id="container">
+				<div class="contentsTop">
+								
+			<dl class="info" id="Ratio_Comment" style="margin:38px 0 10px 0;">
+				<img src="UNIVIMAGE_0" width="100%"><br /><br />□ 경쟁률은 매일 5분 단위로 업데이트됩니다.<br />□ 경쟁률 서비스는 11일(금) 오후 5시까지 제공합니다.<br />□ 접수기간: 09.07(월) 09:00 ~ 09.11(금) 18:00<br /><br />□ 한국침례신학대학교 대표홈페이지<br /><a href="https://www.kbtus.ac.kr/kor/Main.do" target=_blank><IMG border=0 src=http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif></a><br /><br />□ 한국침례신학대학교 입시홈페이지<br /><a href='https://ipsi.kbtus.ac.kr/ipsi/CMS/Contents/Contents.do?mCode=MN020' target=_blank><IMG border=0 src=http://ratio.uwayapply.com/ratioadmin/Admin/Image/b_go.gif></a>
+			</dl>
+			<script type='text/javascript' src='//ratio.uwayapply.com/2027/susi2/kbtus/1/ratio_comment.js?20260909092503' id='ratio_comment'></script>
+					<script type='text/javascript' src='//ratio.uwayapply.com/2027/susi2/kbtus/1/univImage_dev.js?20260909092503' id='univImage_dev'></script>
+				</div><!-- //contentsTop -->
+				<div id="table">
+		<div class="both11">
+		<h3 style="background:url(.//color/bul_color1.png) no-repeat 0 15px;" class="p_left">
+			<span id="strTitleId_TotalStat" class="bul">전체 경쟁률 현황</span></h3>
+		</div>
+		<table cellpadding='0' cellspacing='0'>
+		<caption class='caphidden'>전체 경쟁률 현황</caption>
+		
+		<thead>
+			<!--tr style='background:url(.//2011/vline.png) no-repeat 0 50%;'-->
+			<tr>
+			<th class="bgnone noline lline" scope="col" width = "25%" ><span id="strTdTitleId_TotStat_TOTAL">구분</span></th><th class="noline" scope="col" width = "25%" ><span id="strTdTitleId_TotStat_INWON">총모집인원</span></th><th class="noline" scope="col" width = "25%" ><span id="strTdTitleId_TotStat_APPLY">지원인원</span></th><th class="noline rline" scope="col" width = "25%" ><span id="strTdTitleId_TotStat_RATIO">경쟁률</span></th>
+			</tr>
+		</thead>
+			<tbody></tbody>
+			<tr align="center"  id='Tr_Sum_0'>
+			<th colspan="1" class='tfoot'><span id='strSumId_Tot'>총계</span></th><th class='tfoot' colspan='1'>212</th><th class='tfoot' colspan='1'>40</th><th class='tfoot' colspan='1'>0.19 : 1</th>
+			</tr>
+			
+	</table>
+		<div class="both11">
+		<h3 style="background:url(.//color/bul_color1.png) no-repeat 0 15px;" class="p_left">
+			<span id="strTitleId_TypeStat" class="bul">전형별 경쟁률 현황</h3></span></div>
+		<table cellpadding='0' cellspacing='0'>
+		<caption class='caphidden'>전형별 경쟁률 현황</caption>
+		
+		<thead>
+			<!--tr style='background:url(.//2011/vline.png) no-repeat 0 50%;'-->
+			<tr>
+			<th class="bgnone noline lline" scope="col" width = "25%" ><span id="strTdTitleId_TypeStat_TYPENM">구분</span></th><th class="noline" scope="col" width = "25%" ><span id="strTdTitleId_TypeStat_INWON">총모집인원</span></th><th class="noline" scope="col" width = "25%" ><span id="strTdTitleId_TypeStat_APPLY">지원인원</span></th><th class="noline rline" scope="col" width = "25%" ><span id="strTdTitleId_TypeStat_RATIO">경쟁률</span></th>
+			</tr>
+		</thead>
+			<tbody>
+        <tr class='trFieldValue' id='Tr_001_0'>
+			<td  style='cursor:pointer;' onClick=javascript:viewType('001')  rowspan='1'  class="txtFieldValue" align='left'>  기독교인전형</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('001')  rowspan='1'  class="txtFieldValue" align='center'>190</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('001')  rowspan='1'  class="txtFieldValue" align='center'>40</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('001')  rowspan='1'  class="txtFieldValue" align='center'>0.21 : 1</td> 
+
+		</tr>
+        <tr class='trFieldValue' id='Tr_003_0'>
+			<td  style='cursor:pointer;' onClick=javascript:viewType('003')  rowspan='1'  class="txtFieldValue" align='left'>  농어촌학생전형</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('003')  rowspan='1'  class="txtFieldValue" align='center'>8</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('003')  rowspan='1'  class="txtFieldValue" align='center'>0</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('003')  rowspan='1'  class="txtFieldValue" align='center'>0.00 : 1</td> 
+
+		</tr>
+        <tr class='trFieldValue' id='Tr_009_0'>
+			<td  style='cursor:pointer;' onClick=javascript:viewType('009')  rowspan='1'  class="txtFieldValue" align='left'>  장애인등대상자전형</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('009')  rowspan='1'  class="txtFieldValue" align='center'>14</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('009')  rowspan='1'  class="txtFieldValue" align='center'>0</td> 
+<td  style='cursor:pointer;' onClick=javascript:viewType('009')  rowspan='1'  class="txtFieldValue" align='center'>0.00 : 1</td> 
+
+		</tr></tbody>
+			<tr align="center"  id='Tr_Sum_0'>
+			<th colspan="1" class='tfoot'><span id='strSumId_Tot'>총계</span></th><th class='tfoot' colspan='1'>212</th><th class='tfoot' colspan='1'>40</th><th class='tfoot' colspan='1'>0.19 : 1</th>
+			</tr>
+			
+	</table>
+		<form name=ratio method="post">
+
+			
+<div id="Div_001" style="display:" class="DivType">
+	<span id="strStartNotiId_001"></span>
+		<div class="both11">
+			<h3 style="background:url(.//color/bul_color1.png) no-repeat 0 15px;" class="p_left">
+				<span id="strTitleId_001" class="bul">기독교인전형 경쟁률 현황</span>
+			</h3>
+		</div>
+			<table cellpadding='0' cellspacing='0'>
+			<caption class='caphidden'>기독교인전형</caption>
+			
+		<thead>
+			<!--tr style='background:url(.//2011/vline.png) no-repeat 0 50%;'-->
+			<tr>
+			<th class="bgnone noline lline" scope="col" width = "30%" ><span id="strTdTitleId_UnitStat_001_UNITNM">모집단위</span></th><th class="noline" scope="col" width = "15%" ><span id="strTdTitleId_UnitStat_001_INWON">모집인원</span></th><th class="noline" scope="col" width = "15%" ><span id="strTdTitleId_UnitStat_001_APPLY">지원인원</span></th><th class="noline" scope="col" width = "15%" ><span id="strTdTitleId_UnitStat_001_RATIO">경쟁률</span></th><th class="noline rline" scope="col"  ><span id="strTdTitleId_UnitStat_001_ETC2">홈페이지 바로가기</span></th>
+			</tr>
+		</thead>
+			
+        <tr class='trFieldValue' id='Tr_001_000010000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>신학과 신학전공</td> 
+<td  rowspan='3'  class="txtFieldValue" align='center'>150</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>22</td> 
+<td  rowspan='3'  class="txtFieldValue" align='center'>0.25 : 1</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://theology.kbtus.ac.kr/theology/CMS/Contents/Contents.do?mCode=MN062 target=_blank><img src="https://wwwimg.uwayapply.com/ratio/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_0' value='0'>
+						<input type=hidden name='Cam_0'     value='0'>
+						<input type=hidden name='Type_0'    value='1'>
+						<input type=hidden name='Unit_0'    value='110'>
+						<input type=hidden name='JuYa_0'    value='1'>
+						<input type=hidden name='Stat_0'    value='110'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_001_000020000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>신학과 기독교상담학전공</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>9</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://theology.kbtus.ac.kr/theology/CMS/Contents/Contents.do?mCode=MN068 target=_blank><img src="https://wwwimg.uwayapply.com/ratio/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_1' value='0'>
+						<input type=hidden name='Cam_1'     value='0'>
+						<input type=hidden name='Type_1'    value='1'>
+						<input type=hidden name='Unit_1'    value='112'>
+						<input type=hidden name='JuYa_1'    value='1'>
+						<input type=hidden name='Stat_1'    value='112'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_001_000030000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>신학과 복지신학전공</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>6</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://theology.kbtus.ac.kr/theology/CMS/Contents/Contents.do?mCode=MN063 target=_blank><img src="https://wwwimg.uwayapply.com/ratio/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_2' value='0'>
+						<input type=hidden name='Cam_2'     value='0'>
+						<input type=hidden name='Type_2'    value='1'>
+						<input type=hidden name='Unit_2'    value='113'>
+						<input type=hidden name='JuYa_2'    value='1'>
+						<input type=hidden name='Stat_2'    value='113'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_001_000040000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>기독교문화학과 크리스천커뮤니케이션전공</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>40</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>3</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0.08 : 1</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kbtus.ac.kr/kor/CMS/Contents/Contents.do?mCode=MN438 target=_blank><img src="https://wwwimg.uwayapply.com/ratio/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_3' value='0'>
+						<input type=hidden name='Cam_3'     value='0'>
+						<input type=hidden name='Type_3'    value='1'>
+						<input type=hidden name='Unit_3'    value='211'>
+						<input type=hidden name='JuYa_3'    value='1'>
+						<input type=hidden name='Stat_3'    value='211'>
+					
+		</tr>
+			<tr align="center"  id='Tr_Sum_001'>
+			<th colspan="1" class='tfoot'><span id='strSumId_Type_001'> 소계</span></th><th class='tfoot' colspan='1'>190</th><th class='tfoot' colspan='1'>40</th><th class='tfoot' colspan='1'>0.21 : 1</th><th class='tfoot' colspan='1'></th>
+			</tr>
+			
+		</table>
+	<span id="strEndNotiId_001"></span><div class="space20"> &nbsp;</div></div>
+<div id="Div_003" style="display:" class="DivType">
+	<span id="strStartNotiId_003"></span>
+		<div class="both11">
+			<h3 style="background:url(.//color/bul_color1.png) no-repeat 0 15px;" class="p_left">
+				<span id="strTitleId_003" class="bul">농어촌학생전형 경쟁률 현황</span>
+			</h3>
+		</div>
+			<table cellpadding='0' cellspacing='0'>
+			<caption class='caphidden'>농어촌학생전형</caption>
+			
+		<thead>
+			<!--tr style='background:url(.//2011/vline.png) no-repeat 0 50%;'-->
+			<tr>
+			<th class="bgnone noline lline" scope="col" width = "30%" ><span id="strTdTitleId_UnitStat_003_UNITNM">모집단위</span></th><th class="noline" scope="col" width = "15%" ><span id="strTdTitleId_UnitStat_003_INWON">모집인원</span></th><th class="noline" scope="col" width = "15%" ><span id="strTdTitleId_UnitStat_003_APPLY">지원인원</span></th><th class="noline" scope="col" width = "15%" ><span id="strTdTitleId_UnitStat_003_RATIO">경쟁률</span></th><th class="noline rline" scope="col"  ><span id="strTdTitleId_UnitStat_003_ETC2">홈페이지 바로가기</span></th>
+			</tr>
+		</thead>
+			
+        <tr class='trFieldValue' id='Tr_003_000050000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>신학과 신학전공</td> 
+<td  rowspan='4'  class="txtFieldValue" align='center'>8</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0</td> 
+<td  rowspan='4'  class="txtFieldValue" align='center'>0.00 : 1</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://theology.kbtus.ac.kr/theology/CMS/Contents/Contents.do?mCode=MN062 target=_blank><img src="https://wwwimg.uwayapply.com/ratio/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_4' value='0'>
+						<input type=hidden name='Cam_4'     value='0'>
+						<input type=hidden name='Type_4'    value='3'>
+						<input type=hidden name='Unit_4'    value='110'>
+						<input type=hidden name='JuYa_4'    value='1'>
+						<input type=hidden name='Stat_4'    value='110'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_003_000060000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>신학과 기독교상담학전공</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://theology.kbtus.ac.kr/theology/CMS/Contents/Contents.do?mCode=MN068 target=_blank><img src="https://wwwimg.uwayapply.com/ratio/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_5' value='0'>
+						<input type=hidden name='Cam_5'     value='0'>
+						<input type=hidden name='Type_5'    value='3'>
+						<input type=hidden name='Unit_5'    value='112'>
+						<input type=hidden name='JuYa_5'    value='1'>
+						<input type=hidden name='Stat_5'    value='112'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_003_000070000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>신학과 복지신학전공</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://theology.kbtus.ac.kr/theology/CMS/Contents/Contents.do?mCode=MN063 target=_blank><img src="https://wwwimg.uwayapply.com/ratio/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_6' value='0'>
+						<input type=hidden name='Cam_6'     value='0'>
+						<input type=hidden name='Type_6'    value='3'>
+						<input type=hidden name='Unit_6'    value='113'>
+						<input type=hidden name='JuYa_6'    value='1'>
+						<input type=hidden name='Stat_6'    value='113'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_003_000080000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>기독교문화학과 크리스천커뮤니케이션전공</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kbtus.ac.kr/kor/CMS/Contents/Contents.do?mCode=MN438 target=_blank><img src="https://wwwimg.uwayapply.com/ratio/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_7' value='0'>
+						<input type=hidden name='Cam_7'     value='0'>
+						<input type=hidden name='Type_7'    value='3'>
+						<input type=hidden name='Unit_7'    value='211'>
+						<input type=hidden name='JuYa_7'    value='1'>
+						<input type=hidden name='Stat_7'    value='211'>
+					
+		</tr>
+		</table>
+	<span id="strEndNotiId_003"></span><div class="space20"> &nbsp;</div></div>
+<div id="Div_009" style="display:" class="DivType">
+	<span id="strStartNotiId_009"></span>
+		<div class="both11">
+			<h3 style="background:url(.//color/bul_color1.png) no-repeat 0 15px;" class="p_left">
+				<span id="strTitleId_009" class="bul">장애인등대상자전형 경쟁률 현황</span>
+			</h3>
+		</div>
+			<table cellpadding='0' cellspacing='0'>
+			<caption class='caphidden'>장애인등대상자전형</caption>
+			
+		<thead>
+			<!--tr style='background:url(.//2011/vline.png) no-repeat 0 50%;'-->
+			<tr>
+			<th class="bgnone noline lline" scope="col" width = "30%" ><span id="strTdTitleId_UnitStat_009_UNITNM">모집단위</span></th><th class="noline" scope="col" width = "15%" ><span id="strTdTitleId_UnitStat_009_INWON">모집인원</span></th><th class="noline" scope="col" width = "15%" ><span id="strTdTitleId_UnitStat_009_APPLY">지원인원</span></th><th class="noline" scope="col" width = "15%" ><span id="strTdTitleId_UnitStat_009_RATIO">경쟁률</span></th><th class="noline rline" scope="col"  ><span id="strTdTitleId_UnitStat_009_ETC2">홈페이지 바로가기</span></th>
+			</tr>
+		</thead>
+			
+        <tr class='trFieldValue' id='Tr_009_000090000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>신학과 신학전공</td> 
+<td  rowspan='4'  class="txtFieldValue" align='center'>14</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0</td> 
+<td  rowspan='4'  class="txtFieldValue" align='center'>0.00 : 1</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://theology.kbtus.ac.kr/theology/CMS/Contents/Contents.do?mCode=MN062 target=_blank><img src="https://wwwimg.uwayapply.com/ratio/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_8' value='0'>
+						<input type=hidden name='Cam_8'     value='0'>
+						<input type=hidden name='Type_8'    value='9'>
+						<input type=hidden name='Unit_8'    value='110'>
+						<input type=hidden name='JuYa_8'    value='1'>
+						<input type=hidden name='Stat_8'    value='110'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_009_000100000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>신학과 기독교상담학전공</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://theology.kbtus.ac.kr/theology/CMS/Contents/Contents.do?mCode=MN068 target=_blank><img src="https://wwwimg.uwayapply.com/ratio/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_9' value='0'>
+						<input type=hidden name='Cam_9'     value='0'>
+						<input type=hidden name='Type_9'    value='9'>
+						<input type=hidden name='Unit_9'    value='112'>
+						<input type=hidden name='JuYa_9'    value='1'>
+						<input type=hidden name='Stat_9'    value='112'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_009_000110000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>신학과 복지신학전공</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://theology.kbtus.ac.kr/theology/CMS/Contents/Contents.do?mCode=MN063 target=_blank><img src="https://wwwimg.uwayapply.com/ratio/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_10' value='0'>
+						<input type=hidden name='Cam_10'     value='0'>
+						<input type=hidden name='Type_10'    value='9'>
+						<input type=hidden name='Unit_10'    value='113'>
+						<input type=hidden name='JuYa_10'    value='1'>
+						<input type=hidden name='Stat_10'    value='113'>
+					
+		</tr>
+        <tr class='trFieldValue' id='Tr_009_000120000'>
+			<td  rowspan='1'  class="txtFieldValue" align='left'>기독교문화학과 크리스천커뮤니케이션전공</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'>0</td> 
+<td  rowspan='1'  class="txtFieldValue" align='center'><a href=https://www.kbtus.ac.kr/kor/CMS/Contents/Contents.do?mCode=MN438 target=_blank><img src="https://wwwimg.uwayapply.com/ratio/b_go.gif" border="0" ></a></td> 
+
+						<input type=hidden name='ApplyGr_11' value='0'>
+						<input type=hidden name='Cam_11'     value='0'>
+						<input type=hidden name='Type_11'    value='9'>
+						<input type=hidden name='Unit_11'    value='211'>
+						<input type=hidden name='JuYa_11'    value='1'>
+						<input type=hidden name='Stat_11'    value='211'>
+					
+		</tr>
+		</table>
+	<span id="strEndNotiId_009"></span><div class="space20"> &nbsp;</div></div><script>
+	document.getElementById('strTdTitleId_UnitStat_003_UNITNM').innerText='구분';
+	document.getElementById('strTdTitleId_UnitStat_009_UNITNM').innerText='구분';
+	$('#Tr_003_000100000 td:eq(0)').html('신학부');
+	
+	$('#Tr_003_000130000 td:eq(0)').html('음악학부(음악치료전공)');
+	$('#Tr_003_000140000 td:eq(0)').html('음악학부(음악치료제외)');
+
+	$('#Tr_009_000180000 td:eq(0)').html('신학부');
+
+	$('#Tr_009_000220000 td:eq(0)').html('음악학부(음악치료전공)');
+	$('#Tr_009_000230000 td:eq(0)').html('음악학부(음악치료제외)');
+		
+		
+		
+</script>
+				
+				<input type=hidden name="exemode" value="">
+				<input type=hidden name="maxrow" value="12">
+				</form>
+			</div><!-- //table -->
+			</div><!-- //container -->
+		</div><!-- //border -->
+		</div>
+		
+	<div id="footer">
+			<h4><img src=".//foot_logo_1.png" alt="uwayapply" /></h4>
+			<p class="copy">Copyright uwayapply.com All Rights Reserved.</p>
+		</div><!-- //footer -->
+	</div><!-- //wrapper -->
+</body>
+</html>
+<!-- // 모니터링확인용 -->

@@ -1,0 +1,2501 @@
+
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head id="Head1"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><meta http-equiv="Expires" content="-1" /><meta http-equiv="Pragma" content="no-cache" /><meta http-equiv="Cache-Control" content="No-Cache" /><title>
+	우석대학교 경쟁률 서비스
+</title><link href="/RatioV1/Common/Css/template/jinhakratio_blue_v3.css" rel="stylesheet" type="text/css" />
+	<!-- <script type="text/javascript" src="/ApplyV8/scripts/jquery.js"></script> -->
+	<script type="text/javascript" src="/RatioV1/Common/Script/jquery.js"></script>
+	<script language="javascript" type="text/javascript">
+//IE forEach문 문제
+if (window.NodeList && !NodeList.prototype.forEach) { NodeList.prototype.forEach = Array.prototype.forEach;}
+
+if ( document.addEventListener && navigator.appName!="Microsoft Internet Explorer") {
+	window.captureEvents(Event.ONKEYDOWN); 
+	document.addEventListener("DOMContentLoaded", function(){
+		if(document.getElementById('Logo')){
+			document.getElementById('Logo').innerHTML = '<a href="http://apply.jinhak.com" target="_blank"><img src="/RatioV1/img/blank.gif" width="150" height="23" border="0"></a>';
+		}
+	}, false );
+//IE
+} else if ( document.attachEvent ) {
+	document.attachEvent("onreadystatechange", function(){
+		if ( document.readyState === "complete" ) {
+			if(document.getElementById('Logo')){
+				document.getElementById('Logo').innerHTML = '<a href="http://apply.jinhak.com" target="_blank"><img src="/RatioV1/img/blank.gif" width="150" height="23" border="0"></a>';
+			}
+		}
+	});
+}
+// 나를 호출한 넘이 있다면.. 
+if (document.referrer != "")
+{
+	// 해당 값이 특정한 곳이라면.. 
+	if (document.referrer.toLowerCase().indexOf("uway") != -1)
+	{
+		window.parent.href = 'http://apply.jinhak.com';
+
+	}
+}
+
+// chess :: Link 
+window.onload = function(){
+	if(document.getElementById('TopLink').children.length > 0){
+    	var isV8Link = new RegExp(/(www\.jinhakapply\.com\/frame)[\d]{6}\.(aspx)/);
+		document.querySelectorAll('#TopLink a').forEach(function(link){
+			if(!isV8Link.test(link)){ // V8 링크가 아닐 시 https로 자동 변환.
+			    link.href = link.href.replace('http://', 'https://');
+			}
+		});    	
+	}
+}
+
+</script>
+	<script type="text/javascript">
+<!--
+			function selType_onChange() {
+				var selType = document.getElementById("selType");
+				var value = selType.options[selType.selectedIndex].value;
+				var strSelectRatio = '2';
+
+				if (strSelectRatio == '2' || strSelectRatio == '3') {
+					// 전체일 경우 전부 보임
+					if(value == 0){
+						$('div[id^=SelType]').show()
+					}
+					else{
+						$('div[id^=SelType]').hide()
+						$('#SelType' + value).show();
+						document.getElementById("SelType" + value).scrollIntoView();
+					}
+					
+					return;
+				}
+				else {
+					//HIde Show 처리
+					if (value == 0) {
+						SelType_Change('block');
+					}
+					else {
+						SelType_Change('none');
+						document.getElementById("SelType" + value).style.display = 'block';
+						document.getElementById("SelType" + value).scrollIntoView();
+					}
+				}
+			}
+
+		function SelType_Change(flag) {
+			var arrDiv = document.getElementsByTagName("div");
+			for (var i = 0; i < arrDiv.length; i++) {
+				if (arrDiv[i].id.indexOf("SelType") != -1) {
+					document.getElementById(arrDiv[i].id).style.display = flag;
+				}
+			}
+		}
+
+		//=============================================================
+		// 반응형 경쟁률 스크롤 이벤트 추가
+		//=============================================================
+		window.addEventListener('scroll', function(){
+			var height = window.innerHeight;
+			var scrollPosition = document.documentElement.scrollTop;
+
+			if(scrollPosition > height){
+				$('.quick_menu').show("slow");
+			} else{
+				$('.quick_menu').hide("slow");
+			}
+		});
+
+		function MoveTop(){
+			$('html, body').animate({
+				scrollTop : 0
+			}, 300)
+
+		}
+		//=============================================================
+
+		$(document).ready(function () {
+			/****************************************************************************************
+			 엑셀버튼 추가  
+			****************************************************************************************/
+			$('#btnExcel').click(ExportExcel);
+		});
+
+    /****************************************************************************************
+     엑셀버튼 추가  
+    ****************************************************************************************/
+		function ExportExcel() {
+			// 마우스 오버 이벤트 삭제(IE에서 문제가 될 수 있음)
+			var divData = $('#Ratio1115062').html();
+			divData = divData.replace(/<tr onmouseover=\"this.className='over';\" onmouseout=\"this.className='';\">/gi, "<tr>");
+			divData = divData.replace(/'/g, '"');
+
+			var PostHtml = "<form method='post' action='/RatioV1/Common/Etc/RatioExcel.aspx' style='top:-198501px;' id='tempForm'>";
+			PostHtml += "<input type='hidden' name='ServiceName' value='" + encodeURIComponent('우석대학교') + "' >";
+			PostHtml += "<input type='hidden' name='Data' value='" + encodeURIComponent($('#TopType').html()) + encodeURIComponent(divData) + "' >";
+			PostHtml += "</form>";
+
+			$('#JHService').prepend(PostHtml);
+			$('#tempForm').submit();
+			$("tempForm").remove();
+
+			return false;
+		}
+		-->
+	</script>
+</head>
+
+<body id="JHService">
+	<form method="post" action="./Ratio11150621.aspx?idx=29927&amp;Company=jinhak&amp;Name=Ratio" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUJODE1ODcwMTUwZGR+h7blNSxNI9eW2Tc+i6Ml8j3zmQ==" />
+
+<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="9BCDB0AF" />
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdABFvFXETKeovgi8ljquwRrqUxGV0aKErUllaWtqgLmJ8Zaueb0/T/f37yGstnQ6ipbi74K7XW0weV+mNDHg8PD7h3hijT+8WoIyUtyt6rcvsPhrma+paNeYMI8NYvG90KN9eD82N8Onegy7i9tmwSy0watDK2t9sMGrVQ+YXtRNT0Dqx10KhFsF4e7gJou985nDrKea7/6CPWkdDnkPFlfcEYeoXnv0k49c/PGLJdBHClorkHsVNuE65OADshCxs85q57OAgVBXeMJ7/SdyfGWNWUXj+zTd8QVexC6k9vuWjaMEchorHzqa/js6M90srlr6gBAtm4mEeMta9ARHiHGI+3BJ4ewgfhIrdZgXw3U/XckjRXPTPCGZnJbx0A2IZt+fCACdA" />
+		<!-- bgcolor : #DF3151, #51B79F, #E29F30, #82BD3E, #318CC7 -->
+
+		<div id="RoundT">
+			<div class="header">
+				<h1 class="univ"><img src="http://apply.jinhakapply.com/WebAppForms/Wonseo/LogImg/1115.gif" id="UnivLogo" alt="대학로고" /></h1>
+				<span id="TextType">
+					<p class="tit">
+						<span id="TitleYear">2027학년도</span>&nbsp;
+						<span id="TitleService">우석대학교 수시모집</span>&nbsp;
+						<span id="TitleText">경쟁률</span>
+					</p>
+				</span>
+				
+			</div>
+
+			<div class="cont">
+				
+				<div id="Top" class="notiBox">
+					<div class="notiBox_in">
+						<!-- 이미지 영역 -->
+						<div id="divImgPromotion" class="promotion">
+							<img src="/RatioV1/img/img1115062.jpg" id="ImgPromotion" />
+						</div>
+						<!-- //이미지 영역 -->
+						<ul id="TopType" class="ul3"><span style="color : red">※ 2026-09-09 오전 9:20 경쟁률 현황입니다. <br/></span>
+※ 경쟁률은 10분 단위로 배포 됩니다.<br/><br/>
+<p style="line-height: 20px;">■ 경쟁률은 수시모집 6회 제한으로 인해 변동될 수 있습니다.<br />
+■ <font color="blue"><strong>최대 6회 지원가능</strong></font>
+<br /><br />
+  [관내 특별장학금]<br />
+  ㅁ 전주캠퍼스 : 완주군 내 고등학교 졸업 후 전주캠퍼스 소속 학과에 입학 시 장학금 지급(200만원 1회 지급함)<br />
+&nbsp;&nbsp;&nbsp;[문의] 완주군인재육성재단 063-263-1101~4<br />
+  ㅁ 진천캠퍼스 : 고등학교 졸업 후 진천캠퍼스 소속 학과에 입학 시 장학금 지급(50만원 또는 100만원 1회 지급함)<br />
+&nbsp;&nbsp;&nbsp;[문의]진천군장학회 043-539-7683</ul>
+						<div id="TopLink" class="notnBtn"><a class="st1" href="http://apply.jinhakapply.com/Notice/1115062/A" target="_blank">원서접수 바로가기</a>
+<a class="st2" href="http://www.woosuk.ac.kr/WoosukMain.do" target="_blank">대학홈페이지 바로가기</a>
+</div>
+					</div>
+				</div>
+
+				<div id="RatioSort" class="RateState">
+					<p id="RatioTime" class="time">2026-09-09 오전 9:20 현황</p>
+					<!-- 경쟁률 현황 Select //-->
+					<div class="RateState_in">
+						<select name="selType" id="selType" class="SltBox" onchange="return selType_onChange();">
+	<option value="0">전형 전체</option>
+	<option value="4CET003029"> 학생부교과_교과면접</option>
+	<option value="4CET003030"> 학생부교과_교과</option>
+	<option value="4CET003031"> 학생부교과_지역인재1</option>
+	<option value="4CET003032"> 학생부교과_지역인재2</option>
+	<option value="4CET003021"> 학생부교과_지역인재(기회균형)</option>
+	<option value="4CET003024"> 학생부교과_성인학습자등</option>
+	<option value="4CET00388"> 학생부교과_기회균형(정원외)</option>
+	<option value="4CET00377"> 학생부교과_농어촌학생(정원외)</option>
+	<option value="4CET003033"> 학생부교과_장애인등대상자(정원외)</option>
+	<option value="4CET003025"> 학생부교과_성인학습자(정원외)</option>
+	<option value="4CET00379"> 실기(실적)위주_실기일반</option>
+	<option value="4CET00394"> 실기(실적)위주_실적우수자</option>
+	<option value="4CET00380"> 실기(실적)위주_특기자</option>
+	<option value="4CET00389"> 실기(실적)위주_기회균형(정원외)</option>
+	<option value="4CET00382"> 실기(실적)위주_농어촌학생(정원외)</option>
+
+</select>
+					</div>
+					<!--// 군별 경쟁률 현황 Select -->
+				</div>
+
+				<!--// 엑셀 저장범위 -->
+				<div id="Ratio1115062">
+					<!-- 컨텐츠 -->
+					
+					<!--// 컨텐츠 -->
+
+					<!-- 컨텐츠 -->
+					<div>
+<a name='lik_top'></a>
+	<h2><strong>전형별</strong> 경쟁률 현황</h2>
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio2">
+		<colgroup>
+			<col width="" />
+			<col width="20%" />
+			<col width="20%" />
+			<col width="20%" />
+		</colgroup>
+		<tr>
+			<th>전형명</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td onclick='document.getElementById("selType").value="4CET003029";selType_onChange();'> 학생부교과_교과면접</td>
+			<td>218</td>
+			<td>284</td>
+			<td style="font-weight:bold;">1.30 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td onclick='document.getElementById("selType").value="4CET003030";selType_onChange();'> 학생부교과_교과</td>
+			<td>707</td>
+			<td>644</td>
+			<td style="font-weight:bold;">0.91 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td onclick='document.getElementById("selType").value="4CET003031";selType_onChange();'> 학생부교과_지역인재1</td>
+			<td>13</td>
+			<td>75</td>
+			<td style="font-weight:bold;">5.77 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td onclick='document.getElementById("selType").value="4CET003032";selType_onChange();'> 학생부교과_지역인재2</td>
+			<td>95</td>
+			<td>208</td>
+			<td style="font-weight:bold;">2.19 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td onclick='document.getElementById("selType").value="4CET003021";selType_onChange();'> 학생부교과_지역인재(기회균형)</td>
+			<td>6</td>
+			<td>22</td>
+			<td style="font-weight:bold;">3.67 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td onclick='document.getElementById("selType").value="4CET003024";selType_onChange();'> 학생부교과_성인학습자등</td>
+			<td>116</td>
+			<td>3</td>
+			<td style="font-weight:bold;">0.03 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td onclick='document.getElementById("selType").value="4CET00388";selType_onChange();'> 학생부교과_기회균형(정원외)</td>
+			<td>26</td>
+			<td>63</td>
+			<td style="font-weight:bold;">2.42 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td onclick='document.getElementById("selType").value="4CET00377";selType_onChange();'> 학생부교과_농어촌학생(정원외)</td>
+			<td>35</td>
+			<td>60</td>
+			<td style="font-weight:bold;">1.71 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td onclick='document.getElementById("selType").value="4CET003033";selType_onChange();'> 학생부교과_장애인등대상자(정원외)</td>
+			<td>20</td>
+			<td>21</td>
+			<td style="font-weight:bold;">1.05 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td onclick='document.getElementById("selType").value="4CET003025";selType_onChange();'> 학생부교과_성인학습자(정원외)</td>
+			<td>123</td>
+			<td>1</td>
+			<td style="font-weight:bold;">0.01 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td onclick='document.getElementById("selType").value="4CET00379";selType_onChange();'> 실기(실적)위주_실기일반</td>
+			<td>160</td>
+			<td>53</td>
+			<td style="font-weight:bold;">0.33 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td onclick='document.getElementById("selType").value="4CET00394";selType_onChange();'> 실기(실적)위주_실적우수자</td>
+			<td>105</td>
+			<td>36</td>
+			<td style="font-weight:bold;">0.34 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td onclick='document.getElementById("selType").value="4CET00380";selType_onChange();'> 실기(실적)위주_특기자</td>
+			<td>24</td>
+			<td>24</td>
+			<td style="font-weight:bold;">1.00 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td onclick='document.getElementById("selType").value="4CET00389";selType_onChange();'> 실기(실적)위주_기회균형(정원외)</td>
+			<td>9</td>
+			<td>0</td>
+			<td style="font-weight:bold;">0.00 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td onclick='document.getElementById("selType").value="4CET00382";selType_onChange();'> 실기(실적)위주_농어촌학생(정원외)</td>
+			<td>9</td>
+			<td>0</td>
+			<td style="font-weight:bold;">0.00 : 1</td>
+		</tr>		<!-- 총계 //-->
+		<tr class="total">
+			<td>총계</td>
+			<td>1,666</td>
+			<td>1,494</td>
+			<td class="rate4">0.90 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+
+					<!--// 컨텐츠 -->
+
+					<!-- 컨텐츠 -->
+						<a name='lik_4CET003029'></a><div id="SelType4CET003029">
+	<h2><strong> 학생부교과_교과면접</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="10%" />
+			<col width="21%" />
+			<col width="7%" />
+			<col width="7%" />
+			<col width="7%" />
+			<col width="" />
+			<col width="6%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+			<th>학과소개</th>
+			<th>홈페이지</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1">한의과대학</td>
+			<td style='text-align:left;!important;' class="unit">한의예과(전주)</td>
+			<td rowspan="1">8</td>
+			<td>58</td>
+			<td class="rate1" rowspan = '1'>7.25 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">한의학의 전문가가 될 수 있는 체계적인 커리큘럼 운영</span><br/>
+(진로) 한의사, 연구원 등</td>
+			<td><a href="https://hani.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1">약학대학</td>
+			<td style='text-align:left;!important;' class="unit">한약학과(전주)</td>
+			<td rowspan="1">8</td>
+			<td>15</td>
+			<td class="rate4" rowspan = '1'>1.88 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">한약학에 대한 전문적 원리와 지식을 갖춘 봉사하는 한약사 양성!</span><br/>
+임상실무, 산업체, 연구 분야의 교육과정 이수를 통한 제약산업 인재 양성<br/>
+(진로)한약사,제약회사,국가공무원 등</td>
+			<td><a href="https://hanyak.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1">간호대학</td>
+			<td style='text-align:left;!important;' class="unit">간호학과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td rowspan="1">30</td>
+			<td>66</td>
+			<td class="rate4" rowspan = '1'>2.20 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">세계로 뻗어가는 글로벌 간호 리더 양성의 산실!</span><br/>
+(진로)임상간호사, 해외간호사(미국, 호주 등), 분야별 전문간호사,<br/>보건교사, 산업간호사, 심사간호사, 간호·보건진료직 공무원 등</td>
+			<td><a href="https://nursing.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="2">보건대학</td>
+			<td style='text-align:left;!important;' class="unit">물리치료학과(전주)</td>
+			<td rowspan="1">15</td>
+			<td>24</td>
+			<td class="rate4" rowspan = '1'>1.60 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">실력, 신념, 봉사정신을 모두 갖춘 21세기 보건의료를 이끌어갈 전문 보건의료인재 양성</span><br/>
+(진로) 보건의료기관, 스포츠관련시설, 산업체, 재활관련연구소, 국가공무원, 사회복지분야 등</td>
+			<td><a href="https://pt.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='text-align:left;!important;' class="unit">작업치료학과(전주)</td>
+			<td rowspan="1">5</td>
+			<td>3</td>
+			<td class="rate4" rowspan = '1'>0.60 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">의료계열 국가면허 작업치료사 양성의 메카! 전국 최고 수준의 실습환경!</span><br/>
+(진로)대학병원, 종합병원, 재활병원, 보건소, 건강관련국가기관,<br/>치매센터,복지관,연구원,특수교육지원센터,보조공학센터 등</td>
+			<td><a href="https://ot.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="3">사범대학</td>
+			<td style='text-align:left;!important;' class="unit">특수교육과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td rowspan="1">6</td>
+			<td>4</td>
+			<td class="rate4" rowspan = '1'>0.67 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">특수교육 전문가 양성의 산실!</span><br/>
+(진로)전국 각지에 1,500여명 특수교사, 연구자, 장학사, 대학교수, <br/>공공기관 종사자 등</td>
+			<td><a href="https://wuse.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='text-align:left;!important;' class="unit">유아특수교육과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td rowspan="1">5</td>
+			<td>0</td>
+			<td class="rate4" rowspan = '1'>0.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">특별한 교사가 되는 시작, 우석대 유특과 함께!</span><br/>
+(진로)병설 및 단설 유치원 특수학급 교사, 특수학교 유치부 교사, <br/>사립유치원 특수학급 교사, 발달지체 유아교육기관 특수교사 등</td>
+			<td><a href="https://wsecse.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='text-align:left;!important;' class="unit">국어교육과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td rowspan="1">4</td>
+			<td>8</td>
+			<td class="rate4" rowspan = '1'>2.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">내일의 선생님은 나야! 한국 언어와 문화를 공부하는 학과!  </span><br/>
+(진로)국어교사, 한국어교사, 문화콘텐츠 제작, 공무원, 기자, 일반<br/>사무직 등</td>
+			<td><a href="https://koredu.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1">체육대학</td>
+			<td style='text-align:left;!important;' class="unit">태권도학과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td rowspan="1">10</td>
+			<td>8</td>
+			<td class="rate4" rowspan = '1'>0.80 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">태권도의 세계화,대중화,전문화를 목표로 신(新)한류 태권도 문화를 전파하는 학과</span><br/>
+(진로)국내,외 태권도지도자, 태권도 공연 기획 및 연출자, 공무원, <br/>체육행정직, 체육교사 등</td>
+			<td><a href="https://dept.woosuk.ac.kr/taekwondo/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="7">휴먼테크<br/>융합대학</td>
+			<td style='text-align:left;!important;' class="unit">경찰행정학과(전주)</td>
+			<td rowspan="1">5</td>
+			<td>7</td>
+			<td class="rate4" rowspan = '1'>1.40 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">경찰 및 치안전문가로 가는 가장 믿을 만한 길!</span><br/>
+(진로)경찰, 해양경찰, 교정직, 검찰직, 법원직, 일반직 공무원, 범죄프로파일러, 경비지도사, 탐정 등</td>
+			<td><a href="https://police.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='text-align:left;!important;' class="unit">소방방재학과(전주)</td>
+			<td rowspan="1">20</td>
+			<td>9</td>
+			<td class="rate4" rowspan = '1'>0.45 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">소방공무원 출제위원을 역임한 교수가 최신 정보 및 실무지식을 바탕으로 소방공무원 양성프로그램을 운영</span><br/>
+(진로)캐나다 소방전문인력(연봉 1억원), 소방시설관리사 배출(연봉 1억원)</td>
+			<td><a href="https://fire.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='text-align:left;!important;' class="unit">군사학과(전주)</td>
+			<td rowspan="1">30</td>
+			<td>38</td>
+			<td class="rate4" rowspan = '1'>1.27 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">정예 엘리트 장교양성의 요람(군 장학생 100% 합격)</span><br/>
+(진로)육군, 해군, 해병대, 공군장교를 본인이 선택하여 장교로 임관(군에서 4년간 등록금 지급)</td>
+			<td><a href="https://military.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='text-align:left;!important;' class="unit">아동사회복지학부(전주)</td>
+			<td rowspan="1">10</td>
+			<td>9</td>
+			<td class="rate4" rowspan = '1'>0.90 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">4차 산업혁명시대 휴먼서비스를 선도하는 학부</span><br/>
+(진로)사회복지 기관 및 시설, 어린이집, 유치원, 가족센터, 공공기관(지자체, 준정부기관 등), 연구원 등</td>
+			<td><a href="https://child.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='text-align:left;!important;' class="unit">심리학과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td rowspan="1">5</td>
+			<td>2</td>
+			<td class="rate4" rowspan = '1'>0.40 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">마음을 이해하고 치유하는 전문가 양성의 요람!</span><br/>
+(진로)전문상담교사, 프로파일러, 상담심리사, 임상심리사, 산업 및 조직심리사, 공공기관 및 연구소 연구원, 기업 HR 전문가 등</td>
+			<td><a href="https://psycho.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='text-align:left;!important;' class="unit">식품영양학과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td rowspan="1">7</td>
+			<td>1</td>
+			<td class="rate4" rowspan = '1'>0.14 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">1인3전공(식품영양, 건강기능식품, 스마트농식품)/창업(건강기능식품,영농법인)평생지도교수제</span><br/>
+(진로)대학교수, 공공기관(농식품,생명,복지 분야), 기업(식품,바이오,의약),영양전문가 등</td>
+			<td><a href="https://foodbio.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='text-align:left;!important;' class="unit">조리제과제빵학부(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td rowspan="1">20</td>
+			<td>16</td>
+			<td class="rate4" rowspan = '1'>0.80 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">1인 실습제도 운영(분야별 전공실습실 6개, 특급 호텔 셰프·한국조리기능장 교수 지도)</span><br/>
+(진로) 음식조리전문가, 제과제빵전문가, 호텔외식경영전문가, 식품·연구·학술 전문가 등</td>
+			<td><a href="https://foods.woosuk.ac.kr/" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1">AI융합대학</td>
+			<td style='text-align:left;!important;' class="unit">정보보안학과(전주)</td>
+			<td rowspan="1">5</td>
+			<td>4</td>
+			<td class="rate4" rowspan = '1'>0.80 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">AI시대, 가장 안전한 직업은 보안 전문가</span><br/>
+ (진로) 정보보안업체, 공기업 및 금융기관, 정부출연 연구소, IT/SW기업 등</td>
+			<td><a href="https://is.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="3">휴먼테크<br/>융합대학<br/>(진천)</td>
+			<td style='text-align:left;!important;' class="unit">군사안보학과(진천)</td>
+			<td rowspan="1">8</td>
+			<td>3</td>
+			<td class="rate4" rowspan = '1'>0.38 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">대한민국 명품 장교 양성 플랫폼</span><br/>
+(진로)육군·해군·공군·해병대 장교, 군무원, 방위산업관련 기관 등</td>
+			<td><a href="https://ms.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='text-align:left;!important;' class="unit">건축학부(진천)</td>
+			<td rowspan="1">12</td>
+			<td>9</td>
+			<td class="rate4" rowspan = '1'>0.75 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">4-4-4!‘4년 동안, 4개의 자격증을 취득, 4천만원 이상 연봉’을 목표로 하는 학과!</span><br/>
+(진로)중앙부처 및 지방자치단체 기술직(건축) 공무원, 건축 관련 연구소, 건설회사 등</td>
+			<td><a href="https://archi.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='text-align:left;!important;' class="unit">글로벌디자인문화경영학부(진천)</td>
+			<td rowspan="1">5</td>
+			<td>0</td>
+			<td class="rate4" rowspan = '1'>0.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">K-컬처와 글로벌 비즈니스를 주도하는 융합 리더의 시작점 </span><br/>
+(진로) 패션디자이너, 패션MD, 패션스타일리스트, 무역회사 등</td>
+			<td><a href="https://dgn.woosuk.ac.kr/main/" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=2>총계</td>
+			<td>218</td>
+			<td>284</td>
+			<td class="rate4">1.30 : 1</td>
+			<td></td>
+			<td></td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_4CET003030'></a><div id="SelType4CET003030">
+	<h2><strong> 학생부교과_교과</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="10%" />
+			<col width="20%" />
+			<col width="13%" />
+			<col width="7%" />
+			<col width="7%" />
+			<col width="7%" />
+			<col width="" />
+			<col width="6%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th colspan="2">모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+			<th>학과소개</th>
+			<th>홈페이지</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1">약학대학</td>
+			<td class="unit" rowspan="1"    colspan="2">한약학과(전주)</td>
+			<td>12</td>
+			<td>20</td>
+			<td class="rate4" rowspan = '1'>1.67 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">한약학에 대한 전문적 원리와 지식을 갖춘 봉사하는 한약사 양성!</span><br/>
+임상실무, 산업체, 연구 분야의 교육과정 이수를 통한 제약산업 인재 양성<br/>
+(진로)한약사,제약회사,국가공무원 등</td>
+			<td><a href="https://hanyak.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1">간호대학</td>
+			<td class="unit" rowspan="1"    colspan="2">간호학과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td>55</td>
+			<td>66</td>
+			<td class="rate4">1.20 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">세계로 뻗어가는 글로벌 간호 리더 양성의 산실!</span><br/>
+(진로)임상간호사, 해외간호사(미국, 호주 등), 분야별 전문간호사,<br/>보건교사, 산업간호사, 심사간호사, 간호·보건진료직 공무원 등</td>
+			<td><a href="https://nursing.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="3">보건대학</td>
+			<td class="unit" rowspan="1"    colspan="2">응급구조학과(전주)</td>
+			<td>40</td>
+			<td>56</td>
+			<td class="rate4">1.40 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">국민의 생명을 보호하는 가슴이 따뜻한 생명의 별</span><br/>
+(진로) 임상 응급구조사, 119구급대원, 산업체 응급구조사, 인명구조사, 해양경찰관, 공무원(보건직) 등</td>
+			<td><a href="https://emergency.woosuk.ac.kr/main/" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">물리치료학과(전주)</td>
+			<td>25</td>
+			<td>41</td>
+			<td class="rate4">1.64 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">실력, 신념, 봉사정신을 모두 갖춘 21세기 보건의료를 이끌어갈 전문 보건의료인재 양성</span><br/>
+(진로) 보건의료기관, 스포츠관련시설, 산업체, 재활관련연구소, 국가공무원, 사회복지분야 등</td>
+			<td><a href="https://pt.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">작업치료학과(전주)</td>
+			<td>25</td>
+			<td>27</td>
+			<td class="rate4">1.08 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">의료계열 국가면허 작업치료사 양성의 메카! 전국 최고 수준의 실습환경!</span><br/>
+(진로)대학병원, 종합병원, 재활병원, 보건소, 건강관련국가기관,<br/>치매센터,복지관,연구원,특수교육지원센터,보조공학센터 등</td>
+			<td><a href="https://ot.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="3">사범대학</td>
+			<td class="unit" rowspan="1"    colspan="2">특수교육과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td>24</td>
+			<td>20</td>
+			<td class="rate4">0.83 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">특수교육 전문가 양성의 산실!</span><br/>
+(진로)전국 각지에 1,500여명 특수교사, 연구자, 장학사, 대학교수, <br/>공공기관 종사자 등</td>
+			<td><a href="https://wuse.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">유아특수교육과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td>20</td>
+			<td>8</td>
+			<td class="rate4">0.40 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">특별한 교사가 되는 시작, 우석대 유특과 함께!</span><br/>
+(진로)병설 및 단설 유치원 특수학급 교사, 특수학교 유치부 교사, <br/>사립유치원 특수학급 교사, 발달지체 유아교육기관 특수교사 등</td>
+			<td><a href="https://wsecse.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">국어교육과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td>19</td>
+			<td>45</td>
+			<td class="rate4">2.37 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">내일의 선생님은 나야! 한국 언어와 문화를 공부하는 학과!  </span><br/>
+(진로)국어교사, 한국어교사, 문화콘텐츠 제작, 공무원, 기자, 일반<br/>사무직 등</td>
+			<td><a href="https://koredu.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="9">휴먼테크<br/>융합대학</td>
+			<td class="unit" rowspan="1"   >휴먼테크 자율전공학부(전주)</td>
+			<td class="unit" col width="30%" >경찰행정학과<br/>
+<br/>
+군사학과<br/>
+<br/>
+소방방재학과<br/>
+<br/>
+심리학과<br/>
+<br/>
+식품영양학과<br/>
+<br/>
+아동사회복지학부<br/>
+<br/>
+조리제과제빵학부<br/>
+<br/>
+조경학과</td>
+			<td>31</td>
+			<td>26</td>
+			<td class="rate4">0.84 : 1</td>
+			<td style='text-align:left;'><font color=blue>경찰행정학과</font><br/><span style="color: #CC0000">경찰 및 치안전문가로 가는 가장 믿을 만한 길!</span><br/>
+(진로)경찰, 해양경찰, 교정직, 검찰직, 법원직, 일반직 공무원, 범죄<br/>프로파일러, 경비지도사, 탐정 등<br/>
+
+<font color=blue>군사학과</font><br/><span style="color: #CC0000">정예 엘리트 장교양성의 요람(군 장학생 100% 합격)</span><br/>
+(진로)육군, 해군, 해병대, 공군장교를 선택하여 장교로 임관(군에서 4년간 등록금 지급)<br/>
+
+<font color=blue>소방방재학과</font><br/><span style="color: #CC0000">소방공무원 출제위원을 역임 교수가 최신 정보 및 실무지식을 바탕으로 소방공무원 양성프로그램을 운영</span><br/>
+(진로)캐나다 소방전문인력(연봉 1억원), 소방시설관리사 배출(연봉 1억원) <br/>
+
+<font color=blue>심리학과</font><br/><span style="color: #CC0000">마음을 이해하고 치유하는 전문가 양성의 요람!</span><br/>
+(진로)전문상담교사, 프로파일러, 상담심리사, 임상심리사, 산업 및 조직심리사, 공공기관 및 연구소 연구원, 기업 HR 전문가 등<br/>
+
+<font color=blue>식품영양학과</font><br/><span style="color: #CC0000">1인3전공(식품영양, 건강기능식품, 스마트농식품)/창업(건강기능식품,영농법인)평생지도교수제</span><br/>
+(진로)대학교수, 공공기관(농식품,생명,복지 분야), 기업(식품,바이오,의약),영양전문가<br/>
+
+<font color=blue>아동사회복지학부</font><br/><span style="color: #CC0000">4차 산업혁명시대 휴먼서비스를 선도 학부</span><br/>
+(진로)사회복지 기관 및 시설, 어린이집, 유치원, 가족센터, 공공기관(지자체, 준정부기관 등), 연구원<br/>
+
+<font color=blue>조리제과제빵학부</font><br/><span style="color: #CC0000">1인 실습제도 운영(분야별 전공실습실 6개, 특급 호텔 셰프·한국조리기능장 교수 지도)</span><br/>
+(진로) 음식조리전문가, 제과제빵전문가, 호텔외식경영전문가, 식품·연구·학술 전문가 등<br/>
+
+<font color=blue>조경학과</font><br/><span style="color: #CC0000">NCS 과정평가형으로 졸업 전 [조경기사 국가기술자격증] 취득가능!</span><br/>
+(진로) 정부 및 공공기관,  조경,설계,시공회사, 학계 및 연구기관 등<br/>
+<br/>
+<font color=blue>※ 1학년 이수 후 희망학과 전원 배정</font></td>
+			<td><a href="https://www.woosuk.ac.kr/cls2027/main/" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">경찰행정학과(전주)</td>
+			<td>25</td>
+			<td>48</td>
+			<td class="rate4">1.92 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">경찰 및 치안전문가로 가는 가장 믿을 만한 길!</span><br/>
+(진로)경찰, 해양경찰, 교정직, 검찰직, 법원직, 일반직 공무원, 범죄프로파일러, 경비지도사, 탐정 등</td>
+			<td><a href="https://police.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">소방방재학과(전주)</td>
+			<td>20</td>
+			<td>22</td>
+			<td class="rate4">1.10 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">소방공무원 출제위원을 역임한 교수가 최신 정보 및 실무지식을 바탕으로 소방공무원 양성프로그램을 운영</span><br/>
+(진로)캐나다 소방전문인력(연봉 1억원), 소방시설관리사 배출(연봉 1억원)</td>
+			<td><a href="https://fire.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">군사학과(전주)</td>
+			<td>15</td>
+			<td>31</td>
+			<td class="rate4">2.07 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">정예 엘리트 장교양성의 요람(군 장학생 100% 합격)</span><br/>
+(진로)육군, 해군, 해병대, 공군장교를 본인이 선택하여 장교로 임관(군에서 4년간 등록금 지급)</td>
+			<td><a href="https://military.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">아동사회복지학부(전주)</td>
+			<td>20</td>
+			<td>31</td>
+			<td class="rate4">1.55 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">4차 산업혁명시대 휴먼서비스를 선도하는 학부</span><br/>
+(진로)사회복지 기관 및 시설, 어린이집, 유치원, 가족센터, 공공기관(지자체, 준정부기관 등), 연구원 등</td>
+			<td><a href="https://child.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">심리학과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td>20</td>
+			<td>30</td>
+			<td class="rate4">1.50 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">마음을 이해하고 치유하는 전문가 양성의 요람!</span><br/>
+(진로)전문상담교사, 프로파일러, 상담심리사, 임상심리사, 산업 및 조직심리사, 공공기관 및 연구소 연구원, 기업 HR 전문가 등</td>
+			<td><a href="https://psycho.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">식품영양학과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td>18</td>
+			<td>14</td>
+			<td class="rate4">0.78 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">1인3전공(식품영양, 건강기능식품, 스마트농식품)/창업(건강기능식품,영농법인)평생지도교수제</span><br/>
+(진로)대학교수, 공공기관(농식품,생명,복지 분야), 기업(식품,바이오,의약),영양전문가 등</td>
+			<td><a href="https://foodbio.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">조리제과제빵학부(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td>25</td>
+			<td>33</td>
+			<td class="rate4">1.32 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">1인 실습제도 운영(분야별 전공실습실 6개, 특급 호텔 셰프·한국조리기능장 교수 지도)</span><br/>
+(진로) 음식조리전문가, 제과제빵전문가, 호텔외식경영전문가, 식품·연구·학술 전문가 등</td>
+			<td><a href="https://foods.woosuk.ac.kr/" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">조경학과(전주)</td>
+			<td>25</td>
+			<td>8</td>
+			<td class="rate4">0.32 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">2025년 과정평가형 국가기술자격 지정! NCS 과정평가형으로 졸업 전 [조경기사 국가기술자격증] 취득가능!</span><br/>
+(진로) 정부 및 공공기관,  조경,설계,시공회사, 학계 및 연구기관 등</td>
+			<td><a href="https://land.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1">수소테크<br/>융합대학</td>
+			<td class="unit" rowspan="1"   >수소테크 자율전공학부</td>
+			<td class="unit" col width="30%" >수소에너지공학과<br/>
+<br/>
+경영학부<br/>
+<br/>
+AI모빌리티공학부</td>
+			<td>65</td>
+			<td>11</td>
+			<td class="rate4">0.17 : 1</td>
+			<td style='text-align:left;'><font color=blue>수소에너지공학과</font><br/><span style="color: #CC0000">지속가능한 에너지 솔루션을 개발하고 활용하기 위한 학문적 지식과 실무기술을 획득하여 인재 양성</span><br/>
+(진로)정부산하기관, 수소산업체 및 에너지 회사 취업, 수소에너지 산업 창업<br/>
+
+<font color=blue>경영학부</font><br/><span style="color: #CC0000">한·중 복수학위 취득, 글로벌 비즈니스를 이끌어 갈 크리에이터 양성!</span><br/>
+(진로)제조 및 서비스기업, 유통물류 및 무역회사, 금융기관, 공공기관, 대학, 미술관, 전시기획사, 문화재단<br/>
+
+<font color=blue>AI모빌리티공학부</font><br/><span style="color: #CC0000">인더스트리 4.0에 기반한 미래 인공지능 자율주행 기술 패러다임에 대응!</span><br/>
+(진로)자동차관련기업, 배터리기업, 공공기관, 연구소, 기술직공무원 등<br/>
+
+<br/>
+<font color=blue>※자율전공학부로 입학한 학생은 1학년 이수 후 희망학과에 전원 배정</font></td>
+			<td><a href="https://www.woosuk.ac.kr/cls2027/main/" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="2">AI융합대학</td>
+			<td class="unit" rowspan="1"    colspan="2">정보보안학과(전주)</td>
+			<td>20</td>
+			<td>12</td>
+			<td class="rate4">0.60 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">AI시대, 가장 안전한 직업은 보안 전문가</span><br/>
+ (진로) 정보보안업체, 공기업 및 금융기관, 정부출연 연구소, IT/SW기업 등</td>
+			<td><a href="https://is.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">AI융합학부(전주)</td>
+			<td>25</td>
+			<td>4</td>
+			<td class="rate4">0.16 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">AX(인공지능 전환) 시대를 선도하는 융합형 실무 인재 양성</span><br/>
+(진로) AI 및 SW 전문기업, 로봇 및 자동화 관련기업, 자율주행 및 미래 모빌리티 기업 등</td>
+			<td><a href="https://aic.woosuk.ac.kr/main/" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="7">휴먼테크<br/>융합대학<br/>(진천)</td>
+			<td class="unit" rowspan="1"   >휴먼테크 자율전공학부(진천)</td>
+			<td class="unit" col width="30%" >건축학부<br/>
+<br/>
+경찰범죄심리학과<br/>
+<br/>
+군사안보학과<br/>
+<br/>
+글로벌디자인문화경영학부<br/>
+<br/>
+문예창작학과<br/>
+<br/>
+바이오융합학과</td>
+			<td>17</td>
+			<td>4</td>
+			<td class="rate4">0.24 : 1</td>
+			<td style='text-align:left;'><font color=blue>건축학부</font><br/><span style="color: #CC0000">4-4-4!‘4년 동안, 4개의 자격증을 취득, 4천만원 이상 연봉’을 목표로 하는 학과!</span><br/>
+(진로)중앙부처 및 지방자치단체 기술직(건축) 공무원, 건축 관련 연구소, 건설회사 등<br/>
+
+<font color=blue>경찰범죄심리학과</font><br/><span style="color: #CC0000">경찰공무원이 되는 SHORTCUT!(학과 수업만으로 완벽한 시험 대비)</span><br/>
+(진로)경찰, 해양경찰, 검찰사무직, 국가공무원 등<br/>
+
+<font color=blue>군사안보학과</font><br/><span style="color: #CC0000">대한민국 명품 장교 양성 플랫폼</span><br/>
+(진로)육군·해군·공군·해병대 장교, 군무원, 방위산업관련 기관 등<br/>
+
+<font color=blue>글로벌디자인문화경영학부</font><br/>
+(진로)패션디자이너, 패션MD, 패션스타일리스트, VMD, 패션일러스트레이터, 의류생산관리, 패션마케터&브랜드매니저, 서비스기업, 유통업체, 물류기업, 무역회사 등<br/>
+
+<font color=blue>문예창작학과</font><br/><span style="color: #CC0000">창의적인 콘텐츠와 스토리텔링을 통해 4차산업혁명 시대의 주인공이 되는 학과!</span><br/>
+(진로)웹소설 작가, 웹스토리텔링 크리에이터, 방송콘텐츠 작가, <br/>출판편집자, 시인, 소설가 등<br/>
+
+<font color=blue>바이오융합학과</font><br/><span style="color: #CC0000">바이오헬스 코디네이팅, 에코컨텐츠크리에이팅, 사이언스 에듀케이팅 능력 배양</span><br/>
+(진로) 환경관련 공공기관 및 연구소, 제약회사, 생명과학 및 식품생명 관련 기업 등<br/>
+
+<br/>
+<font color=blue>※자율전공학부로 입학한 학생은 1학년 이수 후 희망학과에 전원 배정</font>
+</td>
+			<td><a href="https://www.woosuk.ac.kr/cls2027/main/" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">군사안보학과(진천)</td>
+			<td>22</td>
+			<td>10</td>
+			<td class="rate4">0.45 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">대한민국 명품 장교 양성 플랫폼</span><br/>
+(진로)육군·해군·공군·해병대 장교, 군무원, 방위산업관련 기관 등</td>
+			<td><a href="https://ms.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">문예창작학과(진천)</td>
+			<td>20</td>
+			<td>28</td>
+			<td class="rate4">1.40 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">창의적인 콘텐츠와 스토리텔링을 통해 4차산업혁명 시대의 주인공이 되는 학과!</span><br/>
+(진로)웹소설 작가, 웹스토리텔링 크리에이터, 방송콘텐츠 작가, <br/>출판편집자, 시인, 소설가 등</td>
+			<td><a href="https://munchang.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">건축학부(진천)</td>
+			<td>23</td>
+			<td>13</td>
+			<td class="rate4">0.57 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">4-4-4!‘4년 동안, 4개의 자격증을 취득, 4천만원 이상 연봉’을 목표로 하는 학과!</span><br/>
+(진로)중앙부처 및 지방자치단체 기술직(건축) 공무원, 건축 관련 연구소, 건설회사 등</td>
+			<td><a href="https://archi.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">경찰범죄심리학과(진천)<span style="color:red;"></span></td>
+			<td>25</td>
+			<td>12</td>
+			<td class="rate4">0.48 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">과학수사 및 프로파일링 특성화를 통한 전문 경찰인력 양성</span><br/>
+(진로) 범죄프로파일러, 경찰, 해양경찰, 교정직 등</td>
+			<td><a href="https://pcp.woosuk.ac.kr/main/" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">글로벌디자인문화경영학부(진천)</td>
+			<td>15</td>
+			<td>1</td>
+			<td class="rate4">0.07 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">K-컬처와 글로벌 비즈니스를 주도하는 융합 리더의 시작점 </span><br/>
+(진로) 패션디자이너, 패션MD, 패션스타일리스트, 무역회사 등</td>
+			<td><a href="https://dgn.woosuk.ac.kr/main/" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">바이오융합학과(진천)</td>
+			<td>27</td>
+			<td>2</td>
+			<td class="rate4">0.07 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">바이오헬스 코디네이팅, 에코컨텐츠크리에이팅, 사이언스 에듀케이팅 능력 배양 </span><br/>
+(진로) 환경관련 공공기관 및 연구소, 제약회사, 생명과학 및 식품생명 관련 기업 등</td>
+			<td><a href="https://lifesci.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="3">체육대학</td>
+			<td class="unit" rowspan="1"   >체육 자율전공학부(진천)<span style="color:red;"></span></td>
+			<td class="unit" col width="30%" >생활체육학부<br/>
+<br/>
+스포츠문화예술학부</td>
+			<td>15</td>
+			<td>11</td>
+			<td class="rate4">0.73 : 1</td>
+			<td style='text-align:left;'><font color=blue>생활체육학부</font><br/><span style="color: #CC0000">생활체육학부=우석대학교자랑 "1인 - 1스포츠특기 - 2학위 - 3자격" </span><br/>
+(진로)미래스포츠의<선수, 지도자, 심판, 재활트레이너>주인공을 약속합니다. <br/>
+
+<font color=blue>스포츠문화예술학부</font><br/><span style="color: #CC0000">스포츠문화예술학부</span><br/>
+(진로)스포츠(전문/생활)지도자, 스포츠마케터/스포츠홍보 담당자, 스포츠문화이벤트기획자, 지역축제콘텐츠기획자, 스포츠산업매니저, 스포츠상품개발자 등<br/>
+
+<br/>
+<font color=blue>※자율전공학부로 입학한 학생은 1학년 이수 후 희망학과에 전원 배정</font></td>
+			<td><a href="https://www.woosuk.ac.kr/cls2027/main/" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">생활체육학부(진천)</td>
+			<td>1</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">생활체육학부=우석대학교자랑 "1인 - 1스포츠특기 - 2학위 - 3자격" </span><br/>
+(진로)미래스포츠의<선수, 지도자, 심판, 재활트레이너>주인공을 약속합니다.</td>
+			<td><a href="https://w-sports.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">스포츠문화예술학부(진천)</td>
+			<td>13</td>
+			<td>10</td>
+			<td class="rate4">0.77 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">스포츠문화예술학부</span><br/>
+(진로)스포츠(전문/생활)지도자, 스포츠마케터/스포츠홍보 담당자, 스포츠문화이벤트기획자, 지역축제콘텐츠기획자, 스포츠산업매니저, 스포츠상품개발자 등</td>
+			<td><a href="https://www.woosuk.ac.kr/main/?menu=410" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=3>총계</td>
+			<td>707</td>
+			<td>644</td>
+			<td class="rate4">0.91 : 1</td>
+			<td></td>
+			<td></td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_4CET003031'></a><div id="SelType4CET003031">
+	<h2><strong> 학생부교과_지역인재1</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="10%" />
+			<col width="21%" />
+			<col width="7%" />
+			<col width="7%" />
+			<col width="7%" />
+			<col width="" />
+			<col width="6%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+			<th>학과소개</th>
+			<th>홈페이지</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1">한의과대학</td>
+			<td style='text-align:left;!important;' class="unit">한의예과(전주)</td>
+			<td rowspan="1">5</td>
+			<td>20</td>
+			<td class="rate2" rowspan = '1'>4.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">한의학의 전문가가 될 수 있는 체계적인 커리큘럼 운영</span><br/>
+(진로) 한의사, 연구원 등</td>
+			<td><a href="https://hani.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1">약학대학</td>
+			<td style='text-align:left;!important;' class="unit">약학과(전주)</td>
+			<td rowspan="1">8</td>
+			<td>55</td>
+			<td class="rate1" rowspan = '1'>6.88 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">혁신적 교육과정과 융합적 연구활동을 추구하여 인류의 질병예방 및 건강증진을 선도하는 학과!</span><br/>
+(진로) 지역약국, 제약회사, 연구소, 보건직 공무원, 대학원 진학 등 다양한 진출 가능</td>
+			<td><a href="https://dept.woosuk.ac.kr/pharm/" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=2>총계</td>
+			<td>13</td>
+			<td>75</td>
+			<td class="rate1">5.77 : 1</td>
+			<td></td>
+			<td></td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_4CET003032'></a><div id="SelType4CET003032">
+	<h2><strong> 학생부교과_지역인재2</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="10%" />
+			<col width="21%" />
+			<col width="7%" />
+			<col width="7%" />
+			<col width="7%" />
+			<col width="" />
+			<col width="6%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+			<th>학과소개</th>
+			<th>홈페이지</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1">한의과대학</td>
+			<td style='text-align:left;!important;' class="unit">한의예과(전주)</td>
+			<td rowspan="1">10</td>
+			<td>35</td>
+			<td class="rate2" rowspan = '1'>3.50 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">한의학의 전문가가 될 수 있는 체계적인 커리큘럼 운영</span><br/>
+(진로) 한의사, 연구원 등</td>
+			<td><a href="https://hani.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="2">약학대학</td>
+			<td style='text-align:left;!important;' class="unit">약학과(전주)</td>
+			<td rowspan="1">13</td>
+			<td>58</td>
+			<td class="rate2" rowspan = '1'>4.46 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">혁신적 교육과정과 융합적 연구활동을 추구하여 인류의 질병예방 및 건강증진을 선도하는 학과!</span><br/>
+(진로) 지역약국, 제약회사, 연구소, 보건직 공무원, 대학원 진학 등 다양한 진출 가능</td>
+			<td><a href="https://dept.woosuk.ac.kr/pharm/" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='text-align:left;!important;' class="unit">한약학과(전주)</td>
+			<td rowspan="1">15</td>
+			<td>41</td>
+			<td class="rate4" rowspan = '1'>2.73 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">한약학에 대한 전문적 원리와 지식을 갖춘 봉사하는 한약사 양성!</span><br/>
+임상실무, 산업체, 연구 분야의 교육과정 이수를 통한 제약산업 인재 양성<br/>
+(진로)한약사,제약회사,국가공무원 등</td>
+			<td><a href="https://hanyak.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1">간호대학</td>
+			<td style='text-align:left;!important;' class="unit">간호학과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td rowspan="1">57</td>
+			<td>74</td>
+			<td class="rate4" rowspan = '1'>1.30 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">세계로 뻗어가는 글로벌 간호 리더 양성의 산실!</span><br/>
+(진로)임상간호사, 해외간호사(미국, 호주 등), 분야별 전문간호사,<br/>보건교사, 산업간호사, 심사간호사, 간호·보건진료직 공무원 등</td>
+			<td><a href="https://nursing.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=2>총계</td>
+			<td>95</td>
+			<td>208</td>
+			<td class="rate4">2.19 : 1</td>
+			<td></td>
+			<td></td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_4CET003021'></a><div id="SelType4CET003021">
+	<h2><strong> 학생부교과_지역인재(기회균형)</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="10%" />
+			<col width="21%" />
+			<col width="7%" />
+			<col width="7%" />
+			<col width="7%" />
+			<col width="" />
+			<col width="6%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+			<th>학과소개</th>
+			<th>홈페이지</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1">한의과대학</td>
+			<td style='text-align:left;!important;' class="unit">한의예과(전주)</td>
+			<td rowspan="1">1</td>
+			<td>8</td>
+			<td class="rate1" rowspan = '1'>8.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">한의학의 전문가가 될 수 있는 체계적인 커리큘럼 운영</span><br/>
+(진로) 한의사, 연구원 등</td>
+			<td><a href="https://hani.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="2">약학대학</td>
+			<td style='text-align:left;!important;' class="unit">약학과(전주)</td>
+			<td rowspan="1">1</td>
+			<td>6</td>
+			<td class="rate1" rowspan = '1'>6.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">혁신적 교육과정과 융합적 연구활동을 추구하여 인류의 질병예방 및 건강증진을 선도하는 학과!</span><br/>
+(진로) 지역약국, 제약회사, 연구소, 보건직 공무원, 대학원 진학 등 다양한 진출 가능</td>
+			<td><a href="https://dept.woosuk.ac.kr/pharm/" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='text-align:left;!important;' class="unit">한약학과(전주)</td>
+			<td rowspan="1">1</td>
+			<td>4</td>
+			<td class="rate2" rowspan = '1'>4.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">한약학에 대한 전문적 원리와 지식을 갖춘 봉사하는 한약사 양성!</span><br/>
+임상실무, 산업체, 연구 분야의 교육과정 이수를 통한 제약산업 인재 양성<br/>
+(진로)한약사,제약회사,국가공무원 등</td>
+			<td><a href="https://hanyak.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1">간호대학</td>
+			<td style='text-align:left;!important;' class="unit">간호학과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td rowspan="1">3</td>
+			<td>4</td>
+			<td class="rate4" rowspan = '1'>1.33 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">세계로 뻗어가는 글로벌 간호 리더 양성의 산실!</span><br/>
+(진로)임상간호사, 해외간호사(미국, 호주 등), 분야별 전문간호사,<br/>보건교사, 산업간호사, 심사간호사, 간호·보건진료직 공무원 등</td>
+			<td><a href="https://nursing.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=2>총계</td>
+			<td>6</td>
+			<td>22</td>
+			<td class="rate2">3.67 : 1</td>
+			<td></td>
+			<td></td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_4CET003024'></a><div id="SelType4CET003024">
+	<h2><strong> 학생부교과_성인학습자등</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="10%" />
+			<col width="20%" />
+			<col width="13%" />
+			<col width="7%" />
+			<col width="7%" />
+			<col width="7%" />
+			<col width="" />
+			<col width="6%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th colspan="2">모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+			<th>학과소개</th>
+			<th>홈페이지</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="3">미래융합<br/>대학</td>
+			<td class="unit" rowspan="1"    colspan="2">스마트관광학과(전주)</td>
+			<td rowspan="1">10</td>
+			<td>0</td>
+			<td class="rate4" rowspan = '1'>0.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">기능인에서 경영자로 새로운 환경, 새로운 지역에 맞는 디지털 경영자 양성</span><br/>
+(진로)관광유튜브 전문가, 공동체 미디어교육 전문가, 관광기획 전문가, 문화콘텐츠 전문가 등</td>
+			<td><a href="https://future.woosuk.ac.kr/main/?menu=43" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">심리운동·상담학과(전주)</td>
+			<td rowspan="1">10</td>
+			<td>1</td>
+			<td class="rate4" rowspan = '1'>0.10 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">즐겁GO 체험하GO 느끼GO 최고의 리더로 성장하는 발걸음, 심리운동·상담학과와 함께!</span><br/>
+발달재활서비스 제공기관, 늘봄학교, 장애 및 노인 센터와 병원 심리운동사, 상담심리기관 취업 등</td>
+			<td><a href="https://future.woosuk.ac.kr/main/?menu=79" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">수소모빌리티학과(전주)</td>
+			<td rowspan="1">15</td>
+			<td>0</td>
+			<td class="rate4" rowspan = '1'>0.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">수소의 생산·저장과 수소를 연료로 하는 운송 수간에 관한 기술과 연구에 중점을 둔 학문 분야로 수소에너지 융합기술 전문인력 배출</span><br/>
+(진로) 수소 관련 정부 및 정부기관과 산업체 취업 등</td>
+			<td><a href="https://future.woosuk.ac.kr/main/?menu=111" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1">글로컬<br/>라이프대학</td>
+			<td class="unit" rowspan="1"   >글로컬라이프 자율전공학부(진천)</td>
+			<td class="unit" col width="30%" >소방산업안전학과<br/>
+<br/>
+창업컨설팅학과<br/>
+<br/>
+AI융합심리치유학과</td>
+			<td rowspan="1">81</td>
+			<td>2</td>
+			<td class="rate4" rowspan = '1'>0.02 : 1</td>
+			<td style='text-align:left;'><font color=blue>소방산업안전학과</font><br/><span style="color: #CC0000">연봉 1억 소방시설관리사, 연봉 1억 산업안전지도사</span><br/>
+(진로) 산업안전·보건안전관리자, 공기업 소방안전관리자, 소방공무원 등<br/>
+
+
+<font color=blue>창업컨설팅학과</font><br/><span style="color: #CC0000">창업전문가 및 창업지도사를 양성</span><br/>
+(진로) 성공 창업가, 전문 경영인, 창업 컨설턴트 등<br/>
+
+<font color=blue>AI융합심리치유학과</font><br/><span style="color: #CC0000">AI·VR·DTX로 확장하는 융합 심리치유 전문가 양성</span><br/>
+(진로) 정신건강복지센터·청소년상담복지센터 등 상담사, 기업EAP 전문 상담사 등<br/>
+
+<br/>
+<font color=blue>※자율전공학부로 입학한 학생은 1학년 이수 후 희망학과에 전원 배정</font></td>
+			<td><a href="https://www.woosuk.ac.kr/main/?menu=465" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=2>총계</td>
+			<td>116</td>
+			<td>3</td>
+			<td class="rate4">0.03 : 1</td>
+			<td></td>
+			<td></td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_4CET00388'></a><div id="SelType4CET00388">
+	<h2><strong> 학생부교과_기회균형(정원외)</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="10%" />
+			<col width="20%" />
+			<col width="13%" />
+			<col width="7%" />
+			<col width="7%" />
+			<col width="7%" />
+			<col width="" />
+			<col width="6%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th colspan="2">모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+			<th>학과소개</th>
+			<th>홈페이지</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1">한의과대학</td>
+			<td class="unit" rowspan="1"    colspan="2">한의예과(전주)</td>
+			<td>1</td>
+			<td>17</td>
+			<td class="rate1" rowspan = '1'>17.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">한의학의 전문가가 될 수 있는 체계적인 커리큘럼 운영</span><br/>
+(진로) 한의사, 연구원 등</td>
+			<td><a href="https://hani.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="2">약학대학</td>
+			<td class="unit" rowspan="1"    colspan="2">약학과(전주)</td>
+			<td rowspan="1">4</td>
+			<td>16</td>
+			<td class="rate2" rowspan = '1'>4.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">혁신적 교육과정과 융합적 연구활동을 추구하여 인류의 질병예방 및 건강증진을 선도하는 학과!</span><br/>
+(진로) 지역약국, 제약회사, 연구소, 보건직 공무원, 대학원 진학 등 다양한 진출 가능</td>
+			<td><a href="https://dept.woosuk.ac.kr/pharm/" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">한약학과(전주)</td>
+			<td rowspan="1">4</td>
+			<td>9</td>
+			<td class="rate4" rowspan = '1'>2.25 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">한약학에 대한 전문적 원리와 지식을 갖춘 봉사하는 한약사 양성!</span><br/>
+임상실무, 산업체, 연구 분야의 교육과정 이수를 통한 제약산업 인재 양성<br/>
+(진로)한약사,제약회사,국가공무원 등</td>
+			<td><a href="https://hanyak.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1">간호대학</td>
+			<td class="unit" rowspan="1"    colspan="2">간호학과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td rowspan="1">5</td>
+			<td>5</td>
+			<td class="rate4" rowspan = '1'>1.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">세계로 뻗어가는 글로벌 간호 리더 양성의 산실!</span><br/>
+(진로)임상간호사, 해외간호사(미국, 호주 등), 분야별 전문간호사,<br/>보건교사, 산업간호사, 심사간호사, 간호·보건진료직 공무원 등</td>
+			<td><a href="https://nursing.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1">보건대학</td>
+			<td class="unit" rowspan="1"    colspan="2">물리치료학과(전주)</td>
+			<td rowspan="1">4</td>
+			<td>9</td>
+			<td class="rate4" rowspan = '1'>2.25 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">실력, 신념, 봉사정신을 모두 갖춘 21세기 보건의료를 이끌어갈 전문 보건의료인재 양성</span><br/>
+(진로) 보건의료기관, 스포츠관련시설, 산업체, 재활관련연구소, 국가공무원, 사회복지분야 등</td>
+			<td><a href="https://pt.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="2">사범대학</td>
+			<td class="unit" rowspan="1"    colspan="2">특수교육과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td rowspan="1">2</td>
+			<td>0</td>
+			<td class="rate4" rowspan = '1'>0.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">특수교육 전문가 양성의 산실!</span><br/>
+(진로)전국 각지에 1,500여명 특수교사, 연구자, 장학사, 대학교수, <br/>공공기관 종사자 등</td>
+			<td><a href="https://wuse.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">유아특수교육과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td rowspan="1">2</td>
+			<td>1</td>
+			<td class="rate4" rowspan = '1'>0.50 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">특별한 교사가 되는 시작, 우석대 유특과 함께!</span><br/>
+(진로)병설 및 단설 유치원 특수학급 교사, 특수학교 유치부 교사, <br/>사립유치원 특수학급 교사, 발달지체 유아교육기관 특수교사 등</td>
+			<td><a href="https://wsecse.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="2">휴먼테크<br/>융합대학</td>
+			<td class="unit" rowspan="1"    colspan="2">소방방재학과(전주)</td>
+			<td rowspan="1">2</td>
+			<td>3</td>
+			<td class="rate4" rowspan = '1'>1.50 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">소방공무원 출제위원을 역임한 교수가 최신 정보 및 실무지식을 바탕으로 소방공무원 양성프로그램을 운영</span><br/>
+(진로)캐나다 소방전문인력(연봉 1억원), 소방시설관리사 배출(연봉 1억원)</td>
+			<td><a href="https://fire.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">군사학과(전주)</td>
+			<td rowspan="1">2</td>
+			<td>3</td>
+			<td class="rate4" rowspan = '1'>1.50 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">정예 엘리트 장교양성의 요람(군 장학생 100% 합격)</span><br/>
+(진로)육군, 해군, 해병대, 공군장교를 본인이 선택하여 장교로 임관(군에서 4년간 등록금 지급)</td>
+			<td><a href="https://military.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=3>총계</td>
+			<td>26</td>
+			<td>63</td>
+			<td class="rate4">2.42 : 1</td>
+			<td></td>
+			<td></td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_4CET00377'></a><div id="SelType4CET00377">
+	<h2><strong> 학생부교과_농어촌학생(정원외)</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="10%" />
+			<col width="20%" />
+			<col width="13%" />
+			<col width="7%" />
+			<col width="7%" />
+			<col width="7%" />
+			<col width="" />
+			<col width="6%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th colspan="2">모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+			<th>학과소개</th>
+			<th>홈페이지</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1">한의과대학</td>
+			<td class="unit" rowspan="1"    colspan="2">한의예과(전주)</td>
+			<td>1</td>
+			<td>6</td>
+			<td class="rate1" rowspan = '1'>6.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">한의학의 전문가가 될 수 있는 체계적인 커리큘럼 운영</span><br/>
+(진로) 한의사, 연구원 등</td>
+			<td><a href="https://hani.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="2">약학대학</td>
+			<td class="unit" rowspan="1"    colspan="2">약학과(전주)</td>
+			<td rowspan="1">4</td>
+			<td>21</td>
+			<td class="rate1" rowspan = '1'>5.25 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">혁신적 교육과정과 융합적 연구활동을 추구하여 인류의 질병예방 및 건강증진을 선도하는 학과!</span><br/>
+(진로) 지역약국, 제약회사, 연구소, 보건직 공무원, 대학원 진학 등 다양한 진출 가능</td>
+			<td><a href="https://dept.woosuk.ac.kr/pharm/" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">한약학과(전주)</td>
+			<td rowspan="1">4</td>
+			<td>7</td>
+			<td class="rate4" rowspan = '1'>1.75 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">한약학에 대한 전문적 원리와 지식을 갖춘 봉사하는 한약사 양성!</span><br/>
+임상실무, 산업체, 연구 분야의 교육과정 이수를 통한 제약산업 인재 양성<br/>
+(진로)한약사,제약회사,국가공무원 등</td>
+			<td><a href="https://hanyak.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1">간호대학</td>
+			<td class="unit" rowspan="1"    colspan="2">간호학과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td rowspan="1">6</td>
+			<td>13</td>
+			<td class="rate4" rowspan = '1'>2.17 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">세계로 뻗어가는 글로벌 간호 리더 양성의 산실!</span><br/>
+(진로)임상간호사, 해외간호사(미국, 호주 등), 분야별 전문간호사,<br/>보건교사, 산업간호사, 심사간호사, 간호·보건진료직 공무원 등</td>
+			<td><a href="https://nursing.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1">보건대학</td>
+			<td class="unit" rowspan="1"    colspan="2">물리치료학과(전주)</td>
+			<td rowspan="1">4</td>
+			<td>6</td>
+			<td class="rate4" rowspan = '1'>1.50 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">실력, 신념, 봉사정신을 모두 갖춘 21세기 보건의료를 이끌어갈 전문 보건의료인재 양성</span><br/>
+(진로) 보건의료기관, 스포츠관련시설, 산업체, 재활관련연구소, 국가공무원, 사회복지분야 등</td>
+			<td><a href="https://pt.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="3">사범대학</td>
+			<td class="unit" rowspan="1"    colspan="2">특수교육과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td rowspan="1">2</td>
+			<td>1</td>
+			<td class="rate4" rowspan = '1'>0.50 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">특수교육 전문가 양성의 산실!</span><br/>
+(진로)전국 각지에 1,500여명 특수교사, 연구자, 장학사, 대학교수, <br/>공공기관 종사자 등</td>
+			<td><a href="https://wuse.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">유아특수교육과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td rowspan="1">2</td>
+			<td>1</td>
+			<td class="rate4" rowspan = '1'>0.50 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">특별한 교사가 되는 시작, 우석대 유특과 함께!</span><br/>
+(진로)병설 및 단설 유치원 특수학급 교사, 특수학교 유치부 교사, <br/>사립유치원 특수학급 교사, 발달지체 유아교육기관 특수교사 등</td>
+			<td><a href="https://wsecse.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">국어교육과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td rowspan="1">2</td>
+			<td>1</td>
+			<td class="rate4" rowspan = '1'>0.50 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">내일의 선생님은 나야! 한국 언어와 문화를 공부하는 학과!  </span><br/>
+(진로)국어교사, 한국어교사, 문화콘텐츠 제작, 공무원, 기자, 일반<br/>사무직 등</td>
+			<td><a href="https://koredu.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="4">휴먼테크<br/>융합대학</td>
+			<td class="unit" rowspan="1"   >휴먼테크 자율전공학부(전주)</td>
+			<td class="unit" col width="30%" >경찰행정학과<br/>
+<br/>
+군사학과<br/>
+<br/>
+소방방재학과<br/>
+<br/>
+심리학과<br/>
+<br/>
+식품영양학과<br/>
+<br/>
+아동사회복지학부<br/>
+<br/>
+조리제과제빵학부<br/>
+<br/>
+조경학과</td>
+			<td rowspan="1">2</td>
+			<td>0</td>
+			<td class="rate4" rowspan = '1'>0.00 : 1</td>
+			<td style='text-align:left;'><font color=blue>경찰행정학과</font><br/><span style="color: #CC0000">경찰 및 치안전문가로 가는 가장 믿을 만한 길!</span><br/>
+(진로)경찰, 해양경찰, 교정직, 검찰직, 법원직, 일반직 공무원, 범죄<br/>프로파일러, 경비지도사, 탐정 등<br/>
+
+<font color=blue>군사학과</font><br/><span style="color: #CC0000">정예 엘리트 장교양성의 요람(군 장학생 100% 합격)</span><br/>
+(진로)육군, 해군, 해병대, 공군장교를 선택하여 장교로 임관(군에서 4년간 등록금 지급)<br/>
+
+<font color=blue>소방방재학과</font><br/><span style="color: #CC0000">소방공무원 출제위원을 역임 교수가 최신 정보 및 실무지식을 바탕으로 소방공무원 양성프로그램을 운영</span><br/>
+(진로)캐나다 소방전문인력(연봉 1억원), 소방시설관리사 배출(연봉 1억원) <br/>
+
+<font color=blue>심리학과</font><br/><span style="color: #CC0000">마음을 이해하고 치유하는 전문가 양성의 요람!</span><br/>
+(진로)전문상담교사, 프로파일러, 상담심리사, 임상심리사, 산업 및 조직심리사, 공공기관 및 연구소 연구원, 기업 HR 전문가 등<br/>
+
+<font color=blue>식품영양학과</font><br/><span style="color: #CC0000">1인3전공(식품영양, 건강기능식품, 스마트농식품)/창업(건강기능식품,영농법인)평생지도교수제</span><br/>
+(진로)대학교수, 공공기관(농식품,생명,복지 분야), 기업(식품,바이오,의약),영양전문가<br/>
+
+<font color=blue>아동사회복지학부</font><br/><span style="color: #CC0000">4차 산업혁명시대 휴먼서비스를 선도 학부</span><br/>
+(진로)사회복지 기관 및 시설, 어린이집, 유치원, 가족센터, 공공기관(지자체, 준정부기관 등), 연구원<br/>
+
+<font color=blue>조리제과제빵학부</font><br/><span style="color: #CC0000">1인 실습제도 운영(분야별 전공실습실 6개, 특급 호텔 셰프·한국조리기능장 교수 지도)</span><br/>
+(진로) 음식조리전문가, 제과제빵전문가, 호텔외식경영전문가, 식품·연구·학술 전문가 등<br/>
+
+<font color=blue>조경학과</font><br/><span style="color: #CC0000">NCS 과정평가형으로 졸업 전 [조경기사 국가기술자격증] 취득가능!</span><br/>
+(진로) 정부 및 공공기관,  조경,설계,시공회사, 학계 및 연구기관 등<br/>
+<br/>
+<font color=blue>※ 1학년 이수 후 희망학과 전원 배정</font></td>
+			<td><a href="https://www.woosuk.ac.kr/cls2027/main/" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">소방방재학과(전주)</td>
+			<td rowspan="1">2</td>
+			<td>1</td>
+			<td class="rate4" rowspan = '1'>0.50 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">소방공무원 출제위원을 역임한 교수가 최신 정보 및 실무지식을 바탕으로 소방공무원 양성프로그램을 운영</span><br/>
+(진로)캐나다 소방전문인력(연봉 1억원), 소방시설관리사 배출(연봉 1억원)</td>
+			<td><a href="https://fire.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">군사학과(전주)</td>
+			<td rowspan="1">2</td>
+			<td>2</td>
+			<td class="rate4" rowspan = '1'>1.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">정예 엘리트 장교양성의 요람(군 장학생 100% 합격)</span><br/>
+(진로)육군, 해군, 해병대, 공군장교를 본인이 선택하여 장교로 임관(군에서 4년간 등록금 지급)</td>
+			<td><a href="https://military.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">심리학과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td rowspan="1">2</td>
+			<td>0</td>
+			<td class="rate4" rowspan = '1'>0.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">마음을 이해하고 치유하는 전문가 양성의 요람!</span><br/>
+(진로)전문상담교사, 프로파일러, 상담심리사, 임상심리사, 산업 및 조직심리사, 공공기관 및 연구소 연구원, 기업 HR 전문가 등</td>
+			<td><a href="https://psycho.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="2">휴먼테크<br/>융합대학<br/>(진천)</td>
+			<td class="unit" rowspan="1"   >휴먼테크 자율전공학부(진천)</td>
+			<td class="unit" col width="30%" >건축학부<br/>
+<br/>
+경찰범죄심리학과<br/>
+<br/>
+군사안보학과<br/>
+<br/>
+글로벌디자인문화경영학부<br/>
+<br/>
+문예창작학과<br/>
+<br/>
+바이오융합학과</td>
+			<td rowspan="1">1</td>
+			<td>0</td>
+			<td class="rate4" rowspan = '1'>0.00 : 1</td>
+			<td style='text-align:left;'><font color=blue>건축학부</font><br/><span style="color: #CC0000">4-4-4!‘4년 동안, 4개의 자격증을 취득, 4천만원 이상 연봉’을 목표로 하는 학과!</span><br/>
+(진로)중앙부처 및 지방자치단체 기술직(건축) 공무원, 건축 관련 연구소, 건설회사 등<br/>
+
+<font color=blue>경찰범죄심리학과</font><br/><span style="color: #CC0000">경찰공무원이 되는 SHORTCUT!(학과 수업만으로 완벽한 시험 대비)</span><br/>
+(진로)경찰, 해양경찰, 검찰사무직, 국가공무원 등<br/>
+
+<font color=blue>군사안보학과</font><br/><span style="color: #CC0000">대한민국 명품 장교 양성 플랫폼</span><br/>
+(진로)육군·해군·공군·해병대 장교, 군무원, 방위산업관련 기관 등<br/>
+
+<font color=blue>글로벌디자인문화경영학부</font><br/>
+(진로)패션디자이너, 패션MD, 패션스타일리스트, VMD, 패션일러스트레이터, 의류생산관리, 패션마케터&브랜드매니저, 서비스기업, 유통업체, 물류기업, 무역회사 등<br/>
+
+<font color=blue>문예창작학과</font><br/><span style="color: #CC0000">창의적인 콘텐츠와 스토리텔링을 통해 4차산업혁명 시대의 주인공이 되는 학과!</span><br/>
+(진로)웹소설 작가, 웹스토리텔링 크리에이터, 방송콘텐츠 작가, <br/>출판편집자, 시인, 소설가 등<br/>
+
+<font color=blue>바이오융합학과</font><br/><span style="color: #CC0000">바이오헬스 코디네이팅, 에코컨텐츠크리에이팅, 사이언스 에듀케이팅 능력 배양</span><br/>
+(진로) 환경관련 공공기관 및 연구소, 제약회사, 생명과학 및 식품생명 관련 기업 등<br/>
+
+<br/>
+<font color=blue>※자율전공학부로 입학한 학생은 1학년 이수 후 희망학과에 전원 배정</font>
+</td>
+			<td><a href="https://www.woosuk.ac.kr/cls2027/main/" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">문예창작학과(진천)</td>
+			<td rowspan="1">1</td>
+			<td>1</td>
+			<td class="rate4" rowspan = '1'>1.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">창의적인 콘텐츠와 스토리텔링을 통해 4차산업혁명 시대의 주인공이 되는 학과!</span><br/>
+(진로)웹소설 작가, 웹스토리텔링 크리에이터, 방송콘텐츠 작가, <br/>출판편집자, 시인, 소설가 등</td>
+			<td><a href="https://munchang.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=3>총계</td>
+			<td>35</td>
+			<td>60</td>
+			<td class="rate4">1.71 : 1</td>
+			<td></td>
+			<td></td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_4CET003033'></a><div id="SelType4CET003033">
+	<h2><strong> 학생부교과_장애인등대상자(정원외)</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="10%" />
+			<col width="20%" />
+			<col width="13%" />
+			<col width="7%" />
+			<col width="7%" />
+			<col width="7%" />
+			<col width="" />
+			<col width="6%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th colspan="2">모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+			<th>학과소개</th>
+			<th>홈페이지</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1">약학대학</td>
+			<td class="unit" rowspan="1"    colspan="2">약학과(전주)</td>
+			<td rowspan="1">2</td>
+			<td>17</td>
+			<td class="rate1" rowspan = '1'>8.50 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">혁신적 교육과정과 융합적 연구활동을 추구하여 인류의 질병예방 및 건강증진을 선도하는 학과!</span><br/>
+(진로) 지역약국, 제약회사, 연구소, 보건직 공무원, 대학원 진학 등 다양한 진출 가능</td>
+			<td><a href="https://dept.woosuk.ac.kr/pharm/" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="2">사범대학</td>
+			<td class="unit" rowspan="1"    colspan="2">특수교육과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td rowspan="1">3</td>
+			<td>4</td>
+			<td class="rate4" rowspan = '1'>1.33 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">특수교육 전문가 양성의 산실!</span><br/>
+(진로)전국 각지에 1,500여명 특수교사, 연구자, 장학사, 대학교수, <br/>공공기관 종사자 등</td>
+			<td><a href="https://wuse.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">유아특수교육과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td rowspan="1">2</td>
+			<td>0</td>
+			<td class="rate4" rowspan = '1'>0.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">특별한 교사가 되는 시작, 우석대 유특과 함께!</span><br/>
+(진로)병설 및 단설 유치원 특수학급 교사, 특수학교 유치부 교사, <br/>사립유치원 특수학급 교사, 발달지체 유아교육기관 특수교사 등</td>
+			<td><a href="https://wsecse.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1">휴먼테크<br/>융합대학</td>
+			<td class="unit" rowspan="1"   >휴먼테크 자율전공학부(전주)</td>
+			<td class="unit" col width="30%" >경찰행정학과<br/>
+<br/>
+군사학과<br/>
+<br/>
+소방방재학과<br/>
+<br/>
+심리학과<br/>
+<br/>
+식품영양학과<br/>
+<br/>
+아동사회복지학부<br/>
+<br/>
+조리제과제빵학부<br/>
+<br/>
+조경학과</td>
+			<td rowspan="1">3</td>
+			<td>0</td>
+			<td class="rate4" rowspan = '1'>0.00 : 1</td>
+			<td style='text-align:left;'><font color=blue>경찰행정학과</font><br/><span style="color: #CC0000">경찰 및 치안전문가로 가는 가장 믿을 만한 길!</span><br/>
+(진로)경찰, 해양경찰, 교정직, 검찰직, 법원직, 일반직 공무원, 범죄<br/>프로파일러, 경비지도사, 탐정 등<br/>
+
+<font color=blue>군사학과</font><br/><span style="color: #CC0000">정예 엘리트 장교양성의 요람(군 장학생 100% 합격)</span><br/>
+(진로)육군, 해군, 해병대, 공군장교를 선택하여 장교로 임관(군에서 4년간 등록금 지급)<br/>
+
+<font color=blue>소방방재학과</font><br/><span style="color: #CC0000">소방공무원 출제위원을 역임 교수가 최신 정보 및 실무지식을 바탕으로 소방공무원 양성프로그램을 운영</span><br/>
+(진로)캐나다 소방전문인력(연봉 1억원), 소방시설관리사 배출(연봉 1억원) <br/>
+
+<font color=blue>심리학과</font><br/><span style="color: #CC0000">마음을 이해하고 치유하는 전문가 양성의 요람!</span><br/>
+(진로)전문상담교사, 프로파일러, 상담심리사, 임상심리사, 산업 및 조직심리사, 공공기관 및 연구소 연구원, 기업 HR 전문가 등<br/>
+
+<font color=blue>식품영양학과</font><br/><span style="color: #CC0000">1인3전공(식품영양, 건강기능식품, 스마트농식품)/창업(건강기능식품,영농법인)평생지도교수제</span><br/>
+(진로)대학교수, 공공기관(농식품,생명,복지 분야), 기업(식품,바이오,의약),영양전문가<br/>
+
+<font color=blue>아동사회복지학부</font><br/><span style="color: #CC0000">4차 산업혁명시대 휴먼서비스를 선도 학부</span><br/>
+(진로)사회복지 기관 및 시설, 어린이집, 유치원, 가족센터, 공공기관(지자체, 준정부기관 등), 연구원<br/>
+
+<font color=blue>조리제과제빵학부</font><br/><span style="color: #CC0000">1인 실습제도 운영(분야별 전공실습실 6개, 특급 호텔 셰프·한국조리기능장 교수 지도)</span><br/>
+(진로) 음식조리전문가, 제과제빵전문가, 호텔외식경영전문가, 식품·연구·학술 전문가 등<br/>
+
+<font color=blue>조경학과</font><br/><span style="color: #CC0000">NCS 과정평가형으로 졸업 전 [조경기사 국가기술자격증] 취득가능!</span><br/>
+(진로) 정부 및 공공기관,  조경,설계,시공회사, 학계 및 연구기관 등<br/>
+<br/>
+<font color=blue>※ 1학년 이수 후 희망학과 전원 배정</font></td>
+			<td><a href="https://www.woosuk.ac.kr/cls2027/main/" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1">체육대학</td>
+			<td class="unit" rowspan="1"    colspan="2">생활체육학부(진천)</td>
+			<td rowspan="1">10</td>
+			<td>0</td>
+			<td class="rate4" rowspan = '1'>0.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">생활체육학부=우석대학교자랑 "1인 - 1스포츠특기 - 2학위 - 3자격" </span><br/>
+(진로)미래스포츠의<선수, 지도자, 심판, 재활트레이너>주인공을 약속합니다.</td>
+			<td><a href="https://w-sports.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=3>총계</td>
+			<td>20</td>
+			<td>21</td>
+			<td class="rate4">1.05 : 1</td>
+			<td></td>
+			<td></td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_4CET003025'></a><div id="SelType4CET003025">
+	<h2><strong> 학생부교과_성인학습자(정원외)</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="10%" />
+			<col width="20%" />
+			<col width="13%" />
+			<col width="7%" />
+			<col width="7%" />
+			<col width="7%" />
+			<col width="" />
+			<col width="6%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th colspan="2">모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+			<th>학과소개</th>
+			<th>홈페이지</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="3">미래융합<br/>대학</td>
+			<td class="unit" rowspan="1"    colspan="2">스마트관광학과(전주)</td>
+			<td rowspan="1">20</td>
+			<td>0</td>
+			<td class="rate4" rowspan = '1'>0.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">기능인에서 경영자로 새로운 환경, 새로운 지역에 맞는 디지털 경영자 양성</span><br/>
+(진로)관광유튜브 전문가, 공동체 미디어교육 전문가, 관광기획 전문가, 문화콘텐츠 전문가 등</td>
+			<td><a href="https://future.woosuk.ac.kr/main/?menu=43" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">심리운동·상담학과(전주)</td>
+			<td rowspan="1">20</td>
+			<td>1</td>
+			<td class="rate4" rowspan = '1'>0.05 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">즐겁GO 체험하GO 느끼GO 최고의 리더로 성장하는 발걸음, 심리운동·상담학과와 함께!</span><br/>
+발달재활서비스 제공기관, 늘봄학교, 장애 및 노인 센터와 병원 심리운동사, 상담심리기관 취업 등</td>
+			<td><a href="https://future.woosuk.ac.kr/main/?menu=79" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">수소모빌리티학과(전주)</td>
+			<td rowspan="1">13</td>
+			<td>0</td>
+			<td class="rate4" rowspan = '1'>0.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">수소의 생산·저장과 수소를 연료로 하는 운송 수간에 관한 기술과 연구에 중점을 둔 학문 분야로 수소에너지 융합기술 전문인력 배출</span><br/>
+(진로) 수소 관련 정부 및 정부기관과 산업체 취업 등</td>
+			<td><a href="https://future.woosuk.ac.kr/main/?menu=111" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1">글로컬<br/>라이프대학</td>
+			<td class="unit" rowspan="1"   >글로컬라이프 자율전공학부(진천)</td>
+			<td class="unit" col width="30%" >소방산업안전학과<br/>
+<br/>
+창업컨설팅학과<br/>
+<br/>
+AI융합심리치유학과</td>
+			<td rowspan="1">70</td>
+			<td>0</td>
+			<td class="rate4" rowspan = '1'>0.00 : 1</td>
+			<td style='text-align:left;'><font color=blue>소방산업안전학과</font><br/><span style="color: #CC0000">연봉 1억 소방시설관리사, 연봉 1억 산업안전지도사</span><br/>
+(진로) 산업안전·보건안전관리자, 공기업 소방안전관리자, 소방공무원 등<br/>
+
+
+<font color=blue>창업컨설팅학과</font><br/><span style="color: #CC0000">창업전문가 및 창업지도사를 양성</span><br/>
+(진로) 성공 창업가, 전문 경영인, 창업 컨설턴트 등<br/>
+
+<font color=blue>AI융합심리치유학과</font><br/><span style="color: #CC0000">AI·VR·DTX로 확장하는 융합 심리치유 전문가 양성</span><br/>
+(진로) 정신건강복지센터·청소년상담복지센터 등 상담사, 기업EAP 전문 상담사 등<br/>
+
+<br/>
+<font color=blue>※자율전공학부로 입학한 학생은 1학년 이수 후 희망학과에 전원 배정</font></td>
+			<td><a href="https://www.woosuk.ac.kr/main/?menu=465" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=3>총계</td>
+			<td>123</td>
+			<td>1</td>
+			<td class="rate4">0.01 : 1</td>
+			<td></td>
+			<td></td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_4CET00379'></a><div id="SelType4CET00379">
+	<h2><strong> 실기(실적)위주_실기일반</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="10%" />
+			<col width="20%" />
+			<col width="13%" />
+			<col width="7%" />
+			<col width="7%" />
+			<col width="7%" />
+			<col width="" />
+			<col width="6%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th colspan="2">모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+			<th>학과소개</th>
+			<th>홈페이지</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="6">체육대학</td>
+			<td class="unit" rowspan="1"   >체육 자율전공학부(전주)<span style="color:red;"></span></td>
+			<td class="unit" >체육학과<br/>
+<br/>
+태권도학과<br/>
+<br/>
+스포츠지도학과</td>
+			<td>20</td>
+			<td>0</td>
+			<td class="rate4" rowspan = '1'>0.00 : 1</td>
+			<td style='text-align:left;'><font color=blue>체육학과</font><br/><span style="color: #CC0000">미래를 움직이는 힘“체육 전문가 양성”학과!</span><br/>
+(진로)국·사립 중·고등학교체육교사,스포츠지도사(전문,생활,유소년,노인,장애인)시도, 군 체육회행정 및 지도자,체육연구원,스포츠창업 등<br/>
+
+<font color=blue>태권도학과</font><br/><span style="color: #CC0000">태권도의 세계화,대중화,전문화를 목표로 신(新)한류 태권도 문화를 전파하는 학과</span><br/>
+(진로)국내,외 태권도지도자, 태권도 공연 기획 및 연출자, 공무원, <br/>체육행정직, 체육교사 등<br/>
+
+<font color=blue>스포츠지도학과</font><br/><span style="color: #CC0000">스포츠로 인생의 행복을 설계하다</span><br/>
+(진로)중고등학교 체육교사, 건강운동관리사. 스포츠지도사(유소년,장애인,노인) 스포츠마케터, 스포츠센터 경영자, 스포츠아나운서, 운동처방사 등 <br/>
+
+<br/>
+<font color=blue>※자율전공학부로 입학한 학생은 1학년 이수 후 희망학과에 전원 배정</font></td>
+			<td><a href="https://www.woosuk.ac.kr/cls2027/main/" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">체육학과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td>24</td>
+			<td>7</td>
+			<td class="rate4">0.29 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">미래를 움직이는 힘“체육 전문가 양성”학과!</span><br/>
+(진로)국·사립 중·고등학교체육교사,스포츠지도사(전문,생활,유소년,노인,장애인)시도, 군 체육회행정 및 지도자,체육연구원,스포츠창업 등</td>
+			<td><a href="https://sports.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="3"   >태권도학과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td class="unit" col width="30%" >겨루기</td>
+			<td>12</td>
+			<td>2</td>
+			<td class="rate4">0.17 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">태권도의 세계화,대중화,전문화를 목표로 신(新)한류 태권도 문화를 전파하는 학과</span><br/>
+(진로)국내,외 태권도지도자, 태권도 공연 기획 및 연출자, 공무원, <br/>체육행정직, 체육교사 등</td>
+			<td><a href="https://dept.woosuk.ac.kr/taekwondo/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" col width="30%" >품새</td>
+			<td>20</td>
+			<td>13</td>
+			<td class="rate4">0.65 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">태권도의 세계화,대중화,전문화를 목표로 신(新)한류 태권도 문화를 전파하는 학과</span><br/>
+(진로)국내,외 태권도지도자, 태권도 공연 기획 및 연출자, 공무원, <br/>체육행정직, 체육교사 등</td>
+			<td><a href="https://dept.woosuk.ac.kr/taekwondo/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" col width="30%" >시범</td>
+			<td>20</td>
+			<td>17</td>
+			<td class="rate4">0.85 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">태권도의 세계화,대중화,전문화를 목표로 신(新)한류 태권도 문화를 전파하는 학과</span><br/>
+(진로)국내,외 태권도지도자, 태권도 공연 기획 및 연출자, 공무원, <br/>체육행정직, 체육교사 등</td>
+			<td><a href="https://dept.woosuk.ac.kr/taekwondo/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">스포츠지도학과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td>25</td>
+			<td>4</td>
+			<td class="rate4">0.16 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">스포츠로 인생의 행복을 설계하다</span><br/>
+(진로)중고등학교 체육교사, 건강운동관리사. 스포츠지도사(유소년,장애인,노인) 스포츠마케터, 스포츠센터 경영자, 스포츠아나운서, 운동처방사 등</td>
+			<td><a href="https://coaching.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="2">체육대학</td>
+			<td class="unit" rowspan="1"    colspan="2">생활체육학부(진천)</td>
+			<td>19</td>
+			<td>10</td>
+			<td class="rate4">0.53 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">생활체육학부=우석대학교자랑 "1인 - 1스포츠특기 - 2학위 - 3자격" </span><br/>
+(진로)미래스포츠의<선수, 지도자, 심판, 재활트레이너>주인공을 약속합니다.</td>
+			<td><a href="https://w-sports.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"    colspan="2">스포츠문화예술학부(진천)</td>
+			<td>20</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">스포츠문화예술학부</span><br/>
+(진로)스포츠(전문/생활)지도자, 스포츠마케터/스포츠홍보 담당자, 스포츠문화이벤트기획자, 지역축제콘텐츠기획자, 스포츠산업매니저, 스포츠상품개발자 등</td>
+			<td><a href="https://www.woosuk.ac.kr/main/?menu=410" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=3>총계</td>
+			<td>160</td>
+			<td>53</td>
+			<td class="rate4">0.33 : 1</td>
+			<td></td>
+			<td></td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_4CET00394'></a><div id="SelType4CET00394">
+	<h2><strong> 실기(실적)위주_실적우수자</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="10%" />
+			<col width="20%" />
+			<col width="13%" />
+			<col width="7%" />
+			<col width="7%" />
+			<col width="7%" />
+			<col width="" />
+			<col width="6%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th colspan="2">모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+			<th>학과소개</th>
+			<th>홈페이지</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="14">체육대학</td>
+			<td class="unit" rowspan="7"   >체육학과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td class="unit" >배구(남)</td>
+			<td>5</td>
+			<td>5</td>
+			<td class="rate4" rowspan = '1'>1.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">미래를 움직이는 힘“체육 전문가 양성”학과!</span><br/>
+(진로)국·사립 중·고등학교체육교사,스포츠지도사(전문,생활,유소년,노인,장애인)시도, 군 체육회행정 및 지도자,체육연구원,스포츠창업 등</td>
+			<td><a href="https://sports.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" col width="30%" >족구(남)</td>
+			<td>3</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">미래를 움직이는 힘“체육 전문가 양성”학과!</span><br/>
+(진로)국·사립 중·고등학교체육교사,스포츠지도사(전문,생활,유소년,노인,장애인)시도, 군 체육회행정 및 지도자,체육연구원,스포츠창업 등</td>
+			<td><a href="https://sports.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" col width="30%" >축구(남)-GK(골키퍼)</td>
+			<td>1</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">미래를 움직이는 힘“체육 전문가 양성”학과!</span><br/>
+(진로)국·사립 중·고등학교체육교사,스포츠지도사(전문,생활,유소년,노인,장애인)시도, 군 체육회행정 및 지도자,체육연구원,스포츠창업 등</td>
+			<td><a href="https://sports.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" col width="30%" >축구(남)-FW(전방공격수)</td>
+			<td>3</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">미래를 움직이는 힘“체육 전문가 양성”학과!</span><br/>
+(진로)국·사립 중·고등학교체육교사,스포츠지도사(전문,생활,유소년,노인,장애인)시도, 군 체육회행정 및 지도자,체육연구원,스포츠창업 등</td>
+			<td><a href="https://sports.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" col width="30%" >축구(남)-MF(미드필더)</td>
+			<td>3</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">미래를 움직이는 힘“체육 전문가 양성”학과!</span><br/>
+(진로)국·사립 중·고등학교체육교사,스포츠지도사(전문,생활,유소년,노인,장애인)시도, 군 체육회행정 및 지도자,체육연구원,스포츠창업 등</td>
+			<td><a href="https://sports.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" col width="30%" >축구(남)-DF(수비수)</td>
+			<td>3</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">미래를 움직이는 힘“체육 전문가 양성”학과!</span><br/>
+(진로)국·사립 중·고등학교체육교사,스포츠지도사(전문,생활,유소년,노인,장애인)시도, 군 체육회행정 및 지도자,체육연구원,스포츠창업 등</td>
+			<td><a href="https://sports.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" col width="30%" >검도(남)</td>
+			<td>5</td>
+			<td>1</td>
+			<td class="rate4">0.20 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">미래를 움직이는 힘“체육 전문가 양성”학과!</span><br/>
+(진로)국·사립 중·고등학교체육교사,스포츠지도사(전문,생활,유소년,노인,장애인)시도, 군 체육회행정 및 지도자,체육연구원,스포츠창업 등</td>
+			<td><a href="https://sports.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="7"   >스포츠지도학과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td class="unit" col width="30%" >씨름(남)</td>
+			<td>5</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">스포츠로 인생의 행복을 설계하다</span><br/>
+(진로)중고등학교 체육교사, 건강운동관리사. 스포츠지도사(유소년,장애인,노인) 스포츠마케터, 스포츠센터 경영자, 스포츠아나운서, 운동처방사 등</td>
+			<td><a href="https://coaching.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" col width="30%" >사격(남, 여)</td>
+			<td>3</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">스포츠로 인생의 행복을 설계하다</span><br/>
+(진로)중고등학교 체육교사, 건강운동관리사. 스포츠지도사(유소년,장애인,노인) 스포츠마케터, 스포츠센터 경영자, 스포츠아나운서, 운동처방사 등</td>
+			<td><a href="https://coaching.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" col width="30%" >축구(남)-FW(전방공격수)</td>
+			<td>2</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">스포츠로 인생의 행복을 설계하다</span><br/>
+(진로)중고등학교 체육교사, 건강운동관리사. 스포츠지도사(유소년,장애인,노인) 스포츠마케터, 스포츠센터 경영자, 스포츠아나운서, 운동처방사 등</td>
+			<td><a href="https://coaching.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" col width="30%" >축구(남)-MF(미드필더)</td>
+			<td>2</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">스포츠로 인생의 행복을 설계하다</span><br/>
+(진로)중고등학교 체육교사, 건강운동관리사. 스포츠지도사(유소년,장애인,노인) 스포츠마케터, 스포츠센터 경영자, 스포츠아나운서, 운동처방사 등</td>
+			<td><a href="https://coaching.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" col width="30%" >축구(남)-DF(수비수)</td>
+			<td>3</td>
+			<td>1</td>
+			<td class="rate4">0.33 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">스포츠로 인생의 행복을 설계하다</span><br/>
+(진로)중고등학교 체육교사, 건강운동관리사. 스포츠지도사(유소년,장애인,노인) 스포츠마케터, 스포츠센터 경영자, 스포츠아나운서, 운동처방사 등</td>
+			<td><a href="https://coaching.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" col width="30%" >유도(남)</td>
+			<td>5</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">스포츠로 인생의 행복을 설계하다</span><br/>
+(진로)중고등학교 체육교사, 건강운동관리사. 스포츠지도사(유소년,장애인,노인) 스포츠마케터, 스포츠센터 경영자, 스포츠아나운서, 운동처방사 등</td>
+			<td><a href="https://coaching.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" col width="30%" >농구(남)</td>
+			<td>5</td>
+			<td>10</td>
+			<td class="rate4">2.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">스포츠로 인생의 행복을 설계하다</span><br/>
+(진로)중고등학교 체육교사, 건강운동관리사. 스포츠지도사(유소년,장애인,노인) 스포츠마케터, 스포츠센터 경영자, 스포츠아나운서, 운동처방사 등</td>
+			<td><a href="https://coaching.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="14">체육대학</td>
+			<td class="unit" rowspan="10"   >생활체육학부(진천)</td>
+			<td class="unit" col width="30%" >야구(남)-투수(우완)</td>
+			<td>4</td>
+			<td>2</td>
+			<td class="rate4">0.50 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">생활체육학부=우석대학교자랑 "1인 - 1스포츠특기 - 2학위 - 3자격" </span><br/>
+(진로)미래스포츠의<선수, 지도자, 심판, 재활트레이너>주인공을 약속합니다.</td>
+			<td><a href="https://w-sports.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" col width="30%" >야구(남)-투수(좌완)</td>
+			<td>2</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">생활체육학부=우석대학교자랑 "1인 - 1스포츠특기 - 2학위 - 3자격" </span><br/>
+(진로)미래스포츠의<선수, 지도자, 심판, 재활트레이너>주인공을 약속합니다.</td>
+			<td><a href="https://w-sports.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" col width="30%" >야구(남)-포수</td>
+			<td>2</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">생활체육학부=우석대학교자랑 "1인 - 1스포츠특기 - 2학위 - 3자격" </span><br/>
+(진로)미래스포츠의<선수, 지도자, 심판, 재활트레이너>주인공을 약속합니다.</td>
+			<td><a href="https://w-sports.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" col width="30%" >야구(남)-내야수(2루수)</td>
+			<td>1</td>
+			<td>4</td>
+			<td class="rate2">4.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">생활체육학부=우석대학교자랑 "1인 - 1스포츠특기 - 2학위 - 3자격" </span><br/>
+(진로)미래스포츠의<선수, 지도자, 심판, 재활트레이너>주인공을 약속합니다.</td>
+			<td><a href="https://w-sports.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" col width="30%" >야구(남)-내야수(3루수)</td>
+			<td>1</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">생활체육학부=우석대학교자랑 "1인 - 1스포츠특기 - 2학위 - 3자격" </span><br/>
+(진로)미래스포츠의<선수, 지도자, 심판, 재활트레이너>주인공을 약속합니다.</td>
+			<td><a href="https://w-sports.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" col width="30%" >야구(남)-내야수(유격수)</td>
+			<td>2</td>
+			<td>1</td>
+			<td class="rate4">0.50 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">생활체육학부=우석대학교자랑 "1인 - 1스포츠특기 - 2학위 - 3자격" </span><br/>
+(진로)미래스포츠의<선수, 지도자, 심판, 재활트레이너>주인공을 약속합니다.</td>
+			<td><a href="https://w-sports.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" col width="30%" >야구(남)-외야수</td>
+			<td>3</td>
+			<td>2</td>
+			<td class="rate4">0.67 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">생활체육학부=우석대학교자랑 "1인 - 1스포츠특기 - 2학위 - 3자격" </span><br/>
+(진로)미래스포츠의<선수, 지도자, 심판, 재활트레이너>주인공을 약속합니다.</td>
+			<td><a href="https://w-sports.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" col width="30%" >피구(남,여)</td>
+			<td>3</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">생활체육학부=우석대학교자랑 "1인 - 1스포츠특기 - 2학위 - 3자격" </span><br/>
+(진로)미래스포츠의<선수, 지도자, 심판, 재활트레이너>주인공을 약속합니다.</td>
+			<td><a href="https://w-sports.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" col width="30%" >복싱(남,여)</td>
+			<td>15</td>
+			<td>6</td>
+			<td class="rate4">0.40 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">생활체육학부=우석대학교자랑 "1인 - 1스포츠특기 - 2학위 - 3자격" </span><br/>
+(진로)미래스포츠의<선수, 지도자, 심판, 재활트레이너>주인공을 약속합니다.</td>
+			<td><a href="https://w-sports.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" col width="30%" >댄스(남,여)</td>
+			<td>2</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">생활체육학부=우석대학교자랑 "1인 - 1스포츠특기 - 2학위 - 3자격" </span><br/>
+(진로)미래스포츠의<선수, 지도자, 심판, 재활트레이너>주인공을 약속합니다.</td>
+			<td><a href="https://w-sports.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="4"   >스포츠문화예술학부(진천)</td>
+			<td class="unit" col width="30%" >태권도(남,여)</td>
+			<td>10</td>
+			<td>2</td>
+			<td class="rate4">0.20 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">스포츠문화예술학부</span><br/>
+(진로)스포츠(전문/생활)지도자, 스포츠마케터/스포츠홍보 담당자, 스포츠문화이벤트기획자, 지역축제콘텐츠기획자, 스포츠산업매니저, 스포츠상품개발자 등</td>
+			<td><a href="https://www.woosuk.ac.kr/main/?menu=410" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" col width="30%" >핸드볼(남)</td>
+			<td>5</td>
+			<td>2</td>
+			<td class="rate4">0.40 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">스포츠문화예술학부</span><br/>
+(진로)스포츠(전문/생활)지도자, 스포츠마케터/스포츠홍보 담당자, 스포츠문화이벤트기획자, 지역축제콘텐츠기획자, 스포츠산업매니저, 스포츠상품개발자 등</td>
+			<td><a href="https://www.woosuk.ac.kr/main/?menu=410" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" col width="30%" >핸드볼(여)</td>
+			<td>5</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">스포츠문화예술학부</span><br/>
+(진로)스포츠(전문/생활)지도자, 스포츠마케터/스포츠홍보 담당자, 스포츠문화이벤트기획자, 지역축제콘텐츠기획자, 스포츠산업매니저, 스포츠상품개발자 등</td>
+			<td><a href="https://www.woosuk.ac.kr/main/?menu=410" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" col width="30%" >농구(여)</td>
+			<td>2</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">스포츠문화예술학부</span><br/>
+(진로)스포츠(전문/생활)지도자, 스포츠마케터/스포츠홍보 담당자, 스포츠문화이벤트기획자, 지역축제콘텐츠기획자, 스포츠산업매니저, 스포츠상품개발자 등</td>
+			<td><a href="https://www.woosuk.ac.kr/main/?menu=410" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=3>총계</td>
+			<td>105</td>
+			<td>36</td>
+			<td class="rate4">0.34 : 1</td>
+			<td></td>
+			<td></td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_4CET00380'></a><div id="SelType4CET00380">
+	<h2><strong> 실기(실적)위주_특기자</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="10%" />
+			<col width="20%" />
+			<col width="13%" />
+			<col width="7%" />
+			<col width="7%" />
+			<col width="7%" />
+			<col width="" />
+			<col width="6%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th colspan="2">모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+			<th>학과소개</th>
+			<th>홈페이지</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="8">체육대학</td>
+			<td class="unit" rowspan="4"   >체육학과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td class="unit" >배구(여)</td>
+			<td>4</td>
+			<td>4</td>
+			<td class="rate4" rowspan = '1'>1.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">미래를 움직이는 힘“체육 전문가 양성”학과!</span><br/>
+(진로)국·사립 중·고등학교체육교사,스포츠지도사(전문,생활,유소년,노인,장애인)시도, 군 체육회행정 및 지도자,체육연구원,스포츠창업 등</td>
+			<td><a href="https://sports.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" col width="30%" >축구(남)-GK(골키퍼)</td>
+			<td>1</td>
+			<td>1</td>
+			<td class="rate4">1.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">미래를 움직이는 힘“체육 전문가 양성”학과!</span><br/>
+(진로)국·사립 중·고등학교체육교사,스포츠지도사(전문,생활,유소년,노인,장애인)시도, 군 체육회행정 및 지도자,체육연구원,스포츠창업 등</td>
+			<td><a href="https://sports.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" col width="30%" >축구(남)-FW(전방공격수)</td>
+			<td>2</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">미래를 움직이는 힘“체육 전문가 양성”학과!</span><br/>
+(진로)국·사립 중·고등학교체육교사,스포츠지도사(전문,생활,유소년,노인,장애인)시도, 군 체육회행정 및 지도자,체육연구원,스포츠창업 등</td>
+			<td><a href="https://sports.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" col width="30%" >축구(남)-DF(수비수)</td>
+			<td>1</td>
+			<td>1</td>
+			<td class="rate4">1.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">미래를 움직이는 힘“체육 전문가 양성”학과!</span><br/>
+(진로)국·사립 중·고등학교체육교사,스포츠지도사(전문,생활,유소년,노인,장애인)시도, 군 체육회행정 및 지도자,체육연구원,스포츠창업 등</td>
+			<td><a href="https://sports.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1"   >태권도학과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td class="unit" col width="30%" >겨루기(남,여)</td>
+			<td>8</td>
+			<td>10</td>
+			<td class="rate4">1.25 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">태권도의 세계화,대중화,전문화를 목표로 신(新)한류 태권도 문화를 전파하는 학과</span><br/>
+(진로)국내,외 태권도지도자, 태권도 공연 기획 및 연출자, 공무원, <br/>체육행정직, 체육교사 등</td>
+			<td><a href="https://dept.woosuk.ac.kr/taekwondo/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="3"   >스포츠지도학과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td class="unit" col width="30%" >사격(남, 여)</td>
+			<td>4</td>
+			<td>4</td>
+			<td class="rate4">1.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">스포츠로 인생의 행복을 설계하다</span><br/>
+(진로)중고등학교 체육교사, 건강운동관리사. 스포츠지도사(유소년,장애인,노인) 스포츠마케터, 스포츠센터 경영자, 스포츠아나운서, 운동처방사 등</td>
+			<td><a href="https://coaching.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" col width="30%" >축구(남)-MF(미드필더)</td>
+			<td>2</td>
+			<td>2</td>
+			<td class="rate4">1.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">스포츠로 인생의 행복을 설계하다</span><br/>
+(진로)중고등학교 체육교사, 건강운동관리사. 스포츠지도사(유소년,장애인,노인) 스포츠마케터, 스포츠센터 경영자, 스포츠아나운서, 운동처방사 등</td>
+			<td><a href="https://coaching.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" col width="30%" >축구(남)-DF(수비수)</td>
+			<td>2</td>
+			<td>2</td>
+			<td class="rate4">1.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">스포츠로 인생의 행복을 설계하다</span><br/>
+(진로)중고등학교 체육교사, 건강운동관리사. 스포츠지도사(유소년,장애인,노인) 스포츠마케터, 스포츠센터 경영자, 스포츠아나운서, 운동처방사 등</td>
+			<td><a href="https://coaching.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=3>총계</td>
+			<td>24</td>
+			<td>24</td>
+			<td class="rate4">1.00 : 1</td>
+			<td></td>
+			<td></td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_4CET00389'></a><div id="SelType4CET00389">
+	<h2><strong> 실기(실적)위주_기회균형(정원외)</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="10%" />
+			<col width="21%" />
+			<col width="7%" />
+			<col width="7%" />
+			<col width="7%" />
+			<col width="" />
+			<col width="6%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+			<th>학과소개</th>
+			<th>홈페이지</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="3">체육대학</td>
+			<td style='text-align:left;!important;' class="unit">체육학과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td rowspan="1">3</td>
+			<td>0</td>
+			<td class="rate4" rowspan = '1'>0.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">미래를 움직이는 힘“체육 전문가 양성”학과!</span><br/>
+(진로)국·사립 중·고등학교체육교사,스포츠지도사(전문,생활,유소년,노인,장애인)시도, 군 체육회행정 및 지도자,체육연구원,스포츠창업 등</td>
+			<td><a href="https://sports.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='text-align:left;!important;' class="unit">태권도학과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td rowspan="1">3</td>
+			<td>0</td>
+			<td class="rate4" rowspan = '1'>0.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">태권도의 세계화,대중화,전문화를 목표로 신(新)한류 태권도 문화를 전파하는 학과</span><br/>
+(진로)국내,외 태권도지도자, 태권도 공연 기획 및 연출자, 공무원, <br/>체육행정직, 체육교사 등</td>
+			<td><a href="https://dept.woosuk.ac.kr/taekwondo/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='text-align:left;!important;' class="unit">스포츠지도학과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td rowspan="1">3</td>
+			<td>0</td>
+			<td class="rate4" rowspan = '1'>0.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">스포츠로 인생의 행복을 설계하다</span><br/>
+(진로)중고등학교 체육교사, 건강운동관리사. 스포츠지도사(유소년,장애인,노인) 스포츠마케터, 스포츠센터 경영자, 스포츠아나운서, 운동처방사 등</td>
+			<td><a href="https://coaching.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=2>총계</td>
+			<td>9</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+			<td></td>
+			<td></td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_4CET00382'></a><div id="SelType4CET00382">
+	<h2><strong> 실기(실적)위주_농어촌학생(정원외)</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="10%" />
+			<col width="21%" />
+			<col width="7%" />
+			<col width="7%" />
+			<col width="7%" />
+			<col width="" />
+			<col width="6%" />
+		</colgroup>
+		<tr>
+			<th>대학</th>
+			<th>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+			<th>학과소개</th>
+			<th>홈페이지</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="3">체육대학</td>
+			<td style='text-align:left;!important;' class="unit">체육학과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td rowspan="1">3</td>
+			<td>0</td>
+			<td class="rate4" rowspan = '1'>0.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">미래를 움직이는 힘“체육 전문가 양성”학과!</span><br/>
+(진로)국·사립 중·고등학교체육교사,스포츠지도사(전문,생활,유소년,노인,장애인)시도, 군 체육회행정 및 지도자,체육연구원,스포츠창업 등</td>
+			<td><a href="https://sports.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='text-align:left;!important;' class="unit">태권도학과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td rowspan="1">3</td>
+			<td>0</td>
+			<td class="rate4" rowspan = '1'>0.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">태권도의 세계화,대중화,전문화를 목표로 신(新)한류 태권도 문화를 전파하는 학과</span><br/>
+(진로)국내,외 태권도지도자, 태권도 공연 기획 및 연출자, 공무원, <br/>체육행정직, 체육교사 등</td>
+			<td><a href="https://dept.woosuk.ac.kr/taekwondo/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='text-align:left;!important;' class="unit">스포츠지도학과(전주)<span style="color:blue;"><strong>[교직]</strong></span></td>
+			<td rowspan="1">3</td>
+			<td>0</td>
+			<td class="rate4" rowspan = '1'>0.00 : 1</td>
+			<td style='text-align:left;'><span style="color: #CC0000">스포츠로 인생의 행복을 설계하다</span><br/>
+(진로)중고등학교 체육교사, 건강운동관리사. 스포츠지도사(유소년,장애인,노인) 스포츠마케터, 스포츠센터 경영자, 스포츠아나운서, 운동처방사 등</td>
+			<td><a href="https://coaching.woosuk.ac.kr/2015/inner.php?sMenu=main" target=_blank> <img src="/RatioV1/img/ico_home_1.png" border="0" alt="학과홈페이지"> </a></td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=2>총계</td>
+			<td>9</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+			<td></td>
+			<td></td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+
+					<!--// 컨텐츠 -->
+				</div>
+
+				<div class="btnR">
+					
+					
+				</div>
+			</div> <!-- cont end -->
+
+			
+
+			<div class="quick_menu" style="display:none;">
+				<a class="btn_top" href="javascript:void(0);MoveTop()">상단으로 이동</a> 
+			</div>
+
+			<div class="footer" id="Logo1">
+				<a href="http://www.jinhakapply.com" target="_blank"><img src="/RatioV1/img/jinhak_logo.gif" border="0"></a>
+			</div>
+	</form>
+</body>
+
+</html>

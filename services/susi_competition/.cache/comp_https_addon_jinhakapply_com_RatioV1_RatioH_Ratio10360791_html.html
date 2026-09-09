@@ -1,0 +1,675 @@
+
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head id="Head1"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><meta http-equiv="Expires" content="-1" /><meta http-equiv="Pragma" content="no-cache" /><meta http-equiv="Cache-Control" content="No-Cache" /><title>
+	강서대학교 경쟁률 서비스
+</title><link href="/RatioV1/Common/Css/template/jinhakratio_blue_v3.css" rel="stylesheet" type="text/css" />
+	<!-- <script type="text/javascript" src="/ApplyV8/scripts/jquery.js"></script> -->
+	<script type="text/javascript" src="/RatioV1/Common/Script/jquery.js"></script>
+	<script language="javascript" type="text/javascript">
+//IE forEach문 문제
+if (window.NodeList && !NodeList.prototype.forEach) { NodeList.prototype.forEach = Array.prototype.forEach;}
+
+if ( document.addEventListener && navigator.appName!="Microsoft Internet Explorer") {
+	window.captureEvents(Event.ONKEYDOWN); 
+	document.addEventListener("DOMContentLoaded", function(){
+		if(document.getElementById('Logo')){
+			document.getElementById('Logo').innerHTML = '<a href="http://apply.jinhak.com" target="_blank"><img src="/RatioV1/img/blank.gif" width="150" height="23" border="0"></a>';
+		}
+	}, false );
+//IE
+} else if ( document.attachEvent ) {
+	document.attachEvent("onreadystatechange", function(){
+		if ( document.readyState === "complete" ) {
+			if(document.getElementById('Logo')){
+				document.getElementById('Logo').innerHTML = '<a href="http://apply.jinhak.com" target="_blank"><img src="/RatioV1/img/blank.gif" width="150" height="23" border="0"></a>';
+			}
+		}
+	});
+}
+// 나를 호출한 넘이 있다면.. 
+if (document.referrer != "")
+{
+	// 해당 값이 특정한 곳이라면.. 
+	if (document.referrer.toLowerCase().indexOf("uway") != -1)
+	{
+		window.parent.href = 'http://apply.jinhak.com';
+
+	}
+}
+
+// chess :: Link 
+window.onload = function(){
+	if(document.getElementById('TopLink').children.length > 0){
+    	var isV8Link = new RegExp(/(www\.jinhakapply\.com\/frame)[\d]{6}\.(aspx)/);
+		document.querySelectorAll('#TopLink a').forEach(function(link){
+			if(!isV8Link.test(link)){ // V8 링크가 아닐 시 https로 자동 변환.
+			    link.href = link.href.replace('http://', 'https://');
+			}
+		});    	
+	}
+}
+
+</script>
+	<script type="text/javascript">
+<!--
+			function selType_onChange() {
+				var selType = document.getElementById("selType");
+				var value = selType.options[selType.selectedIndex].value;
+				var strSelectRatio = '2';
+
+				if (strSelectRatio == '2' || strSelectRatio == '3') {
+					// 전체일 경우 전부 보임
+					if(value == 0){
+						$('div[id^=SelType]').show()
+					}
+					else{
+						$('div[id^=SelType]').hide()
+						$('#SelType' + value).show();
+						document.getElementById("SelType" + value).scrollIntoView();
+					}
+					
+					return;
+				}
+				else {
+					//HIde Show 처리
+					if (value == 0) {
+						SelType_Change('block');
+					}
+					else {
+						SelType_Change('none');
+						document.getElementById("SelType" + value).style.display = 'block';
+						document.getElementById("SelType" + value).scrollIntoView();
+					}
+				}
+			}
+
+		function SelType_Change(flag) {
+			var arrDiv = document.getElementsByTagName("div");
+			for (var i = 0; i < arrDiv.length; i++) {
+				if (arrDiv[i].id.indexOf("SelType") != -1) {
+					document.getElementById(arrDiv[i].id).style.display = flag;
+				}
+			}
+		}
+
+		//=============================================================
+		// 반응형 경쟁률 스크롤 이벤트 추가
+		//=============================================================
+		window.addEventListener('scroll', function(){
+			var height = window.innerHeight;
+			var scrollPosition = document.documentElement.scrollTop;
+
+			if(scrollPosition > height){
+				$('.quick_menu').show("slow");
+			} else{
+				$('.quick_menu').hide("slow");
+			}
+		});
+
+		function MoveTop(){
+			$('html, body').animate({
+				scrollTop : 0
+			}, 300)
+
+		}
+		//=============================================================
+
+		$(document).ready(function () {
+			/****************************************************************************************
+			 엑셀버튼 추가  
+			****************************************************************************************/
+			$('#btnExcel').click(ExportExcel);
+		});
+
+    /****************************************************************************************
+     엑셀버튼 추가  
+    ****************************************************************************************/
+		function ExportExcel() {
+			// 마우스 오버 이벤트 삭제(IE에서 문제가 될 수 있음)
+			var divData = $('#Ratio1036079').html();
+			divData = divData.replace(/<tr onmouseover=\"this.className='over';\" onmouseout=\"this.className='';\">/gi, "<tr>");
+			divData = divData.replace(/'/g, '"');
+
+			var PostHtml = "<form method='post' action='/RatioV1/Common/Etc/RatioExcel.aspx' style='top:-198501px;' id='tempForm'>";
+			PostHtml += "<input type='hidden' name='ServiceName' value='" + encodeURIComponent('강서대학교') + "' >";
+			PostHtml += "<input type='hidden' name='Data' value='" + encodeURIComponent($('#TopType').html()) + encodeURIComponent(divData) + "' >";
+			PostHtml += "</form>";
+
+			$('#JHService').prepend(PostHtml);
+			$('#tempForm').submit();
+			$("tempForm").remove();
+
+			return false;
+		}
+		-->
+	</script>
+</head>
+
+<body id="JHService">
+	<form method="post" action="./Ratio10360791.aspx?idx=29929&amp;Company=jinhak&amp;Name=Ratio" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUJODE1ODcwMTUwZGRy9iwRwdGTFBBVi4WJoKpn8jxLaw==" />
+
+<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="C9E22354" />
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAAhAgPgvQY8HoBRnuSQkUF1kxGV0aKErUllaWtqgLmJ8ZQmZfVPIMLA43VdhhVTDq27DytE6ditA9KbN0LWYVYFH6SlhETQruFgfY2eSnf2z/VkjseFE8aZmT88nAihB8K+7MAreG6nlphiK7ssqZY0g2sci8pcI/w0d/fzaoSO4vk1VpewSR7WBqm1eW0W/373AveKA" />
+		<!-- bgcolor : #DF3151, #51B79F, #E29F30, #82BD3E, #318CC7 -->
+
+		<div id="RoundT">
+			<div class="header">
+				<h1 class="univ"><img src="http://apply.jinhakapply.com/WebAppForms/Wonseo/LogImg/1036.gif" id="UnivLogo" alt="대학로고" /></h1>
+				<span id="TextType">
+					<p class="tit">
+						<span id="TitleYear">2027학년도</span>&nbsp;
+						<span id="TitleService">수시모집</span>&nbsp;
+						<span id="TitleText">경쟁률</span>
+					</p>
+				</span>
+				
+			</div>
+
+			<div class="cont">
+				
+				<div id="Top" class="notiBox">
+					<div class="notiBox_in">
+						<!-- 이미지 영역 -->
+						
+						<!-- //이미지 영역 -->
+						<ul id="TopType" class="ul3">* 원서접수기간 ; 2026. 9. 7.(월) ~ 9. 11.(금) 17:00까지 <br>
+* 경쟁률 현황은 오픈일(9.7.(월))은 13시, 17시에 갱신되며, 그 이후는 1시간마다 갱신됩니다. <br></ul>
+						<div id="TopLink" class="notnBtn"></div>
+					</div>
+				</div>
+
+				<div id="RatioSort" class="RateState">
+					<p id="RatioTime" class="time">2026-09-09 오전 9:00 현황</p>
+					<!-- 경쟁률 현황 Select //-->
+					<div class="RateState_in">
+						<select name="selType" id="selType" class="SltBox" onchange="return selType_onChange();">
+	<option value="0">전형 전체</option>
+	<option value="400"> 일반학생</option>
+	<option value="432"> 교과우수자</option>
+	<option value="436"> 사회통합</option>
+	<option value="402"> 농어촌학생</option>
+	<option value="428"> 기회균등할당제</option>
+	<option value="422"> 특수교육대상자</option>
+
+</select>
+					</div>
+					<!--// 군별 경쟁률 현황 Select -->
+				</div>
+
+				<!--// 엑셀 저장범위 -->
+				<div id="Ratio1036079">
+					<!-- 컨텐츠 -->
+					
+					<!--// 컨텐츠 -->
+
+					<!-- 컨텐츠 -->
+					<div>
+<a name='lik_top'></a>
+	<h2><strong>전형별</strong> 경쟁률 현황</h2>
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio2">
+		<colgroup>
+			<col width="" />
+			<col width="20%" />
+			<col width="20%" />
+			<col width="20%" />
+		</colgroup>
+		<tr>
+			<th>전형명</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="400";selType_onChange();'> 일반학생</td>
+			<td>130</td>
+			<td>572</td>
+			<td style="font-weight:bold;">4.40 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="432";selType_onChange();'> 교과우수자</td>
+			<td>106</td>
+			<td>256</td>
+			<td style="font-weight:bold;">2.42 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="436";selType_onChange();'> 사회통합</td>
+			<td>13</td>
+			<td>15</td>
+			<td style="font-weight:bold;">1.15 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="402";selType_onChange();'> 농어촌학생</td>
+			<td>5</td>
+			<td>13</td>
+			<td style="font-weight:bold;">2.60 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="428";selType_onChange();'> 기회균등할당제</td>
+			<td>10</td>
+			<td>47</td>
+			<td style="font-weight:bold;">4.70 : 1</td>
+		</tr>		<tr style="text-align:center;">
+			<td onclick='document.getElementById("selType").value="422";selType_onChange();'> 특수교육대상자</td>
+			<td>2</td>
+			<td>6</td>
+			<td style="font-weight:bold;">3.00 : 1</td>
+		</tr>		<!-- 총계 //-->
+		<tr class="total">
+			<td>총계</td>
+			<td>266</td>
+			<td>909</td>
+			<td class="rate2">3.42 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+
+					<!--// 컨텐츠 -->
+
+					<!-- 컨텐츠 -->
+						<a name='lik_400'></a><div id="SelType400">
+	<h2><strong> 일반학생</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="" />
+			<col width="30%" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th colspan='2'>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit" colspan='2'>신학과(일반학생)</td>
+			<td rowspan="1">5</td>
+			<td>15</td>
+			<td class="rate4" rowspan = '1'>3.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>경영학과(일반학생)</td>
+			<td>16</td>
+			<td>52</td>
+			<td class="rate2">3.25 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>사회복지학과(일반학생)</td>
+			<td>17</td>
+			<td>137</td>
+			<td class="rate1">8.06 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>상담심리학과(일반학생)</td>
+			<td>14</td>
+			<td>74</td>
+			<td class="rate1">5.29 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>식품영양학과(일반학생)</td>
+			<td>14</td>
+			<td>40</td>
+			<td class="rate4">2.86 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>간호학과(일반학생)</td>
+			<td>41</td>
+			<td>193</td>
+			<td class="rate2">4.71 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>실용음악학과_보컬(일반학생)</td>
+			<td>9</td>
+			<td>34</td>
+			<td class="rate2">3.78 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>실용음악학과_기악_건반(일반학생)</td>
+			<td>2</td>
+			<td>2</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>실용음악학과_기악_베이스(일반학생)</td>
+			<td>2</td>
+			<td>4</td>
+			<td class="rate4">2.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>실용음악학과_기악_드럼(일반학생)</td>
+			<td>2</td>
+			<td>4</td>
+			<td class="rate4">2.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>실용음악학과_기악_기타(일반학생)</td>
+			<td>2</td>
+			<td>6</td>
+			<td class="rate4">3.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit" colspan='2'>실용음악학과_작곡(일반학생)</td>
+			<td>6</td>
+			<td>11</td>
+			<td class="rate4">1.83 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan='2'>총계</td>
+			<td>130</td>
+			<td>572</td>
+			<td class="rate2">4.40 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_432'></a><div id="SelType432">
+	<h2><strong> 교과우수자</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit">신학과(교과우수자)</td>
+			<td rowspan="1">6</td>
+			<td>7</td>
+			<td class="rate4" rowspan = '1'>1.17 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">경영학과(교과우수자)</td>
+			<td>21</td>
+			<td>37</td>
+			<td class="rate4">1.76 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">사회복지학과(교과우수자)</td>
+			<td>22</td>
+			<td>99</td>
+			<td class="rate2">4.50 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">상담심리학과(교과우수자)</td>
+			<td>5</td>
+			<td>17</td>
+			<td class="rate2">3.40 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">식품영양학과(교과우수자)</td>
+			<td>7</td>
+			<td>24</td>
+			<td class="rate2">3.43 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">자유전공학부(교과우수자)</td>
+			<td>45</td>
+			<td>72</td>
+			<td class="rate4">1.60 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=1>총계</td>
+			<td>106</td>
+			<td>256</td>
+			<td class="rate4">2.42 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_436'></a><div id="SelType436">
+	<h2><strong> 사회통합</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit">신학과(사회통합)</td>
+			<td rowspan="1">1</td>
+			<td>0</td>
+			<td class="rate4" rowspan = '1'>0.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">경영학과(사회통합)</td>
+			<td>2</td>
+			<td>2</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">사회복지학과(사회통합)</td>
+			<td>2</td>
+			<td>5</td>
+			<td class="rate4">2.50 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">상담심리학과(사회통합)</td>
+			<td>2</td>
+			<td>2</td>
+			<td class="rate4">1.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">식품영양학과(사회통합)</td>
+			<td>2</td>
+			<td>0</td>
+			<td class="rate4">0.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">간호학과(사회통합)</td>
+			<td>2</td>
+			<td>5</td>
+			<td class="rate4">2.50 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">실용음악학과(사회통합)</td>
+			<td>2</td>
+			<td>1</td>
+			<td class="rate4">0.50 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=1>총계</td>
+			<td>13</td>
+			<td>15</td>
+			<td class="rate4">1.15 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_402'></a><div id="SelType402">
+	<h2><strong> 농어촌학생</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit">신학과(농어촌)</td>
+			<td rowspan="5">3</td>
+			<td>0</td>
+			<td class="rate4" rowspan = '5'>3.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">경영학과(농어촌)</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td class="unit">사회복지학과(농어촌)</td>
+			<td>5</td>
+		</tr>
+		<tr>
+			<td class="unit">상담심리학과(농어촌)</td>
+			<td>2</td>
+		</tr>
+		<tr>
+			<td class="unit">식품영양학과(농어촌)</td>
+			<td>1</td>
+		</tr>
+		<tr>
+			<td class="unit">간호학과(농어촌)</td>
+			<td rowspan="1">2</td>
+			<td>4</td>
+			<td class="rate4" rowspan = '1'>2.00 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=1>총계</td>
+			<td>5</td>
+			<td>13</td>
+			<td class="rate4">2.60 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_428'></a><div id="SelType428">
+	<h2><strong> 기회균등할당제</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit">신학과(기회균등)</td>
+			<td rowspan="5">8</td>
+			<td>1</td>
+			<td class="rate2" rowspan = '5'>4.75 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">경영학과(기회균등)</td>
+			<td>10</td>
+		</tr>
+		<tr>
+			<td class="unit">사회복지학과(기회균등)</td>
+			<td>14</td>
+		</tr>
+		<tr>
+			<td class="unit">상담심리학과(기회균등)</td>
+			<td>11</td>
+		</tr>
+		<tr>
+			<td class="unit">식품영양학과(기회균등)</td>
+			<td>2</td>
+		</tr>
+		<tr>
+			<td class="unit">간호학과(기회균등)</td>
+			<td rowspan="1">2</td>
+			<td>9</td>
+			<td class="rate2" rowspan = '1'>4.50 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=1>총계</td>
+			<td>10</td>
+			<td>47</td>
+			<td class="rate2">4.70 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_422'></a><div id="SelType422">
+	<h2><strong> 특수교육대상자</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr>
+			<td class="unit">신학과(특수교육)</td>
+			<td rowspan="4">2</td>
+			<td>0</td>
+			<td class="rate4" rowspan = '4'>3.00 : 1</td>
+		</tr>
+		<tr>
+			<td class="unit">경영학과(특수교육)</td>
+			<td>0</td>
+		</tr>
+		<tr>
+			<td class="unit">사회복지학과(특수교육)</td>
+			<td>4</td>
+		</tr>
+		<tr>
+			<td class="unit">상담심리학과(특수교육)</td>
+			<td>2</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=1>총계</td>
+			<td>2</td>
+			<td>6</td>
+			<td class="rate4">3.00 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+
+					<!--// 컨텐츠 -->
+				</div>
+
+				<div class="btnR">
+					
+					
+				</div>
+			</div> <!-- cont end -->
+
+			
+
+			<div class="quick_menu" style="display:none;">
+				<a class="btn_top" href="javascript:void(0);MoveTop()">상단으로 이동</a> 
+			</div>
+			
+			<div class="footer" id="Logo1">
+				<a href="http://www.jinhakapply.com" target="_blank"><img src="/RatioV1/img/jinhak_logo.gif" border="0"></a>
+				
+			</div>
+	</form>
+</body>
+
+</html>

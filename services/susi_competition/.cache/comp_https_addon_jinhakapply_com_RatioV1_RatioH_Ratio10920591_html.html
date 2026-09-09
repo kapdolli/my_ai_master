@@ -1,0 +1,1938 @@
+
+<!DOCTYPE html
+	PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head id="Head1"><meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no" /><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><meta http-equiv="Expires" content="-1" /><meta http-equiv="Pragma" content="no-cache" /><meta http-equiv="Cache-Control" content="No-Cache" /><title>
+	성균관대학교 경쟁률 서비스
+</title><link href="/RatioV1/Common/Css/template/jinhakratio_blue_v3.css" rel="stylesheet" type="text/css" />
+	<!-- <script type="text/javascript" src="/ApplyV8/scripts/jquery.js"></script> -->
+	<script type="text/javascript" src="/RatioV1/Common/Script/jquery.js"></script>
+	<script language="javascript" type="text/javascript">
+//IE forEach문 문제
+if (window.NodeList && !NodeList.prototype.forEach) { NodeList.prototype.forEach = Array.prototype.forEach;}
+
+if ( document.addEventListener && navigator.appName!="Microsoft Internet Explorer") {
+	window.captureEvents(Event.ONKEYDOWN); 
+	document.addEventListener("DOMContentLoaded", function(){
+		if(document.getElementById('Logo')){
+			document.getElementById('Logo').innerHTML = '<a href="http://apply.jinhak.com" target="_blank"><img src="/RatioV1/img/blank.gif" width="150" height="23" border="0"></a>';
+		}
+	}, false );
+//IE
+} else if ( document.attachEvent ) {
+	document.attachEvent("onreadystatechange", function(){
+		if ( document.readyState === "complete" ) {
+			if(document.getElementById('Logo')){
+				document.getElementById('Logo').innerHTML = '<a href="http://apply.jinhak.com" target="_blank"><img src="/RatioV1/img/blank.gif" width="150" height="23" border="0"></a>';
+			}
+		}
+	});
+}
+// 나를 호출한 넘이 있다면.. 
+if (document.referrer != "")
+{
+	// 해당 값이 특정한 곳이라면.. 
+	if (document.referrer.toLowerCase().indexOf("uway") != -1)
+	{
+		window.parent.href = 'http://apply.jinhak.com';
+
+	}
+}
+
+// chess :: Link 
+window.onload = function(){
+	if(document.getElementById('TopLink').children.length > 0){
+    	var isV8Link = new RegExp(/(www\.jinhakapply\.com\/frame)[\d]{6}\.(aspx)/);
+		document.querySelectorAll('#TopLink a').forEach(function(link){
+			if(!isV8Link.test(link)){ // V8 링크가 아닐 시 https로 자동 변환.
+			    link.href = link.href.replace('http://', 'https://');
+			}
+		});    	
+	}
+}
+
+</script>
+	<script type="text/javascript">
+<!--
+			function selType_onChange() {
+				var selType = document.getElementById("selType");
+				var value = selType.options[selType.selectedIndex].value;
+				var strSelectRatio = '3';
+
+				if (strSelectRatio == '2' || strSelectRatio == '3') {
+					// 전체일 경우 전부 보임
+					if(value == 0){
+						$('div[id^=SelType]').show()
+					}
+					else{
+						$('div[id^=SelType]').hide()
+						$('#SelType' + value).show();
+						document.getElementById("SelType" + value).scrollIntoView();
+					}
+					
+					return;
+				}
+				else {
+					//HIde Show 처리
+					if (value == 0) {
+						SelType_Change('block');
+					}
+					else {
+						SelType_Change('none');
+						document.getElementById("SelType" + value).style.display = 'block';
+						document.getElementById("SelType" + value).scrollIntoView();
+					}
+				}
+			}
+
+		function SelType_Change(flag) {
+			var arrDiv = document.getElementsByTagName("div");
+			for (var i = 0; i < arrDiv.length; i++) {
+				if (arrDiv[i].id.indexOf("SelType") != -1) {
+					document.getElementById(arrDiv[i].id).style.display = flag;
+				}
+			}
+		}
+
+		//=============================================================
+		// 반응형 경쟁률 스크롤 이벤트 추가
+		//=============================================================
+		window.addEventListener('scroll', function(){
+			var height = window.innerHeight;
+			var scrollPosition = document.documentElement.scrollTop;
+
+			if(scrollPosition > height){
+				$('.quick_menu').show("slow");
+			} else{
+				$('.quick_menu').hide("slow");
+			}
+		});
+
+		function MoveTop(){
+			$('html, body').animate({
+				scrollTop : 0
+			}, 300)
+
+		}
+		//=============================================================
+
+		$(document).ready(function () {
+			/****************************************************************************************
+			 엑셀버튼 추가  
+			****************************************************************************************/
+			$('#btnExcel').click(ExportExcel);
+
+			cellSpanTable('div#SelType496 table');
+			// cellSpanTable('div#SelType498 table');
+			
+			function cellSpanTable(selector) {
+				var table = $(selector), tableRows = table.find("tr:has(td):not(.total)");
+				//var table = $('div#SelType496 table'), tableRows = table.find("tr:has(td):not(.total)");
+				table.find("tr:first th:eq(0)").attr('colSpan', 3);
+				table.find('colgroup col:eq(1)').after('<col width="20%"/>');
+				tableRows.each(function(){
+					var tr = $(this), majorCell = tr.find('td[etc7]'), IsSports = majorCell.is('[etc7^=4860]');
+					var etc7 = majorCell.attr("etc7"), gval = (['486009'].indexOf(etc7) > -1) ? 9 : parseInt(etc7.substr(4,1),10);
+					if(IsSports && gval < 5){
+						var MajorName = majorCell.text();
+						majorCell.after("<td>" + MajorName.split("-")[1] + "</td>");
+						majorCell.text(MajorName.split("-")[0]);
+					}
+					else{
+						majorCell.attr('colSpan', parseInt(majorCell.attr('colSpan'), 10) + 1);
+					}
+				});
+				table.find("tr:last td:eq(0)").attr('colSpan', 3);
+
+				var gKey = null, gFirstCell = null;
+				table.find("tr:has(td):not(.total)").filter(":has(td[etc7^=4860]):lt(14)").each(function(){
+					var tr = $(this), majorCell = tr.find('td[etc7]'), etc7 = majorCell.attr("etc7"), gval = (['486009'].indexOf(etc7) > -1) ? 9 : parseInt(etc7.substr(4,1),10);
+					if(gKey == gval){
+						gFirstCell.attr('rowSpan', parseInt(gFirstCell.attr('rowSpan'), 10) + 1);
+						majorCell.hide();
+					}
+					else{
+						gFirstCell = majorCell;
+						gKey = gval;
+					}
+				});
+			}
+
+		});
+
+    /****************************************************************************************
+     엑셀버튼 추가  
+    ****************************************************************************************/
+		function ExportExcel() {
+			// 마우스 오버 이벤트 삭제(IE에서 문제가 될 수 있음)
+			var divData = $('#Ratio1092059').html();
+			divData = divData.replace(/<tr onmouseover=\"this.className='over';\" onmouseout=\"this.className='';\">/gi, "<tr>");
+			divData = divData.replace(/'/g, '"');
+
+			var PostHtml = "<form method='post' action='/RatioV1/Common/Etc/RatioExcel.aspx' style='top:-198501px;' id='tempForm'>";
+			PostHtml += "<input type='hidden' name='ServiceName' value='" + encodeURIComponent('성균관대학교') + "' >";
+			PostHtml += "<input type='hidden' name='Data' value='" + encodeURIComponent($('#TopType').html()) + encodeURIComponent(divData) + "' >";
+			PostHtml += "</form>";
+
+			$('#JHService').prepend(PostHtml);
+			$('#tempForm').submit();
+			$("tempForm").remove();
+
+			return false;
+		}
+		-->
+	</script>
+</head>
+
+<body id="JHService">
+	<form method="post" action="./Ratio10920591.aspx?idx=30975&amp;Company=jinhak&amp;Name=Ratio" id="form1">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUJODE1ODcwMTUwZGQrmSHDJlEL8w8IoDG/DUIZTx4/3A==" />
+
+<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="EC82BFAC" />
+<input type="hidden" name="__EVENTVALIDATION" id="__EVENTVALIDATION" value="/wEdAA4VrjRltnGglqpDTvNxvF/OxGV0aKErUllaWtqgLmJ8ZaPFWFQWZod146mVQ46S6+Mn9XaD639VUy7MUgwaI52ZhlE/fa8bDJ7cKUt8UFA0fWDFDJzWjQMKF0lpoSwymJ1vNalsxMLUiEdVG5YpfnaIFbItof2iHwFasLBHmaHGqojwc4vlWo/ZCZHEZtLvWIBqvjYigCn6MJWc+1I1RarinhVjbMaspc0jzNNELLDu7bj/qcg8jZVg1p5DGtx4rJdAv0JUrZuovCqeT1tkTuZeet8NhXcwRikU1AgBjO4azhBG8PawRQ8SqcyhwfiiSrAfkJfF" />
+		<!-- bgcolor : #DF3151, #51B79F, #E29F30, #82BD3E, #318CC7 -->
+
+		<div id="RoundT">
+			<div class="header">
+				<h1 class="univ"><img src="http://apply.jinhakapply.com/WebAppForms/Wonseo/LogImg/1092.gif" id="UnivLogo" alt="대학로고" /></h1>
+				<span id="TextType">
+					<p class="tit">
+						<span id="TitleYear">2027학년도</span>&nbsp;
+						<span id="TitleService">수시모집</span>&nbsp;
+						<span id="TitleText">경쟁률</span>
+					</p>
+				</span>
+				
+			</div>
+
+			<div class="cont">
+				
+				<div id="Top" class="notiBox">
+					<div class="notiBox_in">
+						<!-- 이미지 영역 -->
+						
+						<!-- //이미지 영역 -->
+						<ul id="TopType" class="ul3">※ 원서접수 기간 : 2026. 9. 8(화) 10:00 ∼ 9. 11(금) 18:00<br>
+※ 지원 현황 Update<br>
+- 1일차 : 2026.9.8.(화요일)  17:00 <br>
+- 2일차 : 2026.9.9.(수요일)  10:00, 17:00 <br>
+- 3일차 : 2026.9.10.(목요일)  10:00, 17:00 <br>
+- 4일차 : 2026.9.11.(금요일)  10:00, 18:00 이후(최종)</ul>
+						<div id="TopLink" class="notnBtn"><a class="st1" href="http://apply.jinhakapply.com/Notice/1092059/A" target="_blank">원서접수 바로가기</a>
+</div>
+					</div>
+				</div>
+
+				<div id="RatioSort" class="RateState">
+					<p id="RatioTime" class="time">2026-09-08 오후 5:00 현황</p>
+					<!-- 경쟁률 현황 Select //-->
+					<div class="RateState_in">
+						<select name="selType" id="selType" class="SltBox" onchange="return selType_onChange();">
+	<option value="0">전형 전체</option>
+	<option value="493"> 학생부종합(융합인재)</option>
+	<option value="497"> 학생부종합(탐구인재)</option>
+	<option value="491"> 학생부종합(기회균형)</option>
+	<option value="494"> 학생부종합(성균인재)</option>
+	<option value="489"> 학생부종합(성균인재-지역인재)</option>
+	<option value="499"> 학생부종합(과학인재)</option>
+	<option value="406"> 학생부교과(추천인재)</option>
+	<option value="495"> 논술위주(언어형)</option>
+	<option value="492"> 논술위주(수리형)</option>
+	<option value="496"> 실기/실적(예체능 특기자)</option>
+	<option value="498"> 실기/실적(예체능 실기우수자)</option>
+	<option value="420"> 학생부종합(특성화고졸재직자)</option>
+
+</select>
+					</div>
+					<!--// 군별 경쟁률 현황 Select -->
+				</div>
+
+				<!--// 엑셀 저장범위 -->
+				<div id="Ratio1092059">
+					<!-- 컨텐츠 -->
+					
+					<!--// 컨텐츠 -->
+
+					<!-- 컨텐츠 -->
+					<div>
+	<h2><strong>전체</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio">
+		<colgroup>
+			<col width="25%" />
+			<col width="25%" />
+			<col width="25%" />
+			<col width="25%" />
+		</colgroup>
+		<tr>
+			<th>구분</th>
+			<th>총모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+			</tr>
+		<tr style="text-align:center;">
+			<td>총계</td>
+			<td>2,378</td>
+			<td>7,103</td>
+			<td style="font-weight:bold;">2.99 : 1</td>
+		</tr>
+	</table>
+	</div>
+<div>
+<a name='lik_top'></a>
+	<h2><strong>전형별</strong> 경쟁률 현황</h2>
+		<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio2">
+		<colgroup>
+			<col width="" />
+			<col width="20%" />
+			<col width="20%" />
+			<col width="20%" />
+		</colgroup>
+		<tr>
+			<th>전형명</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td onclick='document.getElementById("selType").value="493";selType_onChange();'> 학생부종합(융합인재)</td>
+			<td>329</td>
+			<td>584</td>
+			<td style="font-weight:bold;">1.78 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td onclick='document.getElementById("selType").value="497";selType_onChange();'> 학생부종합(탐구인재)</td>
+			<td>589</td>
+			<td>1,073</td>
+			<td style="font-weight:bold;">1.82 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td onclick='document.getElementById("selType").value="491";selType_onChange();'> 학생부종합(기회균형)</td>
+			<td>28</td>
+			<td>192</td>
+			<td style="font-weight:bold;">6.86 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td onclick='document.getElementById("selType").value="494";selType_onChange();'> 학생부종합(성균인재)</td>
+			<td>196</td>
+			<td>502</td>
+			<td style="font-weight:bold;">2.56 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td onclick='document.getElementById("selType").value="489";selType_onChange();'> 학생부종합(성균인재-지역인재)</td>
+			<td>3</td>
+			<td>4</td>
+			<td style="font-weight:bold;">1.33 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td onclick='document.getElementById("selType").value="499";selType_onChange();'> 학생부종합(과학인재)</td>
+			<td>155</td>
+			<td>416</td>
+			<td style="font-weight:bold;">2.68 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td onclick='document.getElementById("selType").value="406";selType_onChange();'> 학생부교과(추천인재)</td>
+			<td>419</td>
+			<td>161</td>
+			<td style="font-weight:bold;">0.38 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td onclick='document.getElementById("selType").value="495";selType_onChange();'> 논술위주(언어형)</td>
+			<td>172</td>
+			<td>1,117</td>
+			<td style="font-weight:bold;">6.49 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td onclick='document.getElementById("selType").value="492";selType_onChange();'> 논술위주(수리형)</td>
+			<td>204</td>
+			<td>1,555</td>
+			<td style="font-weight:bold;">7.62 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td onclick='document.getElementById("selType").value="496";selType_onChange();'> 실기/실적(예체능 특기자)</td>
+			<td>21</td>
+			<td>85</td>
+			<td style="font-weight:bold;">4.05 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td onclick='document.getElementById("selType").value="498";selType_onChange();'> 실기/실적(예체능 실기우수자)</td>
+			<td>75</td>
+			<td>1,246</td>
+			<td style="font-weight:bold;">16.61 : 1</td>
+		</tr>		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td onclick='document.getElementById("selType").value="420";selType_onChange();'> 학생부종합(특성화고졸재직자)</td>
+			<td>187</td>
+			<td>168</td>
+			<td style="font-weight:bold;">0.90 : 1</td>
+		</tr>		<!-- 총계 //-->
+		<tr class="total">
+			<td>총계</td>
+			<td>2,378</td>
+			<td>7,103</td>
+			<td class="rate4">2.99 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+
+					<!--// 컨텐츠 -->
+
+					<!-- 컨텐츠 -->
+						<a name='lik_493'></a><div id="SelType493">
+	<h2><strong> 학생부종합(융합인재)</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="15%" />
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th colspan='2'>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=100 colspan='2'>자유전공계열</td>
+			<td rowspan="1">20</td>
+			<td>23</td>
+			<td class="rate4" rowspan = '1'>1.15 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=200 colspan='2'>인문과학계열</td>
+			<td rowspan="1">30</td>
+			<td>74</td>
+			<td class="rate4" rowspan = '1'>2.47 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=300 colspan='2'>사회과학계열</td>
+			<td rowspan="1">30</td>
+			<td>63</td>
+			<td class="rate4" rowspan = '1'>2.10 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=400 colspan='2'>경영학과</td>
+			<td rowspan="1">35</td>
+			<td>32</td>
+			<td class="rate4" rowspan = '1'>0.91 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=500 colspan='2'>글로벌리더학부</td>
+			<td rowspan="1">10</td>
+			<td>19</td>
+			<td class="rate4" rowspan = '1'>1.90 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=600 colspan='2'>글로벌경제학과</td>
+			<td rowspan="1">18</td>
+			<td>17</td>
+			<td class="rate4" rowspan = '1'>0.94 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=700 colspan='2'>글로벌경영학과</td>
+			<td rowspan="1">17</td>
+			<td>17</td>
+			<td class="rate4" rowspan = '1'>1.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=2500 colspan='2'>자연과학계열</td>
+			<td rowspan="1">35</td>
+			<td>114</td>
+			<td class="rate4" rowspan = '1'>3.26 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=2600 colspan='2'>전자전기정보공학부</td>
+			<td rowspan="1">30</td>
+			<td>31</td>
+			<td class="rate4" rowspan = '1'>1.03 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=2700 colspan='2'>공학계열</td>
+			<td rowspan="1">64</td>
+			<td>130</td>
+			<td class="rate4" rowspan = '1'>2.03 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=2800 colspan='2'>컴퓨터공학과</td>
+			<td rowspan="1">10</td>
+			<td>16</td>
+			<td class="rate4" rowspan = '1'>1.60 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=2900 colspan='2'>반도체시스템공학과</td>
+			<td rowspan="1">5</td>
+			<td>15</td>
+			<td class="rate4" rowspan = '1'>3.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=3000 colspan='2'>지능형소프트웨어학과</td>
+			<td rowspan="1">5</td>
+			<td>5</td>
+			<td class="rate4" rowspan = '1'>1.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=3800 colspan='2'>건축학과(5년제)</td>
+			<td rowspan="1">10</td>
+			<td>7</td>
+			<td class="rate4" rowspan = '1'>0.70 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=3900 colspan='2'>약학과</td>
+			<td rowspan="1">10</td>
+			<td>21</td>
+			<td class="rate4" rowspan = '1'>2.10 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=2>총계</td>
+			<td>329</td>
+			<td>584</td>
+			<td class="rate4">1.78 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_497'></a><div id="SelType497">
+	<h2><strong> 학생부종합(탐구인재)</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="15%" />
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th colspan='2'>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=5500 colspan='2'>자유전공계열</td>
+			<td rowspan="1">30</td>
+			<td>25</td>
+			<td class="rate4" rowspan = '1'>0.83 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=5600 colspan='2'>인문과학계열</td>
+			<td rowspan="1">25</td>
+			<td>42</td>
+			<td class="rate4" rowspan = '1'>1.68 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=5700 colspan='2'>사회과학계열</td>
+			<td rowspan="1">25</td>
+			<td>55</td>
+			<td class="rate4" rowspan = '1'>2.20 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=5800 colspan='2'>경영학과</td>
+			<td rowspan="1">25</td>
+			<td>33</td>
+			<td class="rate4" rowspan = '1'>1.32 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=5900 colspan='2'>글로벌리더학부</td>
+			<td rowspan="1">10</td>
+			<td>17</td>
+			<td class="rate4" rowspan = '1'>1.70 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=6000 colspan='2'>글로벌경제학과</td>
+			<td rowspan="1">18</td>
+			<td>28</td>
+			<td class="rate4" rowspan = '1'>1.56 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=6100 colspan='2'>글로벌경영학과</td>
+			<td rowspan="1">16</td>
+			<td>26</td>
+			<td class="rate4" rowspan = '1'>1.63 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="13">전공예약</td>
+			<td class="unit" Etc7=6400 colspan='1'>유학·동양학과</td>
+			<td rowspan="1">15</td>
+			<td>10</td>
+			<td class="rate4" rowspan = '1'>0.67 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=6500 colspan='1'>국어국문학과</td>
+			<td rowspan="1">6</td>
+			<td>5</td>
+			<td class="rate4" rowspan = '1'>0.83 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=6600 colspan='1'>프랑스어문학과</td>
+			<td rowspan="1">12</td>
+			<td>6</td>
+			<td class="rate4" rowspan = '1'>0.50 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=6700 colspan='1'>독어독문학과</td>
+			<td rowspan="1">12</td>
+			<td>10</td>
+			<td class="rate4" rowspan = '1'>0.83 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=6800 colspan='1'>러시아어문학과</td>
+			<td rowspan="1">12</td>
+			<td>17</td>
+			<td class="rate4" rowspan = '1'>1.42 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=6900 colspan='1'>한문학과</td>
+			<td rowspan="1">10</td>
+			<td>3</td>
+			<td class="rate4" rowspan = '1'>0.30 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=7000 colspan='1'>사학과</td>
+			<td rowspan="1">6</td>
+			<td>12</td>
+			<td class="rate4" rowspan = '1'>2.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=7100 colspan='1'>철학과</td>
+			<td rowspan="1">6</td>
+			<td>4</td>
+			<td class="rate4" rowspan = '1'>0.67 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=7200 colspan='1'>사회학과</td>
+			<td rowspan="1">8</td>
+			<td>10</td>
+			<td class="rate4" rowspan = '1'>1.25 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=7300 colspan='1'>사회복지학과</td>
+			<td rowspan="1">8</td>
+			<td>4</td>
+			<td class="rate4" rowspan = '1'>0.50 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=7400 colspan='1'>심리학과</td>
+			<td rowspan="1">6</td>
+			<td>4</td>
+			<td class="rate4" rowspan = '1'>0.67 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=7500 colspan='1'>아동·청소년학과</td>
+			<td rowspan="1">8</td>
+			<td>4</td>
+			<td class="rate4" rowspan = '1'>0.50 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=7600 colspan='1'>통계학과</td>
+			<td rowspan="1">6</td>
+			<td>8</td>
+			<td class="rate4" rowspan = '1'>1.33 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=7700 colspan='2'>영상학과</td>
+			<td rowspan="1">13</td>
+			<td>20</td>
+			<td class="rate4" rowspan = '1'>1.54 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=7800 colspan='2'>의상학과</td>
+			<td rowspan="1">16</td>
+			<td>14</td>
+			<td class="rate4" rowspan = '1'>0.88 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=7900 colspan='2'>자연과학계열</td>
+			<td rowspan="1">25</td>
+			<td>58</td>
+			<td class="rate4" rowspan = '1'>2.32 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=8000 colspan='2'>전자전기정보공학부</td>
+			<td rowspan="1">25</td>
+			<td>45</td>
+			<td class="rate4" rowspan = '1'>1.80 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=8100 colspan='2'>공학계열</td>
+			<td rowspan="1">40</td>
+			<td>131</td>
+			<td class="rate4" rowspan = '1'>3.28 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=8200 colspan='2'>컴퓨터공학과</td>
+			<td rowspan="1">10</td>
+			<td>15</td>
+			<td class="rate4" rowspan = '1'>1.50 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=8300 colspan='2'>반도체시스템공학과</td>
+			<td rowspan="1">15</td>
+			<td>132</td>
+			<td class="rate4" rowspan = '1'>8.80 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=8400 colspan='2'>지능형소프트웨어학과</td>
+			<td rowspan="1">10</td>
+			<td>37</td>
+			<td class="rate4" rowspan = '1'>3.70 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=8500 colspan='2'>배터리학과</td>
+			<td rowspan="1">10</td>
+			<td>30</td>
+			<td class="rate4" rowspan = '1'>3.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=8600 colspan='2'>글로벌바이오메디컬공학과</td>
+			<td rowspan="1">10</td>
+			<td>32</td>
+			<td class="rate4" rowspan = '1'>3.20 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=8700 colspan='2'>반도체융합공학과</td>
+			<td rowspan="1">15</td>
+			<td>11</td>
+			<td class="rate4" rowspan = '1'>0.73 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=8800 colspan='2'>에너지학과</td>
+			<td rowspan="1">15</td>
+			<td>29</td>
+			<td class="rate4" rowspan = '1'>1.93 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=8900 colspan='2'>양자정보공학과</td>
+			<td rowspan="1">13</td>
+			<td>19</td>
+			<td class="rate4" rowspan = '1'>1.46 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=9000 colspan='2'>바이오신약·규제과학과</td>
+			<td rowspan="1">12</td>
+			<td>28</td>
+			<td class="rate4" rowspan = '1'>2.33 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=9100 colspan='2'>인공지능학과</td>
+			<td rowspan="1">15</td>
+			<td>14</td>
+			<td class="rate4" rowspan = '1'>0.93 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=9200 colspan='2'>건축학과(5년제)</td>
+			<td rowspan="1">17</td>
+			<td>12</td>
+			<td class="rate4" rowspan = '1'>0.71 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=9300 colspan='2'>약학과</td>
+			<td rowspan="1">20</td>
+			<td>56</td>
+			<td class="rate4" rowspan = '1'>2.80 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="5">전공예약</td>
+			<td class="unit" Etc7=9700 colspan='1'>생명과학과</td>
+			<td rowspan="1">6</td>
+			<td>5</td>
+			<td class="rate4" rowspan = '1'>0.83 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=9800 colspan='1'>수학과</td>
+			<td rowspan="1">6</td>
+			<td>13</td>
+			<td class="rate4" rowspan = '1'>2.17 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=9900 colspan='1'>물리학과</td>
+			<td rowspan="1">6</td>
+			<td>16</td>
+			<td class="rate4" rowspan = '1'>2.67 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=10000 colspan='1'>화학과</td>
+			<td rowspan="1">6</td>
+			<td>11</td>
+			<td class="rate4" rowspan = '1'>1.83 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=10100 colspan='1'>건설환경공학부</td>
+			<td rowspan="1">20</td>
+			<td>22</td>
+			<td class="rate4" rowspan = '1'>1.10 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=2>총계</td>
+			<td>589</td>
+			<td>1,073</td>
+			<td class="rate4">1.82 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_491'></a><div id="SelType491">
+	<h2><strong> 학생부종합(기회균형)</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="15%" />
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th colspan='2'>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=11000 colspan='2'>인문과학계열</td>
+			<td rowspan="1">7</td>
+			<td>24</td>
+			<td class="rate4" rowspan = '1'>3.43 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=11100 colspan='2'>사회과학계열</td>
+			<td rowspan="1">7</td>
+			<td>52</td>
+			<td class="rate4" rowspan = '1'>7.43 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=13300 colspan='2'>자연과학계열</td>
+			<td rowspan="1">7</td>
+			<td>60</td>
+			<td class="rate4" rowspan = '1'>8.57 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=13500 colspan='2'>공학계열</td>
+			<td rowspan="1">7</td>
+			<td>56</td>
+			<td class="rate4" rowspan = '1'>8.00 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=2>총계</td>
+			<td>28</td>
+			<td>192</td>
+			<td class="rate4">6.86 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_494'></a><div id="SelType494">
+	<h2><strong> 학생부종합(성균인재)</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="15%" />
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th colspan='2'>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=16300 colspan='2'>자유전공계열</td>
+			<td rowspan="1">70</td>
+			<td>226</td>
+			<td class="rate4" rowspan = '1'>3.23 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="2">사범대학</td>
+			<td class="unit" Etc7=17000 colspan='1'>교육학과</td>
+			<td rowspan="1">15</td>
+			<td>27</td>
+			<td class="rate4" rowspan = '1'>1.80 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=17100 colspan='1'>한문교육과</td>
+			<td rowspan="1">15</td>
+			<td>11</td>
+			<td class="rate4" rowspan = '1'>0.73 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=20200 colspan='2'>의예과</td>
+			<td rowspan="1">20</td>
+			<td>103</td>
+			<td class="rate4" rowspan = '1'>5.15 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="2">사범대학</td>
+			<td class="unit" Etc7=20300 colspan='1'>수학교육과</td>
+			<td rowspan="1">16</td>
+			<td>11</td>
+			<td class="rate4" rowspan = '1'>0.69 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=20400 colspan='1'>컴퓨터교육과</td>
+			<td rowspan="1">15</td>
+			<td>10</td>
+			<td class="rate4" rowspan = '1'>0.67 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=21000 colspan='2'>글로벌AI융합학부</td>
+			<td rowspan="1">24</td>
+			<td>46</td>
+			<td class="rate4" rowspan = '1'>1.92 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1">연기예술학과</td>
+			<td class="unit" Etc7=21200 colspan='1'>연출</td>
+			<td rowspan="1">9</td>
+			<td>27</td>
+			<td class="rate4" rowspan = '1'>3.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=21600 colspan='2'>스포츠과학과</td>
+			<td rowspan="1">12</td>
+			<td>41</td>
+			<td class="rate4" rowspan = '1'>3.42 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=2>총계</td>
+			<td>196</td>
+			<td>502</td>
+			<td class="rate4">2.56 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_489'></a><div id="SelType489">
+	<h2><strong> 학생부종합(성균인재-지역인재)</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="15%" />
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th colspan='2'>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="3">의예과</td>
+			<td class="unit" Etc7=759042 colspan='1'>남양주권 - 구리시, 남양주시, 가평군, 양평군</td>
+			<td rowspan="1">1</td>
+			<td>1</td>
+			<td class="rate4" rowspan = '1'>1.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=759041 colspan='1'>의정부권 - 의정부시, 동두천시, 양주시, 연천군</td>
+			<td rowspan="1">1</td>
+			<td>1</td>
+			<td class="rate4" rowspan = '1'>1.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=759043 colspan='1'>포천권 - 포천시</td>
+			<td rowspan="1">1</td>
+			<td>2</td>
+			<td class="rate4" rowspan = '1'>2.00 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=2>총계</td>
+			<td>3</td>
+			<td>4</td>
+			<td class="rate4">1.33 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_499'></a><div id="SelType499">
+	<h2><strong> 학생부종합(과학인재)</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="15%" />
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th colspan='2'>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=24100 colspan='2'>자연과학계열</td>
+			<td rowspan="1">20</td>
+			<td>55</td>
+			<td class="rate4" rowspan = '1'>2.75 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=24200 colspan='2'>전자전기정보공학부</td>
+			<td rowspan="1">10</td>
+			<td>31</td>
+			<td class="rate4" rowspan = '1'>3.10 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=24300 colspan='2'>공학계열</td>
+			<td rowspan="1">25</td>
+			<td>79</td>
+			<td class="rate4" rowspan = '1'>3.16 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=24400 colspan='2'>컴퓨터공학과</td>
+			<td rowspan="1">10</td>
+			<td>12</td>
+			<td class="rate4" rowspan = '1'>1.20 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=24500 colspan='2'>반도체시스템공학과</td>
+			<td rowspan="1">25</td>
+			<td>113</td>
+			<td class="rate4" rowspan = '1'>4.52 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=24600 colspan='2'>지능형소프트웨어학과</td>
+			<td rowspan="1">15</td>
+			<td>28</td>
+			<td class="rate4" rowspan = '1'>1.87 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=24700 colspan='2'>배터리학과</td>
+			<td rowspan="1">10</td>
+			<td>20</td>
+			<td class="rate4" rowspan = '1'>2.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=24800 colspan='2'>글로벌바이오메디컬공학과</td>
+			<td rowspan="1">15</td>
+			<td>30</td>
+			<td class="rate4" rowspan = '1'>2.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=24900 colspan='2'>반도체융합공학과</td>
+			<td rowspan="1">10</td>
+			<td>5</td>
+			<td class="rate4" rowspan = '1'>0.50 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=25000 colspan='2'>에너지학과</td>
+			<td rowspan="1">10</td>
+			<td>29</td>
+			<td class="rate4" rowspan = '1'>2.90 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=25100 colspan='2'>양자정보공학과</td>
+			<td rowspan="1">5</td>
+			<td>14</td>
+			<td class="rate4" rowspan = '1'>2.80 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=2>총계</td>
+			<td>155</td>
+			<td>416</td>
+			<td class="rate4">2.68 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_406'></a><div id="SelType406">
+	<h2><strong> 학생부교과(추천인재)</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="15%" />
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th colspan='2'>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=27100 colspan='2'>자유전공계열</td>
+			<td rowspan="1">20</td>
+			<td>4</td>
+			<td class="rate4" rowspan = '1'>0.20 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=27200 colspan='2'>인문과학계열</td>
+			<td rowspan="1">20</td>
+			<td>4</td>
+			<td class="rate4" rowspan = '1'>0.20 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=27300 colspan='2'>사회과학계열</td>
+			<td rowspan="1">20</td>
+			<td>8</td>
+			<td class="rate4" rowspan = '1'>0.40 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=27400 colspan='2'>경영학과</td>
+			<td rowspan="1">20</td>
+			<td>13</td>
+			<td class="rate4" rowspan = '1'>0.65 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=27500 colspan='2'>글로벌리더학부</td>
+			<td rowspan="1">10</td>
+			<td>12</td>
+			<td class="rate4" rowspan = '1'>1.20 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=27600 colspan='2'>글로벌경제학과</td>
+			<td rowspan="1">10</td>
+			<td>3</td>
+			<td class="rate4" rowspan = '1'>0.30 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=27700 colspan='2'>글로벌경영학과</td>
+			<td rowspan="1">10</td>
+			<td>4</td>
+			<td class="rate4" rowspan = '1'>0.40 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="2">사범대학</td>
+			<td class="unit" Etc7=27800 colspan='1'>교육학과</td>
+			<td rowspan="1">10</td>
+			<td>11</td>
+			<td class="rate4" rowspan = '1'>1.10 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=27900 colspan='1'>한문교육과</td>
+			<td rowspan="1">10</td>
+			<td>0</td>
+			<td class="rate4" rowspan = '1'>0.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="10">전공예약</td>
+			<td class="unit" Etc7=28000 colspan='1'>유학·동양학과</td>
+			<td rowspan="1">15</td>
+			<td>2</td>
+			<td class="rate4" rowspan = '1'>0.13 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=28100 colspan='1'>국어국문학과</td>
+			<td rowspan="1">6</td>
+			<td>3</td>
+			<td class="rate4" rowspan = '1'>0.50 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=28500 colspan='1'>한문학과</td>
+			<td rowspan="1">10</td>
+			<td>2</td>
+			<td class="rate4" rowspan = '1'>0.20 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=28600 colspan='1'>사학과</td>
+			<td rowspan="1">6</td>
+			<td>3</td>
+			<td class="rate4" rowspan = '1'>0.50 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=28700 colspan='1'>철학과</td>
+			<td rowspan="1">6</td>
+			<td>4</td>
+			<td class="rate4" rowspan = '1'>0.67 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=28800 colspan='1'>사회학과</td>
+			<td rowspan="1">12</td>
+			<td>5</td>
+			<td class="rate4" rowspan = '1'>0.42 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=28900 colspan='1'>사회복지학과</td>
+			<td rowspan="1">12</td>
+			<td>0</td>
+			<td class="rate4" rowspan = '1'>0.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=29000 colspan='1'>심리학과</td>
+			<td rowspan="1">6</td>
+			<td>1</td>
+			<td class="rate4" rowspan = '1'>0.17 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=29100 colspan='1'>아동·청소년학과</td>
+			<td rowspan="1">12</td>
+			<td>2</td>
+			<td class="rate4" rowspan = '1'>0.17 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=29200 colspan='1'>통계학과</td>
+			<td rowspan="1">6</td>
+			<td>0</td>
+			<td class="rate4" rowspan = '1'>0.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=29300 colspan='2'>영상학과</td>
+			<td rowspan="1">5</td>
+			<td>4</td>
+			<td class="rate4" rowspan = '1'>0.80 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=29400 colspan='2'>의상학과</td>
+			<td rowspan="1">5</td>
+			<td>0</td>
+			<td class="rate4" rowspan = '1'>0.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=29500 colspan='2'>자연과학계열</td>
+			<td rowspan="1">20</td>
+			<td>5</td>
+			<td class="rate4" rowspan = '1'>0.25 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=29600 colspan='2'>전자전기정보공학부</td>
+			<td rowspan="1">10</td>
+			<td>6</td>
+			<td class="rate4" rowspan = '1'>0.60 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=29700 colspan='2'>공학계열</td>
+			<td rowspan="1">54</td>
+			<td>20</td>
+			<td class="rate4" rowspan = '1'>0.37 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=29800 colspan='2'>컴퓨터공학과</td>
+			<td rowspan="1">5</td>
+			<td>3</td>
+			<td class="rate4" rowspan = '1'>0.60 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=30200 colspan='2'>글로벌바이오메디컬공학과</td>
+			<td rowspan="1">6</td>
+			<td>5</td>
+			<td class="rate4" rowspan = '1'>0.83 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=30300 colspan='2'>반도체융합공학과</td>
+			<td rowspan="1">7</td>
+			<td>2</td>
+			<td class="rate4" rowspan = '1'>0.29 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=30400 colspan='2'>에너지학과</td>
+			<td rowspan="1">7</td>
+			<td>3</td>
+			<td class="rate4" rowspan = '1'>0.43 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=30600 colspan='2'>바이오신약·규제과학과</td>
+			<td rowspan="1">5</td>
+			<td>4</td>
+			<td class="rate4" rowspan = '1'>0.80 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=30800 colspan='2'>건축학과(5년제)</td>
+			<td rowspan="1">15</td>
+			<td>4</td>
+			<td class="rate4" rowspan = '1'>0.27 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="2">사범대학</td>
+			<td class="unit" Etc7=31100 colspan='1'>수학교육과</td>
+			<td rowspan="1">10</td>
+			<td>7</td>
+			<td class="rate4" rowspan = '1'>0.70 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=31200 colspan='1'>컴퓨터교육과</td>
+			<td rowspan="1">10</td>
+			<td>2</td>
+			<td class="rate4" rowspan = '1'>0.20 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="5">전공예약</td>
+			<td class="unit" Etc7=31300 colspan='1'>생명과학과</td>
+			<td rowspan="1">6</td>
+			<td>3</td>
+			<td class="rate4" rowspan = '1'>0.50 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=31400 colspan='1'>수학과</td>
+			<td rowspan="1">6</td>
+			<td>6</td>
+			<td class="rate4" rowspan = '1'>1.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=31500 colspan='1'>물리학과</td>
+			<td rowspan="1">6</td>
+			<td>1</td>
+			<td class="rate4" rowspan = '1'>0.17 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=31600 colspan='1'>화학과</td>
+			<td rowspan="1">6</td>
+			<td>3</td>
+			<td class="rate4" rowspan = '1'>0.50 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=31700 colspan='1'>건설환경공학부</td>
+			<td rowspan="1">15</td>
+			<td>2</td>
+			<td class="rate4" rowspan = '1'>0.13 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=2>총계</td>
+			<td>419</td>
+			<td>161</td>
+			<td class="rate4">0.38 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_495'></a><div id="SelType495">
+	<h2><strong> 논술위주(언어형)</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="15%" />
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th colspan='2'>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=32500 colspan='2'>자유전공계열</td>
+			<td rowspan="1">10</td>
+			<td>74</td>
+			<td class="rate4" rowspan = '1'>7.40 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=32600 colspan='2'>인문과학계열</td>
+			<td rowspan="1">38</td>
+			<td>203</td>
+			<td class="rate4" rowspan = '1'>5.34 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=32700 colspan='2'>사회과학계열</td>
+			<td rowspan="1">40</td>
+			<td>312</td>
+			<td class="rate4" rowspan = '1'>7.80 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=32800 colspan='2'>경영학과</td>
+			<td rowspan="1">20</td>
+			<td>191</td>
+			<td class="rate4" rowspan = '1'>9.55 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=32900 colspan='2'>글로벌리더학부</td>
+			<td rowspan="1">10</td>
+			<td>54</td>
+			<td class="rate4" rowspan = '1'>5.40 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=33000 colspan='2'>글로벌경제학과</td>
+			<td rowspan="1">10</td>
+			<td>37</td>
+			<td class="rate4" rowspan = '1'>3.70 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=33100 colspan='2'>글로벌경영학과</td>
+			<td rowspan="1">10</td>
+			<td>80</td>
+			<td class="rate4" rowspan = '1'>8.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=34900 colspan='2'>자연과학계열</td>
+			<td rowspan="1">5</td>
+			<td>22</td>
+			<td class="rate4" rowspan = '1'>4.40 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=35000 colspan='2'>전자전기정보공학부</td>
+			<td rowspan="1">5</td>
+			<td>26</td>
+			<td class="rate4" rowspan = '1'>5.20 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=35100 colspan='2'>공학계열</td>
+			<td rowspan="1">10</td>
+			<td>77</td>
+			<td class="rate4" rowspan = '1'>7.70 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=35200 colspan='2'>컴퓨터공학과</td>
+			<td rowspan="1">5</td>
+			<td>10</td>
+			<td class="rate4" rowspan = '1'>2.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1">전공예약</td>
+			<td class="unit" Etc7=37100 colspan='1'>건설환경공학부</td>
+			<td rowspan="1">5</td>
+			<td>10</td>
+			<td class="rate4" rowspan = '1'>2.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=37200 colspan='2'>글로벌AI융합학부</td>
+			<td rowspan="1">4</td>
+			<td>21</td>
+			<td class="rate4" rowspan = '1'>5.25 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=2>총계</td>
+			<td>172</td>
+			<td>1,117</td>
+			<td class="rate4">6.49 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_492'></a><div id="SelType492">
+	<h2><strong> 논술위주(수리형)</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="15%" />
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th colspan='2'>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=37900 colspan='2'>자유전공계열</td>
+			<td rowspan="1">20</td>
+			<td>105</td>
+			<td class="rate4" rowspan = '1'>5.25 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=38100 colspan='2'>사회과학계열</td>
+			<td rowspan="1">5</td>
+			<td>24</td>
+			<td class="rate4" rowspan = '1'>4.80 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=38200 colspan='2'>경영학과</td>
+			<td rowspan="1">5</td>
+			<td>24</td>
+			<td class="rate4" rowspan = '1'>4.80 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=38300 colspan='2'>글로벌리더학부</td>
+			<td rowspan="1">5</td>
+			<td>5</td>
+			<td class="rate4" rowspan = '1'>1.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=38400 colspan='2'>글로벌경제학과</td>
+			<td rowspan="1">5</td>
+			<td>18</td>
+			<td class="rate4" rowspan = '1'>3.60 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=38500 colspan='2'>글로벌경영학과</td>
+			<td rowspan="1">5</td>
+			<td>17</td>
+			<td class="rate4" rowspan = '1'>3.40 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=40300 colspan='2'>자연과학계열</td>
+			<td rowspan="1">25</td>
+			<td>150</td>
+			<td class="rate4" rowspan = '1'>6.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=40400 colspan='2'>전자전기정보공학부</td>
+			<td rowspan="1">25</td>
+			<td>113</td>
+			<td class="rate4" rowspan = '1'>4.52 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=40500 colspan='2'>공학계열</td>
+			<td rowspan="1">40</td>
+			<td>309</td>
+			<td class="rate4" rowspan = '1'>7.73 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=40600 colspan='2'>컴퓨터공학과</td>
+			<td rowspan="1">5</td>
+			<td>18</td>
+			<td class="rate4" rowspan = '1'>3.60 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=40700 colspan='2'>반도체시스템공학과</td>
+			<td rowspan="1">10</td>
+			<td>124</td>
+			<td class="rate4" rowspan = '1'>12.40 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=40800 colspan='2'>지능형소프트웨어학과</td>
+			<td rowspan="1">5</td>
+			<td>20</td>
+			<td class="rate4" rowspan = '1'>4.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=41000 colspan='2'>글로벌바이오메디컬공학과</td>
+			<td rowspan="1">10</td>
+			<td>40</td>
+			<td class="rate4" rowspan = '1'>4.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=41100 colspan='2'>반도체융합공학과</td>
+			<td rowspan="1">5</td>
+			<td>11</td>
+			<td class="rate4" rowspan = '1'>2.20 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=41200 colspan='2'>에너지학과</td>
+			<td rowspan="1">5</td>
+			<td>16</td>
+			<td class="rate4" rowspan = '1'>3.20 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=41500 colspan='2'>인공지능학과</td>
+			<td rowspan="1">5</td>
+			<td>16</td>
+			<td class="rate4" rowspan = '1'>3.20 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=41700 colspan='2'>약학과</td>
+			<td rowspan="1">5</td>
+			<td>178</td>
+			<td class="rate4" rowspan = '1'>35.60 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=41800 colspan='2'>의예과</td>
+			<td rowspan="1">5</td>
+			<td>330</td>
+			<td class="rate4" rowspan = '1'>66.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1">전공예약</td>
+			<td class="unit" Etc7=42500 colspan='1'>건설환경공학부</td>
+			<td rowspan="1">10</td>
+			<td>26</td>
+			<td class="rate4" rowspan = '1'>2.60 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=42600 colspan='2'>글로벌AI융합학부</td>
+			<td rowspan="1">4</td>
+			<td>11</td>
+			<td class="rate4" rowspan = '1'>2.75 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=2>총계</td>
+			<td>204</td>
+			<td>1,555</td>
+			<td class="rate4">7.62 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_496'></a><div id="SelType496">
+	<h2><strong> 실기/실적(예체능 특기자)</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="15%" />
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th colspan='2'>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td style='display:none;'></td>
+			<td class="unit" Etc7=45500 colspan='2'>영상학과</td>
+			<td rowspan="1">5</td>
+			<td>2</td>
+			<td class="rate4" rowspan = '1'>0.40 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="14">스포츠과학과</td>
+			<td class="unit" Etc7=48601A colspan='1'>야구-투수</td>
+			<td rowspan="1">1</td>
+			<td>9</td>
+			<td class="rate4" rowspan = '1'>9.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=48601B colspan='1'>야구-포수</td>
+			<td rowspan="1">1</td>
+			<td>7</td>
+			<td class="rate4" rowspan = '1'>7.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=48601C colspan='1'>야구-내야수</td>
+			<td rowspan="1">1</td>
+			<td>16</td>
+			<td class="rate4" rowspan = '1'>16.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=48601D colspan='1'>야구-외야수</td>
+			<td rowspan="1">1</td>
+			<td>17</td>
+			<td class="rate4" rowspan = '1'>17.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=48602A colspan='1'>축구-골키퍼</td>
+			<td rowspan="1">1</td>
+			<td>4</td>
+			<td class="rate4" rowspan = '1'>4.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=48602J colspan='1'>축구-중앙공격수</td>
+			<td rowspan="1">1</td>
+			<td>3</td>
+			<td class="rate4" rowspan = '1'>3.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=48602K colspan='1'>축구-측면수비수</td>
+			<td rowspan="1">1</td>
+			<td>4</td>
+			<td class="rate4" rowspan = '1'>4.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=48602L colspan='1'>축구-측면공격수</td>
+			<td rowspan="1">1</td>
+			<td>6</td>
+			<td class="rate4" rowspan = '1'>6.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=48603B colspan='1'>농구-포워드</td>
+			<td rowspan="1">2</td>
+			<td>4</td>
+			<td class="rate4" rowspan = '1'>2.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=48603C colspan='1'>농구-센터</td>
+			<td rowspan="1">1</td>
+			<td>0</td>
+			<td class="rate4" rowspan = '1'>0.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=48604A colspan='1'>배구-세터</td>
+			<td rowspan="1">1</td>
+			<td>1</td>
+			<td class="rate4" rowspan = '1'>1.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=48604J colspan='1'>배구-미들블로커</td>
+			<td rowspan="1">1</td>
+			<td>2</td>
+			<td class="rate4" rowspan = '1'>2.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=48604K colspan='1'>배구-아웃사이드히터</td>
+			<td rowspan="1">1</td>
+			<td>3</td>
+			<td class="rate4" rowspan = '1'>3.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=486009 colspan='1'>골프</td>
+			<td rowspan="1">2</td>
+			<td>7</td>
+			<td class="rate4" rowspan = '1'>3.50 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=2>총계</td>
+			<td>21</td>
+			<td>85</td>
+			<td class="rate4">4.05 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_498'></a><div id="SelType498">
+	<h2><strong> 실기/실적(예체능 실기우수자)</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="15%" />
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th colspan='2'>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="1">연기예술학과</td>
+			<td class="unit" Etc7=53500 colspan='1'>연기</td>
+			<td rowspan="1">20</td>
+			<td>1,179</td>
+			<td class="rate4" rowspan = '1'>58.95 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="3">무용학과</td>
+			<td class="unit" Etc7=53700 colspan='1'>한국무용</td>
+			<td rowspan="1">13</td>
+			<td>2</td>
+			<td class="rate4" rowspan = '1'>0.15 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=53800 colspan='1'>발레</td>
+			<td rowspan="1">12</td>
+			<td>9</td>
+			<td class="rate4" rowspan = '1'>0.75 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=53900 colspan='1'>컨템포러리댄스</td>
+			<td rowspan="1">12</td>
+			<td>5</td>
+			<td class="rate4" rowspan = '1'>0.42 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="10">스포츠과학과</td>
+			<td class="unit" Etc7=54001 colspan='1'>야구</td>
+			<td rowspan="4">10</td>
+			<td>27</td>
+			<td class="rate4" rowspan = '4'>3.50 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=54002 colspan='1'>축구</td>
+			<td>2</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=54003 colspan='1'>농구</td>
+			<td>4</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=54004 colspan='1'>배구</td>
+			<td>2</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=54009 colspan='1'>육상</td>
+			<td rowspan="6">8</td>
+			<td>3</td>
+			<td class="rate4" rowspan = '6'>2.00 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=54009 colspan='1'>테니스</td>
+			<td>3</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=54009 colspan='1'>골프</td>
+			<td>9</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=54009 colspan='1'>검도</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=54009 colspan='1'>탁구</td>
+			<td>0</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=54009 colspan='1'>배드민턴</td>
+			<td>1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=2>총계</td>
+			<td>75</td>
+			<td>1,246</td>
+			<td class="rate4">16.61 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+	<a name='lik_420'></a><div id="SelType420">
+	<h2><strong> 학생부종합(특성화고졸재직자)</strong> 경쟁률 현황</h2>
+	<table width="100%" border="0" cellpadding="0" cellspacing="0" class="tableRatio3">
+		<colgroup>
+			<col width="15%" />
+			<col width="" />
+			<col width="10%" />
+			<col width="10%" />
+			<col width="17.5%" />
+		</colgroup>
+		<tr>
+			<th colspan='2'>모집단위</th>
+			<th>모집인원</th>
+			<th>지원인원</th>
+			<th>경쟁률</th>
+		</tr>
+		<!-- 반복 //-->
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" rowspan="2">응용AI융합학부</td>
+			<td class="unit" Etc7=75700 colspan='1'>AI융합운영</td>
+			<td rowspan="1">94</td>
+			<td>107</td>
+			<td class="rate4" rowspan = '1'>1.14 : 1</td>
+		</tr>
+		<tr onmouseover="this.className='over';" onmouseout="this.className='';">
+			<td class="unit" Etc7=75800 colspan='1'>산업인공지능</td>
+			<td rowspan="1">93</td>
+			<td>61</td>
+			<td class="rate4" rowspan = '1'>0.66 : 1</td>
+		</tr>
+		<!-- 총계 //-->
+		<tr class="total">
+			<td colspan=2>총계</td>
+			<td>187</td>
+			<td>168</td>
+			<td class="rate4">0.90 : 1</td>
+		</tr>
+		<!--// 총계 -->
+	</table>
+	</div>
+
+					<!--// 컨텐츠 -->
+				</div>
+
+				<div class="btnR">
+					<a href="javascript:print();" id="btnPrint">
+						<img src="/RatioV1/img/btn_print.gif" width="86" height="21" border="0" alt="인쇄하기"></a>
+					
+				</div>
+			</div> <!-- cont end -->
+
+			
+
+			<div class="quick_menu" style="display:none;">
+				<a class="btn_top" href="javascript:void(0);MoveTop()">상단으로 이동</a> 
+			</div>
+
+			<div class="footer" id="Logo1">
+				<a href="http://www.jinhakapply.com" target="_blank"><img src="/RatioV1/img/jinhak_logo.gif" border="0"></a>
+			</div>
+	</form>
+</body>
+
+</html>
