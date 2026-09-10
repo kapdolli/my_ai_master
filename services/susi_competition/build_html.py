@@ -567,8 +567,8 @@ HTML_TEMPLATE = r"""<!doctype html>
         <col style="width:5%"><col style="width:6%"><col style="width:4.5%">
         <col style="width:4.5%"><col style="width:4.5%"><col style="width:11.5%">
         <col style="width:7%"><col style="width:7%"><col style="width:7%">
-        <col style="width:8.5%"><col style="width:4%"><col style="width:11.5%">
-        <col style="width:8.5%"><col style="width:10.5%">
+        <col style="width:8.5%"><col style="width:4.5%"><col style="width:11.5%">
+        <col style="width:8.5%"><col style="width:10%">
       </colgroup>
       <thead>
         <tr>
