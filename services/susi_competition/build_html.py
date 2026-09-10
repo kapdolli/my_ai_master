@@ -71,6 +71,18 @@ def deadline_label(day: str, time: str) -> tuple[str, int]:
     return label, (mon * 100 + d) * 10000 + hh * 100 + mm
 
 
+_UNTIL_RE = re.compile(r"(\d{1,2})/(\d{1,2})\s+(\d{1,2}):(\d{2})")
+
+
+def until_key(label: str) -> int:
+    """'9/11 12:00' → 마감키와 같은 형식의 정렬키. 빈 값/미상은 맨 뒤."""
+    m = _UNTIL_RE.match(label or "")
+    if not m:
+        return 10 ** 9
+    mon, day, hh, mm = (int(g) for g in m.groups())
+    return (mon * 100 + day) * 10000 + hh * 100 + mm
+
+
 def load_uni_defaults() -> list[str]:
     """uni_defaults.txt → 기본 체크 대학 목록 (없거나 비어 있으면 전체)."""
     if not UNI_DEFAULTS.exists():
@@ -127,6 +139,10 @@ def build() -> None:
         r["rank"] = int(r["rank"]) if r["rank"] else 999
         r["마감"], r["마감키"] = deadline_label(r.get("deadline_day", ""),
                                                r.get("deadline_time", ""))
+        # 경쟁률 페이지가 알려주는 공개 종료 시각 (대학마다 다르다)
+        r["경쟁률마감"] = r.get("rate_until", "") or ""
+        r["경쟁률마감키"] = until_key(r["경쟁률마감"])
+        r["기준"] = r.get("rate_asof", "") or ""
         # 표에는 원문 시각을 그대로 (예: "16:00(송도)/18:00(강화)")
         raw_t = (r.get("deadline_time") or "").strip()
         r["마감표시"] = r["마감"]
@@ -135,6 +151,20 @@ def build() -> None:
         r["quota"] = int(r["quota"])
         r["applicants"] = int(r["applicants"])
         r["rate"] = float(r["rate"])
+
+    # 안내 문구는 대학 단위라 행마다 넣으면 용량만 커진다 → 대학별 맵으로 한 번만.
+    notices = {}
+    asof = {}
+    for r in rows:
+        if r.get("rate_notice") and r["university"] not in notices:
+            notices[r["university"]] = r["rate_notice"]
+        if r.get("기준") and r["university"] not in asof:
+            asof[r["university"]] = r["기준"]
+    n_until = len({r["university"] for r in rows if r["경쟁률마감키"] < 10 ** 9})
+    print(f"[i] 경쟁률 공개마감 파싱: {n_until}/{len({r['university'] for r in rows})}개 대학",
+          file=sys.stderr)
+    if asof:
+        print(f"[i] 경쟁률 기준시각: {min(asof.values())} ~ {max(asof.values())}", file=sys.stderr)
 
     from collections import Counter
     dl = Counter(r["마감"] for r in rows)
@@ -160,7 +190,8 @@ def build() -> None:
 
     # 원본 마감 컬럼은 마감/마감표시/마감키로 이미 흡수됐다 — 페이지 용량만 차지하므로 제외.
     slim = [{k: v for k, v in r.items()
-             if k not in ("deadline_day", "deadline_time")} for r in rows]
+             if k not in ("deadline_day", "deadline_time", "founder", "기준",
+                          "rate_asof", "rate_until", "rate_notice")} for r in rows]
     data_json = json.dumps(slim, ensure_ascii=False, separators=(",", ":"))
     pinned_json = json.dumps(pinned, ensure_ascii=False, separators=(",", ":"))
     generated = datetime.now().strftime("%Y-%m-%d %H:%M")
@@ -168,6 +199,13 @@ def build() -> None:
     html = (HTML_TEMPLATE
             .replace("__DATA__", data_json)
             .replace("__PINNED__", pinned_json)
+            .replace("__NOTICES__",
+                     json.dumps(notices, ensure_ascii=False, separators=(",", ":")))
+            .replace("__ASOF_BY_UNI__",
+                     json.dumps(asof, ensure_ascii=False, separators=(",", ":")))
+            .replace("__ASOF__",
+                     json.dumps(sorted(set(asof.values())), ensure_ascii=False,
+                                separators=(",", ":")))
             .replace("__UNI_DEFAULTS__",
                      json.dumps(uni_defaults, ensure_ascii=False, separators=(",", ":")))
             .replace("__GENERATED__", generated))
@@ -306,6 +344,12 @@ HTML_TEMPLATE = r"""<!doctype html>
   .dl { font-variant-numeric: tabular-nums; }
   .dl.soon { color: var(--danger); font-weight: 700; }
   .chip.past { text-decoration: line-through; color: var(--muted); }
+  .ru { font-variant-numeric: tabular-nums; }
+  .ru.closed { color: var(--muted); }
+  .ru.unknown { color: #c2410c; }
+  .badge { display: inline-block; padding: 0 5px; border-radius: 4px; font-size: 10px;
+    margin-left: 4px; background: #e5e7eb; color: #374151; }
+  .asof { font-size: 11px; color: var(--muted); }
   .hint.saved { color: var(--accent); }
   .export-box { margin-top: 8px; }
   .export-box textarea { width: 100%; height: 90px; font: 12px/1.4 ui-monospace,
@@ -319,6 +363,9 @@ HTML_TEMPLATE = r"""<!doctype html>
      (경쟁률 컷 없음 — 화면 기본값 <strong>≤ 2.0</strong>, 숫자를 올리면 더 보입니다)
      · ★ = 주요대학(대학백과 2026 상위 50)
      · 제외: 고려대(세종), 모든 여대 · 생성: __GENERATED__</p>
+  <p class="asof">경쟁률 기준시각(대학별 상이): <span id="asof-range"></span>
+     · 경쟁률 공개는 대학마다 접수마감보다 이르게 끝납니다 — <strong>경쟁률마감</strong> 열 참고
+     (칸에 마우스를 올리면 대학 공지 원문)</p>
 </header>
 <main>
   <div class="warn-banner">
@@ -327,6 +374,7 @@ HTML_TEMPLATE = r"""<!doctype html>
     ⚠️ <strong>정원외 "O"</strong> 표시는 별도 지원자격(농어촌 학생 등)이 필요합니다.
     ⚠️ 원서 마감 임박 시점의 경쟁률이므로 최종 확정 경쟁률과 다를 수 있습니다.
     ⚠️ 필터를 바꾼 뒤에는 <strong>[검색]</strong> 을 눌러야 표에 반영됩니다.
+    ⚠️ <strong>경쟁률마감</strong>이 지난 대학은 숫자가 더 이상 오르지 않습니다 (그 시점의 값에서 멈춤).
   </div>
 
   <div class="pin-section">
@@ -356,6 +404,15 @@ HTML_TEMPLATE = r"""<!doctype html>
     <div class="row">
       <label>마감</label>
       <div class="chips" id="chips-deadline"></div>
+    </div>
+    <div class="row">
+      <label>경쟁률공개</label>
+      <div class="chips" id="chips-ru">
+        <span class="chip on" data-v="all">전체</span>
+        <span class="chip" data-v="open">공개중</span>
+        <span class="chip" data-v="closed">공개종료</span>
+        <span class="chip" data-v="unknown">공개마감 미상</span>
+      </div>
     </div>
     <div class="row">
       <label>대학군</label>
@@ -405,7 +462,8 @@ HTML_TEMPLATE = r"""<!doctype html>
           <th class="sortable" data-k="applicants">지원</th>
           <th class="sortable" data-k="region">지역</th>
           <th class="sortable" data-k="university">대학</th>
-          <th class="sortable" data-k="마감키">마감</th>
+          <th class="sortable" data-k="마감키">접수마감</th>
+          <th class="sortable" data-k="경쟁률마감키">경쟁률마감</th>
           <th class="sortable" data-k="전형세부유형">세부유형</th>
           <th class="sortable" data-k="정원외">정외</th>
           <th class="sortable" data-k="admission_type">전형명</th>
@@ -427,6 +485,9 @@ HTML_TEMPLATE = r"""<!doctype html>
 <script>
 const DATA = __DATA__;
 const PINNED = __PINNED__;
+const NOTICES = __NOTICES__;             // 대학 → 경쟁률 공개 안내 원문
+const ASOF = __ASOF__;                   // 경쟁률 기준시각 목록 (대학마다 다름)
+const ASOF_BY_UNI = __ASOF_BY_UNI__;     // 대학 → 이 대학 경쟁률의 기준시각
 const DEFAULT_UNIS = __UNI_DEFAULTS__;   // uni_defaults.txt (모든 브라우저 공통 기본값)
 const STORE_KEY = "susi2027.filters.v1"; // 이 브라우저에서의 마지막 선택
 
@@ -474,7 +535,8 @@ const state = {
   types: new Set(),        // empty = all
   regions: new Set(),      // empty = all
   oq: "all",               // all / in / out
-  deadlines: new Set(),    // empty = all  (마감 라벨)
+  deadlines: new Set(),    // empty = all  (접수마감 라벨)
+  ru: "all",               // all / open / closed / unknown  (경쟁률 공개 상태)
   major: "all",            // all / major / other  (주요대학 = 상위50)
   unis: new Set(),         // empty = all
   maxRate: 2.0,
@@ -491,7 +553,7 @@ function saveState() {
   try {
     localStorage.setItem(STORE_KEY, JSON.stringify({
       types: [...state.types], regions: [...state.regions],
-      deadlines: [...state.deadlines],
+      deadlines: [...state.deadlines], ru: state.ru,
       oq: state.oq, major: state.major, unis: [...state.unis],
       maxRate: state.maxRate, minQuota: state.minQuota, q: state.q,
     }));
@@ -520,6 +582,7 @@ function restoreState() {
   const dlNames = new Set(DEADLINES.map(d => d.label));
   state.deadlines = new Set((saved.deadlines || []).filter(d => dlNames.has(d)));
   state.oq = ["all", "in", "out"].includes(saved.oq) ? saved.oq : "all";
+  state.ru = ["all", "open", "closed", "unknown"].includes(saved.ru) ? saved.ru : "all";
   state.major = ["all", "major", "other"].includes(saved.major) ? saved.major : "all";
   state.unis = new Set((saved.unis || []).filter(u => names.has(u)));
   if (typeof saved.maxRate === "number" && isFinite(saved.maxRate)) state.maxRate = saved.maxRate;
@@ -538,6 +601,8 @@ function syncUiFromState() {
   onOff("#chips-deadline .chip", state.deadlines);
   document.querySelectorAll("#chips-oq .chip").forEach(el =>
     el.classList.toggle("on", el.dataset.v === state.oq));
+  document.querySelectorAll("#chips-ru .chip").forEach(el =>
+    el.classList.toggle("on", el.dataset.v === state.ru));
   document.querySelectorAll("#chips-major .chip").forEach(el =>
     el.classList.toggle("on", el.dataset.v === state.major));
   document.getElementById("max-rate").value = state.maxRate;
@@ -568,6 +633,25 @@ function unique(field) {
 const DEADLINES = [...new Map(DATA.map(r => [r["마감"], r["마감키"]])).entries()]
   .sort((a, b) => a[1] - b[1])
   .map(([label, key]) => ({ label, key, n: DATA.filter(r => r["마감"] === label).length }));
+
+const UNKNOWN_KEY = 1000000000;
+
+// 경쟁률마감 셀 표시/색
+function ruText(r, nk) {
+  if (r["경쟁률마감키"] >= UNKNOWN_KEY) return "미상";
+  const closed = r["경쟁률마감키"] < nk;
+  return r["경쟁률마감"] + (closed ? '<span class="badge">종료</span>' : "");
+}
+function ruTip(r) {
+  const parts = [];
+  if (ASOF_BY_UNI[r.university]) parts.push("경쟁률 기준시각: " + ASOF_BY_UNI[r.university]);
+  if (NOTICES[r.university]) parts.push(NOTICES[r.university]);
+  return parts.join(String.fromCharCode(10));
+}
+function ruCls(r, nk) {
+  if (r["경쟁률마감키"] >= UNKNOWN_KEY) return " unknown";
+  return r["경쟁률마감키"] < nk ? " closed" : "";
+}
 
 // '지금'을 같은 형식의 정렬키로 (뷰어의 로컬 시각 기준)
 function nowKey() {
@@ -654,6 +738,19 @@ function initChips() {
     dlEl.appendChild(el);
   });
 
+  document.querySelectorAll("#chips-ru .chip").forEach(el => {
+    el.onclick = () => {
+      document.querySelectorAll("#chips-ru .chip").forEach(x => x.classList.remove("on"));
+      el.classList.add("on");
+      state.ru = el.dataset.v;
+      markDirty();
+    };
+  });
+
+  document.getElementById("asof-range").textContent =
+    ASOF.length ? (ASOF.length === 1 ? ASOF[0] : ASOF[0] + " ~ " + ASOF[ASOF.length - 1])
+                : "(정보 없음)";
+
   document.querySelectorAll("#chips-major .chip").forEach(el => {
     el.onclick = () => {
       document.querySelectorAll("#chips-major .chip").forEach(x => x.classList.remove("on"));
@@ -688,7 +785,7 @@ function initChips() {
     document.getElementById("restored-hint").hidden = true;
     document.getElementById("export-box").hidden = true;
     state.types.clear(); state.regions.clear(); state.deadlines.clear();
-    state.oq = "all"; state.major = "all"; state.unis.clear();
+    state.oq = "all"; state.ru = "all"; state.major = "all"; state.unis.clear();
     DEFAULT_UNIS.filter(u => UNIS.some(x => x.name === u)).forEach(u => state.unis.add(u));
     state.maxRate = 2.0; state.minQuota = 1; state.q = "";
     document.getElementById("uni-search").value = "";
@@ -785,12 +882,19 @@ function syncUniLabel() {
 // --- 필터/정렬/렌더 ---------------------------------------------------------
 function filtered() {
   const q = state.q.toLowerCase();
+  const nowKeyCached = nowKey();
   return DATA.filter(r => {
     if (state.types.size && !state.types.has(r["전형세부유형"])) return false;
     if (state.regions.size && !state.regions.has(r.region)) return false;
     if (state.oq === "in" && r["정원외"] === "O") return false;
     if (state.oq === "out" && r["정원외"] !== "O") return false;
     if (state.deadlines.size && !state.deadlines.has(r["마감"])) return false;
+    if (state.ru !== "all") {
+      const k = r["경쟁률마감키"];
+      if (state.ru === "unknown" && k < UNKNOWN_KEY) return false;
+      if (state.ru === "open" && (k >= UNKNOWN_KEY || k < nowKeyCached)) return false;
+      if (state.ru === "closed" && (k >= UNKNOWN_KEY || k >= nowKeyCached)) return false;
+    }
     if (state.major === "major" && r["주요대학"] !== "O") return false;
     if (state.major === "other" && r["주요대학"] === "O") return false;
     // 전부 체크 = 무필터로 취급
@@ -860,6 +964,7 @@ function render() {
       <td>${r.region}</td>
       <td>${r["주요대학"] === "O" ? '<span class="major-star">★</span>' : ""}${escapeHtml(r.university)}</td>
       <td class="dl${past ? "" : (r["마감키"] < soonKey ? " soon" : "")}">${escapeHtml(r["마감표시"] || r["마감"])}</td>
+      <td class="ru${ruCls(r, nk)}" title="${escapeHtml(ruTip(r))}">${ruText(r, nk)}</td>
       <td><span class="tag ${cls}">${r["전형세부유형"]}</span></td>
       <td class="oq-cell">${r["정원외"] || ""}</td>
       <td>${escapeHtml(r.admission_type)}</td>

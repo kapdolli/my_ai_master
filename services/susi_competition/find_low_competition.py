@@ -123,6 +123,155 @@ class Department:
     # 원서 마감 — 대학 단위 값 (경기도교육청 BOOTSTRAP 의 lastday/lasttime).
     deadline_day: str = ""    # 예: "9.11.(금)"
     deadline_time: str = ""   # 예: "18:00" (드물게 "16:00(송도)/18:00(강화)")
+    # 경쟁률 페이지 자체가 알려주는 값 (대학·제공사마다 다르다).
+    rate_asof: str = ""       # 표시된 경쟁률의 기준시각. 예: "09-09 21:00"
+    rate_until: str = ""      # 경쟁률 공개 종료 시각. 예: "9/11 11:00" (모르면 빈 값)
+    rate_notice: str = ""     # 근거가 된 안내 문구 원문 (툴팁용)
+
+
+# ---------------------------------------------------------------------------
+# 2-a. 경쟁률 페이지가 스스로 알려주는 기준시각 / 공개 종료 시각
+# ---------------------------------------------------------------------------
+# 대학마다 경쟁률을 갱신·공개하는 시간대가 제각각이다. 예:
+#   진학사 "2026-09-09 오후 9:00 현황" / 유웨이 "2026년 09월 09일 21시 00분 기준"
+#   "경쟁률은 9월 11일(금) 오전 11시까지만 제공되며 ..."
+#   "경쟁률은 원서접수 마감일 15시까지 제공됩니다."
+#   "경쟁률은 10분 단위로 업데이트 됩니다.(단, 원서접수 마감일은 12:00까지 공개)"
+# 파싱에 실패하면 빈 값으로 두고 원문(rate_notice)만 넘긴다 — 추측하지 않는다.
+
+_ASOF_JINHAK = re.compile(r"(\d{4})-(\d{1,2})-(\d{1,2})\s*(오전|오후)\s*(\d{1,2}):(\d{2})")
+_ASOF_UWAY = re.compile(r"(\d{4})년\s*(\d{1,2})월\s*(\d{1,2})일\s*(\d{1,2})시\s*(\d{1,2})분")
+
+# 경쟁률 공개 종료를 말하는 문장만 추린다 (갱신 주기 안내와 구분).
+_NOTICE_SPLIT = re.compile(r"[※□■●▶]")
+# 안내 문구 뒤에 페이지 본문이 이어붙는 경우가 있어 여기서 끊는다.
+_CUT_RE = re.compile(
+    r"(원서접수 바로가기|대학홈페이지|입학처|\d{4}-\d{1,2}-\d{1,2}\s*(?:오전|오후)"
+    r"|\d{4}년\s*\d{1,2}월\s*\d{1,2}일\s*\d{1,2}시)"
+)
+# "9시", "오후 4시", "17:00" 형태의 시각
+_TIME_RE = re.compile(r"(오전|오후)?\s*(?:(\d{1,2})\s*시(?!간)(?:\s*(\d{1,2})\s*분)?|(\d{1,2}):(\d{2}))")
+
+
+def _to_24h(ampm: str, hour: int) -> int:
+    if ampm == "오후" and hour < 12:
+        return hour + 12
+    if ampm == "오전" and hour == 12:
+        return 0
+    return hour
+
+
+def _extract_asof(text: str) -> str:
+    m = _ASOF_JINHAK.search(text)
+    if m:
+        _, mon, day, ampm, hh, mm = m.groups()
+        return f"{int(mon):02d}-{int(day):02d} {_to_24h(ampm, int(hh)):02d}:{mm}"
+    m = _ASOF_UWAY.search(text)
+    if m:
+        _, mon, day, hh, mm = m.groups()
+        return f"{int(mon):02d}-{int(day):02d} {int(hh):02d}:{int(mm):02d}"
+    return ""
+
+
+def _last_time(segment: str) -> tuple[int, int] | None:
+    """구간 안의 마지막 시각. '10시, 14시만' → 14:00, '오후 4시' → 16:00."""
+    found = None
+    if "정오" in segment:
+        found = (12, 0)
+    for m in _TIME_RE.finditer(segment):
+        ampm, h1, m1, h2, m2 = m.groups()
+        if h1 is not None:
+            hh, mm = int(h1), int(m1 or 0)
+        else:
+            hh, mm = int(h2), int(m2)
+        if hh > 24 or mm > 59:
+            continue
+        found = (_to_24h(ampm or "", hh), mm)
+    return found
+
+
+# 원서접수 기간을 말하는 구절 — 경쟁률 공개 종료와 헷갈리면 안 된다.
+_APPLY_WORDS = ("접수기간", "접수 기간", "모집기간", "모집 기간")
+_RATE_WORDS = ("경쟁률", "현황")
+
+
+def _extract_rate_until(text: str, deadline_day: str,
+                        deadline_time: str = "") -> tuple[str, str]:
+    """(경쟁률 공개 종료 라벨, 근거 문구). 확신이 없으면 ('', 문구) — 추측하지 않는다."""
+    cands = []
+    for raw in _NOTICE_SPLIT.split(text):
+        if "경쟁률" not in raw:
+            continue
+        cut = _CUT_RE.search(raw)
+        c = (raw[:cut.start()] if cut else raw).strip()
+        if ("까지" in c or "만)" in c or re.search(r"시\s*만", c)
+                or "마감시간" in c or "마감 시간" in c
+                or ("마감일" in c and "갱신" in c)):
+            cands.append(c)
+    notice = " / ".join(c[:160] for c in cands[:2])
+
+    dm = re.search(r"(\d{1,2})\s*\.\s*(\d{1,2})", deadline_day or "")
+    dl = (int(dm.group(1)), int(dm.group(2))) if dm else None
+
+    # "원서접수 마감 1시간 전까지 공지" — 마감시각에서 빼서 계산한다.
+    dt = re.search(r"(\d{1,2}):(\d{2})", deadline_time or "")
+    for c in cands:
+        m = re.search(r"마감\s*(\d{1,2})\s*시간\s*전", c)
+        if m and dl and dt:
+            total = int(dt.group(1)) * 60 + int(dt.group(2)) - int(m.group(1)) * 60
+            if total >= 0:
+                return f"{dl[0]}/{dl[1]} {total // 60:02d}:{total % 60:02d}", notice
+
+    for c in cands:
+        seg = None
+        for m in re.finditer("까지", c):
+            k = m.start()
+            anchor = max(c.rfind(w, 0, k) for w in _RATE_WORDS)
+            if anchor >= 0:
+                between = c[anchor:k]
+                # "원서접수기간 … 17:00까지" 는 접수 마감이지 경쟁률 마감이 아니다.
+                if not any(w in between for w in _APPLY_WORDS):
+                    seg = between
+                    break
+            # "정오(12시)까지 경쟁률이 공지됩니다" — 경쟁률이 '까지' 뒤에 오는 표현.
+            # 단, 그 '까지' 가 원서접수 기간 문구 안이면 접수 마감이지 경쟁률 마감이 아니다.
+            if (any(w in c[k:k + 30] for w in _RATE_WORDS)
+                    and not any(w in c[max(0, k - 60):k] for w in _APPLY_WORDS)):
+                seg = c[:k]
+                break
+        if seg is None:
+            for kw in ("마감시간", "마감 시간", "마감일"):
+                k = c.find(kw)
+                if k < 0:
+                    continue
+                # '입학원서접수 마감시간' 처럼 접수 얘기면 건너뛴다.
+                lead = c[max(0, k - 60):k]
+                if any(w in lead for w in _APPLY_WORDS) or "원서접수 마감시간" in c:
+                    continue
+                if not any(w in lead for w in _RATE_WORDS):
+                    continue
+                seg = c[k:]
+                break
+        if seg is None:
+            continue
+
+        t = _last_time(seg)
+        if not t:
+            continue
+        hh, mm = t
+        md = re.search(r"(\d{1,2})월\s*(\d{1,2})일", seg)
+        if md:
+            mon, day = int(md.group(1)), int(md.group(2))
+        elif dl:
+            mon, day = dl        # "마감일 15시까지" 처럼 날짜가 생략된 경우
+        else:
+            continue
+        # 경쟁률 공개 종료는 원서 마감일에 일어난다. 날짜가 다르면 '1일차/2일차 …'
+        # 같은 갱신 일정표를 잘못 읽은 것이므로 버린다.
+        if dl and (mon, day) != dl:
+            continue
+        return f"{mon}/{day} {hh:02d}:{mm:02d}", notice
+    return "", notice
 
 
 # Column header aliases across providers (진학사 uses 대학; 유웨이 uses 계열).
@@ -146,11 +295,19 @@ _HTTP_HEADERS = {
 }
 
 
-def _fetch_comp_page(url: str) -> str:
+# 경쟁률 페이지 캐시 수명(초). 기본 5분 — 한 번의 실행 안에서 1·2단계가 같은 대학을
+# 두 번 받지 않게 해주면서, 10분 주기의 다음 실행은 반드시 새로 받게 한다.
+# (만료가 없던 시절 캐시가 하루 종일 재사용되어 경쟁률이 갱신되지 않았다.)
+DEFAULT_CACHE_TTL = 300.0
+
+
+def _fetch_comp_page(url: str, cache_ttl: float = DEFAULT_CACHE_TTL) -> str:
     key = re.sub(r"[^0-9A-Za-z]+", "_", url)[-80:]
     cache_file = CACHE_DIR / f"comp_{key}.html"
-    if cache_file.exists():
-        return cache_file.read_text(encoding="utf-8")
+    if cache_file.exists() and cache_ttl > 0:
+        age = time.time() - cache_file.stat().st_mtime
+        if age < cache_ttl:
+            return cache_file.read_text(encoding="utf-8")
 
     # Retry on transient errors — jinhak/uway occasionally throw 503s under load.
     import time as _time
@@ -260,6 +417,10 @@ def parse_departments(
     soup = BeautifulSoup(html, "html.parser")
     out: list[Department] = []
 
+    page_text = re.sub(r"\s+", " ", soup.get_text(" ", strip=True))
+    rate_asof = _extract_asof(page_text)
+    rate_until, rate_notice = _extract_rate_until(page_text, deadline_day, deadline_time)
+
     for table in soup.find_all("table"):
         headers = _table_headers(table)
         if _HDR_UNIT not in headers:
@@ -340,6 +501,9 @@ def parse_departments(
                     rate=rate,
                     deadline_day=deadline_day,
                     deadline_time=deadline_time,
+                    rate_asof=rate_asof,
+                    rate_until=rate_until,
+                    rate_notice=rate_notice,
                 )
             )
     return out
@@ -354,6 +518,7 @@ def collect(
     regions: Iterable[str],
     workers: int,
     include_zero_apps: bool,
+    cache_ttl: float = DEFAULT_CACHE_TTL,
 ) -> list[Department]:
     region_set = set(regions)
     targets = [
@@ -367,7 +532,7 @@ def collect(
 
     def _work(u: dict) -> list[Department]:
         try:
-            html = _fetch_comp_page(u["comp2027"])
+            html = _fetch_comp_page(u["comp2027"], cache_ttl)
             return parse_departments(
                 html,
                 university=u.get("name", "?"),
@@ -434,6 +599,9 @@ def main(argv: list[str] | None = None) -> int:
                    help="지원자 0명 학과도 포함 (기본 제외 — 아직 미개시 케이스)")
     p.add_argument("--workers", type=int, default=12, help="병렬 다운로드 스레드 수")
     p.add_argument("--refresh", action="store_true", help="캐시 무시하고 다시 받기")
+    p.add_argument("--cache-ttl", type=float, default=DEFAULT_CACHE_TTL,
+                   help=f"경쟁률 페이지 캐시 수명(초, 기본 {DEFAULT_CACHE_TTL:.0f}). "
+                        "--refresh 를 주면 0 으로 취급")
     p.add_argument("--csv", type=Path, default=Path(__file__).parent / "susi_2027_low_competition.csv",
                    help="CSV 저장 경로")
     args = p.parse_args(argv)
@@ -443,7 +611,8 @@ def main(argv: list[str] | None = None) -> int:
     universities = extract_universities(html)
     print(f"[i] 총 {len(universities)}개 대학 등록됨", file=sys.stderr)
 
-    depts = collect(universities, args.regions, args.workers, args.include_zero_apps)
+    depts = collect(universities, args.regions, args.workers, args.include_zero_apps,
+                    cache_ttl=0.0 if args.refresh else args.cache_ttl)
     depts = [d for d in depts if d.quota >= args.min_quota]
     if args.max_rate is not None:
         depts = [d for d in depts if d.rate < args.max_rate]
