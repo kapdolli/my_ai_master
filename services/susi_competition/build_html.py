@@ -519,7 +519,7 @@ HTML_TEMPLATE = r"""<!doctype html>
           <th class="sortable" data-k="university">대학</th>
           <th class="sortable" data-k="마감키">접수마감</th>
           <th class="sortable" data-k="경쟁률마감키">경쟁률마감</th>
-          <th class="sortable" data-k="기준키" title="이 대학이 경쟁률을 집계한 시각">기준</th>
+          <th class="sortable" data-k="기준키" title="이 대학이 경쟁률을 집계한 시각">경쟁률기준</th>
           <th class="sortable" data-k="전형세부유형">세부유형</th>
           <th class="sortable" data-k="정원외">정외</th>
           <th class="sortable" data-k="admission_type">전형명</th>
