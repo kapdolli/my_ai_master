@@ -313,11 +313,19 @@ HTML_TEMPLATE = r"""<!doctype html>
   .pin-card .min { font-size: 12px; color: var(--muted); margin-bottom: 4px; }
   .pin-card .min strong.low { color: var(--good); font-size: 15px; }
   .pin-card .min strong.high { color: var(--danger); font-size: 15px; }
-  .pin-card table { font-size: 11px; margin-top: 4px; }
-  .pin-card th, .pin-card td { padding: 3px 4px; border-bottom: 1px solid #f3f4f6; }
-  .pin-card th { background: transparent; position: static; font-weight: 500;
-    color: var(--muted); }
   .pin-card .empty { padding: 8px; font-size: 12px; }
+  /* 카드 폭(≈320px)에 5열 표를 넣으면 글자가 카드 밖으로 밀린다 → 블록으로 쌓는다. */
+  .pin-row { border-top: 1px solid #f3f4f6; padding: 5px 0; }
+  .pin-row:first-child { border-top: 0; }
+  .pin-row-top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; }
+  .pin-row-top .rate { font-size: 14px; font-weight: 700;
+    font-variant-numeric: tabular-nums; }
+  .pin-row-top .mj { font-size: 11px; color: var(--muted);
+    font-variant-numeric: tabular-nums; }
+  .pin-row-top .uni { font-size: 11px; color: var(--ink); }
+  .pin-row-sub { font-size: 11px; color: var(--muted); margin-top: 2px;
+    word-break: keep-all; overflow-wrap: anywhere; }
+  .pin-row-sub .sep { color: #d1d5db; margin: 0 3px; }
   .uni-toggle { display: inline-flex; align-items: center; gap: 6px; }
   .uni-toggle.active { border-color: var(--accent); color: var(--accent); }
   .uni-panel { border: 1px solid var(--line); border-radius: 6px; padding: 8px;
@@ -506,21 +514,19 @@ function renderPinned() {
     const minRate = Math.min(...p.rows.map(r => r.rate));
     const maxRate = Math.max(...p.rows.map(r => r.rate));
     const cls = minRate < 1.0 ? "low" : "high";
-    let tbl = `<table><thead><tr>
-      <th>경쟁률</th><th>모/지</th><th>대학</th><th>전형</th><th>학과/단과</th>
-    </tr></thead><tbody>`;
+    let tbl = "";
     p.rows.forEach(r => {
       const rateCls = r.rate < 1.0 ? "rate-low" : "";
       const deptLabel = (r.college ? r.college + " / " : "") + r.department;
-      tbl += `<tr>
-        <td class="num ${rateCls}">${r.rate.toFixed(2)}</td>
-        <td class="num">${r.quota}/${r.applicants}</td>
-        <td>${escapeHtml(r.university)}</td>
-        <td>${escapeHtml(r.admission_type)}</td>
-        <td>${escapeHtml(deptLabel)}</td>
-      </tr>`;
+      tbl += `<div class="pin-row">
+        <div class="pin-row-top">
+          <span class="rate ${rateCls}">${r.rate.toFixed(2)}</span>
+          <span class="mj">모집 ${r.quota} / 지원 ${r.applicants}</span>
+          <span class="uni">${escapeHtml(r.university)}</span>
+        </div>
+        <div class="pin-row-sub">${escapeHtml(r.admission_type)}<span class="sep">·</span>${escapeHtml(deptLabel)}</div>
+      </div>`;
     });
-    tbl += `</tbody></table>`;
     card.innerHTML = `
       <div class="lbl">${escapeHtml(p.label)}</div>
       <div class="min">최저 <strong class="${cls}">${minRate.toFixed(2)}</strong>
