@@ -45,7 +45,8 @@ python -X utf8 .\filter_top50.py
 Write-Host "[4/4] HTML 생성..." -ForegroundColor Cyan
 python -X utf8 .\build_html.py
 
-$outputs = @("susi_2027_top50.html", "susi_2027_low_competition.csv",
+$outputs = @("susi_2027_top50.html", "version.json",
+             "susi_2027_low_competition.csv",
              "susi_2027_nong_nonsul_low.csv", "susi_2027_top50_nong_nonsul.csv")
 
 if (-not $NoStage) {

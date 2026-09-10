@@ -9,6 +9,7 @@ on:
     branches: [main]
     paths:
       - "services/susi_competition/susi_2027_top50.html"
+      - "services/susi_competition/version.json"
       - "services/susi_competition/*.csv"
       - ".github/workflows/refresh.yml"
   workflow_dispatch:
@@ -40,6 +41,8 @@ jobs:
             echo "<h1>Not yet generated. Run refresh_all.ps1 locally.</h1>" > _site/index.html
           fi
           cp services/susi_competition/*.csv _site/ 2>/dev/null || true
+          # 열려 있는 페이지가 갱신 여부만 가볍게 확인하는 파일
+          cp services/susi_competition/version.json _site/ 2>/dev/null || true
           ls -la _site/
 
       - uses: actions/configure-pages@v5

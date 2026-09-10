@@ -24,6 +24,7 @@ HERE = Path(__file__).parent
 CSV_PATH = HERE / "susi_2027_top50_nong_nonsul.csv"     # 태그 결과 전체 (본 테이블)
 FULL_CSV = HERE / "susi_2027_low_competition.csv"        # 전체 (관심 학과 조회용)
 OUT_HTML = HERE / "susi_2027_top50.html"
+VERSION_JSON = HERE / "version.json"          # 페이지가 갱신 여부만 가볍게 확인용
 UNI_DEFAULTS = HERE / "uni_defaults.txt"      # 페이지 최초 진입 시 체크될 대학
 
 # 상단 고정 관심 학과.
@@ -212,6 +213,12 @@ def build() -> None:
             .replace("__GENERATED__", generated)
             .replace("__MAJOR_N__", str(len(major_unis))))
     OUT_HTML.write_text(html, encoding="utf-8")
+    # 열려 있는 페이지가 900KB 를 다시 받지 않고 갱신 여부만 확인할 수 있게
+    # 작은 버전 파일을 함께 낸다.
+    VERSION_JSON.write_text(
+        json.dumps({"generated": generated, "rows": len(rows)},
+                   ensure_ascii=False, separators=(",", ":")),
+        encoding="utf-8")
     print(f"[i] {len(rows)}행 → {OUT_HTML}", file=sys.stderr)
     print(f"[i] 파일 크기: {OUT_HTML.stat().st_size / 1024:.1f} KB", file=sys.stderr)
 
@@ -370,6 +377,23 @@ HTML_TEMPLATE = r"""<!doctype html>
   .badge { display: inline-block; padding: 0 5px; border-radius: 4px; font-size: 10px;
     margin-left: 4px; background: #e5e7eb; color: #374151; }
   .asof { font-size: 11px; color: var(--muted); }
+  #refresh-btn { position: absolute; right: 20px; top: 14px; z-index: 40;
+    padding: 8px 14px; border-radius: 8px; font-weight: 700; font-size: 13px;
+    background: var(--accent); color: #fff; border: 1px solid var(--accent);
+    white-space: nowrap;
+    box-shadow: 0 2px 6px rgba(37,99,235,.35); cursor: pointer;
+    animation: blink 1s steps(1, end) infinite; }
+  #refresh-btn:hover { animation: none; background: #1d4ed8; }
+  @keyframes blink {
+    0%, 49%   { background: var(--accent); border-color: var(--accent); color: #fff; }
+    50%, 100% { background: var(--warn);   border-color: var(--warn);   color: #3f2d00; }
+  }
+  /* 버튼이 뜰 때만 헤더 오른쪽을 비워 문구를 가리지 않게 한다. */
+  header.has-refresh { padding-right: 190px; }
+  @media (max-width: 640px) {
+    #refresh-btn { position: static; display: block; width: 100%; margin-top: 8px; }
+    header.has-refresh { padding-right: 20px; }
+  }
   .hint.saved { color: var(--accent); }
   .export-box { margin-top: 8px; }
   .export-box textarea { width: 100%; height: 90px; font: 12px/1.4 ui-monospace,
@@ -378,6 +402,7 @@ HTML_TEMPLATE = r"""<!doctype html>
 </head>
 <body>
 <header>
+  <button id="refresh-btn" hidden>🔄 새로고침 <span id="refresh-when"></span></button>
   <h1>2027학년도 수시 저경쟁 학과 검색</h1>
   <p><strong>전체 대학</strong> · 서울·경기·충청 · 농어촌·농특·논술 <strong>전 전형</strong>
      (경쟁률 컷 없음 — 화면 기본값 <strong>≤ 2.0</strong>, 숫자를 올리면 더 보입니다)
@@ -512,6 +537,7 @@ HTML_TEMPLATE = r"""<!doctype html>
 <script>
 const DATA = __DATA__;
 const PINNED = __PINNED__;
+const BUILD = "__GENERATED__";           // 이 페이지가 만들어진 시각
 const NOTICES = __NOTICES__;             // 대학 → 경쟁률 공개 안내 원문
 const ASOF = __ASOF__;                   // 경쟁률 기준시각 목록 (대학마다 다름)
 const ASOF_BY_UNI = __ASOF_BY_UNI__;     // 대학 → 이 대학 경쟁률의 기준시각
@@ -1006,6 +1032,42 @@ function escapeHtml(s) {
   return String(s || "").replace(/[&<>"']/g, c =>
     ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 }
+
+// --- 갱신 감지: 자동 새로고침은 하지 않고 버튼만 깜박인다 --------------------
+// version.json 은 수십 바이트라 자주 확인해도 부담이 없다. GitHub Pages 가
+// max-age=600 을 붙이므로 CDN 캐시를 피하려고 매번 다른 쿼리를 붙인다.
+const POLL_MS = 90000;
+
+function showRefresh(stamp) {
+  const btn = document.getElementById("refresh-btn");
+  if (!btn.hidden) return;
+  // 날짜는 어차피 오늘 것이라 시:분만 보여준다.
+  document.getElementById("refresh-when").textContent =
+    "(" + (stamp.length > 5 ? stamp.slice(-5) : stamp) + ")";
+  btn.hidden = false;
+  document.querySelector("header").classList.add("has-refresh");
+  btn.onclick = () => {
+    // 그냥 reload 하면 브라우저·CDN 캐시로 옛 페이지가 다시 뜰 수 있어
+    // 새 시각을 쿼리로 붙여 확실히 새 파일을 받는다. 필터는 저장돼 있어 유지된다.
+    location.replace(location.pathname + "?v=" + encodeURIComponent(stamp));
+  };
+}
+
+async function checkVersion() {
+  if (document.visibilityState === "hidden") return;
+  try {
+    const res = await fetch("version.json?t=" + Date.now(), { cache: "no-store" });
+    if (!res.ok) return;
+    const v = await res.json();
+    if (v && v.generated && v.generated !== BUILD) showRefresh(v.generated);
+  } catch (e) { /* 오프라인 등 — 조용히 넘어간다 */ }
+}
+
+setInterval(checkVersion, POLL_MS);
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "visible") checkVersion();
+});
+setTimeout(checkVersion, 5000);
 
 renderPinned();
 initChips();
