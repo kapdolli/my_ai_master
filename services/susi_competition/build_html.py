@@ -265,14 +265,17 @@ HTML_TEMPLATE = r"""<!doctype html>
   button:hover { background: #f3f4f6; }
   .tablewrap { background: var(--panel); border: 1px solid var(--line);
     border-radius: 8px; overflow-x: auto; }
-  table { width: 100%; border-collapse: separate; border-spacing: 0;
-    font-size: 13px; }
-  th, td { padding: 8px 10px; text-align: left;
+  /* table-layout: fixed + colgroup % → 컨테이너 폭에 정확히 맞춰 가로 스크롤이
+     생기지 않는다. 좁은 화면(<860px)에서만 tablewrap 이 스크롤된다. */
+  table { width: 100%; min-width: 860px; table-layout: fixed;
+    border-collapse: separate; border-spacing: 0; font-size: 13px; }
+  th, td { padding: 8px 8px; text-align: left;
     border-bottom: 1px solid var(--line); vertical-align: top;
-    white-space: nowrap; }
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  thead th { white-space: normal; }   /* 헤더는 접히게 두어 글자가 잘리지 않도록 */
   th { background: #f9fafb; font-weight: 600; cursor: pointer;
     user-select: none; box-shadow: inset 0 -1px 0 var(--line); }
-  th.sortable { padding-right: 18px; position: relative; }
+  th.sortable { padding-right: 15px; position: relative; }
   th.sortable::after {
     content: "⇅"; color: #d1d5db; font-size: 11px;
     position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
@@ -284,6 +287,7 @@ HTML_TEMPLATE = r"""<!doctype html>
   th:first-child { text-align: center; }
   td:first-child { text-align: center; }
   td.num { text-align: right; font-variant-numeric: tabular-nums; }
+
   tr:hover { background: #fefce8; }
   tr.mixed { background: #fef3c7; }
   tr.mixed:hover { background: #fde68a; }
@@ -349,11 +353,17 @@ HTML_TEMPLATE = r"""<!doctype html>
   button.primary.dirty { background: var(--warn); border-color: var(--warn); }
   button.primary.dirty::after { content: " •"; }
   .hint { font-size: 11px; color: var(--muted); }
-  tr.past { opacity: .45; }
-  tr.past td { text-decoration: line-through; text-decoration-color: #9ca3af; }
+  /* 접수마감이 지난 행 — 색을 모두 회색으로 눌러 한눈에 구분되게. */
+  tr.past, tr.past:hover, tr.mixed.past, tr.mixed.past:hover { background: #f8fafc; }
+  tr.past td, tr.past td span, tr.past td .rank { color: #9ca3af; }
+  tr.past td .tag { background: #f1f5f9; color: #94a3b8; }
+  tr.past td.ru, tr.past td.ru.unknown, tr.past td.dl.soon { color: #9ca3af; }
+  tr.past td .badge { background: #f1f5f9; color: #94a3b8; }
   .dl { font-variant-numeric: tabular-nums; }
   .dl.soon { color: var(--danger); font-weight: 700; }
-  .chip.past { text-decoration: line-through; color: var(--muted); }
+  /* 이미 지난 마감 칩은 선택돼 있어도 파랗게 두지 않는다. */
+  .chip.past, .chip.on.past { background: #f1f5f9; border-color: #e2e8f0;
+    color: #94a3b8; text-decoration: line-through; }
   .ru { font-variant-numeric: tabular-nums; }
   .ru.closed { color: var(--muted); }
   .ru.unknown { color: #c2410c; }
@@ -464,6 +474,13 @@ HTML_TEMPLATE = r"""<!doctype html>
 
   <div class="tablewrap">
     <table id="tbl">
+      <colgroup>
+        <col style="width:4%"><col style="width:5.5%"><col style="width:4%">
+        <col style="width:4%"><col style="width:4.5%"><col style="width:12%">
+        <col style="width:8.5%"><col style="width:9%"><col style="width:9%">
+        <col style="width:3.5%"><col style="width:13.5%"><col style="width:9.5%">
+        <col style="width:13%">
+      </colgroup>
       <thead>
         <tr>
           <th class="sortable" data-k="rank">순위</th>
@@ -970,14 +987,14 @@ function render() {
       <td class="num">${r.quota}</td>
       <td class="num">${r.applicants}</td>
       <td>${r.region}</td>
-      <td>${r["주요대학"] === "O" ? '<span class="major-star">★</span>' : ""}${escapeHtml(r.university)}</td>
+      <td title="${escapeHtml(r.university)}">${r["주요대학"] === "O" ? '<span class="major-star">★</span>' : ""}${escapeHtml(r.university)}</td>
       <td class="dl${past ? "" : (r["마감키"] < soonKey ? " soon" : "")}">${escapeHtml(r["마감표시"] || r["마감"])}</td>
       <td class="ru${ruCls(r, nk)}" title="${escapeHtml(ruTip(r))}">${ruText(r, nk)}</td>
-      <td><span class="tag ${cls}">${r["전형세부유형"]}</span></td>
+      <td title="${r["전형세부유형"]}"><span class="tag ${cls}">${r["전형세부유형"]}</span></td>
       <td class="oq-cell">${r["정원외"] || ""}</td>
-      <td>${escapeHtml(r.admission_type)}</td>
-      <td>${escapeHtml(r.college)}</td>
-      <td>${escapeHtml(r.department)}</td>
+      <td title="${escapeHtml(r.admission_type)}">${escapeHtml(r.admission_type)}</td>
+      <td title="${escapeHtml(r.college)}">${escapeHtml(r.college)}</td>
+      <td title="${escapeHtml(r.department)}">${escapeHtml(r.department)}</td>
     `;
     frag.appendChild(tr);
   });
