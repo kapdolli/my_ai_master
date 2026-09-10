@@ -120,6 +120,9 @@ class Department:
     quota: int
     applicants: int
     rate: float           # 경쟁률 (지원인원/모집인원)
+    # 원서 마감 — 대학 단위 값 (경기도교육청 BOOTSTRAP 의 lastday/lasttime).
+    deadline_day: str = ""    # 예: "9.11.(금)"
+    deadline_time: str = ""   # 예: "18:00" (드물게 "16:00(송도)/18:00(강화)")
 
 
 # Column header aliases across providers (진학사 uses 대학; 유웨이 uses 계열).
@@ -251,7 +254,8 @@ def _preceding_section_title(table) -> str:
 
 
 def parse_departments(
-    html: str, university: str, region: str, founder: str
+    html: str, university: str, region: str, founder: str,
+    deadline_day: str = "", deadline_time: str = "",
 ) -> list[Department]:
     soup = BeautifulSoup(html, "html.parser")
     out: list[Department] = []
@@ -334,6 +338,8 @@ def parse_departments(
                     quota=quota,
                     applicants=apps,
                     rate=rate,
+                    deadline_day=deadline_day,
+                    deadline_time=deadline_time,
                 )
             )
     return out
@@ -367,6 +373,8 @@ def collect(
                 university=u.get("name", "?"),
                 region=u.get("region", "?"),
                 founder=u.get("founder", ""),
+                deadline_day=u.get("lastday", ""),
+                deadline_time=u.get("lasttime", ""),
             )
         except Exception as exc:  # noqa: BLE001 — collect and continue
             errors.append((u.get("name", "?"), str(exc)))

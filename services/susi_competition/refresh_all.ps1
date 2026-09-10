@@ -30,11 +30,13 @@ python -X utf8 .\find_low_competition.py `
   --regions 서울 경기 인천 충남 충북 대전 세종 `
   --max-rate 999 --top 1 --refresh
 
-Write-Host "[2/4] 농특/논술 <2.0 필터..." -ForegroundColor Cyan
+Write-Host "[2/4] 농특/논술 전 전형 수집 (경쟁률 컷 없음)..." -ForegroundColor Cyan
+# 경쟁률 컷은 두지 않는다 — 페이지의 '경쟁률 ≤' 입력으로 화면에서 조절한다.
+# (컷을 2.0 으로 두면 건국대(서울)처럼 최저 경쟁률이 높은 대학이 통째로 빠진다)
 python -X utf8 .\find_low_competition.py `
   --regions 서울 경기 충남 충북 대전 세종 `
   --admission-contains 농어촌 농특 논술 `
-  --max-rate 2.0 --top 800 `
+  --top 50 `
   --csv .\susi_2027_nong_nonsul_low.csv
 
 Write-Host "[3/4] 제외규칙 + 주요대학(상위50)·전형 태그..." -ForegroundColor Cyan
