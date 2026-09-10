@@ -482,7 +482,9 @@ def parse_departments(
             quota = _parse_int(cells[q_idx].get_text())
             apps = _parse_int(cells[a_idx].get_text())
             rate = _parse_rate(cells[r_idx].get_text())
-            if dept_name in {"", "총계", "소계", "합계", "계"}:
+            # '인문캠퍼스(서울) 소계' 처럼 앞에 수식어가 붙은 집계 행도 걸러낸다.
+            # (모집 147명/지원 387명 같은 캠퍼스 합계가 학과인 척 섞여 있었다)
+            if dept_name in {"", "총계", "소계", "합계", "계"} or                dept_name.endswith(("소계", "총계", "합계")):
                 continue
             # Rows starting with 총계 header may contain <th> in tbody — skip.
             if not dept_name or quota is None or apps is None or rate is None:

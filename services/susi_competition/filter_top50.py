@@ -190,6 +190,58 @@ def tag_admission(admission_type: str) -> tuple[str, str, str]:
     return "기타", "기타", out_flag
 
 
+# ---------------------------------------------------------------------------
+# 계열 분류
+# ---------------------------------------------------------------------------
+# 단과대(college)는 45%가 비어 있고 표기도 115종이라 그대로 쓸 수 없다.
+# 학과명을 먼저 보고, 못 정하면 단과대로 한 번 더 본다. 위에서부터 먼저 맞는 것.
+# 순서가 중요하다 — '산업디자인'은 예체능이 공학보다 앞이라 예체능으로 간다.
+
+KYELYEOL_RULES: list[tuple[str, tuple[str, ...]]] = [
+    ("의약보건", ("간호", "약학", "약과학", "의예", "의학", "치의", "한의", "물리치료",
+                "작업치료", "임상병리", "방사선", "치위생", "응급구조", "보건", "재활",
+                "안경광학", "의료", "임상", "제약", "바이오헬스", "헬스케어", "코스메디")),
+    ("교육", ("사범", "교육과", "교육학", "교직", "유아교육", "초등교육", "특수교육")),
+    ("예체능", ("미술", "음악", "디자인", "조형", "예술", "체육", "무용", "연극", "영화",
+              "실용", "뷰티", "패션", "만화", "애니", "공예", "회화", "조소", "스포츠",
+              "연기", "연출", "작곡", "성악", "기악", "도예", "사진", "경호", "태권도",
+              "무도", "테크놀로지")),
+    ("농생명", ("농업", "농생명", "축산", "원예", "산림", "조경", "수산", "동물자원",
+              "식량자원", "동물", "말산업")),
+    ("공학", ("공학", "공과", "컴퓨터", "소프트웨어", "SW", "AI", "인공지능", "전자", "전기",
+            "기계", "화공", "신소재", "재료", "건축", "토목", "도시", "산업", "반도체",
+            "정보통신", "모빌리티", "자동차", "로봇", "IT", "게임", "에너지", "데이터",
+            "시스템", "항공", "조선", "해양", "섬유", "고분자", "나노", "메카", "제어",
+            "측지", "보안", "소방", "재난")),
+    ("자연", ("수학", "수리", "물리", "화학", "생명과학", "생물", "통계", "천문", "지구",
+            "자연과학", "이과", "과학", "식품영양", "의류", "식품", "환경")),
+    ("인문", ("인문", "문과", "국어국문", "영어영문", "영문", "영어", "중어", "일어", "독어",
+            "불어", "노어", "서어", "사학", "역사", "철학", "문헌정보", "신학", "종교",
+            "어문", "문예창작", "한국어", "한국학", "문화", "지역학", "통번역", "어과",
+            "중동", "중남미", "유럽", "아시아", "일본", "중국", "베트남", "몽골", "태국",
+            "아랍", "페르시아", "스칸디나비아", "이탈리아", "스페인", "포르투갈",
+            "네덜란드", "튀르키예", "인도", "글로벌리더")),
+    ("사회", ("사회", "경영", "경제", "무역", "행정", "정치", "법", "미디어", "언론", "광고",
+            "관광", "부동산", "복지", "심리", "소비자", "국제", "금융", "회계", "세무",
+            "경찰", "군사", "호텔", "비즈니스", "상경", "상담", "아동", "청소년",
+            "지적재산", "벤처", "고용", "투어리즘", "웰니스", "외교", "통상")),
+    ("융합·자유", ("자유전공", "자율전공", "융합", "첨단학부", "학부대학", "인터칼리지",
+                 "진리자유", "미래인재", "계열")),
+]
+
+
+def _match_kyelyeol(text: str) -> str | None:
+    for name, kws in KYELYEOL_RULES:
+        for k in kws:
+            if k in text:
+                return name
+    return None
+
+
+def classify_kyelyeol(department: str, college: str) -> str:
+    return _match_kyelyeol(department) or _match_kyelyeol(college) or "기타"
+
+
 def uni_match(uni_name: str, uni_region: str,
               ranks: dict[tuple[str, str | None], int]) -> int | None:
     """Return the rank if this CSV university matches an entry, else None."""
@@ -239,6 +291,7 @@ def main() -> int:
         r["rank"] = rank if rank is not None else ""
         r["주요대학"] = "O" if rank is not None else ""
         r["전형대분류"], r["전형세부유형"], r["정원외"] = tag_admission(r["admission_type"])
+        r["계열"] = classify_kyelyeol(r["department"], r["college"])
         matched.append(r)
     print(f"[i] 제외 규칙에 걸린 학과: {excluded_hits}", file=sys.stderr)
 
@@ -264,8 +317,10 @@ def main() -> int:
     from collections import Counter
     tag_dist = Counter(r["전형세부유형"] for r in matched)
     print(f"[i] 전형세부유형 분포: {dict(tag_dist)}", file=sys.stderr)
+    ky = Counter(r["계열"] for r in matched)
+    print(f"[i] 계열 분포: {dict(ky.most_common())}", file=sys.stderr)
 
-    ordered = ["rank", "주요대학", "전형대분류", "전형세부유형", "정원외"]
+    ordered = ["rank", "주요대학", "계열", "전형대분류", "전형세부유형", "정원외"]
     with OUT_CSV.open("w", newline="", encoding="utf-8-sig") as f:
         fields = ordered + [k for k in matched[0].keys() if k not in ordered]
         w = csv.DictWriter(f, fieldnames=fields)

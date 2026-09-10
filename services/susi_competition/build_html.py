@@ -299,12 +299,14 @@ HTML_TEMPLATE = r"""<!doctype html>
     border-radius: 8px; overflow-x: auto; }
   /* table-layout: fixed + colgroup % → 컨테이너 폭에 정확히 맞춰 가로 스크롤이
      생기지 않는다. 좁은 화면(<860px)에서만 tablewrap 이 스크롤된다. */
-  table { width: 100%; min-width: 860px; table-layout: fixed;
+  table { width: 100%; min-width: 950px; table-layout: fixed;
     border-collapse: separate; border-spacing: 0; font-size: 13px; }
   th, td { padding: 8px 8px; text-align: left;
     border-bottom: 1px solid var(--line); vertical-align: top;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  thead th { white-space: normal; word-break: keep-all; font-size: 12px; }
+  /* 창이 좁아지면 %폭도 같이 줄어 좁은 숫자 열의 헤더가 먼저 잘린다.
+     헤더만 11px 로 낮춰 900px대 창에서도 글자가 살아있게 한다. */
+  thead th { white-space: normal; word-break: keep-all; font-size: 11px; }
   th { background: #f9fafb; font-weight: 600; cursor: pointer;
     user-select: none; box-shadow: inset 0 -1px 0 var(--line); }
   th.sortable { padding-right: 11px; position: relative; }
@@ -482,6 +484,10 @@ HTML_TEMPLATE = r"""<!doctype html>
       <div class="chips" id="chips-type"></div>
     </div>
     <div class="row">
+      <label>계열</label>
+      <div class="chips" id="chips-kye"></div>
+    </div>
+    <div class="row">
       <label>지역</label>
       <div class="chips" id="chips-region"></div>
     </div>
@@ -644,6 +650,7 @@ function renderPinned() {
 
 const state = {
   types: new Set(),        // empty = all
+  kye: new Set(),          // empty = all  (계열)
   regions: new Set(),      // empty = all
   oq: "all",               // all / in / out
   deadlines: new Set(),    // empty = all  (접수마감 라벨)
@@ -721,7 +728,7 @@ function renderRecommendations() {
 function saveState() {
   try {
     localStorage.setItem(STORE_KEY, JSON.stringify({
-      types: [...state.types], regions: [...state.regions],
+      types: [...state.types], kye: [...state.kye], regions: [...state.regions],
       deadlines: [...state.deadlines], ru: state.ru,
       oq: state.oq, major: state.major, unis: [...state.unis],
       maxRate: state.maxRate, minQuota: state.minQuota, q: state.q,
@@ -747,6 +754,7 @@ function restoreState() {
     return false;
   }
   state.types = new Set((saved.types || []).filter(t => TYPE_ORDER.includes(t)));
+  state.kye = new Set((saved.kye || []).filter(k => KYE_ORDER.includes(k)));
   state.regions = new Set(saved.regions || []);
   const dlNames = new Set(DEADLINES.map(d => d.label));
   state.deadlines = new Set((saved.deadlines || []).filter(d => dlNames.has(d)));
@@ -766,6 +774,7 @@ function syncUiFromState() {
     el.classList.toggle("on", set.size === 0 || set.has(el.dataset.v));
   });
   onOff("#chips-type .chip", state.types);
+  onOff("#chips-kye .chip", state.kye);
   onOff("#chips-region .chip", state.regions);
   onOff("#chips-deadline .chip", state.deadlines);
   document.querySelectorAll("#chips-oq .chip").forEach(el =>
@@ -874,6 +883,9 @@ const UNIS = unique("university").map(u => ({
 }));
 
 const TYPE_ORDER = ["논술", "농어촌_교과", "농어촌_종합", "농어촌_일반", "기회균형_혼합"];
+// 계열은 단과대·학과명에서 filter_top50.py 가 분류해 둔 값이다.
+const KYE_ORDER = ["공학", "자연", "의약보건", "농생명", "사회", "인문",
+                   "교육", "예체능", "융합·자유", "기타"];
 const TYPE_CLASS = {
   "논술": "nsul",
   "농어촌_교과": "gyoh",
@@ -900,6 +912,23 @@ function initChips() {
       markDirty();
     };
     typeEl.appendChild(el);
+  });
+
+  const kyeEl = document.getElementById("chips-kye");
+  const kyePresent = KYE_ORDER.filter(k => DATA.some(r => r["계열"] === k));
+  kyePresent.forEach(k => {
+    const el = document.createElement("span");
+    el.className = "chip on";
+    el.textContent = k + " (" + DATA.filter(r => r["계열"] === k).length + ")";
+    el.dataset.v = k;
+    el.onclick = () => {
+      el.classList.toggle("on");
+      const on = document.querySelectorAll("#chips-kye .chip.on");
+      state.kye = new Set([...on].map(x => x.dataset.v));
+      if (state.kye.size === kyePresent.length) state.kye = new Set();
+      markDirty();
+    };
+    kyeEl.appendChild(el);
   });
 
   const regionEl = document.getElementById("chips-region");
@@ -991,7 +1020,7 @@ function initChips() {
     clearSaved();
     document.getElementById("restored-hint").hidden = true;
     document.getElementById("export-box").hidden = true;
-    state.types.clear(); state.regions.clear(); state.deadlines.clear();
+    state.types.clear(); state.kye.clear(); state.regions.clear(); state.deadlines.clear();
     state.oq = "all"; state.ru = "all"; state.major = DEFAULT_MAJOR; state.unis.clear();
     DEFAULT_UNIS.filter(u => UNIS.some(x => x.name === u)).forEach(u => state.unis.add(u));
     state.maxRate = 2.0; state.minQuota = 1; state.q = "";
@@ -1092,6 +1121,7 @@ function filtered() {
   const nowKeyCached = nowKey();
   return DATA.filter(r => {
     if (state.types.size && !state.types.has(r["전형세부유형"])) return false;
+    if (state.kye.size && !state.kye.has(r["계열"])) return false;
     if (state.regions.size && !state.regions.has(r.region)) return false;
     if (state.oq === "in" && r["정원외"] === "O") return false;
     if (state.oq === "out" && r["정원외"] !== "O") return false;
