@@ -16,6 +16,7 @@ Usage:
     CLAUDE_BIN            claude CLI 실행 파일 경로 (기본 "claude")
     IDEA_SEARCH_MODEL     예: sonnet, opus, claude-sonnet-4-6 (미지정 시 subscription 기본)
     IDEA_SEARCH_TIMEOUT   초 단위 (기본 900 = 15분)
+    IDEA_SEARCH_TOOLS      쉼표 구분 허용 툴 (기본 "WebSearch,WebFetch")
 """
 
 from __future__ import annotations
@@ -40,6 +41,7 @@ TELEGRAM_CONFIG = REPO_ROOT / "shared" / "telegram" / "config.local.json"
 CLAUDE_BIN = os.environ.get("CLAUDE_BIN", "claude")
 MODEL = os.environ.get("IDEA_SEARCH_MODEL", "").strip()
 TIMEOUT = int(os.environ.get("IDEA_SEARCH_TIMEOUT", "900"))
+TOOLS = os.environ.get("IDEA_SEARCH_TOOLS", "WebSearch,WebFetch").strip()
 TELEGRAM_CHUNK = 3800
 KST = datetime.timezone(datetime.timedelta(hours=9))
 
@@ -64,6 +66,11 @@ def build_prompt(today_kst: datetime.date) -> str:
 
 def build_claude_cmd() -> list[str]:
     cmd = [CLAUDE_BIN, "-p", "--output-format", "text"]
+    # 헤드리스(-p)에서는 권한 프롬프트에 답할 사람이 없어 툴 호출이 전부 거부된다.
+    # 검색 툴을 명시적으로 허용해야 리포트가 나온다 (파일·셸 툴은 허용하지 않는다).
+    tools = [t.strip() for t in TOOLS.split(",") if t.strip()]
+    if tools:
+        cmd += ["--allowedTools", *tools]
     if MODEL:
         cmd += ["--model", MODEL]
     return cmd

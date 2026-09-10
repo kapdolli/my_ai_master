@@ -8,3 +8,6 @@
 # Python cache
 __pycache__/
 *.pyc
+
+# 실행 래퍼 진단 산출물 (_runs.log, _last_run.*) — 리포트 로그와 달리 커밋 대상 아님
+services/*/logs/_*
