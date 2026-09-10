@@ -509,8 +509,8 @@ HTML_TEMPLATE = r"""<!doctype html>
     <div class="row">
       <label>대학군</label>
       <div class="chips" id="chips-major">
-        <span class="chip on" data-v="all">전체</span>
-        <span class="chip" data-v="major">★ 주요대학만</span>
+        <span class="chip" data-v="all">전체</span>
+        <span class="chip on" data-v="major">★ 주요대학만</span>
         <span class="chip" data-v="other">그 외 대학만</span>
       </div>
     </div>
@@ -602,6 +602,7 @@ const ASOF_BY_UNI = __ASOF_BY_UNI__;     // 대학 → 이 대학 경쟁률의 �
 const BLACKOUT = __BLACKOUT__;           // 대학 → 깜깜이 구간(분)
 const DEFAULT_UNIS = __UNI_DEFAULTS__;   // uni_defaults.txt (모든 브라우저 공통 기본값)
 const STORE_KEY = "susi2027.filters.v1"; // 이 브라우저에서의 마지막 선택
+const DEFAULT_MAJOR = "major";           // 첫 진입·초기화 시 주요대학만 보기
 
 // --- 관심 학과 카드 렌더링 --------------------------------------------------
 function renderPinned() {
@@ -647,7 +648,7 @@ const state = {
   oq: "all",               // all / in / out
   deadlines: new Set(),    // empty = all  (접수마감 라벨)
   ru: "all",               // all / open / closed / unknown  (경쟁률 공개 상태)
-  major: "all",            // all / major / other  (주요대학 = 상위50)
+  major: DEFAULT_MAJOR,    // all / major / other  (주요대학 = major_univs.txt)
   unis: new Set(),         // empty = all
   maxRate: 2.0,
   minQuota: 1,
@@ -751,7 +752,7 @@ function restoreState() {
   state.deadlines = new Set((saved.deadlines || []).filter(d => dlNames.has(d)));
   state.oq = ["all", "in", "out"].includes(saved.oq) ? saved.oq : "all";
   state.ru = ["all", "open", "closed", "unknown"].includes(saved.ru) ? saved.ru : "all";
-  state.major = ["all", "major", "other"].includes(saved.major) ? saved.major : "all";
+  state.major = ["all", "major", "other"].includes(saved.major) ? saved.major : DEFAULT_MAJOR;
   state.unis = new Set((saved.unis || []).filter(u => names.has(u)));
   if (typeof saved.maxRate === "number" && isFinite(saved.maxRate)) state.maxRate = saved.maxRate;
   if (typeof saved.minQuota === "number" && isFinite(saved.minQuota)) state.minQuota = saved.minQuota;
@@ -991,7 +992,7 @@ function initChips() {
     document.getElementById("restored-hint").hidden = true;
     document.getElementById("export-box").hidden = true;
     state.types.clear(); state.regions.clear(); state.deadlines.clear();
-    state.oq = "all"; state.ru = "all"; state.major = "all"; state.unis.clear();
+    state.oq = "all"; state.ru = "all"; state.major = DEFAULT_MAJOR; state.unis.clear();
     DEFAULT_UNIS.filter(u => UNIS.some(x => x.name === u)).forEach(u => state.unis.add(u));
     state.maxRate = 2.0; state.minQuota = 1; state.q = "";
     document.getElementById("uni-search").value = "";
