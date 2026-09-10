@@ -14,7 +14,7 @@
 #   $a = New-ScheduledTaskAction -Execute "powershell.exe" `
 #     -Argument "-NoProfile -ExecutionPolicy Bypass -File C:\Users\elf17\work\myai\my_ai_master\services\susi_competition\refresh_all.ps1 -Push"
 #   $t = New-ScheduledTaskTrigger -Once -At (Get-Date) `
-#     -RepetitionInterval (New-TimeSpan -Hours 1) -RepetitionDuration ([TimeSpan]::MaxValue)
+#     -RepetitionInterval (New-TimeSpan -Minutes 10)
 #   Register-ScheduledTask -TaskName "SusiRefresh" -Action $a -Trigger $t
 
 param([switch]$NoStage, [switch]$Push)
@@ -37,7 +37,7 @@ python -X utf8 .\find_low_competition.py `
   --max-rate 2.0 --top 800 `
   --csv .\susi_2027_nong_nonsul_low.csv
 
-Write-Host "[3/4] top50 대학 필터 + 태그..." -ForegroundColor Cyan
+Write-Host "[3/4] 제외규칙 + 주요대학(상위50)·전형 태그..." -ForegroundColor Cyan
 python -X utf8 .\filter_top50.py
 
 Write-Host "[4/4] HTML 생성..." -ForegroundColor Cyan

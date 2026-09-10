@@ -1,6 +1,10 @@
 """
-'top50_univ100_2026.txt' 순위표에 있는 대학만 골라서
-농특·논술 · 서울/경기/충청 · 경쟁률 <2.0 결과와 교집합을 만든다.
+농특·논술 · 서울/경기/충청 · 경쟁률 <2.0 결과 **전체 대학**에 태그를 붙인다.
+
+- 제외 규칙(exclusions.txt)에 걸린 대학만 떨궈낸다.
+- 'top50_univ100_2026.txt' 순위표에 있으면 rank + 주요대학="O" 를 붙이고,
+  없으면 rank="" / 주요대학="" 로 남긴다 (행은 버리지 않는다).
+  → HTML 에서 "주요대학만" 필터로 좁혀 볼 수 있다.
 """
 from __future__ import annotations
 
@@ -223,26 +227,30 @@ def main() -> int:
     matched: list[dict] = []
     excluded_hits = 0
     for r in rows:
-        rank = uni_match(r["university"], r["region"], ranks)
-        if rank is None:
-            continue
+        # 제외 규칙은 순위와 무관하게 전체 대학에 적용한다.
         if is_excluded(r["university"], excl_all, excl_spec, excl_women):
             excluded_hits += 1
             continue
+        rank = uni_match(r["university"], r["region"], ranks)
         r = dict(r)
-        r["rank"] = rank
+        r["rank"] = rank if rank is not None else ""
+        r["주요대학"] = "O" if rank is not None else ""
         r["전형대분류"], r["전형세부유형"], r["정원외"] = tag_admission(r["admission_type"])
         matched.append(r)
     print(f"[i] 제외 규칙에 걸린 학과: {excluded_hits}", file=sys.stderr)
 
-    matched.sort(key=lambda x: (float(x["rate"]), x["rank"]))
-    print(f"[i] top50 대학에 속한 학과: {len(matched)}", file=sys.stderr)
+    # 순위 없는 대학(주요대학 아님)은 정렬에서 맨 뒤로.
+    matched.sort(key=lambda x: (float(x["rate"]), x["rank"] or 999))
+    major = [r for r in matched if r["주요대학"]]
+    print(f"[i] 전체 학과: {len(matched)} (주요대학 {len(major)})", file=sys.stderr)
 
     # 대학별 확인
     from collections import Counter
-    seen = Counter((r["rank"], r["university"]) for r in matched)
+    all_unis = {r["university"] for r in matched}
+    seen = Counter((r["rank"], r["university"]) for r in major)
     unmatched_ranks = set(range(1, 51)) - {rk for (rk, _) in seen}
-    print(f"[i] top50 중 매칭 학과가 있는 대학: {len({u for (_, u) in seen})}", file=sys.stderr)
+    print(f"[i] 전체 대학 수: {len(all_unis)} "
+          f"(주요대학 {len({u for (_, u) in seen})})", file=sys.stderr)
     if unmatched_ranks:
         print(f"[i] 매칭 없는 순위: {sorted(unmatched_ranks)}", file=sys.stderr)
 
@@ -251,7 +259,7 @@ def main() -> int:
     tag_dist = Counter(r["전형세부유형"] for r in matched)
     print(f"[i] 전형세부유형 분포: {dict(tag_dist)}", file=sys.stderr)
 
-    ordered = ["rank", "전형대분류", "전형세부유형", "정원외"]
+    ordered = ["rank", "주요대학", "전형대분류", "전형세부유형", "정원외"]
     with OUT_CSV.open("w", newline="", encoding="utf-8-sig") as f:
         fields = ordered + [k for k in matched[0].keys() if k not in ordered]
         w = csv.DictWriter(f, fieldnames=fields)
@@ -268,8 +276,9 @@ def main() -> int:
     for i, d in enumerate(matched[:50], 1):
         mj = f"{int(d['quota'])}/{int(d['applicants'])}"
         dept = (d['college'] + ' / ' if d['college'] else '') + d['department']
+        rk = f"#{d['rank']}" if d["rank"] != "" else "—"
         print(
-            f"{i:>3}  #{d['rank']:>2}  {float(d['rate']):>5.2f}  {mj:>5}  "
+            f"{i:>3}  {rk:>3}  {float(d['rate']):>5.2f}  {mj:>5}  "
             f"{d['region']:<4}  {d['전형세부유형']:<10}  {d['정원외']:<3}  "
             f"{d['university'][:15]:<15}  {dept[:55]}"
         )
