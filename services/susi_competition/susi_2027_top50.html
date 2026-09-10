@@ -124,7 +124,7 @@
   <h1>2027학년도 수시 저경쟁 학과 검색</h1>
   <p><strong>전체 대학</strong> · 서울·경기·충청 · 농어촌·농특·논술 · 경쟁률 &lt;2.0
      · ★ = 주요대학(대학백과 2026 상위 50)
-     · 제외: 고려대(세종), 모든 여대 · 생성: 2026-09-10 08:56</p>
+     · 제외: 고려대(세종), 모든 여대 · 생성: 2026-09-10 09:03</p>
 </header>
 <main>
   <div class="warn-banner">
@@ -264,7 +264,8 @@ const state = {
   types: new Set(),        // empty = all
   regions: new Set(),      // empty = all
   oq: "all",               // all / in / out
-  uni: "",
+  major: "all",            // all / major / other  (주요대학 = 상위50)
+  unis: new Set(),         // empty = all
   maxRate: 2.0,
   minQuota: 1,
   q: "",
@@ -274,8 +275,16 @@ const state = {
 
 // --- 초기화: 칩/셀렉트 채우기 ------------------------------------------------
 function unique(field) {
-  return [...new Set(DATA.map(r => r[field]))].filter(x => x !== "").sort();
+  return [...new Set(DATA.map(r => r[field]))].filter(x => x !== "")
+    .sort((a, b) => a.localeCompare(b, "ko"));
 }
+
+// 가나다순 전체 대학 + 주요대학 여부/행수
+const UNIS = unique("university").map(u => ({
+  name: u,
+  major: DATA.some(r => r.university === u && r["주요대학"] === "O"),
+  n: DATA.filter(r => r.university === u).length,
+}));
 
 const TYPE_ORDER = ["논술", "농어촌_교과", "농어촌_종합", "농어촌_일반", "기회균형_혼합"];
 const TYPE_CLASS = {
@@ -331,14 +340,16 @@ function initChips() {
     };
   });
 
-  const sel = document.getElementById("uni-select");
-  unique("university").forEach(u => {
-    const opt = document.createElement("option");
-    opt.value = u;
-    opt.textContent = u;
-    sel.appendChild(opt);
+  document.querySelectorAll("#chips-major .chip").forEach(el => {
+    el.onclick = () => {
+      document.querySelectorAll("#chips-major .chip").forEach(x => x.classList.remove("on"));
+      el.classList.add("on");
+      state.major = el.dataset.v;
+      render();
+    };
   });
-  sel.onchange = () => { state.uni = sel.value; render(); };
+
+  initUniPanel();
 
   document.getElementById("max-rate").oninput = e => {
     state.maxRate = parseFloat(e.target.value) || 2.0; render();
@@ -351,12 +362,17 @@ function initChips() {
   };
   document.getElementById("reset").onclick = () => {
     state.types.clear(); state.regions.clear(); state.oq = "all";
-    state.uni = ""; state.maxRate = 2.0; state.minQuota = 1; state.q = "";
+    state.major = "all"; state.unis.clear();
+    state.maxRate = 2.0; state.minQuota = 1; state.q = "";
     document.querySelectorAll("#chips-type .chip").forEach(x => x.classList.add("on"));
     document.querySelectorAll("#chips-region .chip").forEach(x => x.classList.add("on"));
     document.querySelectorAll("#chips-oq .chip").forEach(x =>
       x.classList.toggle("on", x.dataset.v === "all"));
-    sel.value = "";
+    document.querySelectorAll("#chips-major .chip").forEach(x =>
+      x.classList.toggle("on", x.dataset.v === "all"));
+    document.getElementById("uni-search").value = "";
+    document.querySelectorAll("#uni-list .uni-item").forEach(x => { x.hidden = false; });
+    syncUniChecks(); syncUniLabel();
     document.getElementById("max-rate").value = 2.0;
     document.getElementById("min-quota").value = 1;
     document.getElementById("search").value = "";
@@ -377,6 +393,64 @@ function initChips() {
   });
 }
 
+// --- 대학 선택 패널 (가나다순 전체 대학 · 체크박스) ---------------------------
+function initUniPanel() {
+  const list = document.getElementById("uni-list");
+  UNIS.forEach(u => {
+    const item = document.createElement("label");
+    item.className = "uni-item";
+    item.dataset.name = u.name;
+    item.innerHTML = `<input type="checkbox" value="${escapeHtml(u.name)}">
+      <span>${u.major ? '<span class="star">★</span>' : ""}${escapeHtml(u.name)}</span>
+      <span class="cnt">(${u.n})</span>`;
+    item.querySelector("input").onchange = e => {
+      if (e.target.checked) state.unis.add(u.name);
+      else state.unis.delete(u.name);
+      syncUniLabel();
+      render();
+    };
+    list.appendChild(item);
+  });
+
+  const toggle = document.getElementById("uni-toggle");
+  const panel = document.getElementById("uni-panel");
+  toggle.onclick = () => { panel.hidden = !panel.hidden; };
+
+  document.getElementById("uni-search").oninput = e => {
+    const q = e.target.value.trim().toLowerCase();
+    document.querySelectorAll("#uni-list .uni-item").forEach(el => {
+      el.hidden = q ? !el.dataset.name.toLowerCase().includes(q) : false;
+    });
+  };
+
+  document.querySelectorAll("#uni-panel .uni-tools button").forEach(btn => {
+    btn.onclick = () => {
+      const act = btn.dataset.act;
+      state.unis.clear();
+      if (act === "all") UNIS.forEach(u => state.unis.add(u.name));
+      if (act === "major") UNIS.filter(u => u.major).forEach(u => state.unis.add(u.name));
+      syncUniChecks();
+      syncUniLabel();
+      render();
+    };
+  });
+  syncUniLabel();
+}
+
+function syncUniChecks() {
+  document.querySelectorAll("#uni-list input").forEach(cb => {
+    cb.checked = state.unis.has(cb.value);
+  });
+}
+
+function syncUniLabel() {
+  const toggle = document.getElementById("uni-toggle");
+  const n = state.unis.size;
+  const picked = n > 0 && n < UNIS.length;
+  toggle.textContent = picked ? `${n}개 대학 선택 ▾` : `전체 대학 (${UNIS.length}) ▾`;
+  toggle.classList.toggle("active", picked);
+}
+
 // --- 필터/정렬/렌더 ---------------------------------------------------------
 function filtered() {
   const q = state.q.toLowerCase();
@@ -385,7 +459,11 @@ function filtered() {
     if (state.regions.size && !state.regions.has(r.region)) return false;
     if (state.oq === "in" && r["정원외"] === "O") return false;
     if (state.oq === "out" && r["정원외"] !== "O") return false;
-    if (state.uni && r.university !== state.uni) return false;
+    if (state.major === "major" && r["주요대학"] !== "O") return false;
+    if (state.major === "other" && r["주요대학"] === "O") return false;
+    // 전부 체크 = 무필터로 취급
+    if (state.unis.size && state.unis.size < UNIS.length
+        && !state.unis.has(r.university)) return false;
     if (r.rate > state.maxRate) return false;
     if (r.quota < state.minQuota) return false;
     if (q && !(
@@ -408,11 +486,13 @@ function renderStats(rows) {
   const under1 = rows.filter(r => r.rate < 1.0).length;
   const nsul = rows.filter(r => r["전형세부유형"] === "논술").length;
   const nong = rows.filter(r => r["전형대분류"] === "농어촌").length;
+  const majorN = rows.filter(r => r["주요대학"] === "O").length;
   const oq = rows.filter(r => r["정원외"] === "O").length;
   el.innerHTML = `
     <div class="stat"><div class="k">필터 결과</div><div class="v">${rows.length}</div></div>
     <div class="stat"><div class="k">대학 수</div><div class="v">${uniCount}</div></div>
     <div class="stat"><div class="k">미달 &lt;1.0</div><div class="v" style="color:var(--good)">${under1}</div></div>
+    <div class="stat"><div class="k">★ 주요대학</div><div class="v">${majorN}</div></div>
     <div class="stat"><div class="k">논술</div><div class="v">${nsul}</div></div>
     <div class="stat"><div class="k">농어촌계</div><div class="v">${nong}</div></div>
     <div class="stat"><div class="k">정원외</div><div class="v">${oq}</div></div>
@@ -434,12 +514,12 @@ function render() {
     const rateCls = r.rate < 1.0 ? "rate-low" : "rate-mid";
     const cls = TYPE_CLASS[r["전형세부유형"]] || "gen";
     tr.innerHTML = `
-      <td><span class="rank">#${r.rank}</span></td>
+      <td><span class="rank">${r.rank < 999 ? "#" + r.rank : "—"}</span></td>
       <td class="num ${rateCls}">${r.rate.toFixed(2)}</td>
       <td class="num">${r.quota}</td>
       <td class="num">${r.applicants}</td>
       <td>${r.region}</td>
-      <td>${escapeHtml(r.university)}</td>
+      <td>${r["주요대학"] === "O" ? '<span class="major-star">★</span>' : ""}${escapeHtml(r.university)}</td>
       <td><span class="tag ${cls}">${r["전형세부유형"]}</span></td>
       <td>${r["정원외"] || ""}</td>
       <td>${escapeHtml(r.admission_type)}</td>
