@@ -68,7 +68,7 @@ my_ai_master/
 | 아이디어검색가 | [`services/idea_search/`](services/idea_search/README.md) | 매일 18:00 KST (작업 스케줄러 `idea-search-agent`) | Telegram | 🟡 리포트 생성은 복구됨 — `shared/telegram/config.local.json` 부재로 발송만 대기 |
 | 아이템분석가 | [`services/item_analyzer/`](services/item_analyzer/README.md) | On-demand (사용자가 후보 지정) | Telegram | 🟢 정상 — 아이디어검색가 후보 중 하나를 골라 1인·비전문가·부업 관점 실행 가능성 + 국내/해외 사례 분석 |
 | 국어강사아이템 | [`services/korean_teacher_items/`](services/korean_teacher_items/README.md) | **On-demand 전용 (스케줄 없음 — 사용자가 요청할 때만 실행)** | Telegram | 🟡 대기 — 중고등 국어강사·학원운영 10년·50대 중반 여성 페르소나 맞춤 부업/경력전환 아이템 조사 |
-| 수시경쟁률 | [`services/susi_competition/`](services/susi_competition/README.md) | **10분 간격** (작업 스케줄러 `SusiRefresh`) | [GitHub Pages](https://kapdolli.github.io/my_ai_master/) | 🟢 정상 — 2027 수시 저경쟁 학과(수도권·충청 전체 대학 농어촌·논술·기회균형, ★ 주요대학 필터) 페이지 자동 갱신·배포 |
+| 수시경쟁률 | [`services/susi_competition/`](services/susi_competition/README.md) | **10분 간격** (작업 스케줄러 `SusiRefresh`) | [GitHub Pages](https://kapdolli.github.io/my_ai_master/) | 🟢 정상 — 2027 수시 저경쟁 학과(수도권·충청 전체 대학 농어촌·논술·기회균형, ★ 주요대학 19개교 필터, 접수·경쟁률 마감시각) 페이지 자동 갱신·배포 |
 
 **연계 흐름**:
 - IT/AI 트랙: 아이디어검색가(매일 자동) → 관심 아이템 선택 → 아이템분석가(on-demand)로 심층 분석 → 실행 여부 판단.

@@ -173,6 +173,7 @@ def build() -> None:
           file=sys.stderr)
 
     n_major = sum(1 for r in rows if r["주요대학"] == "O")
+    major_unis = {r["university"] for r in rows if r["주요대학"] == "O"}
     n_uni = len({r["university"] for r in rows})
     print(f"[i] 전체 {len(rows)}행 / {n_uni}개 대학 (주요대학 행 {n_major})", file=sys.stderr)
 
@@ -208,7 +209,8 @@ def build() -> None:
                                 separators=(",", ":")))
             .replace("__UNI_DEFAULTS__",
                      json.dumps(uni_defaults, ensure_ascii=False, separators=(",", ":")))
-            .replace("__GENERATED__", generated))
+            .replace("__GENERATED__", generated)
+            .replace("__MAJOR_N__", str(len(major_unis))))
     OUT_HTML.write_text(html, encoding="utf-8")
     print(f"[i] {len(rows)}행 → {OUT_HTML}", file=sys.stderr)
     print(f"[i] 파일 크기: {OUT_HTML.stat().st_size / 1024:.1f} KB", file=sys.stderr)
@@ -369,7 +371,7 @@ HTML_TEMPLATE = r"""<!doctype html>
   <h1>2027학년도 수시 저경쟁 학과 검색</h1>
   <p><strong>전체 대학</strong> · 서울·경기·충청 · 농어촌·농특·논술 <strong>전 전형</strong>
      (경쟁률 컷 없음 — 화면 기본값 <strong>≤ 2.0</strong>, 숫자를 올리면 더 보입니다)
-     · ★ = 주요대학(대학백과 2026 상위 50)
+     · ★ = 주요대학 __MAJOR_N__개교 (지정 목록)
      · 제외: 고려대(세종), 모든 여대 · 생성: __GENERATED__</p>
   <p class="asof">경쟁률 기준시각(대학별 상이): <span id="asof-range"></span>
      · 경쟁률 공개는 대학마다 접수마감보다 이르게 끝납니다 — <strong>경쟁률마감</strong> 열 참고

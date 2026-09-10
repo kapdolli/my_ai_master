@@ -3,7 +3,7 @@
 (경쟁률 컷은 두지 않는다 — 화면에서 '경쟁률 ≤' 로 조절)
 
 - 제외 규칙(exclusions.txt)에 걸린 대학만 떨궈낸다.
-- 'top50_univ100_2026.txt' 순위표에 있으면 rank + 주요대학="O" 를 붙이고,
+- 'major_univs.txt' 목록에 있으면 rank + 주요대학="O" 를 붙이고,
   없으면 rank="" / 주요대학="" 로 남긴다 (행은 버리지 않는다).
   → HTML 에서 "주요대학만" 필터로 좁혀 볼 수 있다.
 """
@@ -21,7 +21,7 @@ if sys.platform == "win32":
         pass
 
 HERE = Path(__file__).parent
-RANK_FILE = HERE / "top50_univ100_2026.txt"
+RANK_FILE = HERE / "major_univs.txt"          # 주요대학 목록 (★ 기준)
 DEPT_CSV = HERE / "susi_2027_nong_nonsul_low.csv"
 EXCLUDE_FILE = HERE / "exclusions.txt"
 OUT_CSV = HERE / "susi_2027_top50_nong_nonsul.csv"
@@ -70,12 +70,14 @@ def parse_rank_line(line: str) -> tuple[int, str, list[str]] | None:
     return rank, short, hints
 
 
-def load_ranks(top_n: int = 50) -> dict[tuple[str, str | None], int]:
+def load_ranks(top_n: int | None = None) -> dict[tuple[str, str | None], int]:
     """
     Build a map from (full_name, campus_key_or_None) -> rank.
 
-    - 순위표에 지역이 하나면 (full, region) 로 등록 → 캠퍼스 매칭
-    - 여러 지역이면 (full, None) 로 등록 → 어느 캠퍼스든 매칭
+    - 목록에 캠퍼스/지역이 하나면 (full, 힌트) 로 등록 → 그 캠퍼스만 매칭
+    - 여러 개거나 괄호가 없으면 (full, None) 로 등록 → 어느 캠퍼스든 매칭
+
+    top_n 을 주면 그 순위까지만 쓴다 (목록 파일 자체가 기준이면 None).
     """
     ranks: dict[tuple[str, str | None], int] = {}
     for line in RANK_FILE.read_text(encoding="utf-8").splitlines():
@@ -83,8 +85,8 @@ def load_ranks(top_n: int = 50) -> dict[tuple[str, str | None], int]:
         if not parsed:
             continue
         rank, short, hints = parsed
-        if rank > top_n:
-            break
+        if top_n is not None and rank > top_n:
+            continue
         full = short_to_full(short)
         if len(hints) == 1:
             ranks[(full, hints[0])] = rank
@@ -214,8 +216,8 @@ def uni_match(uni_name: str, uni_region: str,
 
 
 def main() -> int:
-    ranks = load_ranks(50)
-    print(f"[i] 순위표 로드: {len(ranks)}개 항목 (top 50)", file=sys.stderr)
+    ranks = load_ranks()
+    print(f"[i] 주요대학 목록 로드: {len(ranks)}개 항목 ({RANK_FILE.name})", file=sys.stderr)
 
     excl_all, excl_spec, excl_women = load_exclusions()
     print(f"[i] 제외 규칙: 전체캠퍼스={sorted(excl_all)} / 특정캠퍼스={sorted(excl_spec)}"
@@ -249,11 +251,14 @@ def main() -> int:
     from collections import Counter
     all_unis = {r["university"] for r in matched}
     seen = Counter((r["rank"], r["university"]) for r in major)
-    unmatched_ranks = set(range(1, 51)) - {rk for (rk, _) in seen}
+    matched_ranks = {rk for (rk, _) in seen}
+    missing = sorted(set(ranks.values()) - matched_ranks)
     print(f"[i] 전체 대학 수: {len(all_unis)} "
-          f"(주요대학 {len({u for (_, u) in seen})})", file=sys.stderr)
-    if unmatched_ranks:
-        print(f"[i] 매칭 없는 순위: {sorted(unmatched_ranks)}", file=sys.stderr)
+          f"(주요대학 {len({u for (_, u) in seen})}/{len(set(ranks.values()))})",
+          file=sys.stderr)
+    if missing:
+        # 이 순위의 대학은 목록에 있지만 농특·논술 결과에 학과가 하나도 없다는 뜻.
+        print(f"[i] 주요대학 중 해당 학과 없음(순위): {missing}", file=sys.stderr)
 
     # 태그 분포 요약
     from collections import Counter
