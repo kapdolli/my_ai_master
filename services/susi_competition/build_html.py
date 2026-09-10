@@ -364,7 +364,8 @@ HTML_TEMPLATE = r"""<!doctype html>
   tr.past, tr.past:hover, tr.mixed.past, tr.mixed.past:hover { background: #f8fafc; }
   tr.past td, tr.past td span, tr.past td .rank { color: #9ca3af; }
   tr.past td .tag { background: #f1f5f9; color: #94a3b8; }
-  tr.past td.ru, tr.past td.ru.unknown, tr.past td.dl.soon { color: #9ca3af; }
+  tr.past td.ru, tr.past td.ru.unknown, tr.past td.dl.soon,
+  tr.past td.dl.stale { color: #9ca3af; }
   tr.past td .badge { background: #f1f5f9; color: #94a3b8; }
   .dl { font-variant-numeric: tabular-nums; }
   .dl.soon { color: var(--danger); font-weight: 700; }
@@ -374,6 +375,8 @@ HTML_TEMPLATE = r"""<!doctype html>
   .ru { font-variant-numeric: tabular-nums; }
   .ru.closed { color: var(--muted); }
   .ru.unknown { color: #c2410c; }
+  .dl.stale { color: #c2410c; }
+  .dl, .ru { font-size: 12px; }
   .badge { display: inline-block; padding: 0 5px; border-radius: 4px; font-size: 10px;
     margin-left: 4px; background: #e5e7eb; color: #374151; }
   .asof { font-size: 11px; color: var(--muted); }
@@ -501,10 +504,10 @@ HTML_TEMPLATE = r"""<!doctype html>
     <table id="tbl">
       <colgroup>
         <col style="width:4%"><col style="width:5.5%"><col style="width:4%">
-        <col style="width:4%"><col style="width:4.5%"><col style="width:12%">
-        <col style="width:8.5%"><col style="width:9%"><col style="width:9%">
-        <col style="width:3.5%"><col style="width:13.5%"><col style="width:9.5%">
-        <col style="width:13%">
+        <col style="width:4%"><col style="width:4.5%"><col style="width:11.5%">
+        <col style="width:7%"><col style="width:7%"><col style="width:6%">
+        <col style="width:8.5%"><col style="width:3.5%"><col style="width:12.5%">
+        <col style="width:9%"><col style="width:13%">
       </colgroup>
       <thead>
         <tr>
@@ -516,6 +519,7 @@ HTML_TEMPLATE = r"""<!doctype html>
           <th class="sortable" data-k="university">대학</th>
           <th class="sortable" data-k="마감키">접수마감</th>
           <th class="sortable" data-k="경쟁률마감키">경쟁률마감</th>
+          <th class="sortable" data-k="기준키" title="이 대학이 경쟁률을 집계한 시각">기준</th>
           <th class="sortable" data-k="전형세부유형">세부유형</th>
           <th class="sortable" data-k="정원외">정외</th>
           <th class="sortable" data-k="admission_type">전형명</th>
@@ -688,11 +692,47 @@ const DEADLINES = [...new Map(DATA.map(r => [r["마감"], r["마감키"]])).entr
 const UNKNOWN_KEY = 1000000000;
 
 // 경쟁률마감 셀 표시/색
+// "9/11 18:00" → "11 18:00" (자료가 전부 9월이라 월은 툴팁에만 남긴다)
+function compactDay(s) {
+  const i = s.indexOf("/");
+  return i > 0 && i <= 2 ? s.slice(i + 1) : s;
+}
+
 function ruText(r, nk) {
   if (r["경쟁률마감키"] >= UNKNOWN_KEY) return "미상";
   const closed = r["경쟁률마감키"] < nk;
-  return r["경쟁률마감"] + (closed ? '<span class="badge">종료</span>' : "");
+  return compactDay(r["경쟁률마감"]) + (closed ? '<span class="badge">종료</span>' : "");
 }
+// ASOF_BY_UNI 값은 "MM-DD HH:MM". 오늘 것이면 시:분만, 아니면 "9일 21:00".
+const BUILD_MD = BUILD.slice(5, 10);
+
+function asofText(uni) {
+  const v = ASOF_BY_UNI[uni];
+  if (!v) return "—";
+  if (v.slice(0, 5) === BUILD_MD) return v.slice(6);
+  return parseInt(v.slice(3, 5), 10) + "일 " + v.slice(6);
+}
+
+function asofKey(uni) {
+  const v = ASOF_BY_UNI[uni];
+  if (!v) return 0;
+  return (parseInt(v.slice(0, 2), 10) * 100 + parseInt(v.slice(3, 5), 10)) * 10000
+       + parseInt(v.slice(6, 8), 10) * 100 + parseInt(v.slice(9, 11), 10);
+}
+
+// 아직 경쟁률을 공개 중인데 집계가 2시간 넘게 묵었으면 눈에 띄게 한다.
+function asofStale(r, nk) {
+  const k = r["기준키"];
+  if (!k) return false;
+  if (r["경쟁률마감키"] < UNKNOWN_KEY && r["경쟁률마감키"] < nk) return false;
+  return nk - k > 200;
+}
+
+function asofTip(r) {
+  const v = ASOF_BY_UNI[r.university];
+  return v ? "경쟁률 집계 기준시각: " + v : "기준시각 정보 없음";
+}
+
 function ruTip(r) {
   const parts = [];
   if (ASOF_BY_UNI[r.university]) parts.push("경쟁률 기준시각: " + ASOF_BY_UNI[r.university]);
@@ -1014,8 +1054,9 @@ function render() {
       <td class="num">${r.applicants}</td>
       <td>${r.region}</td>
       <td title="${escapeHtml(r.university)}">${r["주요대학"] === "O" ? '<span class="major-star">★</span>' : ""}${escapeHtml(r.university)}</td>
-      <td class="dl${past ? "" : (r["마감키"] < soonKey ? " soon" : "")}">${escapeHtml(r["마감표시"] || r["마감"])}</td>
+      <td class="dl${past ? "" : (r["마감키"] < soonKey ? " soon" : "")}" title="${escapeHtml(r["마감표시"] || r["마감"])}">${escapeHtml(compactDay(r["마감표시"] || r["마감"]))}</td>
       <td class="ru${ruCls(r, nk)}" title="${escapeHtml(ruTip(r))}">${ruText(r, nk)}</td>
+      <td class="dl${asofStale(r, nk) ? " stale" : ""}" title="${escapeHtml(asofTip(r))}">${escapeHtml(asofText(r.university))}</td>
       <td title="${r["전형세부유형"]}"><span class="tag ${cls}">${r["전형세부유형"]}</span></td>
       <td class="oq-cell">${r["정원외"] || ""}</td>
       <td title="${escapeHtml(r.admission_type)}">${escapeHtml(r.admission_type)}</td>
@@ -1068,6 +1109,8 @@ document.addEventListener("visibilitychange", () => {
   if (document.visibilityState === "visible") checkVersion();
 });
 setTimeout(checkVersion, 5000);
+
+DATA.forEach(r => { r["기준키"] = asofKey(r.university); });
 
 renderPinned();
 initChips();
