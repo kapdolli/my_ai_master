@@ -299,7 +299,7 @@ HTML_TEMPLATE = r"""<!doctype html>
     border-radius: 8px; overflow-x: auto; }
   /* table-layout: fixed + colgroup % → 컨테이너 폭에 정확히 맞춰 가로 스크롤이
      생기지 않는다. 좁은 화면(<860px)에서만 tablewrap 이 스크롤된다. */
-  table { width: 100%; min-width: 950px; table-layout: fixed;
+  table { width: 100%; min-width: 900px; table-layout: fixed;
     border-collapse: separate; border-spacing: 0; font-size: 13px; }
   th, td { padding: 8px 8px; text-align: left;
     border-bottom: 1px solid var(--line); vertical-align: top;
@@ -552,11 +552,12 @@ HTML_TEMPLATE = r"""<!doctype html>
 
   <div class="rec" id="rec">
     <h2>🎯 추천 5 — 마감 관점</h2>
-    <p class="why">★주요대학 · 경쟁률 &lt;2.0 · 모집 3명 이상 중에서,
+    <p class="why">★주요대학 · 모집 3명 이상 중에서,
       <strong>깜깜이 구간</strong>(경쟁률 공개가 끊긴 뒤 접수마감까지 남는 시간)이
       긴 순 → 경쟁률 낮은 순. 깜깜이가 길수록 남들도 막판 눈치작전을 할 수 없어
       지금 숫자가 그대로 갈 가능성이 큽니다.
-      <strong>농어촌·기회균형은 지원 자격이 있어야 합니다.</strong></p>
+      <strong>농어촌·기회균형은 지원 자격이 있어야 합니다.</strong>
+      경쟁률 2.0 미만이 5개가 안 되면 3.0 → 5.0 → 전체 순으로 기준을 넓혀 채웁니다.</p>
     <ol id="rec-list"></ol>
   </div>
 
@@ -672,24 +673,38 @@ function baseUni(name) {
   return i > 0 ? name.slice(0, i) : name;
 }
 
-function pickRecommendations(n) {
-  const cands = DATA.filter(r =>
-    r["주요대학"] === "O" && r.rate < 2.0 && r.quota >= 3 &&
-    BLACKOUT[r.university] !== undefined);
+const REC_TIERS = [2.0, 3.0, 5.0, Infinity];   // 5개가 찰 때까지 차례로 넓힌다
 
+function pickRecommendations(n) {
+  const pool = DATA.filter(r =>
+    r["주요대학"] === "O" && r.quota >= 3 && BLACKOUT[r.university] !== undefined);
+
+  // 같은 학과가 여러 캠퍼스로 중복 등록된 경우는 하나로 묶는다.
   const groups = new Map();
-  cands.forEach(r => {
+  pool.forEach(r => {
     const key = baseUni(r.university) + "|" + r.department + "|" + r.admission_type;
     if (!groups.has(key)) groups.set(key, { row: r, unis: new Set() });
     groups.get(key).unis.add(r.university);
   });
 
-  return [...groups.values()].sort((a, b) => {
+  const byBlackout = (a, b) => {
     const d = BLACKOUT[b.row.university] - BLACKOUT[a.row.university];
     if (d) return d;
     if (a.row.rate !== b.row.rate) return a.row.rate - b.row.rate;
     return b.row.quota - a.row.quota;
-  }).slice(0, n);
+  };
+
+  const out = [];
+  let lo = 0;
+  for (const hi of REC_TIERS) {
+    if (out.length >= n) break;
+    [...groups.values()]
+      .filter(g => g.row.rate >= lo && g.row.rate < hi)
+      .sort(byBlackout)
+      .forEach(g => { if (out.length < n) out.push(g); });
+    lo = hi;
+  }
+  return out;
 }
 
 function renderRecommendations() {
