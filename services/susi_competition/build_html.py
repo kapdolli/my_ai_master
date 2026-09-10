@@ -84,6 +84,23 @@ def until_key(label: str) -> int:
     return (mon * 100 + day) * 10000 + hh * 100 + mm
 
 
+def blackout_minutes(r: dict) -> int | None:
+    """접수마감 − 경쟁률마감(분). 경쟁률이 끊긴 뒤 마감까지 남는 '깜깜이' 구간.
+
+    이 구간이 길수록 지원자들이 막판 눈치작전을 할 수 없어, 지금 낮은 경쟁률이
+    그대로 갈 가능성이 크다. 둘 중 하나라도 모르면 None.
+    """
+    a = _DAY_RE.search(r.get("deadline_day", "") or "")
+    at = _TIME_RE.search(r.get("deadline_time", "") or "")
+    b = _UNTIL_RE.match(r.get("rate_until", "") or "")
+    if not (a and at and b):
+        return None
+    am = (int(a.group(1)) * 31 + int(a.group(2))) * 1440 +          (int(at.group(1)) % 24) * 60 + int(at.group(2))
+    bm = (int(b.group(1)) * 31 + int(b.group(2))) * 1440 +          (int(b.group(3)) % 24) * 60 + int(b.group(4))
+    d = am - bm
+    return d if 0 <= d <= 1440 else None
+
+
 def load_uni_defaults() -> list[str]:
     """uni_defaults.txt → 기본 체크 대학 목록 (없거나 비어 있으면 전체)."""
     if not UNI_DEFAULTS.exists():
@@ -161,6 +178,12 @@ def build() -> None:
             notices[r["university"]] = r["rate_notice"]
         if r.get("기준") and r["university"] not in asof:
             asof[r["university"]] = r["기준"]
+    blackout = {}
+    for r in rows:
+        if r["university"] not in blackout:
+            blackout[r["university"]] = blackout_minutes(r)
+    blackout = {k: v for k, v in blackout.items() if v is not None}
+
     n_until = len({r["university"] for r in rows if r["경쟁률마감키"] < 10 ** 9})
     print(f"[i] 경쟁률 공개마감 파싱: {n_until}/{len({r['university'] for r in rows})}개 대학",
           file=sys.stderr)
@@ -203,6 +226,8 @@ def build() -> None:
             .replace("__PINNED__", pinned_json)
             .replace("__NOTICES__",
                      json.dumps(notices, ensure_ascii=False, separators=(",", ":")))
+            .replace("__BLACKOUT__",
+                     json.dumps(blackout, ensure_ascii=False, separators=(",", ":")))
             .replace("__ASOF_BY_UNI__",
                      json.dumps(asof, ensure_ascii=False, separators=(",", ":")))
             .replace("__ASOF__",
@@ -279,13 +304,13 @@ HTML_TEMPLATE = r"""<!doctype html>
   th, td { padding: 8px 8px; text-align: left;
     border-bottom: 1px solid var(--line); vertical-align: top;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  thead th { white-space: normal; }   /* 헤더는 접히게 두어 글자가 잘리지 않도록 */
+  thead th { white-space: normal; word-break: keep-all; font-size: 12px; }
   th { background: #f9fafb; font-weight: 600; cursor: pointer;
     user-select: none; box-shadow: inset 0 -1px 0 var(--line); }
-  th.sortable { padding-right: 15px; position: relative; }
+  th.sortable { padding-right: 11px; position: relative; }
   th.sortable::after {
-    content: "⇅"; color: #d1d5db; font-size: 11px;
-    position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+    content: "⇅"; color: #d1d5db; font-size: 9px;
+    position: absolute; right: 2px; top: 50%; transform: translateY(-50%);
   }
   th.sorted-asc::after { content: "▲"; color: var(--accent); }
   th.sorted-desc::after { content: "▼"; color: var(--accent); }
@@ -338,7 +363,7 @@ HTML_TEMPLATE = r"""<!doctype html>
   .pin-row-top .uni { font-size: 11px; color: var(--ink); }
   .pin-row-sub { font-size: 11px; color: var(--muted); margin-top: 2px;
     word-break: keep-all; overflow-wrap: anywhere; }
-  .pin-row-sub .sep { color: #d1d5db; margin: 0 3px; }
+  .sep { color: #d1d5db; margin: 0 4px; }
   .uni-toggle { display: inline-flex; align-items: center; gap: 6px; }
   .uni-toggle.active { border-color: var(--accent); color: var(--accent); }
   .uni-panel { border: 1px solid var(--line); border-radius: 6px; padding: 8px;
@@ -380,6 +405,25 @@ HTML_TEMPLATE = r"""<!doctype html>
   .badge { display: inline-block; padding: 0 5px; border-radius: 4px; font-size: 10px;
     margin-left: 4px; background: #e5e7eb; color: #374151; }
   .asof { font-size: 11px; color: var(--muted); }
+  .rec { background: var(--panel); border: 2px solid var(--good); border-radius: 8px;
+    padding: 12px 16px; margin-bottom: 12px; }
+  .rec h2 { margin: 0 0 4px; font-size: 14px; color: var(--good);
+    display: flex; align-items: center; gap: 6px; }
+  .rec .why { font-size: 11px; color: var(--muted); margin: 0 0 8px; }
+  .rec ol { margin: 0; padding-left: 22px; }
+  .rec li { padding: 4px 0; border-top: 1px solid #f3f4f6; }
+  .rec li:first-child { border-top: 0; }
+  .rec .line1 { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; }
+  .rec .r { font-size: 15px; font-weight: 700; color: var(--good);
+    font-variant-numeric: tabular-nums; }
+  .rec .mj { font-size: 11px; color: var(--muted); font-variant-numeric: tabular-nums; }
+  .rec .u { font-weight: 600; }
+  .rec .bo { font-size: 11px; padding: 1px 6px; border-radius: 999px;
+    background: #dcfce7; color: #166534; }
+  .rec .bo.thin { background: #fef3c7; color: #92400e; }
+  .rec .line2 { font-size: 12px; color: var(--muted); margin-top: 1px;
+    word-break: keep-all; overflow-wrap: anywhere; }
+  .rec .empty { font-size: 12px; color: var(--muted); }
   #refresh-btn { position: absolute; right: 20px; top: 14px; z-index: 40;
     padding: 8px 14px; border-radius: 8px; font-weight: 700; font-size: 13px;
     background: var(--accent); color: #fff; border: 1px solid var(--accent);
@@ -500,14 +544,24 @@ HTML_TEMPLATE = r"""<!doctype html>
     </div>
   </div>
 
+  <div class="rec" id="rec">
+    <h2>🎯 추천 5 — 마감 관점</h2>
+    <p class="why">★주요대학 · 경쟁률 &lt;2.0 · 모집 3명 이상 중에서,
+      <strong>깜깜이 구간</strong>(경쟁률 공개가 끊긴 뒤 접수마감까지 남는 시간)이
+      긴 순 → 경쟁률 낮은 순. 깜깜이가 길수록 남들도 막판 눈치작전을 할 수 없어
+      지금 숫자가 그대로 갈 가능성이 큽니다.
+      <strong>농어촌·기회균형은 지원 자격이 있어야 합니다.</strong></p>
+    <ol id="rec-list"></ol>
+  </div>
+
   <div class="tablewrap">
     <table id="tbl">
       <colgroup>
-        <col style="width:4%"><col style="width:5.5%"><col style="width:4%">
-        <col style="width:4%"><col style="width:4.5%"><col style="width:11.5%">
+        <col style="width:5%"><col style="width:6%"><col style="width:4.5%">
+        <col style="width:4.5%"><col style="width:4.5%"><col style="width:11.5%">
         <col style="width:7%"><col style="width:7%"><col style="width:7%">
-        <col style="width:8.5%"><col style="width:3.5%"><col style="width:12.5%">
-        <col style="width:9%"><col style="width:12%">
+        <col style="width:8.5%"><col style="width:4%"><col style="width:11.5%">
+        <col style="width:8.5%"><col style="width:10.5%">
       </colgroup>
       <thead>
         <tr>
@@ -517,11 +571,11 @@ HTML_TEMPLATE = r"""<!doctype html>
           <th class="sortable" data-k="applicants">지원</th>
           <th class="sortable" data-k="region">지역</th>
           <th class="sortable" data-k="university">대학</th>
-          <th class="sortable" data-k="마감키">접수마감</th>
-          <th class="sortable" data-k="경쟁률마감키">경쟁률마감</th>
-          <th class="sortable" data-k="기준키" title="이 대학이 경쟁률을 집계한 시각">경쟁률기준</th>
-          <th class="sortable" data-k="전형세부유형">세부유형</th>
-          <th class="sortable" data-k="정원외">정외</th>
+          <th class="sortable" data-k="마감키">접수<wbr>마감</th>
+          <th class="sortable" data-k="경쟁률마감키">경쟁률<wbr>마감</th>
+          <th class="sortable" data-k="기준키" title="이 대학이 경쟁률을 집계한 시각">경쟁률<wbr>기준</th>
+          <th class="sortable" data-k="전형세부유형">세부<wbr>유형</th>
+          <th title="정원외 — 별도 지원자격 필요">정외</th>
           <th class="sortable" data-k="admission_type">전형명</th>
           <th class="sortable" data-k="college">단과대</th>
           <th class="sortable" data-k="department">학과</th>
@@ -545,6 +599,7 @@ const BUILD = "__GENERATED__";           // 이 페이지가 만들어진 시각
 const NOTICES = __NOTICES__;             // 대학 → 경쟁률 공개 안내 원문
 const ASOF = __ASOF__;                   // 경쟁률 기준시각 목록 (대학마다 다름)
 const ASOF_BY_UNI = __ASOF_BY_UNI__;     // 대학 → 이 대학 경쟁률의 기준시각
+const BLACKOUT = __BLACKOUT__;           // 대학 → 깜깜이 구간(분)
 const DEFAULT_UNIS = __UNI_DEFAULTS__;   // uni_defaults.txt (모든 브라우저 공통 기본값)
 const STORE_KEY = "susi2027.filters.v1"; // 이 브라우저에서의 마지막 선택
 
@@ -600,6 +655,64 @@ const state = {
   sortKey: "rate",
   sortDir: 1,              // 1 asc, -1 desc
 };
+
+// --- 추천 5 -----------------------------------------------------------------
+// 깜깜이 구간이 길수록 막판 눈치작전이 불가능해 지금 경쟁률이 유지될 가능성이 크다.
+// 같은 학과가 여러 캠퍼스로 중복 등록된 경우(경기대 서울/수원 등)는 하나로 묶는다.
+function baseUni(name) {
+  const i = name.indexOf("(");
+  return i > 0 ? name.slice(0, i) : name;
+}
+
+function pickRecommendations(n) {
+  const cands = DATA.filter(r =>
+    r["주요대학"] === "O" && r.rate < 2.0 && r.quota >= 3 &&
+    BLACKOUT[r.university] !== undefined);
+
+  const groups = new Map();
+  cands.forEach(r => {
+    const key = baseUni(r.university) + "|" + r.department + "|" + r.admission_type;
+    if (!groups.has(key)) groups.set(key, { row: r, unis: new Set() });
+    groups.get(key).unis.add(r.university);
+  });
+
+  return [...groups.values()].sort((a, b) => {
+    const d = BLACKOUT[b.row.university] - BLACKOUT[a.row.university];
+    if (d) return d;
+    if (a.row.rate !== b.row.rate) return a.row.rate - b.row.rate;
+    return b.row.quota - a.row.quota;
+  }).slice(0, n);
+}
+
+function renderRecommendations() {
+  const list = document.getElementById("rec-list");
+  const picks = pickRecommendations(5);
+  if (!picks.length) {
+    list.outerHTML = '<div class="empty">조건에 맞는 학과가 없습니다.</div>';
+    return;
+  }
+  picks.forEach(g => {
+    const r = g.row;
+    const mins = BLACKOUT[r.university];
+    const hrs = (mins / 60);
+    const boCls = mins >= 180 ? "bo" : "bo thin";
+    // 같은 학과가 여러 캠퍼스면 캠퍼스 표기를 빼고 대학명만.
+    const uniLabel = g.unis.size > 1 ? baseUni(r.university) : r.university;
+    const dept = (r.college ? r.college + " / " : "") + r.department;
+    const li = document.createElement("li");
+    li.innerHTML = `
+      <div class="line1">
+        <span class="r">${r.rate.toFixed(2)}</span>
+        <span class="mj">모집 ${r.quota} / 지원 ${r.applicants}</span>
+        <span class="u">${escapeHtml(uniLabel)}</span>
+        <span class="${boCls}">깜깜이 ${hrs % 1 ? hrs.toFixed(1) : hrs}시간</span>
+      </div>
+      <div class="line2">${escapeHtml(r.admission_type)}<span class="sep">·</span>${escapeHtml(dept)}
+        <span class="sep">·</span>접수마감 ${escapeHtml(compactDay(r["마감표시"] || r["마감"]))}
+        <span class="sep">·</span>경쟁률마감 ${escapeHtml(compactDay(r["경쟁률마감"]))}</div>`;
+    list.appendChild(li);
+  });
+}
 
 // --- 상태 저장/복원 (localStorage) -------------------------------------------
 // localStorage 는 브라우저별로 분리돼 있고 사생활 보호 모드에서는 던질 수 있으므로
@@ -1115,6 +1228,7 @@ setTimeout(checkVersion, 5000);
 DATA.forEach(r => { r["기준키"] = asofKey(r.university); });
 
 renderPinned();
+renderRecommendations();
 initChips();
 const restored = restoreState();
 syncUiFromState();
