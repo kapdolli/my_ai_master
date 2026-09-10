@@ -373,7 +373,7 @@ HTML_TEMPLATE = r"""<!doctype html>
   .chip.past, .chip.on.past { background: #f1f5f9; border-color: #e2e8f0;
     color: #94a3b8; text-decoration: line-through; }
   .ru { font-variant-numeric: tabular-nums; }
-  .ru.closed { color: var(--muted); }
+  .ru.closed { color: var(--muted); text-decoration: line-through; }
   .ru.unknown { color: #c2410c; }
   .dl.stale { color: #c2410c; }
   .dl, .ru { font-size: 12px; }
@@ -505,9 +505,9 @@ HTML_TEMPLATE = r"""<!doctype html>
       <colgroup>
         <col style="width:4%"><col style="width:5.5%"><col style="width:4%">
         <col style="width:4%"><col style="width:4.5%"><col style="width:11.5%">
-        <col style="width:7%"><col style="width:7%"><col style="width:6%">
+        <col style="width:7%"><col style="width:7%"><col style="width:7%">
         <col style="width:8.5%"><col style="width:3.5%"><col style="width:12.5%">
-        <col style="width:9%"><col style="width:13%">
+        <col style="width:9%"><col style="width:12%">
       </colgroup>
       <thead>
         <tr>
@@ -692,25 +692,25 @@ const DEADLINES = [...new Map(DATA.map(r => [r["마감"], r["마감키"]])).entr
 const UNKNOWN_KEY = 1000000000;
 
 // 경쟁률마감 셀 표시/색
-// "9/11 18:00" → "11 18:00" (자료가 전부 9월이라 월은 툴팁에만 남긴다)
+// "9/11 18:00" → "11-18:00" (자료가 전부 9월이라 월은 툴팁에만 남긴다)
 function compactDay(s) {
   const i = s.indexOf("/");
-  return i > 0 && i <= 2 ? s.slice(i + 1) : s;
+  const t = i > 0 && i <= 2 ? s.slice(i + 1) : s;
+  const j = t.indexOf(" ");
+  return j > 0 ? t.slice(0, j) + "-" + t.slice(j + 1) : t;
 }
 
 function ruText(r, nk) {
   if (r["경쟁률마감키"] >= UNKNOWN_KEY) return "미상";
-  const closed = r["경쟁률마감키"] < nk;
-  return compactDay(r["경쟁률마감"]) + (closed ? '<span class="badge">종료</span>' : "");
+  return compactDay(r["경쟁률마감"]);   // 종료 여부는 ruCls 의 회색+취소선으로
 }
-// ASOF_BY_UNI 값은 "MM-DD HH:MM". 오늘 것이면 시:분만, 아니면 "9일 21:00".
+// ASOF_BY_UNI 값은 "MM-DD HH:MM" → 마감 칸과 같은 "일-시:분" 형태로.
 const BUILD_MD = BUILD.slice(5, 10);
 
 function asofText(uni) {
   const v = ASOF_BY_UNI[uni];
   if (!v) return "—";
-  if (v.slice(0, 5) === BUILD_MD) return v.slice(6);
-  return parseInt(v.slice(3, 5), 10) + "일 " + v.slice(6);
+  return parseInt(v.slice(3, 5), 10) + "-" + v.slice(6);
 }
 
 function asofKey(uni) {
@@ -735,6 +735,8 @@ function asofTip(r) {
 
 function ruTip(r) {
   const parts = [];
+  if (r["경쟁률마감키"] < UNKNOWN_KEY && r["경쟁률마감키"] < nowKey())
+    parts.push("경쟁률 공개 종료 — 숫자가 더 오르지 않습니다");
   if (ASOF_BY_UNI[r.university]) parts.push("경쟁률 기준시각: " + ASOF_BY_UNI[r.university]);
   if (NOTICES[r.university]) parts.push(NOTICES[r.university]);
   return parts.join(String.fromCharCode(10));
