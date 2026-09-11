@@ -63,7 +63,7 @@ my_ai_master/
 
 | 이름 | 폴더 | 실행 트리거 | 채널 | 상태 |
 |------|------|-------------|------|------|
-| 아이디어검색가 | [`services/idea_search/`](services/idea_search/README.md) | 매일 18:00 KST (작업 스케줄러 `idea-search-agent`) | Telegram | 🟡 리포트 생성은 복구됨 — `shared/telegram/config.local.json` 부재로 발송만 대기 |
+| 아이디어검색가 | [`services/idea_search/`](services/idea_search/README.md) | **On-demand** (2026-09-11 스케줄러 삭제 — 재등록 절차는 서비스 README 참고) | Telegram | 🟡 리포트 생성은 복구됨 — `shared/telegram/config.local.json` 부재로 발송만 대기 |
 | 아이템분석가 | [`services/item_analyzer/`](services/item_analyzer/README.md) | On-demand (사용자가 후보 지정) | Telegram | 🟢 정상 — 아이디어검색가 후보 중 하나를 골라 1인·비전문가·부업 관점 실행 가능성 + 국내/해외 사례 분석 |
 | 국어강사아이템 | [`services/korean_teacher_items/`](services/korean_teacher_items/README.md) | **On-demand 전용 (스케줄 없음 — 사용자가 요청할 때만 실행)** | Telegram | 🟡 대기 — 중고등 국어강사·학원운영 10년·50대 중반 여성 페르소나 맞춤 부업/경력전환 아이템 조사 |
 

@@ -7,7 +7,7 @@ Reddit, HackerNews, Product Hunt, IndieHackers, 한국 커뮤니티 등에서 �
 | 항목 | 값 |
 |------|-----|
 | **실행 방식 (2026-07-31 전환)** | **로컬 Python + Claude Code CLI** — Windows 작업 스케줄러 → [`run_daily.ps1`](run_daily.ps1) → `python run_local.py` → `claude -p` |
-| 실행 시각 | 매일 18:00 KST (사용자 PC 기준) |
+| 실행 시각 | **현재 스케줄 없음** — 2026-09-11 작업 스케줄러 `idea-search-agent` 삭제. 수동 실행하거나 아래 "스케줄 등록" 절차로 되살린다. (기존 설정: 매일 18:00 KST) |
 | 인증 | Claude Code subscription (Pro/Max) — 별도 API 과금 없음 |
 | 전달 채널 | Telegram Bot API (`api.telegram.org` 직접 호출) |
 | 프롬프트 | [`prompt.md`](prompt.md) — `run_local.py`가 stdin으로 `claude -p`에 전달 |
